@@ -1,0 +1,182 @@
+<div class="content" id="main_content">
+   <script src="custom/sweetalert/dist/sweetalert-dev.js">
+   </script>
+   <link href="custom/sweetalert/dist/sweetalert.css" rel="stylesheet"/>
+   <link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+   <link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+   <!-- validator -->
+   <link href="custom/validator/dist/css/formValidation.min.css" rel="stylesheet"/>
+   <!-- Sweat Alert -->
+   <script src="custom/sweetalert/dist/sweetalert-dev.js">
+   </script>
+   <link href="custom/sweetalert/dist/sweetalert.css" rel="stylesheet"/>
+   <div class="page-heading">
+      <h1>
+         <i class="fa fa-wrench">
+         </i>
+         Agent Registration
+      </h1>
+   </div>
+   <!-- Page Heading End-->
+   <div class="row">
+      <div class="col-md-12">
+         <div class="widget">
+            <div class="widget-header ">
+               <h2>
+                  <strong>
+                     Account
+                  </strong>
+                  Management Connection
+               </h2>
+               <div class="additional-btn">
+                  <a class="widget-toggle" href="#">
+                     <i class="icon-down-open-2">
+                     </i>
+                  </a>
+               </div>
+            </div>
+            <br/>
+            <div class="widget-content padding">
+               <div class="alert alert-success">
+                  <p class="text-justify">
+                     Admin only can define Agent Who's registered on the systems
+                  </p>
+               </div>
+               <form class="form-horizontal" id="registerForm" method="post" role="form">
+                  <div class="form-group">
+                     <input id="token" name="token" type="hidden" value="{$token}"/>
+                     <label class="col-sm-2 control-label">
+                        Select Member
+                     </label>
+                     <div class="col-sm-5">
+                        <select class="form-control" id="users" name="users">
+                           <option disabled="" selected="" value="">
+                              -- select Users --
+                           </option>
+                           {foreach from=$accountlist item=row}
+                           <option value="{$row.aecodeid}">
+                              {$row.email}
+                           </option>
+                           {/foreach}
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">
+                     </label>
+                     <div class="col-sm-5">
+                        <input type="password" name="password" class="form-control" placeholder="Input your password here ..."></input>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">
+                     </label>
+                     <div class="col-sm-5">
+                        <div class="input-group" id="ajax-btn">
+                           <button class="btn btn-primary" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing ..." id="load" type="submit">
+                              Register
+                           </button>
+                        </div>
+                        <!-- /input-group -->
+                     </div>
+                  </div>
+               </form>
+               <hr/>
+               <div class="table-div" hidden="">
+                  <h3>
+                     Account list Sync To Tarikh
+                  </h3>
+                  <table class="table table-responsive table-hover" id="login-list">
+                     <thead>
+                        <tr>
+                           <th>
+                              #
+                           </th>
+                           <th>
+                              Brokers
+                           </th>
+                           <th>
+                              LOGIN
+                           </th>
+                           <th>
+                              Action
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>
+                           </td>
+                           <td>
+                           </td>
+                           <td>
+                           </td>
+                           <td>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<script type="text/javascript">
+   jQuery(document).ready(function($) {
+    $('form').submit(function(event) {
+      event.preventDefault();
+      var data = $(this).serializeArray();
+    });
+  });
+</script>
+{literal}
+<!-- FormValidation plugin and the class supports validating Bootstrap form -->
+<script src="custom/validator/dist/js/formValidation.min.js">
+</script>
+<script src="custom/validator/dist/js/framework/bootstrap.min.js">
+</script>
+<script charset="utf-8" src="custom/chain/jquery.chained.js?v=1.0.0" type="text/javascript">
+</script>
+<script charset="utf-8" src="custom/chain/jquery.chained.remote.js?v=1.0.0" type="text/javascript">
+</script>
+<script src="custom/js/ar_account_mm.js" type="text/javascript">
+</script>
+<script>
+   $(document).ready(function() {
+     ar_account_mm_JS.init();
+     $('#registerForm').formValidation({
+         framework: 'bootstrap',
+         icon: {
+             valid: 'glyphicon glyphicon-ok',
+             invalid: 'glyphicon glyphicon-remove',
+             validating: 'fa fa-circle-o-notch fa-spin'
+         },
+         fields: {
+             password: {
+                 validators: {
+                     notEmpty: {
+                         message: 'The Password is required'
+                     }
+                 }
+             },
+             users: {
+                 validators: {
+                     notEmpty: {
+                         message: 'The Users is required'
+                     }
+                 }
+             }
+         }
+     })
+     .on('success.form.fv', function(e) {
+           e.preventDefault();           
+             var $form = $(e.target),
+                 fv = $form.data('formValidation');
+            
+            ar_account_mm_JS.create_agent($form);
+            // console.log('success clicked');
+        });
+ });
+</script>
+{/literal}

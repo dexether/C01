@@ -1,0 +1,139 @@
+<div class="table-responsive">
+    <br>
+    <div class="alert alert-warning">
+        <p class="text-justify">Attention: Please check and examine the Equity and all other items in this Daily Statement and notify our company in writing as according to The Order Agreement if there is any error. If no information is received from you, you are deemed to acknowledge that all the items contained herein are correct and you shall have no right to claim whatsoever against our company relating to your account. Furthermore, you shall indemnify our company from all manner of claims, actions, suits, damages, and expenses arising out or which may in future arise out of such records. Open position's interest, if any, will be included for overnight trade only. </p>
+    </div>
+    <img src="{$logo}" class="img-responsive center-block" height="53">
+    {foreach from=$statements item=statement}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th colspan="4" class="text-center">Account</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Previous Balance</strong></td>
+                <td>{$statement.BALANCE_PREV|number_format:2}</td>
+            </tr>
+            <tr>
+                <td><strong>Margin In</strong></td>
+                <td>{$statement.MarginIN|number_format:2}</td>
+            </tr>
+            <tr>
+                <td><strong>Margin Out</strong></td>
+                <td>{$statement.MarginOUT|number_format:2}</td>
+            </tr>
+            <tr>
+                <td><strong>Profit / Loss</strong></td>
+                <td>{$statement.PL|number_format:2}</td>
+            </tr>
+            <tr>
+                <td><strong>FLOATING P/L,Interest,Credit,Commission,Adjustment</strong></td>
+                <td>{$statement.floatingALL|number_format:2}</td>
+            </tr>
+            <tr>
+                <td><strong>EQUITY</strong></td>
+                <td>{$statement.EQUITY|number_format:2}</td>
+            </tr>
+            <tr>
+                <td><strong>MARGIN REQUIRED</strong></td>
+                <td>{$statement.MARGIN|number_format:2}</td>
+            </tr>
+            <tr>
+                <td><strong>FREE MARGIN</strong></td>
+                <td>{$statement.MARGIN_FREE|number_format:2}</td>
+            </tr>
+            <tr>
+                <td><strong>EQUITY RATIO</strong></td>
+                <td>{$statement.eqratio}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<div class="text-center"><strong>SETTLED POSITION</strong></div>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ITEM</th>
+                <th>UNITS</th>
+                <th>OPEN</th>
+                <th>BUY</th>
+                <th>SELL</th>
+                <th>LIQ. DATE</th>
+                <th>LIQ. PRICE</th>
+                <th>COMM.</th>
+                <th>PL</th>
+                <th>META ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {if $statement.settled|@count > 1}
+            {foreach from=$statement.settled item=settledposition}
+            <tr>
+                <td>{$settledposition.TICKET}</td>
+                <td>{$settledposition.SYMBOL}</td>
+                <td>{$settledposition.Unit|number_format:2}</td>
+                <td>{$settledposition.OPEN_TIME}</td>
+                <td>{$settledposition.BuyPrice}</td>
+                <td>{$settledposition.SellPrice}</td>
+                <td>{$settledposition.CLOSE_TIME}</td>
+                <td>{$settledposition.CLOSE_PRICE}</td>
+                <td>{$settledposition.COMMISSION|number_format:2}</td>
+                <td>{$settledposition.PROFIT|number_format:2}</td>
+                
+            </tr>
+            {foreachelse}
+            <tr>
+                <td height="auto" colspan="10"><p align="center" class="style8">NO SETTLE POSITION</p></td>
+            </tr>
+            {/foreach}
+            {else}
+            <tr>
+                <td height="auto" colspan="10"><p align="center" class="style8">NO SETTLE POSITION</p></td>
+            </tr>
+            {/if}
+        </tbody>
+    </table>
+</div>
+<br>
+<div class="text-center"><strong>OPEN POSITION</strong></div>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th class="text-center">ITEM</th>
+            <th class="text-center">UNITS</th>
+            <th class="text-center">OPEN</th>
+            <th class="text-center">BUY</th>
+            <th class="text-center">SELL</th>
+            <th class="text-center">CLOSING</th>
+            <th class="text-center">FLOATING P/L</th>
+            <th class="text-center">COMMISSION</th>
+            <th class="text-center">META ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach from=$statement.open item=openposition}
+            <tr>
+                <td>{$openposition.SYMBOL}</div></td>
+                <td>{$openposition.Unit|number_format:2}</div></td>
+                <td>{$openposition.OPEN_TIME}</div></td>
+                <td>{$openposition.BuyPrice}</div></td>
+                <td>{$openposition.SellPrice}</div></td>
+                <td>{$openposition.CurrentPrice}</div></td>
+                <td><div align="right">{$openposition.Floating|number_format:2}</div></td>
+                <td><div align="right">{$openposition.COMMISSION|number_format:2}</div></td>
+                <td>{$openposition.TICKET}</div></td>
+            </tr>
+            {foreachelse}
+            <tr>
+                <td height="auto" colspan="12"><p align="center" class="style8">NO OPEN POSITION</p></td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+    {/foreach}
+</div>

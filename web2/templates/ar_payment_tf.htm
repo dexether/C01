@@ -1,0 +1,69 @@
+<link rel="stylesheet" type="text/css" media="all" href="custom/daterange/css/daterangepicker.css" />
+<div class="form-group" hidden>
+	<label for="accounttype" class="col-sm-5 control-label">Agent Code</label>
+	<div class="col-md-7">
+		<input type="text" id="agent" name="agent" class="form-control" placeholder="Agent code ?">
+	</div>
+</div>
+<div class="form-group" hidden>
+	<label for="IDPay" class="col-sm-5 control-label">Accno2</label>
+	<div class="col-md-7">
+		<input type="hidden" id="account2" name="account2" class="form-control" value="{$account2}">
+	</div>
+</div>
+<div class="form-group" hidden="">
+	<label for="IDPay" class="col-sm-5 control-label">IDPay</label>
+	<div class="col-md-7">
+		<input type="text" id="IDPay" name="IDPay" class="form-control" value="{$IDPay}">
+	</div>
+</div>
+<div class="form-group">
+	<label for="accounttype" class="col-sm-5 control-label">Amount</label>
+	<div class="col-md-7">
+		<!-- <input class="form-control" id="input-text" type="text" id="amount"> -->
+		<input type="text" class="form-control" id="amount" name="amount" />
+		<script type="text/javascript">$("#amount").maskMoney();</script>
+		<p class="help-block">Must match the amount of Money you Transfer.</p>
+		<p class="help-block">enter a payment amount without a dot (.) or a comma (,).</p>
+		
+	</div>
+</div>
+<div class="form-group">
+	<label for="currency" class="col-sm-5 control-label">Date Pay</label>
+	<div class="col-md-4">
+		<input type="text" name="date" id="date" class="form-control">
+	</div>
+	
+		<input type="hidden" name="time" id="time" class="form-control">
+	
+</div>
+<div class="form-group">
+	<label for="accounttype" class="col-sm-5 control-label">Upload Your Document Pay</label>
+	<div class="col-md-7">
+		<input type="file" name="file" id="file" class="btn btn-default" title="Search for a file to add">
+	</div>
+</div>
+<div class="form-group">
+	<div class="col-sm-offset-5 col-sm-7" id="buttons">
+		<button type="button" class="btn btn-success btn-block" onClick="ar_payment_JS.payment_tf(IDPay.value, account2.value, paymenttype.value, paymentmethod.value, agent.value, amount.value, date.value , time.value, file.value);">
+		Send Payment Confirmation
+		<span class="glyphicon glyphicon-play">
+		</span>
+		</button>
+	</div>
+</div>
+<script type="text/javascript" src="custom/daterange/js/moment.js"></script>
+<script type="text/javascript" src="custom/daterange/js/daterangepicker.js"></script>
+<script type="text/javascript">
+	$('#date').daterangepicker({
+		"singleDatePicker": true,
+		"timePicker": true,
+		"timePicker24Hour": true,
+		"locale": {
+			"format": "YYYY-MM-DD HH:mm",
+			"separator": " - "
+		}
+
+	});
+</script>
+<!-- <script src="custom/croppit/js/main.js"></script> -->

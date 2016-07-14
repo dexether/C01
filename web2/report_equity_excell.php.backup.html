@@ -1,0 +1,75 @@
+<?php
+
+
+// Ambil data Autoload SPOUT Liblary
+require_once 'spout/src/Spout/Autoloader/autoload.php';
+
+use Box\Spout\Writer\WriterFactory;
+use Box\Spout\Common\Type;
+use Box\Spout\Writer\Style\StyleBuilder;
+use Box\Spout\Writer\Style\Color;
+
+
+
+// $writer = WriterFactory::create(Type::CSV); // for CSV files
+//$writer = WriterFactory::create(Type::ODS); // for ODS files
+$writer = WriterFactory::create(Type::XLSX); // for XLSX files
+
+        // Pakai ini jika typnya CSV (delimiter)
+        /*$writer->setFieldDelimiter(';');
+        */
+$style = (new StyleBuilder())
+           ->setFontBold()
+           ->setFontSize(12)
+           ->setShouldWrapText()
+           ->build();
+
+$path = 'file.xlsx';
+$writer->openToFile($path); // write data to a file or to a PHP stream
+$writer->openToBrowser($path); // stream data directly to the browser
+
+
+$datas = array
+  (
+  
+  array("01-JAN-16",'$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000',"661,000"),
+  array("04-JAN-16",'$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000','$0,000',"324,000")
+  
+  );
+
+
+$firstSheet = $writer->getCurrentSheet();
+$firstSheet->setName('report_nct_summary'); // Set Name Of First sheet
+
+$writer->addRowWithStyle(array("january","A/C 17263","A/C V8668","EX777+EX1989","A/C BX 800010","A/C F3388+M3388","A/C EF3222","A/C EX3222","A/C E13883","A/C EX13883","A/C 16263 (60%)","A/C 888","HK PORTION@SUI","HK PORTION@SUI", "TOTAL"), $style); // Use This For Header
+$writer->addRow(array("","","","","","","","","","","","","Hendry Surya 17263","Tahir B800010", ""));
+
+$newSheet = $writer->addNewSheetAndMakeItCurrent(); // Add New Sheet
+$secondSheet = $writer->getCurrentSheet(); // Set of sheet
+$secondSheet->setName('report_nct_summary_2'); // Set Name of sheet
+$writer->addRowWithStyle(array("january","A/C 17263","A/C V8668","EX777+EX1989","A/C BX 800010","A/C F3388+M3388","A/C EF3222","A/C EX3222","A/C E13883","A/C EX13883","A/C 16263 (60%)","A/C 888","HK PORTION@SUI","HK PORTION@SUI","TOTAL"), $style); // User This For header
+$writer->addRow(array("","","","","","","","","","","","","Hendry Surya 17263","Tahir B800010", ""));
+
+
+$newSheet = $writer->addNewSheetAndMakeItCurrent();
+$thridSheet = $writer->getCurrentSheet(); // Set of sheet
+$thridSheet->setName('report_nct_summary_3'); // Set Name of sheet
+$writer->addRowWithStyle(array("january","A/C 17263","A/C V8668","EX777+EX1989","A/C BX 800010","A/C F3388+M3388","A/C EF3222","A/C EX3222","A/C E13883","A/C EX13883","A/C 16263 (60%)","A/C 888","HK PORTION@SUI","HK PORTION@SUI","TOTAL"), $style); // writes the row to the new sheet
+$writer->addRow(array("","","","","","","","","","","","","Hendry Surya 17263","Tahir B800010", ""));
+
+
+/*
+    Data Diinput per sheet
+*/
+$writer->setCurrentSheet($secondSheet); // Untuk Sheet 2
+$writer->addRows($datas); 
+
+$writer->setCurrentSheet($thridSheet); // Untuk Sheet 3
+$writer->addRows($datas); 
+
+$writer->setCurrentSheet($firstSheet); // Untuk Sheet 1
+$writer->addRows($datas); 
+
+$writer->close();
+
+?>

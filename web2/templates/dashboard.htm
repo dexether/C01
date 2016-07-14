@@ -1,0 +1,305 @@
+
+<link href="custom/css/style_mobile.css" rel="stylesheet" type="text/css" media="all"/>
+
+<style type="text/css" class="init">
+</style>
+<div id="main_content" class="content">
+<div class="page-heading">
+    <h1><i class="fa fa-sitemap"></i> View Plan</h1>   
+    <h3>Let us show how you growth by fill in this Tree Below</h3>
+</div>
+
+<div class="row">
+    <div class="col-md-12 portlets">
+        <div class="widget">
+            <div class="widget-header ">
+                <h2>Investment Type : {if $cekstatusmoney!=''}{$cekstatusmoney} { else } Suspend / Deleted Account {/if}</h2>
+                <div class="additional-btn">
+                    <a  class="widget-toggle"><i class="icon-down-open-2"></i></a>         
+                </div>
+            </div>
+            <div class="widget-content padding">  
+                <div id="header">
+                    <!--<div id="logo"></div>-->
+                    <div id="content">
+                        <div class="baris_bagan">
+                            <div class="anda1">
+                               
+                                {if $user->groupid=='9'}                                
+                                <a id="myLink" title="Detil dari Anda" 
+                                   onClick="DashBoard_Button_JS.treedetail('3','{$dataACCNO.accountname}');"
+                                   >
+                                    <div class="{$dataACCNO.colorstatus}">                                        
+                                        {$dataACCNO.accountname}<br>
+                                        {$dataACCNO.aename}
+                                    </div>
+                                </a>
+                                {else}
+                                <a id="myLink" title="Detil dari Anda" 
+                                   onClick="DashBoard_Button_JS.seetugas('{$dataACCNO.accountname}');"
+                                   >
+                                    <div class="{$dataACCNO.colorstatus}">                                        
+                                        {$dataACCNO.accountname}<br>
+                                        {$dataACCNO.aename}
+                                    </div>
+                                </a>
+                                {/if}
+
+                            </div>
+
+                            <div class="asatu_left">
+                                <a id="myLink" title="Level 1" 
+                                   {if $anaks[0].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('B', '{$anaks[0].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$anaks[0].colorstatus}">
+                                        {$anaks[0].ACCNO}<br>
+                                        {$anaks[0].aename}
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="asatu_left">
+                                <a id="myLink" title="Level 1" 
+                                   {if $anaks[1].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('C', '{$anaks[1].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$anaks[1].colorstatus}">
+                                        {$anaks[1].ACCNO}<br>
+                                        {$anaks[1].aename}
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="dua_left">
+                                <a id="myLink" title="Level 2" 
+                                   {if $cucudirect[0].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('B1', '{$cucudirect[0].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$cucudirect[0].colorstatus}">                                        
+                                        {$cucudirect[0].ACCNO}<br>
+                                        {$cucudirect[0].aename}
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="dua_left">
+                                <a id="myLink" title="Level 2" 
+                                   {if $cucudirect[1].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('B2', '{$cucudirect[1].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$cucudirect[1].colorstatus}">   
+                                        {$cucudirect[1].ACCNO}<br>
+                                        {$cucudirect[1].aename}
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="dua_left">
+                                <a id="myLink" title="Level 2" 
+                                   {if $cucudirect[2].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('C1', '{$cucudirect[2].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$cucudirect[2].colorstatus}">   
+                                        {$cucudirect[2].ACCNO}<br>
+                                        {$cucudirect[2].aename}
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="dua_left">
+                                <a id="myLink" title="Level 2" 
+                                   {if $cucudirect[3].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('C2', '{$cucudirect[3].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$cucudirect[3].colorstatus}">   
+                                        {$cucudirect[3].ACCNO}<br>
+                                        {$cucudirect[3].aename}
+                                    </div>
+                                </a>
+                            </div>
+
+
+                            <div class="tiga_left">
+                                <a id="myLink" title="Level 3" 
+                                   {if $levelthreedirect[0].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('B1.1', '{$levelthreedirect[0].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$levelthreedirect[0].colorstatus}">   
+                                        {$levelthreedirect[0].ACCNO}<br>
+                                        &nbsp;
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="tiga_left">
+                                <a id="myLink" title="Level 3" 
+                                   {if $levelthreedirect[1].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('B1.2', '{$levelthreedirect[1].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$levelthreedirect[1].colorstatus}">                                        
+                                        {$levelthreedirect[1].ACCNO}<br>
+                                        &nbsp;
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="tiga_left">
+                                <a id="myLink" title="Level 3" 
+                                   {if $levelthreedirect[2].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('B2.1', '{$levelthreedirect[2].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$levelthreedirect[2].colorstatus}">   
+                                        {$levelthreedirect[2].ACCNO}<br>
+                                        &nbsp;
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="tiga_left">
+                                <a id="myLink" title="Level 3" 
+                                   {if $levelthreedirect[3].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('B2.2', '{$levelthreedirect[3].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$levelthreedirect[3].colorstatus}">   
+                                        {$levelthreedirect[3].ACCNO}<br>
+                                        &nbsp;
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="tiga_left">
+                                <a id="myLink" title="Level 3" 
+                                   {if $levelthreedirect[4].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('C1.1', '{$levelthreedirect[4].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$levelthreedirect[4].colorstatus}">   
+                                        {$levelthreedirect[4].ACCNO}<br>
+                                        &nbsp;
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="tiga_left">
+                                <a id="myLink" title="Level 3" 
+                                   onclick="DashBoard_Button_JS.treedetail('C1.2', '{$levelthreedirect[5].ACCNO}');">
+                                    <div class="{$levelthreedirect[5].colorstatus}">   
+                                        {$levelthreedirect[5].ACCNO}<br>
+                                        &nbsp;
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="tiga_left">
+                                <a id="myLink" title="Level 3" 
+                                   {if $levelthreedirect[6].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('C2.1', '{$levelthreedirect[6].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$levelthreedirect[6].colorstatus}">   
+                                        {$levelthreedirect[6].ACCNO}<br>
+                                        &nbsp;
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="tiga_left">
+                                <a id="myLink" title="Level 3" 
+                                   {if $levelthreedirect[7].ACCNO!=''}
+                                   onclick="DashBoard_Button_JS.treedetail('C2.2', '{$levelthreedirect[7].ACCNO}');"
+                                   {/if}
+                                   >
+                                   <div class="{$levelthreedirect[7].colorstatus}">   
+                                        {$levelthreedirect[7].ACCNO}<br>
+                                        &nbsp;
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </div> 
+                <!-- Header end -->
+                <div class="alert alert-info">                    
+                    Here you can see your detail account information and see your downline.
+                    <br>You can see your balance and current active and inactive downline.
+                    <br>
+                    <div class="block">
+                        <div class="statusgrey">
+                            &nbsp;
+                        </div>
+                    </div>
+                    &nbsp; Registered member but GSP Program Deposit yet to receive<br>
+                    <div class="block">
+                        <div class="statusgreen">
+                            &nbsp;
+                        </div>
+                    </div>
+                    &nbsp; Registered member and GSP Program Deposit received.<br>
+
+                    <div class="block">
+                        <div class="statusred">
+                            &nbsp;
+                        </div>
+                    </div>
+                    &nbsp; This registered partnership had been supended / Deleted as GSP Program Deposit are not funded. 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 portlets">
+        <div class="widget">
+            <div class="widget-header ">
+                <h2>See Task Summary</h2>
+                <div class="additional-btn">
+                    <a  class="widget-toggle"><i class="icon-down-open-2"></i></a>         
+                </div>
+            </div>
+            <br>
+            <div class="widget-content padding">  
+                <div class="alert alert-warning">
+                    On the Top Right of this Menu / Beside My Profile you can :<br>
+                    a) Email us for any enquiries<br>
+                    b) See our RSS Finance News <br>
+                    c) Referral and Motivation Video
+                </div>
+                <div class="alert alert-danger nomargin"> 
+                    Back To 
+                    <input type="button" class="btn btn-success" id="pecah-form-btn" 
+                           name="seetugas"  value="Home"  
+                           onClick="DashBoard_Button_JS.seetugas('{$dataACCNO.accountname}');" />
+                    to see the Task that need to be done
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+
+<script src="custom/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="assets/libs/bootstrap-inputmask/inputmask.js"></script>
+<script src="assets/libs/summernote/summernote.js"></script>
+{literal}
+<script src="custom/js/dashboard_button.js" type="text/javascript"></script>
+<script>
+                                       jQuery(document).ready(function() {
+                                           DashBoard_Button_JS.init();
+                                       });
+</script>
+{/literal}
+
+<script src="assets/libs/jquery-notifyjs/notify.min.js"></script>
+<script src="assets/libs/jquery-notifyjs/styles/metro/notify-metro.js"></script>
+<script src="custom/js/dashboard_awal_noty.js"></script>
+<script src="custom/js/noty_general.js"></script>

@@ -1,0 +1,590 @@
+<div id="main_content" class="content">
+
+<!-- Page Heading Start -->
+<div class="page-heading">
+    <h1>
+        {if $clientaecode.status=='0' }        
+        <h1><i class='icon-home-3'></i> Nice to meet you {$user->aename} {$user->aenametengah} {$user->aenameakhir}
+            {else}
+            <i class='icon-home-3'></i> Home
+        </h1>
+        <h3>Please follow the steps to engage with us</h3>
+        {/if}
+    </h1>
+    <h3></h3>            	
+</div>
+
+<!-- Page Heading End-->				
+<div class="row">
+    {if $clientaecode.status=='0' }
+    <div class="col-md-6 portlets">
+        <div class="widget">
+
+            <div class="widget-header ">
+                <div class="alert alert-info">  
+                    Email has not been Validated
+                </div>
+                <div class="additional-btn">
+                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>         
+                </div>
+            </div>
+            <br>
+            <div class="widget-content padding">          
+                <div class="alert alert-success">    
+                    <h4>{$user->username}, Your email has not been validated in our system</h4>
+                    If you do not have the Validation email in the Inbox, please check your Spam Folder
+                    <!--
+                    <input type="button" class="btn btn-success" id="pecah-form-btn" 
+                           name="emailresend"  value="ReSend Konfirmasi Email"  
+                           onClick="DashBoard_Button_JS.emailresend('{$user->username}');
+                           " />
+                    -->
+                </div>
+                <!--
+                <div class="alert alert-info">                    
+                    If you do not have the Validation email in the Inbox, please check your Spam Folder
+                    <a href="mailto:info@si.co.id?Subject={$user->aename} need help on Validated Email&body=This email comes from {$user->username}" target="_top">this link</a> for the validation email.
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+    {else}
+    {if $clientaecode.status=='2' }
+    <div class="col-md-12 portlets">
+        <div class="widget">
+            <div class="widget-header ">
+                <h2>{$user->username} has been Suspended</h2>
+                <div class="additional-btn">
+                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>         
+                </div>
+            </div>
+            <br>
+            <div class="widget-content padding">          
+                <div class="alert alert-success">                    
+                    Your Username has been suspended, please call admin to get info
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {else}
+    {if count($ceksemuaccounts)>0}
+    {foreach from=$ceksemuaccounts item=ceksemuaccount key=ceksemuaccount1} 
+    <div class="col-md-6 portlets">
+        <div class="widget">
+            <div class="widget-header ">
+                {if $ceksemuaccount.companyconfirm=='0'}
+                <div class="alert alert-danger nomargin"> 
+                    ACCNO {$ceksemuaccount.ACCNO} ({$ceksemuaccount.Product} Scheme) 
+                </div>       
+                {elseif  $ceksemuaccount.companyconfirm=='3' || $ceksemuaccount.companyconfirm=='4'}
+                <div class="alert alert-warning alert-dismissable">
+                    ACCNO {$ceksemuaccount.ACCNO} ({$ceksemuaccount.Product} Scheme) 
+                </div>       
+                {else}
+                <div class="alert alert-success">
+                    ACCNO {$ceksemuaccount.ACCNO} ({$ceksemuaccount.Product} Scheme)
+                </div>       
+                {/if}
+
+                <div class="additional-btn">
+                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>         
+                </div>
+            </div>
+            <br>
+            <div class="widget-content padding">  
+
+
+                {if $ceksemuaccount.companyconfirm=='0'}
+
+                You just need to refer two friends to earn your reward.
+                <br>
+                Please transfer {$ceksemuaccount.UangCompanyTax} that included Admin and Service Fee  to the Authorise Bank Account as below: 
+                <br><br>
+                {foreach from=$ceksemuaccount.companybank item=companybank key=companykey} 
+                {if $companybank.statusbank!='0'}
+                <br>
+                or
+                <br>
+                <br>
+                {/if}
+                <div class="static-table-scroll">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="width: 4px"></th>
+                                    <th style="width: 2px"></th>
+                                    <th style="width: 10px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Account Holder</strong></td>
+                                    <td>:</td>
+                                    <td>{$companybank.aeaccountname}</td>                                       
+                                </tr>
+                                <tr>
+                                    <td><strong>Bank Account Number</strong></td>
+                                    <td>:</td>
+                                    <td>{$companybank.aeaccountnumber}</td>                                      
+                                </tr>
+                                <tr>
+                                    <td><strong>Name of Bank</strong></td>
+                                    <td>:</td>
+                                    <td>{$companybank.banktype}</td>                                      
+                                </tr>
+                                <tr>
+                                    <td><strong>Bank Address</strong></td>
+                                    <td>:</td>
+                                    <td>{$companybank.address}</td>                                      
+                                </tr>
+                                <tr>
+                                    <td><strong>Swift Code</strong></td>
+                                    <td>:</td>
+                                    <td>{$companybank.swift}</td>                                      
+                                </tr>
+                                <tr>
+                                    <td><strong>Chips UID Number</strong></td>
+                                    <td>:</td>
+                                    <td>{$companybank.chips}</td>                                      
+                                </tr>
+                                <tr>
+                                    <td><strong>Teles Number</strong></td>
+                                    <td>:</td>
+                                    <td>{$companybank.teles}</td>                                      
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                Please fill up {$ceksemuaccount.ACCNO} in the bank instruction when you perform the bank transfer.  <br>                 
+                {/foreach}
+                <br>
+                After you have complete the transfer process, please click here 
+                <input type="button" class="btn btn-success" id="pecah-form-btn" 
+                       name="companyconfirm_{$ceksemuaccount.ACCNO}"  value="Transfer Confirmation"  
+                       onClick="getElementById('pecah-form-btn').style.display = 'none';
+                               DashBoard_Button_JS.companyconfirm('{$ceksemuaccount.ACCNO}');
+                       " />
+                <br>
+                (In the transfer confirmation, include this, please upload your bank in slip for company finance verification) 
+                <br><br>
+                Or you can pay using Paypal as below
+
+                <!-- https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNPDTAnAlternativetoIPN/-->
+                <!-- https://www.paypal.com/cgi-bin/webscr?cmd=p/sell/ipn-test-outside -->
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <input type="hidden" name="business" value="7HFX83RMAUF4E">
+                    <input type="hidden" name="lc" value="SG">
+                    <input type="hidden" name="button_subtype" value="services">
+                    <input type="hidden" name="no_note" value="0">
+                    <input type="hidden" name="amount" value="{$ceksemuaccount.UangNOCommaTax}">
+                    <input type="hidden" name="cn" value="Add special instructions to the seller:">
+                    <input type="hidden" name="no_shipping" value="2">
+                    <input type="hidden" name="rm" value="1">
+                    <input type="hidden" name="return" value="http://mtcabinet.si.co.id/web1/">
+                    <input type="hidden" name="cancel_return" value="http://mtcabinet.si.co.id/web1/">
+                    <input type="hidden" name="notify_url" value="http://mtcabinet.si.co.id/backoffice/cronjob/paypalcheck.php">
+                    <input type="hidden" name="currency_code" value="SGD">
+                    <input type="hidden" name="bn" value="PP-BuyNowBF:btn_paynowCC_LG.gif:NonHosted">
+                    <table>
+                        <tr><td><input type="hidden" name="on0" value="ACCNO"></td></tr>
+                        <tr><td><input type="hidden" name="os0" maxlength="200"   value="{$ceksemuaccount.ACCNO}"></td></tr>
+                    </table>
+                    <input type="image" src="https://www.paypalobjects.com/en_GB/SG/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+                </form>
+                <br><br>
+                Or for Direct Payment, please contact : <a href="info@si.co.id">info@si.co.id</a>
+                <br>
+               
+
+
+
+
+
+
+
+
+
+                <br>
+                {/if}
+
+                {if $ceksemuaccount.companyconfirm=='4'}
+                <div class="alert alert-warning">
+                    Withdrawal Process already submit to admin
+                </div>
+                {/if} 
+
+
+                {if $ceksemuaccount.companyconfirm=='1'}
+                <div class="alert alert-warning">
+                    Kindly be informed your completion reward will be received only when we received your Fund
+                </div>
+                {/if}            
+
+
+                {if $ceksemuaccount.companyconfirm=='3'}
+                Congratulations, you had successfully completed your membership programs with us. <br><br>
+                <script src="custom/js/jquery.maskMoneyZero.js" type="text/javascript"></script>
+                {literal}    
+
+                <script src="fileupload/js/vendor/jquery.ui.widget.js"></script>
+                <script language="javascript">
+                           var doubleclick = '1';
+                           function cek_validasi(keyurl)
+                           {
+                               var el = document.getElementById('updateps-form-btn');
+                               var e2 = document.getElementById('idupdate_button');
+                               e2.innerHTML = "Processiong is in progress, Please wait";
+                               if (el.style.display != 'none') {
+                                   //alert("Line-136-DoubleClick:" + doubleclick);
+                                   if (doubleclick == '2') {
+                                       //alert("Line-138-DoubleClick");
+                                       //var formnya = document.getElementById("updateps-form");
+                                       //formnya.action = "#";
+                                       //calreadyclick();
+                                   }
+                                   if (doubleclick == '1') {
+                                       //alert("DashBoardAwal-Line-146:" + e2.innerHTML);
+                                       //e2.innerHTML = "Processiong is in progress, Please wait";
+                                       doubleclick = '2';
+                                       var formnya = document.getElementById("updateps-form");
+                                       formnya.action = "withdrawal.php";
+                                       //el.style.display = 'none'
+                                       //alert("Line-150");
+                                       //Dash_CompanyConfirmAdmin_JS2.seetugas('{$account1}');
+                                   } else {
+                                       //e2.innerHTML = "Submit";
+                                       return false;
+                                   }
+                               } else {
+                                   //e2.innerHTML = "Submit";
+                                   return false;
+                               }
+                           }
+                           function calreadyclick()
+                           {
+                               bootbox.alert('Please do not click again');
+                               return false;
+                           }
+                </script>
+                {/literal}
+
+                {literal}
+                <script>
+                    function show(money1, money5) {
+                        var option = document.getElementById("investment").value;
+                        var amount = document.getElementById("amount");
+                        if (option == "full")
+                        {
+                            //alert("Search Engine");
+                            //amount.style.display = "none";
+                            amount.value = money5;
+                            //amount.disabled = true;
+                            disableall();
+                        }
+                        if (option == "partial")
+                        {
+                            //amount.style.display = "block";
+                            amount.value = money1;
+                            //amount.disabled = false;
+                            //amount.disabled = true;
+                        }
+                    }
+
+                    function disableall() {
+                        var amount = document.getElementById("amount");
+                        if (amount.value == '0') {
+                            //alert("All Zero");
+                            document.getElementById("aeaccountname").value = 'Programmer';
+                            document.getElementById("aeccountnumber").value = '1234567890';
+                            document.getElementById("banktype").value = 'DBS';
+                            document.getElementById("address").value = 'Addressnya';
+                            document.getElementById("zipcode").value = '12345';
+                            document.getElementById("swiftcode").value = '12345678';
+                            var disappered1 = document.getElementById("disappered");
+                            disappered1.style.display = 'none';
+                        } else {
+                            document.getElementById("aeaccountname").value = '';
+                            document.getElementById("aeccountnumber").value = '';
+                            document.getElementById("banktype").value = '';
+                            document.getElementById("address").value = '';
+                            document.getElementById("zipcode").value = '';
+                            document.getElementById("swiftcode").value = '';
+                            var disappered1 = document.getElementById("disappered");
+                            disappered1.style.display = 'block';
+                        }
+                    }
+                </script>
+                {/literal}
+
+                <form id="updateps-form" class="form-horizontal"  
+                      role="form"  
+                      method="post" 
+                      action="#">
+
+                    <div class="widget-content padding">
+
+                        <div id="basic-form">
+
+                            <div class="form-group">
+                                <label>Please advise us on your rewards movement</label>
+                                <select class="form-control" name="investment" id="investment" 
+                                        onchange="show('{$ceksemuaccount.UangNOComma*4|number_format:0}', '{$ceksemuaccount.UangNOComma*5|number_format:0}');">
+                                    <option value="partial">I wish to made withdrawal SGD {$ceksemuaccount.UangNOComma*4|number_format:0} and keep the remain SGD {$ceksemuaccount.UangNOComma|number_format:0} for yearly return dividend</option>
+                                    <option value="full">I wish to made full withdrawal SGD {$ceksemuaccount.UangNOComma*5|number_format:0}</option>                   
+                                </select>
+
+                                <p>
+                                    <input type="hidden" name="accno" id="accno" value="{$ceksemuaccount.ACCNO}">    
+                            </div>
+                            <div class="form-group">
+                                <label>Amount to be withdraw in SGD</label><br>
+                                <input type="text" readonly="readonly" class="form-control" id="amount" name='amount' value='{$ceksemuaccount.UangNOComma*4|number_format:0}' onkeyup="disableall();"/>                         
+                                <p class="help-block">The Amount max is SGD {$ceksemuaccount.UangNOComma*5|number_format:0} </p>
+                            </div>              
+                            {literal}
+                            <script type="text/javascript">
+                    $("#amount").maskMoney();
+                            </script>
+                            {/literal}
+                            <div id="disappered">
+                                <div class="form-group">
+                                    <label>Account Holder</label><br>
+                                    <input type="text" class="form-control" id="aeaccountname" name="aeaccountname" >
+                                    <p class="help-block"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Bank Account Number</label><br>
+                                    <input type="text" class="form-control" id="aeccountnumber" name="aeccountnumber" >
+                                    <p class="help-block"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Bank Name</label><br>
+                                    <input type="text" class="form-control" id="banktype" name="banktype" >
+                                    <p class="help-block"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Bank Address</label>
+                                    <textarea class="form-control" rows="5" name="address" id="address"></textarea>
+                                    <p class="help-block">Please put detail of your Bank Address</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Bank Address Zip Code</label><br>
+                                    <input type="text" class="form-control" id="zipcode" name="zipcode" >
+                                    <p class="help-block"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Country</label>                                                    
+                                    <select class="form-control bfh-countries" name="nationality"  id ='nationality' 
+                                            data-country="MY" 
+                                            data-flags="true" 
+                                            id="country">
+                                    </select>
+                                    <p class="help-block"></p>
+                                </div>                 
+                                <div class="form-group">
+                                    <label>Swift Code</label><br>
+                                    <input type="text" class="form-control" id="swiftcode" name="swiftcode" >
+                                    <p class="help-block"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Chips UID Number</label><br>
+                                    <input type="text" class="form-control" id="chips" name="chips" >
+                                    <p class="help-block">Codes are in use in the settlement system within the USA</p>
+                                    <p class="help-block">You can leave this blank</p>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+
+                                        <div class="btn-group">
+                                            &nbsp;
+                                            <div id="thebutton">
+                                                <button class="btn btn-info" type="button"  
+                                                        onclick="cek_validasi();"  
+                                                        id="updateps-form-btn" name='updateps-form-btn'>
+                                                    <div id="idupdate_button">Submit</div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="themessage2">                                
+
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <script src="custom/js/formhelpers/bootstrap-formhelpers.min.js"></script>
+                {/if}  
+
+
+
+                <input type="button" class="btn btn-success" id="pecah-form-btn" 
+                       name="seetree{$ceksemuaccount.ACCNO}"  value="View Plan"  
+                       onClick="DashBoard_Button_JS.seetree('{$ceksemuaccount.ACCNO}');" />
+
+            </div>
+
+        </div>
+    </div>
+    {/foreach}
+
+
+
+    {else}
+    <div class="col-md-12 portlets">
+        <div class="widget">
+            <div class="widget-header ">
+                <h2>Dear {$user->aename} {$user->aenametengah} {$user->aenameakhir},</h2>
+                <div class="additional-btn">
+                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>         
+                </div>
+            </div>
+            <br>
+            <div class="widget-content padding">  
+                <div class="alert alert-danger nomargin">
+                    * Please fill up your referral email or click on admin if you do not have one
+                    <br>
+                    * Include the box for admin / introducer email for the public
+                    <br>
+                    * Please select the category you wish to join: SGD 1,000, 3,000, 5,000 and 10,000 
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-12 portlets">
+        <div class="widget">
+            <div class="widget-header transparent">
+                <br>
+                <h2>Ready to join ?</h2>
+                <div class="additional-btn">
+                    <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                    <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                </div>
+            </div>
+            <div class="widget-content padding">
+
+                <form id="registerForm" class="form-horizontal"  role="form"  method="post" action="mm_new_level?postmode=createnewlevel">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Please Fill in Your Upline Email</label>
+                        <div class="col-sm-6">
+                            <input type="email" name="email" class="form-control" placeholder="Enter Upline email" value='{$afiliasi}'>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Please Select the Plan</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" name="rupiah">
+                                <option value ="1000">SGD  1.000</option>
+                                <option value ="3000">SGD  3.000</option>
+                                <option value ="5000">SGD  5.000</option>
+                                <option value ="10000">SGD 10.000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label"></label>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <input type="button" class="btn btn-success" id="pecah-form-btn" 
+                                       name="mm_new_level_child"  value="Subscribe"  
+                                       onClick="getElementById('pecah-form-btn').style.display = 'none';
+                        DashBoard_Button_JS.mm_new_level(rupiah.value, email.value);" />
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    {/if}
+
+
+    {/if}
+    {/if}
+
+
+    <div class="col-md-6 portlets">
+        <div class="widget">
+            <div class="widget-header ">
+                <div class="alert alert-info">  
+                    Legend
+                </div>
+                <div class="additional-btn">
+                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>         
+                </div>
+            </div>
+            <br>
+            <div class="widget-content padding">          
+                <link href="custom/css/style_dashboard_awal.css" rel="stylesheet" type="text/css" media="all"/>
+                <div class="block">
+                    <div class="statusredalert">
+                        &nbsp;
+                    </div>
+                </div>
+                &nbsp; Registered member but GSP Program Deposit yet to receive<br>
+                <div class="block">
+                    <div class="statusgreenalert">
+                        &nbsp;
+                    </div>
+                </div>
+                &nbsp; Registered member and GSP Program Deposit received.<br>
+                <div class="block">
+                    <div class="statusyelow">
+                        &nbsp;
+                    </div>
+                </div>
+                &nbsp; The Account already get Reward<br>
+                <div class="block">
+                    <div class="statusblue">
+                        &nbsp;
+                    </div>
+                </div>
+                &nbsp; Information<br>
+
+            </div>
+        </div>
+    </div>
+</div>		
+</div>
+
+
+<script src="custom/js/bootstrapValidator.min.js"></script>
+
+{literal}
+<script src="custom/js/form-validation.js"></script>
+<script src="custom/js/dashboard_awal.js" type="text/javascript"></script>
+<script>
+                    jQuery(document).ready(function() {
+                        DashBoard_Button_JS.init();
+                    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('updateps-form').bootstrapValidator();
+    });
+</script>
+<script src="assets/libs/jquery-notifyjs/notify.min.js"></script>
+<script src="assets/libs/jquery-notifyjs/styles/metro/notify-metro.js"></script>
+<script src="custom/js/ubs_serahterima_noty.js"></script>
+{/literal}
+
+<script src="custom/js/dashboard_awal_noty.js"></script>

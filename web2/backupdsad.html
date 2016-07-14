@@ -1,0 +1,31 @@
+<?php
+include_once("$_SERVER[DOCUMENT_ROOT]/includes/functions.php");
+include_once("$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php");
+$branch = $_POST['kot'];
+$accno = $_POST['acc'];
+$rates = $_POST['rates'];
+$from = $_POST['from'];
+$to = $_POST['to'];
+
+for ($i_acc = 0; $i_acc < count($accno); $i_acc++) {
+$query_accnya = $query_accnya.",'" . $accno[$i_acc] . "'";
+}
+$query_acc = " and  mt4_weekly.LOGIN in (''" . $query_accnya . ")";
+
+$query = "SELECT mt4_weekly.LOGIN, NTR, LEFT(mt4_weekly.TIME, 10) AS TIME2
+        FROM ccf_source.mt4_weekly, acc_kota 
+        WHERE 
+        mt4_weekly.LOGIN = acc_kota.login 
+ $query_acc
+  AND  LEFT(mt4_weekly.TIME, 10) BETWEEN ('$from') AND ('$to')
+        ORDER BY mt4_weekly.TIME ASC";
+$do = $DB->execresultset($query);
+print_r($query);
+
+?>
+
+
+
+
+
+

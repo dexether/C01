@@ -1,0 +1,131 @@
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/start/jquery-ui.css" rel="stylesheet"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script>
+    $(function() {
+        $( ".resizable" ).resizable({
+            animate: true, animateEasing: 'swing', animateDuration: 500
+        });
+    });
+</script>
+
+<div id="main_content" class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header transparent">
+                  <!--   <h3><strong>Member List</strong></h3> -->
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div>
+                <div class="widget-content padding">
+                   <div class="widget-content padding resizable">
+                    <iframe width="420" height="615" src="https://www.mql5.com/en/signals/165324" frameborder="0" allowfullscreen></iframe>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header">
+                    <!-- <h2 style="font-family:calibri;font-size:120%;"><strong>Your</strong> Request Member</h2> -->
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div>
+               <div class="widget-content padding">
+					<!-- <div class="alert alert-success nomargin">
+						* Send confirmation of your payment by filling out the form below
+						<br>
+						* input the amount of the transfer according to your nominal transfer
+					</div><br> -->
+					<div class="widget-content padding">
+						<div id="horizontal-form">
+							<form class="form-horizontal" role="form">
+								<!-- <div class="form-group">
+									<label for="accounttype" class="col-sm-2 control-label">Your Account</label>
+									<div class="col-md-4">
+										<select class="form-control">
+											<option value="">-- Select Account --</option>
+											<option value="">1603122</option>
+											<option value="">1603122</option>
+										</select>
+									</div>
+								</div> -->
+								
+								<div class="form-group">
+									<label for="accounttype" class="col-sm-2 control-label">Id Login</label>
+									<div class="col-md-4">
+										<input type="text" class="form-control" id="amount" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="accounttype" class="col-sm-2 control-label">Master Password</label>
+									<div class="col-md-4">
+										<input type="text" class="form-control" id="amount" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="accounttype" class="col-sm-2 control-label">Ip</label>
+									<div class="col-md-4">
+										<input type="text" class="form-control" id="amount" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="accounttype" class="col-sm-2 control-label">Name Server</label>
+									<div class="col-md-4">
+										<input type="text" class="form-control" id="amount" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="accounttype" class="col-sm-2 control-label">Jenis Signal</label>
+									<div class="col-md-4">
+										<input type="text" class="form-control" id="amount" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="accounttype" class="col-sm-2 control-label"></label>
+									<div class="col-sm-4">
+									<label>
+										<input type="checkbox" name="check1" id="check1" value="yes"> 
+									</label>
+								<div class="button">
+								<input type="button" class="btn btn-success" value="Find"
+								onClick="group_account.downline(downline.value, check1.value);">
+								</div>
+							</div>
+								</div>
+								<div class="form-group">
+									<label for="currency" class="col-sm-2 control-label">Date</label>
+									<div class="col-md-2">
+										<input type="text" class="form-control datepicker-input" data-mask="9999-99-99" placeholder="yyyy-mm-dd">
+									</div>
+									<div class="col-md-2">
+										<input type="text" class="form-control datepicker-input" data-mask="99:99" placeholder="00:00">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-4">
+										<button type="submit" class="btn btn-success btn-block">
+										Send To Confirmation
+										<span class="glyphicon glyphicon-play">
+										</span>
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>

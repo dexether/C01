@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <link href="assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="custom/js/fileupload_foto/jquery.fileupload.css">
+
+        <script src="assets/libs/jquery/jquery-1.11.1.min.js"></script>
+        <script src="fileupload_foto/js/vendor/jquery.ui.widget.js"></script>
+        <script src="fileupload_foto/js/jquery.iframe-transport.js"></script>
+        <script src="fileupload_foto/js/jquery.fileupload.js"></script>
+        <script src="assets/libs/bootstrap/js/bootstrap.min.js"></script>
+        <link href="custom/codecanyon/css/demo.html5imageupload.css?v1.3" rel="stylesheet">
+
+
+        {literal}
+        <script>
+            $(function() {
+                'use strict';
+                var url = 'fileupload_foto/';
+                $('#fileupload').fileupload({
+                    url: url,
+                    dataType: 'json',
+                    acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                    maxFileSize: 5000000, // 5 MB
+                    done: function(e, data) {
+                        $.each(data.result.files, function(index, file) {
+                            $('<p/>').text(file.name).appendTo('#files');
+                        });
+                    },
+                    progressall: function(e, data) {
+                        var progress = parseInt(data.loaded / data.total * 100, 10);
+                        $('#progress .progress-bar').css(
+                                'width',
+                                progress + '%'
+                                );
+                    }
+                }).prop('disabled', !$.support.fileInput)
+                        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+            });
+        </script>
+        {/literal}
+    </head>
+    <body >
+        <div class="alert alert-danger nomargin">
+            <span class="btn btn-success fileinput-button" >
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Select files gif / jpeg / png</span><br>
+                <div class="dropzone" data-width="220"  style="margin:0; width:200px; height:200px; 
+                     border:none; overflow:hidden;" 
+                     data-ajax="false" 
+                     scrolling="no" data-ghost="false" data-button-edit = false data-button-zoomin="false" 
+                     data-button-zoomout ="false" data-button-reset="false"
+                     data-height="220" data-resize="false"  data-editstart="false" data-dimensionsonly="true" 
+                     data-originalsave="true" data-originalsize="false">                          
+                    <input id="fileupload" type="file" name="files" accept="image/jpg,image/png,image/jpeg,image/gif" >
+                </div>
+            </span>
+            <br><br>
+            <div id="progress" class="progress" >
+                <div class="progress-bar progress-bar-success"></div>
+            </div>
+
+            <div id="files" class="files"></div>
+        </div>
+
+    </body>
+</html>
+
+<script src="custom/codecanyon/js/html5imageupload.js?v1.4.3"></script>
+{literal}
+<script>
+            $('.dropzone').html5imageupload({
+                onAfterProcessImage: function() {
+                    //alert("FileUpload-94-onAfterProcessImage:");
+                    //$('#filename').val($(this.element).data('name'));
+                    senttoserverimage();
+                    //return false;
+                },
+                onAfterCancel: function() {
+                    //alert("FileUpload-98");
+                    senttoserverimage();
+                },
+                onSave: function(data) {
+                    //alert("FileUpload-104");
+                    //console.log(data);
+                    senttoserverimage();
+                },
+            });
+            var senttoserverimage = function() {
+                //alert("Inside senttoserverimage-69");
+
+
+
+            }//var senttoserverimage = function() {
+
+</script>
+{/literal}

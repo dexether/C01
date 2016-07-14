@@ -1,0 +1,155 @@
+<link rel="stylesheet" type="text/css" href="custom/datatable2/media/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="custom/datatable2/resources/syntax/shCore.css">
+
+<script type="text/javascript" language="javascript" src="custom/datatable2/media/js/jquery.dataTables.js">
+</script>
+<script type="text/javascript" language="javascript" src="custom/datatable2/resources/syntax/shCore.js">
+</script>
+<script type="text/javascript" language="javascript" src="custom/datatable2/resources/demo.js">
+</script>
+
+<div id="main_content" class="content">
+    <div class="page-heading">
+        <h1><i class='fa icon-list'></i> Account Detalis</h1>           	
+    </div>
+
+
+    <!-- Page Heading End-->
+    <!-- Your awesome content goes here -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header transparent">
+                    <!-- <h2><strong>Sortable</strong> Table</h2> -->
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div>
+                <div class="widget-content padding">					
+                    <div id="horizontal-form">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="username" class="col-sm-2 control-label">Username</label>
+                                <div class="col-sm-4">
+                                    <p class="form-control-static">dpro</p>
+                                </div>
+                                <label for="address" class="col-sm-2 control-label">Address / Zip Code</label>
+                                <div class="col-sm-4">
+                                    <p class="form-control-static">Pinang Merah 3 SC-01, Pondonk Pinang / 12310</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="counrty" class="col-sm-2 control-label">Country / City</label>
+                                <div class="col-sm-4">
+                                    <p class="form-control-static">Indonesia / Jakarta</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="col-sm-2 control-label">Phone</label>
+                                <div class="col-sm-1">
+                                    <input type="text" class="form-control" value="+62" name=""></div>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" value="081808" name=""></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobilephone" class="col-sm-2 control-label">Mobile Phone</label>
+                                <div class="col-sm-1">
+                                    <input type="text" class="form-control" name=""></div>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name=""></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-sm-2 control-label">E-Mail</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" value="dpro.contact@ymail.com"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="accountstatus" class="col-sm-2 control-label">Account Status</label>
+                                <div class="col-sm-4">
+                                    <p class="form-control-static">Approved</p></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Newsletters and Special offers
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-success">UPDATE INFORMATION <span class="glyphicon glyphicon-play"></span></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <div class="page-heading">
+        <h1>Uploaded Documents</h1>
+    </div>
+    <!-- Page Heading End-->
+    <!-- Your awesome content goes here -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header transparent">
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div>
+                <div class="widget-content padding">   
+                    <div class="table-responsive">
+                        <table id="dt" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Document type</th>
+                                    <th>Status</th>
+                                    <th>Change Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Proof Of Residence</td>
+                                    <td>Approved</td>
+                                    <td>3/13/2015 1:18:21 AM</td>
+                                </tr>
+                                <tr>
+                                    <td>Proof Of Residence</td>
+                                    <td>Approved</td>
+                                    <td>3/13/2015 1:13:51 AM</td>
+                                </tr>
+                                <tr>
+                                    <td>Photo ID</td>
+                                    <td>Approved</td>
+                                    <td>3/13/2015 1:10:43 AM</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>      
+
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#dt').DataTable( {
+        "paging":   false,
+        "searching": false
+    } );
+} );
+</script>
+<script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+<script src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="assets/js/pages/datatables.js"></script>

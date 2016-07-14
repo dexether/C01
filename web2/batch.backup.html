@@ -1,0 +1,50 @@
+<?php
+
+// For Connection
+include_once ("$_SERVER[DOCUMENT_ROOT]/includes/functions.php");
+include_once ("$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php");
+// Ambil Data Dimana NTR BLUM Terisi
+$array_all = array ();
+$get_data = "SELECT LOGIN, PROFIT, DEPOSIT, PROFIT_CLOSED, TIME, LEFT(TIME, 10) AS TIME2 FROM ccf_source.mt4_daily WHERE STAT_NTR = '0' ORDER BY LOGIN ASC LIMIT 0,1000";
+$get_data_array = $DB->execresultset ( $get_data );
+foreach ( $get_data_array as $row ) {
+  $array_all [] = $row;
+}
+
+$array_prev = array ();
+foreach ( $array_all as $row ) {
+  $LOGIN = $row ['LOGIN'];
+  $DEPOSIT = $row ['DEPOSIT'];
+  $PROFIT = $row ['PROFIT'];
+  $PROFIT_CLOSED = $row ['PROFIT_CLOSED'];
+  $NOW_TIMES = $row ['TIME2'];
+  
+  $get_prev_data = "SELECT LOGIN, PROFIT, LEFT(TIME, 10) AS TIME2 FROM ccf_source.mt4_daily WHERE LOGIN = '$LOGIN' AND LEFT(TIME, 10) < '$NOW_TIMES' ORDER BY TIME DESC LIMIT 0,1";
+  
+  $get_prev_data_array = $DB->execresultset ( $get_prev_data );
+  
+  foreach ( $get_data_array as $row1 ) {
+    $PREV_TIME2 = $row1 ['TIME2'];
+    $PREV_PROFIT = $row1 ['PROFIT'];
+  }
+  {
+  }
+  $updates [] = array (
+      'LOGIN' => $LOGIN,
+      'TIME' => $NOW_TIMES,
+      'PREV_TIME' => $PREV_TIME2,
+      'PROFIT' => $PROFIT,
+      'PREV_PROFIT' => $PREV_PROFIT,
+      'DEPOSIT' => $DEPOSIT,
+      'PROFIT_CLOSED' => $PROFIT_CLOSED,
+      'NTR' => $DEPOSIT + $PROFIT_CLOSED + $PROFIT - $PREV_PROFIT 
+  );
+}
+foreach ( $updates as $u ) {
+  
+  $DB->execonly("UPDATE ccf_source.mt4_daily SET NTR = '" . $u ['NTR'] . "', PREV_PROFIT = '" . $u ['PREV_PROFIT'] . "', STAT_NTR = '1' WHERE LOGIN = '".$u['LOGIN']."' AND LEFT(TIME, 10) = '".$u['TIME']."' ");
+}
+
+?>
+ 
+

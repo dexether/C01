@@ -1,0 +1,130 @@
+<div id="confirm" class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header transparent">
+                    <h3>
+            <i class="icon-vcard">
+            </i>
+            <strong>
+              Confirmation Schedule
+			  {$clientaecode.name}
+            </strong>
+          </h3>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload">
+                            <i class="icon-ccw-1"></i>
+                        </a>
+                        <a href="#" class="widget-toggle">
+                            <i class="icon-down-open-2"></i>
+                        </a>
+                        <a href="#" class="widget-close">
+                            <i class="icon-cancel-3"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-content padding">
+                    <div id="horizontal-form">
+					
+						  <div class="alert alert-warning nomargin">
+							* please approve or cancel for a schedule that is already on the confirmation by admin
+							<br>
+							* If you cancel and then make a new schedule
+						  </div>
+						  <br>
+                        <form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Schedule ID</label>
+								<div class="col-sm-4">
+								<input type="text" class="form-control" name="accountsearch" id="accountsearch" value="{$cari}">
+								<div class="col-sm-4" hidden>
+								<input type="text" class="form-control" name="downline" id="downline" value="{$cari}">
+								</div>
+								</div>
+								<div class="col-sm-4">								
+								<input type="button" class="btn btn-success" value="Find"
+								onClick="CNFM_schedule.user(accountsearch.value);">
+								</div>
+							</div>
+                            <div class="form-group">
+                                <label for="tradingplatform" class="col-sm-2 control-label">Car ID</label>
+                                <div class="col-md-4">
+                                     <input class="form-control" id="text" type="text" value="{$statements2}" readonly>
+                                </div> 
+                            </div>
+							<div class="form-group">
+                                <label for="tradingplatform" class="col-sm-2 control-label">Your Upline Account</label>
+                                <div class="col-md-4">
+                                     <input class="form-control" name="upline" type="text" value="{$statements3}" readonly>
+                                </div>
+                            </div>
+							<div class="form-group">
+                                <label for="tradingplatform" class="col-sm-2 control-label">Your Account</label>
+                                <div class="col-md-4">
+                                     <input class="form-control" name="nama" type="text" value="{$statements4}" readonly>
+                                </div>
+                            </div>
+							<div class="form-group">
+                                <label for="tradingplatform" class="col-sm-2 control-label">Email</label>
+                                <div class="col-md-4">
+                                     <input class="form-control" name="email" type="text" value="{$statements5}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="accounttype" class="col-sm-2 control-label">Destination</label>
+                                <div class="col-md-4">
+                                    <input class="form-control" id="text" type="text" value="{$statements6}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="accounttype" class="col-sm-2 control-label">Meet with</label>
+                                <div class="col-md-4">
+                                    <input class="form-control" id="text" type="text" value="{$statements7}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="currency" class="col-sm-2 control-label">Date Time</label>
+                                <div class="col-md-4">
+                                    <input class="form-control" id="input-text" type="text" value="{$statements}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="currency" class="col-sm-2 control-label">Your Hour Meeting</label>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control datepicker-input" data-mask="00:00" placeholder="yyyy-mm-dd  00:00:00" value="{$statements8}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="currency" class="col-sm-2 control-label">Admin Confirm Your Hour Meeting</label>
+                                <div class="col-md-2">
+                                     <input type="text" class="form-control datepicker-input" data-mask="00:00" placeholder="yyyy-mm-dd  00:00:00" value="{$statements9} {$statements10}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+								<label for="currency" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-2">								
+								<input type="button" class="btn btn-success" name="Approv" value="Approv"
+								onClick="CNFM_schedule.status1(Approv.value, downline.value, upline.value, email.value, nama.value);">
+								</div>
+								<div class="col-sm-2">								
+								<input type="button" class="btn btn-danger" name="Cancel" value="Cancel"
+								onClick="CNFM_schedule.status2(Cancel.value, downline.value, upline.value, email.value, nama.value);">
+								</div>
+                            </div>
+                        </form>
+						
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="custom/js/confirm_schedule.js" type="text/javascript"></script>
+{literal}
+<script>
+jQuery(document).ready(function() {
+CNFM_schedule.init();
+});
+</script>
+{/literal}

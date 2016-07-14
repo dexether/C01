@@ -1,0 +1,148 @@
+<div id="main_content" class="content">
+
+<!-- Page Heading Start -->
+<div class="page-heading">
+    <h1>
+
+        <i class='fa fa-thumbs-o-up'></i> 
+        Welcome Page - Admin Page for Account {$account} - {$group_play}
+    </h1>
+    <h3></h3>            	
+</div>
+
+<!-- Page Heading End-->				
+<div class="row">
+    <div class="col-md-12 portlets">
+        <div class="widget">
+            <div class="widget-header ">
+                <h2>Task Summary</h2>
+                <div class="additional-btn">
+                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>         
+                </div>
+            </div>
+            <br>
+            <div class="widget-content padding">  
+                <div class="alert alert-danger nomargin">
+                    <i class='icons icon-person'>
+                        <input type="button" class="btn btn-success" id="pecah-form-btn" 
+                               name="seetreeA100ribu"  value="1 THOUSAND"  
+                               onClick="DashBoard_Button_JS.seetugasadmin('A1THOUSAND');
+                                       " />
+                    </i>
+                    <i class='icons icon-person'>
+                        <input type="button" class="btn btn-success" id="pecah-form-btn" 
+                               name="seetreeA300ribu"  value="3 THOUSAND"  
+                               onClick="DashBoard_Button_JS.seetugasadmin('A3THOUSAND');
+                                       " />
+                    </i>
+                    <i class='icons icon-person'>
+                        <input type="button" class="btn btn-success" id="pecah-form-btn" 
+                               name="seetreeA500ribu"  value="5 THOUSAND"  
+                               onClick="DashBoard_Button_JS.seetugasadmin('A5THOUSAND');
+                                       " />
+                    </i>
+                    <i class='icons icon-person'>
+                        <input type="button" class="btn btn-success" id="pecah-form-btn" 
+                               name="seetreeA1juta"  value="10 THOUSAND"  
+                               onClick="DashBoard_Button_JS.seetugasadmin('A10THOUSAND');
+                                       " />
+                    </i>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    {foreach from=$ceksemuaccounts item=ceksemuaccount key=ceksemuaccount1} 
+    {if $ceksemuaccount.companyconfirm=='1'}
+    <div class="col-md-12 portlets">
+        <div class="widget">
+            <div class="widget-header ">
+                <h2>Company Task Number is : {$ceksemuaccount.ACCNO}</h2>
+                <div class="additional-btn">
+                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>         
+                </div>
+            </div>
+            <br>
+            <div class="widget-content padding">  
+
+                <div class="alert alert-danger nomargin">
+                    Account {$ceksemuaccount.ACCNO} already transfer {$ceksemuaccount.UangCompany}, Please check the money at Bank , 
+                    <br>
+                    and if the Money already received at Bank, please click this confirmation  
+                    <input type="button" class="btn btn-success" id="pecah-form-btn" 
+                           name="companyconfirm_{$ceksemuaccount.ACCNO}"  value="Confirmation Transfer"  
+                           onClick="DashBoard_Button_JS.companyconfirm2('{$ceksemuaccount.ACCNO}');
+                                       " />
+                </div>
+                <br>
+
+
+            </div>
+
+        </div>
+    </div>
+    {/if}
+
+    {/foreach}
+
+    <div class="col-md-12 portlets">
+        <div class="widget">
+            <div class="widget-header ">
+                <h2>Account that has not transfer the money</h2>
+                <div class="additional-btn">
+                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>         
+                </div>
+            </div>
+            <br>
+            <div class="widget-content padding">
+                <form id="pecah-form"    class="form-horizontal"  
+                      role="form"  method="post" >
+                    <div class="form-group">
+                        <div class="table-responsive">
+                            <input type="hidden" id="jumlahrow" value="{$statement.jumlahrow}">
+                            <table id="laporanrekening_list" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Account</th>
+                                        <th>Upline</th>
+                                        <th>Upline's Upline</th>
+                                        <th>Registration Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {foreach from=$cekaccountsbarus item=cekaccountsbaru key=cekaccountsbaru1} 
+                                    <tr>
+                                        <td>{$cekaccountsbaru.aecode}</td>
+                                        <td>{$cekaccountsbaru.ACCNO}</td>
+                                        <td>{$cekaccountsbaru.Upline}</td>
+                                        <td>{$cekaccountsbaru.grandpa}</td>
+                                        <td>{$cekaccountsbaru.datetime}</td>
+                                    </tr>
+                                    {/foreach}
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>		
+</div>
+
+<script src="custom/js/jquery.validate.min.js" type="text/javascript"></script>
+
+{literal}
+<script src="custom/js/dashboard_button.js" type="text/javascript"></script>
+<script>
+                                   jQuery(document).ready(function() {
+                                       DashBoard_Button_JS.init();
+                                   });
+</script>
+{/literal}

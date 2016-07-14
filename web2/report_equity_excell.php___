@@ -1,0 +1,82 @@
+<?php
+
+/** Error reporting */
+error_reporting(E_ALL);
+ini_set('display_errors', FALSE);
+ini_set('display_startup_errors', FALSE);
+date_default_timezone_set('Europe/London');
+
+require_once dirname(__FILE__) . '../../Classes/PHPExcel.php';
+
+include_once("$_SERVER[DOCUMENT_ROOT]/includes/functions.php");
+include_once("$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php");
+$branch = $_POST['kot'];
+$accno = $_POST['acc'];
+$rates = $_POST['rates'];
+$from = $_POST['from'];
+$to = $_POST['to'];
+
+
+function headeringexcel($namaFile) {
+		header( 'Content-type:application/vnd.ms-excel; charset=UTF-8' );
+		header( '' . 'Content-Disposition:attachment;filename=' . $namaFile );
+		header( 'Content-Type: application/force-download' );
+		header( 'Expires:0' );
+		header( 'Cache-Control:must-revalidate,post-check=0,pre-check=0' );
+		header( 'Pragma: public' );
+	}
+headeringexcel('dsadasda.xls');
+// Create new PHPExcel object
+$objPHPExcel = new PHPExcel();
+
+// $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $value);
+
+// Set document properties
+$objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+                             ->setLastModifiedBy("Maarten Balliauw")
+                             ->setTitle("Office 2007 XLSX Test Document")
+                             ->setSubject("Office 2007 XLSX Test Document")
+                             ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+                             ->setKeywords("office 2007 openxml php")
+                             ->setCategory("Test result file");
+
+
+// Add some data
+$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValueByColumnAndRow(0, 1, "SPECIAL ACCOUNT")
+            ->setCellValueByColumnAndRow(0, 3, "TANGGAL")
+            ->setCellValueByColumnAndRow(1, 3, "LOGIN")
+            ->setCellValueByColumnAndRow(2, 3, "NTR")
+            ->setCellValueByColumnAndRow(0, 4, "01-JAN-2016")
+            ->setCellValueByColumnAndRow(1, 4, "12345")
+            ->setCellValueByColumnAndRow(2, 4, "-31829")
+
+
+            ;            
+
+// Rename worksheet
+$objPHPExcel->getActiveSheet()->setTitle('Simple');
+
+
+// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+$objPHPExcel->setActiveSheetIndex(0);
+
+
+
+/*// Redirect output to a client’s web browser (Excel5)
+header('Content-Type: application/vnd.ms-excel');
+header('Content-Disposition: attachment;filename="01simple.xls"');
+header('Cache-Control: max-age=0');
+// If you're serving to IE 9, then the following may be needed
+header('Cache-Control: max-age=1');
+
+// If you're serving to IE over SSL, then the following may be needed
+header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+header ('Pragma: public'); // HTTP/1.0
+*/
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter->save('php://output');
+exit;
+?>

@@ -1,0 +1,101 @@
+<link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css" />
+<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="custom/datatable2/media/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="custom/datatable2/resources/syntax/shCore.css">
+
+<div id="main_content" class="content">
+	<div class="page-heading">
+    <h1><i class="icon-user-3"></i> Apex Regent Member List
+    </h1>
+  </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header transparent">
+					<h2><strong>Your</strong> Account</h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div>
+                <div class="widget-content padding">
+                    <div class="alert alert-success">
+                        Members list shows how many Accounts you have and how many members under You and show him a good and not good, and that you can meet in your community shows that it is your members.
+                    </div>					
+                    <div id="horizontal-form">
+                        <form class="form-horizontal" role="form">
+                            <div class="col-md-12 col-md-offset-2">
+                                <div class="form-group">
+                                    <label for="tradingplatform" class="col-sm-2 control-label">Account Number :</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control" id="input-text" type="text">
+                                    </div>
+									<div class="col-sm-4">								
+										<input type="button" class="btn btn-success" value="Find"
+										onClick="group_account.group_account(accountsearch.value);">
+									</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accounttype" class="col-sm-2 control-label">Name Account :</label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" name="account" id="account" readonly>
+                                    </div>
+                                </div>
+								<div class="form-group">
+                                    <label for="accounttype" class="col-sm-2 control-label"></label>
+                                    <div class="col-md-4">
+                                        <input type="checkbox">&nbsp; You can see Downline
+                                    </div>
+                                </div>
+                            </div>
+								<legend><h4>Your Request Member</h4></legend>
+									<div class="table-responsive">
+								<form class='form-horizontal' role='form'>
+									<table id="datatables-1" class="table table-striped table-bordered" cellspacing="0" width="100%" style="font-family:calibri;font-size:100%;">
+										<thead>
+											<tr>
+												<th style="width" 147px>Date</th>
+												<th style="width" 147px>Account Number</th>
+												<th style="width" 180px>Name Acount</th>
+												<th style="width" 180px>Wallet</th>
+												<th style="width" 147px>Fee Maintainance</th>
+												<th style="width" 147px>Modal Kumpulan</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>Date</th>
+												<th>Account Number</th>
+												<th>Name Acount</th>
+												<th>Wallet</th>
+												<th>Fee Maintainance</th>
+												<th>Modal Kumpulan</th>
+											</tr>
+										</tfoot>
+										<tbody>
+											<tr class="odd" role="row">
+												<td class="sorting_1">7/24/2015 1:49:55 pm</td>
+												<td>2089107051</td>
+												<td>wondo</td>
+												<td>$1000</td>
+												<td>Sudah Bayar</td>
+												<td>Sudah Bayar</td>                                        
+											</tr>						
+										</tbody>
+									</table>
+								</form>
+							</div>
+                        </form>              
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+<script src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="assets/js/pages/datatables.js"></script>

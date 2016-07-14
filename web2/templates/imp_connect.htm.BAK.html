@@ -1,0 +1,283 @@
+<div class="content" id="main_content">
+   <script src="custom/sweetalert/dist/sweetalert-dev.js">
+   </script>
+   <link href="custom/sweetalert/dist/sweetalert.css" rel="stylesheet"/>
+   <link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+   <link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+   <!-- validator -->
+   <link href="custom/validator/dist/css/formValidation.min.css" rel="stylesheet"/>
+   <!-- Sweat Alert -->
+   <script src="custom/sweetalert/dist/sweetalert-dev.js">
+   </script>
+   <link href="custom/sweetalert/dist/sweetalert.css" rel="stylesheet"/>
+   <div class="page-heading">
+      <h1>
+         <i class="fa fa-wrench">
+         </i>
+         Account connect
+      </h1>
+   </div>
+   <!-- Page Heading End-->
+   <div class="row">
+      <div class="col-md-12">
+         <div class="widget">
+            <div class="widget-header ">
+               <h2>
+                  <strong>
+                     Account
+                  </strong>
+                  Management Connection
+               </h2>
+               <div class="additional-btn">
+                  <a class="widget-toggle" href="#">
+                     <i class="icon-down-open-2">
+                     </i>
+                  </a>
+               </div>
+            </div>
+            <br/>
+            <div class="widget-content padding">
+               <div class="alert alert-success">
+                  <p class="text-justify">
+                     Admin can connect the Account to Thirdty Party program Like Meta Trader account
+                  </p>
+               </div>
+               <form class="form-horizontal" id="registerForm" method="post" role="form">
+                  <div class="form-group">
+                     <input name="token" type="hidden" value="{$token}"/>
+                     <label class="col-sm-2 control-label">
+                        Select Member
+                     </label>
+                     <div class="col-sm-5">
+                        <select class="form-control" id="account" name="account">
+                           <option disabled="" selected="" value="">
+                              -- select Account --
+                           </option>
+                           {foreach from=$accountlist item=row}
+                           <option value="{$row.aecodeid}">
+                              {$row.name}
+                           </option>
+                           {/foreach}
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">
+                        Select the thirty party
+                     </label>
+                     <div class="col-sm-5">
+                        <select class="form-control" id="party" name="party">
+                           <option disabled="" selected="" value="">
+                              -- select thirty party --
+                           </option>
+                           {foreach from=$party.typenya item=row}
+                           <option value="{$row}">
+                              {$row}
+                           </option>
+                           {/foreach}
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">
+                        Select IB
+                     </label>
+                     <div class="col-sm-5">
+                        <select class="form-control" id="ib" name="ib">
+                           <option disabled="" selected="" value="">
+                              -- select IB --
+                           </option>
+                           {foreach from=$party.alldata item=row}
+                           <option value="{$row.mt4dt}">
+                              {$row.alias}
+                           </option>
+                           {/foreach}
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">
+                        Enter Number
+                     </label>
+                     <div class="col-sm-5">
+                        <input class="form-control" id="number" name="number" type="text">
+                        </input>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">
+                     </label>
+                     <div class="col-sm-5">
+                        <div class="input-group" id="ajax-btn">
+                           <button class="btn btn-primary" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing ..." id="load" type="submit">
+                              Register
+                           </button>
+                        </div>
+                        <!-- /input-group -->
+                     </div>
+                  </div>
+               </form>
+               <hr/>
+               <h3>
+                  Account list Sync To Tarikh
+               </h3>
+               <table class="table table-responsive table-hover">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Brokers</th>
+                    <th>LOGIN</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{literal}
+<!-- FormValidation plugin and the class supports validating Bootstrap form -->
+<script src="custom/validator/dist/js/formValidation.min.js">
+</script>
+<script src="custom/validator/dist/js/framework/bootstrap.min.js">
+</script>
+<script charset="utf-8" src="custom/chain/jquery.chained.js?v=1.0.0" type="text/javascript">
+</script>
+<script charset="utf-8" src="custom/chain/jquery.chained.remote.js?v=1.0.0" type="text/javascript">
+</script>
+<script src="custom/js/ar_account_mm.js" type="text/javascript">
+</script>
+<script>
+   $(document).ready(function() {
+    $('select[name=account]').change(function(event) {
+      /* Act on the event */
+
+    });
+     ar_account_mm_JS.init();
+     $('#registerForm').formValidation({
+         framework: 'bootstrap',
+         icon: {
+             valid: 'glyphicon glyphicon-ok',
+             invalid: 'glyphicon glyphicon-remove',
+             validating: 'fa fa-circle-o-notch fa-spin'
+         },
+         fields: {
+             account: {
+                 validators: {
+                     notEmpty: {
+                         message: 'The Account is required'
+                     },
+                     remote: {
+                         url: 'check_account_con.php',
+                         type: 'POST'
+                     }
+                 }
+             },
+             party: {
+                 validators: {
+                     notEmpty: {
+                         message: 'The Party is required'
+                     }
+                 }
+             },
+             ib: {
+                 validators: {
+                     notEmpty: {
+                         message: 'The IB option is required'
+                     }
+                 }
+             },
+             number: {
+                 validators: {
+                     notEmpty: {
+                         message: 'The Number option is required'
+                     },
+                     numeric: {
+                         message: 'The price must be a number'
+                     }
+                 }
+             }
+         }
+     })
+         .on('success.validator.fv', function(e, data) {
+             // data.field     --> The field name
+             // data.element   --> The field element
+             // data.result    --> The result returned by the validator
+             // data.validator --> The validator name
+
+             if (data.field === 'account' && data.validator === 'remote') {
+
+                 // The userName field passes the remote validator
+                 data.fv.updateMessage('account', 'remote', data.result.msg)
+                 if (data.result.available == false) {
+                     data.element // Get the field element
+                     .closest('.form-group') // Get the field parent
+                     // Add has-warning class
+                     .removeClass('has-success')
+                         .addClass('has-warning')
+
+                     // Show message
+                     .find('small[data-fv-validator="remote"][data-fv-for="account"]')
+                         .show();
+                 } else {
+                     data.element // Get the field element
+                     .closest('.form-group') // Get the field parent
+                     // Add has-warning class
+                     .removeClass('has-warning')
+                         .addClass('has-success')
+
+                     // Show message
+                     .find('small[data-fv-validator="remote"][data-fv-for="account"]')
+                         .show();
+                 }
+             }
+         })
+         .on('success.form.fv', function(e) {
+             // Prevent form submission
+             e.preventDefault();
+
+             var $form = $(e.target),
+                 fv = $form.data('formValidation');
+            ar_account_mm_JS.connect_do($form);
+             
+             
+         });
+     $("#party").remoteChained({
+         parents: "#id",
+         url: "json.php?sleep=1",
+         loading: "--"
+     });
+     /*$("#model-remote").remoteChained({
+        parents : "#series-remote",
+        url : "json.php?sleep=1",
+        loading : "--"
+    });
+    $("#engine-remote").remoteChained({
+        parents : "#series-remote, #model-remote",
+        url : "json.php?sleep=1",
+        loading : "--",
+        clear : true
+    });*/
+ });
+</script>
+<script charset="utf-8" type="text/javascript">
+   $(function() {
+    $("#ib").remoteChained({
+        parents : "#party",
+        url : "json.php?sleep=1",
+        clear : true,
+        loading : "Loading..."
+    });
+  });
+</script>
+{/literal}
+

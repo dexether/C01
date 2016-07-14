@@ -1,0 +1,300 @@
+<link rel="stylesheet" type="text/css" href="custom/datatable2/media/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="custom/datatable2/resources/syntax/shCore.css">
+
+{literal}
+<style type="text/css" class="init">
+    div.container {
+        width: 100%;
+    }
+</style>
+<script type="text/javascript" language="javascript" src="custom/datatable2/media/js/jquery.dataTables.js">
+</script>
+<script type="text/javascript" language="javascript" src="custom/datatable2/resources/syntax/shCore.js">
+</script>
+<script type="text/javascript" language="javascript" src="custom/datatable2/resources/demo.js">
+</script>
+<script type="text/javascript" language="javascript" class="init">
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "language": {
+                "search": "<br>"
+            },
+            "scrollY": "250px",
+            "scrollX": "250px",
+            "scrollCollapse": false,
+            "paging": false
+        });
+    });
+
+    $(document).ready(function() {
+        $('#example2').DataTable({
+            "scrollY": "250px",
+            "scrollX": "250px",
+            "scrollCollapse": false,
+            "paging": false
+        });
+    });
+
+    $(document).ready(function() {
+        $('#example3').DataTable({
+            "scrollY": "250px",
+            "scrollX": "250px",
+            "scrollCollapse": false,
+            "paging": false
+        });
+    });
+
+
+
+    $(document).ready(function() {
+        $('#example5').DataTable({
+            "scrollY": "250px",
+            "scrollX": "250px",
+            "scrollCollapse": false,
+            "paging": false
+        });
+    });
+
+    $(document).ready(function() {
+        $('#example6').DataTable({
+            "scrollY": "250px",
+            "scrollX": "250px",
+            "scrollCollapse": false,
+            "paging": false
+        });
+    });
+</script>
+{/literal}
+<div id="main_content" class="content">
+    <div class="page-heading">
+        <h1><i class="icon-vcard"></i>Report NTR Summary        
+        </h1>           	
+    </div>
+
+    {if $adadata=='ya'}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header">
+                    <h2><strong>Print Daily {$datesearch} at {$hariini}</strong></h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a>   
+                        <a href="#" class="widget-maximize hidden"><i class="icon-resize-full-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <br>					
+                    <div class="table-responsive">
+                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Previous Balance</th>
+                                    <th>Margin In</th>
+                                    <th>Margin Out</th>
+                                    <th>PL</th>
+                                    <th>Floating PL,Int,Comm,Adjust</th>
+                                    <th>Equity</th>
+                                    <th>Margin Required</th>
+                                    <th>Free Margin</th>
+                                    <th>Equity Ratio</th>
+                                </tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>{$total.BALANCE_PREV|number_format:2}</th>
+                                    <th>{$total.MARGININ|number_format:2}</th>
+                                    <th>{$total.MARGINOUT|number_format:2}</th>
+                                    <th>{$total.PL|number_format:2}</th>
+                                    <th>{$total.floatingsemua|number_format:2}</th>
+                                    <th>{$total.EQUITY|number_format:2}</th>
+                                    <th>{$total.MARGINREG|number_format:2}</th>
+                                    <th>{$total.MARGIN_FREE|number_format:2}</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+
+                            <tbody>
+                                {foreach from=$statements item=statement key=mt_login} 
+                                <tr>
+                                    <td>
+                                        <a href='#'>
+                                            {$mt_login}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {$statement.status.BALANCE_PREV|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.MARGININ|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.MARGINOUT|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.PL|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.floatingsemua|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.EQUITY|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.MARGINREG|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.MARGIN_FREE|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.eqratio}
+                                    </td>
+                                </tr>
+                                {/foreach} 
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {/if}
+
+
+
+
+    <div class="row">
+        <div class="col-lg-12 portlets">
+            <div class="widget">
+                <div class="widget-header">
+                    <h2>Selection</h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div>
+                <div class="widget-content padding"> 
+
+                    <div class="form-group">
+                        <div class="col-sm-14">                            
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Rolldate From</span>
+                                        <input type="text" class="form-control" name="datesearchfrom" id="datesearchfrom" value="{$datesearchfrom}">
+                                        <div id="datesearchfrom_contoh" class="block">
+                                            waiting..
+                                        </div>
+                                    </div>                                  
+                                </div>   
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Rolldate To</span>
+                                        <input type="text" class="form-control" name="datesearchto" id="datesearchto" value="{$datesearchto}">
+                                        <div id="datesearchto_contoh" class="block">
+                                            waiting..
+                                        </div>
+                                    </div>                                  
+                                </div>   
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <select name='statements_filter' id="statements_filter">
+                                            {foreach from=$statements_filter item=statements_filter1}
+                                            <option value='{$statements_filter1.mt4dt}' {if $mt4dtselect==$statements_filter1.mt4dt} selected {/if}>{$statements_filter1.alias}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>                                    
+                                </div>         
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <input type="button" class="btn btn-blue-3" id="button3" 
+                                               name="seetugas"  value="See in Excell"  
+                                               onClick="location.href = 'report_equity_excell.php?datesearchfrom=' + datesearchfrom.value + '&datesearchto=' + datesearchto.value + '&statements_filter=' + statements_filter.value"/>
+                                    </div>                                    
+                                </div> 
+                            </div>
+                            <div class="row">                                        
+                                <div class="col-sm-6">
+                                    <div class="input-group">
+                                        <input type="button" class="btn btn-blue-3" id="button3" 
+                                               name="seetugas"  value="Save for Schedule Email"  class="form-control"
+                                               onClick="ReportEquity_JS.savetodtbase(datesearchfrom.value, datesearchto.value, statements_filter.value);"/>
+                                    </div>       
+                                    To Save the Parameter input into database. Schedule Task will use this parameter to send email to Dealing</p>
+                                </div>                                    
+                            </div> 
+
+                        </div>
+
+                    </div>
+                </div>                  
+                <br>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+</div>
+
+<script src="custom/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="assets/libs/bootstrap-inputmask/inputmask.js"></script>
+{literal}
+<script src="custom/js/report_equity.js" type="text/javascript"></script>
+<script>
+    jQuery(document).ready(function() {
+        ReportEquity_JS.init();
+    });
+</script>
+{/literal}
+
+<script src="assets/libs/jquery-notifyjs/notify.min.js"></script>
+<script src="assets/libs/jquery-notifyjs/styles/metro/notify-metro.js"></script>
+<script src="custom/js/noty_general.js"></script>
+
+{literal}
+<script>
+    var w;
+    function startWorkerfrom() {
+        document.getElementById("datesearchfrom_contoh").innerHTML = "wait for Date From..";
+        if (typeof(Worker) !== "undefined") {
+            w = new Worker("custom/js/report_equity_tanggal_from.js");
+            w.onmessage = function(event) {
+                document.getElementById("datesearchfrom_contoh").innerHTML = event.data;
+            };
+        } else {
+            document.getElementById("result").innerHTML = "1970-01-01";
+        }
+    }
+    var w2;
+    function startWorkerto() {
+        document.getElementById("datesearchto_contoh").innerHTML = "wait for Date To..";
+        if (typeof(Worker) !== "undefined") {
+            w2 = new Worker("custom/js/report_equity_tanggal_to.js");
+            w2.onmessage = function(event) {
+                document.getElementById("datesearchto_contoh").innerHTML = event.data;
+            };
+        } else {
+            document.getElementById("result").innerHTML = "2099-01-01";
+        }
+    }
+
+    function stopWorker() {
+        w.terminate();
+        w = undefined;
+    }
+    startWorkerfrom();
+    startWorkerto();
+</script>
+{/literal}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+         <title>
+            join with us | {$companys.programname}
+         </title>
+         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+         <meta content="yes" name="apple-mobile-web-app-capable"/>
+         <meta content="" name="description">
+            <!-- Base Css Files -->
+            <link href="assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet"/>
+            <link href="assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+            <link href="assets/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+            <link href="assets/libs/animate-css/animate.min.css" rel="stylesheet"/>
+            <link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+            <!-- Extra CSS Libraries End -->
+            <link href="assets/css/style-responsive.css" rel="stylesheet"/>
+            <link href="custom/sweetalert/dist/sweetalert.css" rel="stylesheet">
+               <link href="templates/home_01/faicon.png" rel="shortcut icon">
+                  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"/>
+                  <link href="assets/img/apple-touch-icon-57x57.png" rel="apple-touch-icon" sizes="57x57"/>
+                  <link href="assets/img/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72"/>
+                  <link href="assets/img/apple-touch-icon-76x76.png" rel="apple-touch-icon" sizes="76x76"/>
+                  <link href="assets/img/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114"/>
+                  <link href="assets/img/apple-touch-icon-120x120.png" rel="apple-touch-icon" sizes="120x120"/>
+                  <link href="assets/img/apple-touch-icon-144x144.png" rel="apple-touch-icon" sizes="144x144"/>
+                  <link href="assets/img/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"/>
+               </link>
+            </link>
+         </meta>
+      </meta>
+   </head>
+</html>
+<body>
+   <!-- Modal Start -->
+   <!-- Modal Task Progress -->
+   <!-- Begin page -->
+   <div class="content">
+      <!-- ============================================================== -->
+      <!-- Start Content here -->
+      <!-- ============================================================== -->
+      <div class="profile-banner" style="background-image: url(images/stock/1epgUO0.jpg);">
+         <div class="col-sm-6 col-sm-offset-5 avatar-container">
+            <img alt="User avatar" class="img-circle profile-avatar" src="{if empty($alldata.userdata.foto)} images/users/default-user2.png {else} {$alldata.userdata.foto} {/if}" style="background-color: white;">
+            </img>
+         </div>
+      </div>
+      <div class="content">
+         <div class="row">
+            <div id="conditition">
+               <div class="col-sm-6 col-sm-offset-3">
+                  <!-- Begin user profile -->
+                  <div class="text-center user-profile-2">
+                     <h4>
+                        <b>
+                           {$alldata.userdata.username} as your upline
+                        </b>
+                     </h4>
+                     <h5>
+                        Member ID : {$alldata.userdata.name}
+                     </h5>
+                     <ul class="list-group">
+                        <li class="list-group-item text-center">
+                           Downline
+                           <span class="badge">
+                              {$alldata.userdata.downline}
+                           </span>
+                        </li>
+                     </ul>
+                     <!-- User button -->
+                     {if empty($user)}
+                     <span class="help-block">
+                        To join With Tarikh Agustia as a Downline, you must login / register to this program first. If you finished the registration / login you must visit the this web page again
+                     </span>
+                     <div class="user-button">
+                        <div class="row">
+                           <div class="col-lg-6">
+                              <a class="btn btn-primary btn-sm btn-block" href="{$companys.appurl}/web2/openaccount.php?cabang=1" target="_blank">
+                                 <i class="fa fa-pencil-square-o">
+                                 </i>
+                                 Register
+                              </a>
+                           </div>
+                           <div class="col-lg-6">
+                              <a class="btn btn-default btn-sm btn-block" href="{$companys.appurl}" target="_blank">
+                                 <i class="fa fa-pencil-square-o">
+                                 </i>
+                                 Login
+                              </a>
+                           </div>
+                        </div>
+                     </div>
+                     {else}
+                     <form id="ajax-form" name="ajax-form">
+                        <input name="accnomlm" type="hidden" value="{$alldata.userdata.name}"/>
+                        <input name="token" type="hidden" value="{$token}"/>
+                        <div class="user-button">
+                           <div class="row">
+                              <div class="col-lg-6 col-lg-offset-3">
+                                 <select class="form-control" name="plan">
+                                    <option value="">
+                                       Select a Type do you want to Join
+                                    </option>
+                                    {foreach from=$alldata.group_play item=row}
+                                    <option value="{$row.group_play}">
+                                       {$row.description}
+                                    </option>
+                                    {/foreach}
+                                 </select>
+                              </div>
+                              <br>
+                                 <br>
+                                    <div class="col-lg-6 col-lg-offset-3">
+                                       <button class="btn btn-primary btn-sm btn-block" name="join" type="button">
+                                          <i class="fa fa-users">
+                                          </i>
+                                          Join Now
+                                       </button>
+                                    </div>
+                                 </br>
+                              </br>
+                           </div>
+                        </div>
+                     </form>
+                     {/if}
+                     <!-- End div .user-button -->
+                  </div>
+                  <!-- End div .box-info -->
+                  <!-- Begin user profile -->
+               </div>
+            </div>
+            <!-- End div .col-sm-4 -->
+         </div>
+         <!-- Footer Start -->
+         {include_php file='footerside.php'}
+         <!-- Footer End -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End content here -->
+      <!-- ============================================================== -->
+   </div>
+   <!-- End right content -->
+   <!-- End of page -->
+   <!-- the overlay modal element -->
+   <!-- End of eoverlay modal -->
+   <script>
+      var resizefunc = [];
+   </script>
+   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+   <script src="assets/libs/jquery/jquery-1.11.1.min.js">
+   </script>
+   <script src="assets/libs/jqueryui/jquery-ui-1.10.4.custom.min.js">
+   </script>
+   <script src="assets/libs/bootstrap/js/bootstrap.min.js">
+   </script>
+   <script src="assets/libs/jquery-detectmobile/detect.js">
+   </script>
+   <script src="assets/libs/fastclick/fastclick.js">
+   </script>
+   <script src="assets/libs/jquery-blockui/jquery.blockUI.js">
+   </script>
+   <!-- Demo Specific JS Libraries -->
+   <script src="assets/libs/prettify/prettify.js">
+   </script>
+   <!-- Sweat Alert -->
+   <script src="custom/sweetalert/dist/sweetalert-dev.js">
+   </script>
+   <script src="custom/js/imp_referal.js" type="text/javascript">
+   </script>
+   <script type="text/javascript">
+      jQuery(document).ready(function($) {
+              imp_referal_JS.init();
+              $('button[name=join]').click(function(event) {
+                  /* Act on the event */
+                  var a = $(this);
+                  imp_referal_JS.create_accounts(a);
+
+              });
+          });
+   </script>
+</body>

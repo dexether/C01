@@ -1,0 +1,285 @@
+<link rel="stylesheet" type="text/css"
+	href="custom/datatable2/media/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css"
+	href="custom/datatable2/resources/syntax/shCore.css">
+
+<script type="text/javascript" language="javascript"
+	src="custom/datatable2/media/js/jquery.dataTables.js">
+	
+</script>
+<script type="text/javascript" language="javascript"
+	src="custom/datatable2/resources/syntax/shCore.js">
+	
+</script>
+<script type="text/javascript" language="javascript"
+	src="custom/datatable2/resources/demo.js">
+	
+</script>
+
+<div id="main_content" class="content">
+	<div class="page-heading">
+		<h1>
+			<i class='fa icon-list'></i> Update Documents
+		</h1>
+	</div>
+	<!-- Page Heading End-->
+	<!-- Your awesome content goes here -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="widget">
+				<div class="widget-header transparent">
+					<!-- <h2><strong>Sortable</strong> Table</h2> -->
+					<div class="additional-btn">
+						<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a> <a
+							href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+						<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+					</div>
+				</div>
+				<div class="widget-content padding">
+					<div class="alert alert-success">
+						To activate your trading account we are required to verify your
+						identity, a minimum of 100 points is required. Please ensure that
+						you have one form of Photo ID in addition to a document verifying
+						your Proof of Residence ready for upload.
+						<p>
+							<span><strong>Accepted forms of ID are listed
+									below:</strong></span>
+						</p>
+					</div>
+					<div class="alert alert-danger">
+						<h3>
+							<strong>Photo ID</strong>
+						</h3>
+						<br>
+						<ul>
+							<li>Valid Passport</li>
+							<li>Valid Government</li>
+						</ul>
+						<br>
+						<p>
+
+							<i>All photo ID documents must be valid and clearly show your
+								<strong>full name, date of birth</strong> and <strong>issue
+									/ expiry date.</strong> Student ID cards are not accepted.
+							</i>
+						</p>
+						<br>
+						<h3>
+							<strong>Proof of Residence</strong>
+						</h3>
+						<ul>
+							<li>Utility Bill, Phone Bill, Bank Statement, Internet Bill,
+								Birth Certificate etc.</li>
+						</ul>
+						<p>
+							<br> <i>All Proof of Residence documents must clearly
+								state your <strong>name, current residential address
+									and issue date.</strong> Documents must not be older than 3 months.​
+							</i>
+						</p>
+						<br> <strong>If you are unable to provide a
+							Secondary ID document that verifies your Proof of Residence you
+							can provide an additional form of Photo ID from the list above.
+							Our 100 point ID requirements are <a href="#">explained here.</a>
+						</strong>
+
+					</div>
+					<div class="alert alert-success">
+						<strong>Once your identification has been approved by our
+							accounts team you will receive an email confirming the activation
+							of your account.</strong>
+						<p>After your account is activated you will be able to fund
+							your account by clicking on the Deposit Funds tab. If you choose
+							to fund your account by Credit/Debit card you will be required to
+							upload a copy of your card.</p>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-hover table-striped" id="dt">
+							<thead>
+								<tr>
+									<th>Document Type</th>
+									<th>Status</th>
+									<th>Change Date</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Proof Of Residence</td>
+									<td>Approved</td>
+									<td>3/13/2015 1:13:51 AM</td>
+								</tr>
+								<tr>
+									<td>Proof Of Residence</td>
+									<td>Approved</td>
+									<td>3/13/2015 1:15:51 AM</td>
+								</tr>
+								<tr>
+									<td>Photo ID</td>
+									<td>Approved</td>
+									<td>3/13/2015 1:20:51 AM</td>
+								</tr>
+								<tr>
+									<td>Photo ID</td>
+									<td>Approved</td>
+									<td>3/13/2015 1:53:51 AM</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="widget">
+								<script>
+									function show() {
+										var option = document
+												.getElementById("description1").value;
+										//                                                     var SearchEngine = document.getElementById("SearchEngine");
+										//                                                     var Upline = document.getElementById("Upline");
+										//                                                     var Company = document.getElementById("Company");
+										//                                                     var Newspaper = document.getElementById("Newspaper");
+										//                                                     var Friend = document.getElementById("Agent");
+										//                                                     var description2 = document.getElementById("description2");
+										//                                                     var afiliasi2 = document.getElementById("afiliasi");
+
+										if (option == "photoid") {
+
+											document.getElementById('change').innerHTML = 'Diganti Bos';
+
+											change.innerHTML = '<p>Please attach a colour copy of your Passport Drivers License or Government Issued Photo ID</p><p>Please ensure that :</p><p><i class="fa fa-check"></i> The name on your card matches that of your trading account.</p><p><i class="fa fa-check"></i> The FIRST six and LAST four digits are visible</p><p><i class="fa fa-check"></i> Your credit card is valid and not past it\'s expiry date</p>';
+										}
+
+										if (option == "proof") {
+
+											document.getElementById('change').innerHTML = 'Diganti Bos';
+
+											change.innerHTML = '<p>For example Utility or Phone Bill, Bank Statement or Government issued tax document.</p><p>Please ensure that :</p><p><i class="fa fa-check"></i> Your proof of address is not older than 3 months.</p><p><i class="fa fa-check"></i> Your proof of address shows the same name and address as your account application (no PO box)</p>';
+										}
+										if (option == "additional") {
+
+											document.getElementById('change').innerHTML = 'Diganti Bos';
+
+											change.innerHTML = '<p>Additional information that might be requested by our accounts department</p>';
+										}
+										if (option == "credit") {
+
+											document.getElementById('change').innerHTML = 'Diganti Bos';
+
+											change.innerHTML = '<br><br><p>Enter Your Credit Card No :</p><div class="form-group"><div class="col-xs-3" ><input type="text" class="form-control" maxlength="4"></div><div class="col-xs-2"><input type="text" class="form-control" maxlength="2"></div><div class="col-xs-offset-1 col-xs-3"><input type="text" class="form-control" maxlength="4"></div></div><br><br><div class="form-group"><div class="col-xs-offset-6 col-xs-3"><select class="form-control"><option>Master Card</option><option>Visa</option></select></div></div><br><br><p class="text-justify">Please attach a COLOR scan or photo of the front of your card to our secure file upload system. Please not that if you intend to fund using different cards you must repeat this process for each card used. </p>';
+										}
+
+									}
+								</script>
+								<div class="widget-content padding">
+									<div class="horizontal-form">
+										<form action="#" methode="post">
+											<select class="form-control" name="description1"
+												id="description1" onChange="show()">
+												<!--  
+											If you change the value of Options menu,
+											please change the value of javascript option on the top
+											
+											 -->
+												<option value="photoid">Photo ID</option>
+												<option value="proof">Proof of Residence</option>
+												<option value="additional">Additional Dcouments</option>
+												<option value="credit">Credit / Debit Card copy</option>
+											</select>
+									</div>
+									<br>
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="widget blue-1">
+												<div class="widget-content padding" id="change">
+													<p>Please attach a colour copy of your Passport Drivers
+														License or Government Issued Photo ID</p>
+													<p>Please ensure that :</p>
+													<p>
+														<i class="fa fa-check"></i> The name on your card matches
+														that of your trading account.
+													</p>
+													<p>
+														<i class="fa fa-check"></i> The FIRST six and LAST four
+														digits are visible
+													</p>
+													<p>
+														<i class="fa fa-check"></i> Your credit card is valid and
+														not past it's expiry date
+													</p>
+
+												</div>
+												<br>
+
+											</div>
+											<button class="btn btn-success btn-lg">Upload
+												Document</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="widget">
+								<div class="widget-content padding">
+									<div class="horizontal-form">
+										<div class="form-group">
+											<input type="file" class="btn btn-default"
+												title="Search for a file to add">
+											<p class="help-block">Accepted file types: .pdf, .gif,
+												.png, .doc, .docx and .jpg. max file size 12 Mb.</p>
+										</div>
+										<div class="form-group">
+											<textarea class="form-control" placeholder="Your Text ..."></textarea>
+											<p>
+												<strong>Why are you required to provide a copy of
+													your card?</strong>
+											</p>
+											<p>IC Markets complies with Australian Anti-Money
+												Laundering (AML) law, as such we are required to ensure that
+												we only accept funds from the owner of the trading account
+												and not from another person. Sighting a copy of your credit
+												card ensures that we comply with the law.</p>
+											<p>To be accepted for credit card funding you must ensure
+												that:</p>
+											<p>
+												<!-- <ul> -->
+											<p>
+												<i class="fa fa-check"></i> The name on your card matches
+												that of your trading account.
+											</p>
+											<p>
+												<i class="fa fa-check"></i> The FIRST six and LAST four
+												digits are visible
+											</p>
+											<p>
+												<i class="fa fa-check"></i> Your credit card is valid and
+												not past it's expiry date
+											</p>
+											<!-- </ul> -->
+											</p>
+										</div>
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#dt').DataTable({
+				"paging" : false,
+				"searching" : false
+			});
+		});
+	</script>
+	<script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+	<script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+	<script
+		src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+	<script src="assets/js/pages/datatables.js"></script>

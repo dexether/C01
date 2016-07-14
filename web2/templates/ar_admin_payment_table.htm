@@ -1,0 +1,59 @@
+<table class="table table-hover table-striped" id="dt">
+	<thead>
+		<tr>
+			<th>Account</th>
+			<th>Payment Type</th>
+			<th>Payment Method</th>
+			<th>Date Of Payment</th>
+			<th>Payment Status</th>
+			<th>Payment Action</th>
+			<th>Pay Doc</th>
+		</tr>
+	</thead>
+	<tbody>
+	{foreach from=$datapayments3 item=datapayment}
+		<tr>
+			<td>{$datapayment.Account}</td>
+			<td>{$datapayment.PayType}</td>
+			<td>{$datapayment.PayMethod}</td>
+			<td>{$datapayment.TxnDate} {$datapayment.TxnTime}</td>
+			<td>
+				{if $datapayment.Status=='0'}
+				<span class="label label-danger">Not Yet paid</span>
+				{elseif $datapayment.Status=='1'}
+				<span class="label label-warning">Waiting Confirmation</span>
+				{elseif $datapayment.Status=='2'}
+				<span class="label label-success">Alredy Paid</span>
+				{/if}
+			</td>
+			<td>
+				<div class="btn-group btn-group-xs">
+				{if $datapayment.Status=='2'}
+				<span class="label label-success">No Action Needed</span>
+				{else}
+					<a data-toggle="tooltip" data-modal="form-modal" title="Edit" class="btn btn-default btn-sm md-trigger" onclick="ar_admin_payment_JS.admin_confirm('{$datapayment.IDPay}');"><i class="fa fa-edit"></i></a>
+				{/if}
+					<!-- <a data-toggle="tooltip" data-modal="md-3d-slit" title="Edit" class="btn btn-default"><i class="fa fa-power-off"></i></a> -->
+				
+				</div>
+			</td>
+			<td>
+			{if !empty($datapayment.PayDoc)}
+			<a href="{$datapayment.PayDoc}" data-lightbox="image-1" data-title="My caption">View Images</a>
+			{else}
+				No Attachment
+			{/if}
+			</td>
+		</tr>
+		{foreachelse}
+		<tr>
+			<td colspan="7" class="text-center">No Data Found</td>
+		</tr>
+		{/foreach}
+
+	</tbody>
+</table>
+<div class="md-overlay"></div>
+				<!-- End of eoverlay modal -->
+<script src="assets/libs/nifty-modal/js/classie.js"></script>
+<script src="assets/libs/nifty-modal/js/modalEffects.js"></script>

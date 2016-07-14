@@ -1,0 +1,23 @@
+<div class="form-group">
+	<label for="accounttype" class="col-sm-5 control-label"></label>
+	<div class="col-md-7">
+	{foreach from=$ceksemuaccounts item=ceksemuaccount}
+		<input type="hidden" name="cmd" value="_xclick">
+		<input type="hidden" name="business" value="tarikh-facilitator@si.co.id">
+		<input type="hidden" name="lc" value="USD">
+		<input type="hidden" id="amount" name="amount" value="{$ceksemuaccount.UangNOCommaTax}">
+		<input type="hidden" name="currency_code" value="USD">
+		<input type="hidden" name="button_subtype" value="services">
+		<input type="hidden" name="tax_rate" value="0.000">
+		<input type="hidden" name="shipping" value="0.00">
+		<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
+		<input type="hidden" name="notify_url" value="http://cabinet.dev/web2/cronjob/sandboxcheck.php">
+		<table>
+			<tr><td><input type="hidden" name="on0" value="ACCNO"></td></tr><tr>
+			<td><input type="hidden" name="os0" maxlength="200"  value="{$ceksemuaccount.Account}"></td></tr>
+		</table>
+		<input type="image" src="images/paypal/btn_paynowCC_LG.gif"  class="img image-responsive" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+		<img alt="" border="0" src="images/paypal/pixel.gif" width="1" height="1">
+	{/foreach}
+	</div>
+</div>

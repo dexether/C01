@@ -1,0 +1,42 @@
+<form role="form">
+	<legend>Payment Confirmation</legend>
+	
+	<div class="form-group">
+		<label for="">Account</label>
+		<input type="text" class="form-control" id="" placeholder="Input field" value="{$dataconfirms2.Account}" readonly>
+	</div>
+	<div class="form-group">
+		<label for="">Payment Type</label>
+		<input type="text" class="form-control" id="" placeholder="Input field" value="{$dataconfirms2.PayType}" readonly>
+	</div>
+	<div class="form-group">
+		<label for="">Date of payment</label>
+		<input type="text" class="form-control" id="" placeholder="Input field" value="{$dataconfirms2.TxnDate} {$dataconfirms2.TxnTime}" readonly>
+	</div>
+	<!-- Documemt Pay -->
+	{if $dataconfirms2.PayDoc != ''}
+	<div class="form-group">
+		<label for="">Document Pay</label>
+		<a><a href="{$dataconfirms2.PayDoc}" target="_blank"><i class='fa fa-file-text'></i>Document Pay</a></a>
+	</div>
+	{/if}
+	<legend>Confirmation</legend>
+	<div class="form-group">
+		<label for="">Change status</label>
+		<select class="form-control" id="status" name="status">
+			<option value="">-- Select Payment Status --</option>
+			<option value="0">Not Yet Paid</option>
+			<option value="1">Waiting for confirmation</option>
+			<option value="2">Payment Confirmed</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="amount">Amount</label>
+		<input type="text" name="amount" id="amount" class="form-control" value="{$dataconfirms2.Amount|number_format:2}" readonly>
+	</div>
+
+	<button type="button" class="btn btn-success md-close" onclick="ar_admin_payment_JS.admin_confirm_modal('{$dataconfirms2.IDPay}', status.value, amount.value);">Confirm</button>
+
+<!-- 
+	<button type="button" class="btn btn-success md-close" onclick="ar_admin_payment_JS.admin_confirm_modal('{$dataconfirms2.IDPay}', status.value);">Confirm</button> -->
+</form>

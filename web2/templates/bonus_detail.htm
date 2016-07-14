@@ -1,0 +1,16 @@
+{assign var="i" value="1"}
+{foreach from=$allrows item=row}
+<tr>
+	<td>{$i}</td>
+	<td>{$row.date_receipt}</td>
+	<td>{$row.full}</td>
+	<td>{$row.amount|number_format:2}</td>
+	<td>{$row.comment}</td>
+</tr>
+{assign var="i" value=$i+1}
+{foreachelse}
+<tr>
+	<td colspan="5" class="text-center"><em>No data ...</em></td>
+
+</tr>
+{/foreach}

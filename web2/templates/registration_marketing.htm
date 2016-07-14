@@ -1,0 +1,162 @@
+
+
+<div id="menu" class="content">
+<link rel="stylesheet" href="custom/js/phone/intlTelInput.css">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header transparent">
+                    <h3>
+                        <i class="icon-vcard">
+                        </i>
+                        <strong>
+                          Marketing Registration
+                           {$clientaecode.name} 
+                      </strong>
+                  </h3>
+                  <div class="additional-btn">
+                    <a href="#" class="hidden reload">
+                        <i class="icon-ccw-1"></i>
+                    </a>
+                    <a href="#" class="widget-toggle">
+                        <i class="icon-down-open-2"></i>
+                    </a>
+                    <a href="#" class="widget-close">
+                        <i class="icon-cancel-3"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-content padding">
+                <div id="horizontal-form">
+                
+                 <div class="alert alert-info nomargin">
+                     * Please fill out all fields below , do not let anyone empty
+                     <br>
+                     * And then wait for a reply from admin to confirm your new Account
+                 </div>
+                 <br>
+                 <form id="validation-reg" class="form-horizontal" role="form">
+                    
+               <div id="updateps-form" class="form-group">
+                <label for="tradingplatform" class="col-sm-2 control-label">Your Email</label>
+                <div class="col-md-4">
+                   <input class="form-control" name="email" id="email" type="text" value="{$user->username}">
+				   <p class="help-block"></p>
+               </div>
+				</div>
+				<div id="updateps-form" class="form-group">
+                <label for="tradingplatform" class="col-sm-2 control-label">Your Name</label>
+                <div class="col-md-4">
+                   <input class="form-control" name="nama" id="nama" type="text" value="{$clientaecode.name}">
+				   <p class="help-block"></p>
+               </div>
+				</div>
+				<div id="updateps-form" class="form-group">
+                <label for="tradingplatform" class="col-sm-2 control-label">Your Upline Email</label>
+                <div class="col-md-4">
+                   <input class="form-control" name="upline" type="text">
+				   <p class="help-block"></p>
+               </div>
+				</div>
+           <div class="form-group">
+            <label for="accounttype" class="col-sm-2 control-label">Branch</label>
+            <div class="col-md-4">
+				<select class="form-control" name="city" id="city" type="text">
+                                        <option></option>
+                                        <option>Jakarta</option>
+                                        <option>Bandung</option>
+                                        <option>Surabaya</option>
+                                    </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="accounttype" class="col-sm-2 control-label">Telephone Number</label>
+            <div class="col-md-2">
+                <input class="form-control"  id="telephone_mobile" name="telephone_mobile" type="text" value="{$clientaecode.telephone_mobile}">
+            </div>
+        </div>
+       
+      <div class="form-group">
+         <div class="col-sm-offset-2 col-sm-4">
+            <input type="button" class="btn btn-success" value="Submit"
+            onClick="RM.addM(email.value, nama.value, upline.value, city.value, telephone_mobile.value);">
+        </div>
+    </div>
+</form>
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+</div>
+					<div class="col-md-12 portlets">
+                        <div class="widget">
+                            <div class="widget-header ">
+                                <h2>User Manual Marketing Registration</h2>
+                                <div class="additional-btn">
+                                    <!--<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a> -->
+                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                    <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content padding">
+                            <div class="alert alert-info">
+                              please fill all fields and wait until admin aprove your data.
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+</div>
+</div>
+
+<script src="custom/js/phone/intlTelInput.js"></script>
+    {literal}
+    <script>
+    function onCountryChange() {
+    //alert($("#country").val());
+    }
+    $("#telephone_home").intlTelInput({
+    //allowExtensions: true,
+    //autoFormat: true,
+    //autoHideDialCode: true,
+    autoPlaceholder: true,
+    //defaultCountry: "auto",
+    //geoIpLookup: "ID",
+    nationalMode: false,
+    //numberType: "MOBILE",
+    //onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+    preferredCountries: ['id', 'my', 'sg'],
+    utilsScript: "custom/js/phone/utils.js"
+    });
+    $("#telephone_fax").intlTelInput({
+    autoPlaceholder: true,
+    nationalMode: false,
+    preferredCountries: ['id', 'my', 'sg'],
+    utilsScript: "custom/js/phone/utils.js"
+    });
+    $("#telephone_mobile").intlTelInput({
+    autoPlaceholder: true,
+    nationalMode: false,
+    preferredCountries: ['id', 'my', 'sg'],
+    utilsScript: "custom/js/phone/utils.js"
+    });
+    $("#telephone_office").intlTelInput({
+    autoPlaceholder: true,
+    nationalMode: false,
+    preferredCountries: ['id', 'my', 'sg'],
+    utilsScript: "custom/js/phone/utils.js"
+    });
+    </script>
+    {/literal}
+ <script src="custom/js/bootstrapValidator.min.js"></script>
+ 
+ {literal}
+<script src="custom/js/registration_marketing.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {
+    RM.init();
+});
+</script>
+{/literal}
+ <script src="custom/js/noty_general.js" type="text/javascript"></script>
+
+ 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+
+    {foreach from=$rssitems item=item}
+    <div class="news-blocks">
+        <li>
+            <a href="{$item->rssitem->link}" target="_blank">
+                <p>
+                    <img class="news-block-img pull-right" src="{$item->thumbnail}" alt=""/>
+                    {$item->rssitem->description}
+                </p>
+                <span class="muted"><em>{$item->rssitem->pubDate}</em></span>
+            </a>       
+            <a href="{$item->rssitem->link}" class="news-block-btn" target="_blank">
+                Read more <i class="m-icon-swapright m-icon-black"></i>
+            </a>
+        </li>
+        <br>
+    </div>
+    {/foreach}
+
+
+</html>

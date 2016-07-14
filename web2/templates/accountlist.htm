@@ -1,0 +1,104 @@
+{literal}
+<script>
+    function updateaccount(accountselectnya, classcolor) {
+        $("#accounttheselect").text(accountselectnya + " Selected");
+        //alert("AccountList:"+classcolor);
+        document.getElementById("selectaccountcolor").className = "";
+        document.getElementById("selectaccountcolor").className = classcolor;
+    }
+</script>
+
+{/literal}
+
+<link rel="stylesheet" type="text/css" href="custom/datatable2/media/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="custom/datatable2/resources/syntax/shCore.css">
+<link rel="stylesheet" type="text/css" href="custom/datatable2/resources/demo.css">
+{literal}
+<style type="text/css" class="init">
+    div.container {
+        width: 100%;
+    }
+</style>
+<script type="text/javascript" language="javascript" src="custom/datatable2/media/js/jquery.dataTables.js">
+</script>
+<script type="text/javascript" language="javascript" src="custom/datatable2/resources/syntax/shCore.js">
+</script>
+<script type="text/javascript" language="javascript" src="custom/datatable2/resources/demo.js">
+</script>
+<script type="text/javascript" language="javascript" class="init">
+
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "language": {
+                "search": "<br>"
+            },
+            "scrollY": "250px",
+            "scrollCollapse": false,
+            "paging": false
+        });
+    });
+</script>
+{/literal}
+
+<li class='has_sub'>
+    <a href='javascript:void(0);'>
+        <span class="{$accountskey.$account.color}" id='selectaccountcolor'><i class="icon-user-3"></i></span>
+        <span id='accounttheselect'>
+            {if $account !='dummy' }
+            {$account} Selected
+            {else}
+            Program Inactive
+            {/if}
+        </span> 
+        <span class="pull-right"><i class="fa fa-angle-down"></i></span>
+    </a>
+    <ul>
+        <li>
+            <div >  
+                <table id="example" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Plan</th>
+                            <th>Account</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {foreach from=$accountskey item=key key=account1} 
+                        {if $account1 !='dummy' }
+                        <tr>
+                            <td>
+                                <a href='#'  onclick="AccountList_JS.updatesession('{$account1}');
+        updateaccount('{$account1}', '{$accountskey.$account1.color}');">
+                                    <span class="{$accountskey.$account1.color}"><i class="icon-user-3"></i>                    
+                                    </span>
+                                    &nbsp;{$key.group_play}&nbsp;
+                                </a>
+                            </td>
+                            <td>
+                                <a href='#'  onclick="AccountList_JS.updatesession('{$account1}');
+        updateaccount('{$account1}', '{$accountskey.$account1.color}');">
+                                    <span>{$account1}</span>
+                                </a>
+                            </td>
+                        </tr>
+                        {/if}
+                        {/foreach}                      
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </li>
+    </ul>
+</li>
+
+
+{literal}
+<script src="custom/js/accountlist.js" type="text/javascript"></script>
+<script>
+    jQuery(document).ready(function() {
+        AccountList_JS.init();
+    });
+</script>
+{/literal}

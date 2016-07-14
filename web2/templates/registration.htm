@@ -1,0 +1,119 @@
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+{literal}
+<script language="javascript">
+   var loadMainMenu = function onclick() {
+
+        $('.mm_menuitem').click(function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            //console.log("md_index.js-31:"+url);
+            //alert("md_index.js-31:"+url);
+            $.ajax({
+                url:  url,
+                type: 'GET',
+                success: function(response) {
+                  $("#main_content").html(response);      
+                }
+            });
+            // var wid = zk.Widget.$(jq("$main_content"));
+            // zAu.send(new zk.Event(wid, 'onMenuChange', [url]));
+        });
+        
+
+    };
+</script>
+{/literal}
+
+<div id="main_content" class="content">    
+    <div class="row">
+        <div class="col-md-12 portlets">
+            <div class="widget">
+                <div class="widget-header transparent">
+                    <h3><strong>&nbsp;&nbsp;Registration</strong></h3>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div>
+                <div class="widget-content padding">
+                    <div class="alert alert-success">
+                        Presumably you 've read all the provisions , Marketing Plan , FAQ , before submitting your registration and payment . 
+                        Complaints afterwards are not received.
+                    </div>
+                    <form role="form" id="registerForm">
+                        <div class="form-group col-md-12">
+                            <h4><strong>Step 1</strong>&nbsp;&nbsp;<span class="label label-default">fill the amount of risk you wish to take learn more</span></h4>								
+                            <div class="col-md-3">
+                                <label>Set your Risk Profile % :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="Account Number">
+
+                            </div> 							
+                        </div>
+                        <div class="form-group col-md-12">
+                            <h4><strong>Step 2</strong>&nbsp;&nbsp;<span class="label label-default">Choose Algo Trading System</span></h4>
+                            <label>Select the trader to Follow Learn More</label><br><br>						
+                            <div id="slideshow-mudah" class="carousel slide col-md-6" data-ride="carousel">
+                                <ol class="carousel-indicators">    
+                                    <li data-target="#slideshow-mudah" data-slide-to="1" class="active"></li>
+                                    <li data-target="#slideshow-mudah" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="item active">       
+                                        <div class="content">
+                                            <div class="col-md-5">
+
+                                                <img src="images/mlm/AST1.png" align="right">
+                                            </div>
+                                            <div class="col-md-6"> <input type="checkbox">&nbsp;&nbsp;
+                                                <a style='border:none' href='http://www.fxstat.com/performances/view/47617'><img src='https://www.fxstat.com/widget/link?t=small&c=1&s=47617&o1=growth&o2=drawdown&o3=monthly&o4=equity'></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">       
+                                        <div class="content">
+                                            <div class="col-md-5">
+
+                                                <img src="images/mlm/AST2.png" align="right">
+                                            </div>
+                                            <div class="col-md-6"> <input type="checkbox">&nbsp;&nbsp;
+                                                <a style='border:none' href='http://www.fxstat.com/performances/view/47617'><img src='https://www.fxstat.com/widget/link?t=small&c=1&s=47617&o1=growth&o2=drawdown&o3=monthly&o4=equity'></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>	
+                                <button type="button" class="btn btn-success left carousel-control" href="#slideshow-mudah" data-slide="prev">
+                                    prev
+                                </button>
+                                <button type="button" class="btn btn-success right carousel-control" href="#slideshow-mudah" data-slide="next">
+                                    next
+                                </button>
+                            </div>
+                        </div>
+                        <label><input type="checkbox"> Open existing position of selected Algo Trading System at Current market price</label>
+                        <br>
+                        <br>
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-warning">Go to Algo Workshop</button>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="label label-default">Thank you i don't need the Wizard</span>
+                            </div>
+                            <div class="col-md-2">
+                                <a href='registration2.php'  onclick="cek_active('registration2');" class='mm_menuitem btn btn-success'  id="registration2">Go to the next Step</a>
+                            </div>
+                        </div><br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="assets/libs/jquery/jquery-1.11.1.min.js"></script>
+<script src="assets/libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="custom/js/pages/index.js"></script>

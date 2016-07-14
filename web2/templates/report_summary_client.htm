@@ -1,0 +1,573 @@
+<link rel="stylesheet" type="text/css" href="custom/datatable2/media/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="custom/datatable2/resources/syntax/shCore.css">
+
+{literal}
+<style type="text/css" class="init">
+    div.container {
+        width: 100%;
+    }
+</style>
+<script type="text/javascript" language="javascript" src="custom/datatable2/media/js/jquery.dataTables.js">
+</script>
+<script type="text/javascript" language="javascript" src="custom/datatable2/resources/syntax/shCore.js">
+</script>
+<script type="text/javascript" language="javascript" src="custom/datatable2/resources/demo.js">
+</script>
+<script type="text/javascript" language="javascript" class="init">
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "language": {
+                "search": "<br>"
+            },
+            "scrollY": "250px",
+            "scrollX": "250px",
+            "scrollCollapse": false,
+            "paging": false
+        });
+    });
+
+    $(document).ready(function() {
+        $('#example2').DataTable({
+            "scrollY": "250px",
+            "scrollX": "250px",
+            "scrollCollapse": false,
+            "paging": false
+        });
+    });
+
+    $(document).ready(function() {
+        $('#example3').DataTable({
+            "scrollY": "250px",
+            "scrollX": "250px",
+            "scrollCollapse": false,
+            "paging": false
+        });
+    });
+
+
+
+    $(document).ready(function() {
+        $('#example5').DataTable({
+            "scrollY": "250px",
+            "scrollX": "250px",
+            "scrollCollapse": false,
+            "paging": false
+        });
+    });
+
+    $(document).ready(function() {
+        $('#example6').DataTable({
+            "scrollY": "250px",
+            "scrollX": "250px",
+            "scrollCollapse": false,
+            "paging": false
+        });
+    });
+</script>
+{/literal}
+<div id="main_content" class="content">
+    <div class="page-heading">
+        <h1><i class="icon-vcard"></i>Today</h1>           	
+    </div>
+    {if $adadata=='ya'}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header">
+                    <h2><strong>Temporary Statement</strong></h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a>   
+                        <a href="#" class="widget-maximize hidden"><i class="icon-resize-full-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+
+
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <br>					
+                    <div class="table-responsive">
+
+                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Previous Balance</th>
+                                    <th>Margin In</th>
+                                    <th>Margin Out</th>
+                                    <th>PL</th>
+                                    <th>Floating PL,Int,Comm,Adjust</th>
+                                    <th>Equity</th>
+                                    <th>Margin Required</th>
+                                    <th>Free Margin</th>
+                                    <th>Equity Ratio</th>
+                                </tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>{$total.PREVBALANCE|number_format:2}</th>
+                                    <th>{$total.MARGININ|number_format:2}</th>
+                                    <th>{$total.MARGINOUT|number_format:2}</th>
+                                    <th>{$total.PL|number_format:2}</th>
+                                    <th>{$total.floatingsemua|number_format:2}</th>
+                                    <th>{$total.EQUITY|number_format:2}</th>
+                                    <th>{$total.MARGINREG|number_format:2}</th>
+                                    <th>{$total.MARGIN_FREE|number_format:2}</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+
+                            <tbody>
+                                {foreach from=$statements item=statement key=mt_login} 
+                                <tr>
+                                    <td>
+                                        <a href='#'>
+                                            {$mt_login}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {$statement.status.PREVBALANCE|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.MARGININ|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.MARGINOUT|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.PL|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.floatingsemua|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.EQUITY|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.MARGINREG|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.MARGIN_FREE|number_format:$statement.status.user_decimal}
+                                    </td>
+                                    <td>
+                                        {$statement.status.eqratio}
+                                    </td>
+                                </tr>
+                                {/foreach} 
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header">
+                    <h2><strong>Net Margin/Position</strong></h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a>   
+                        <a href="#" class="widget-maximize hidden"><i class="icon-resize-full-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+
+
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <br>					
+                    <div class="table-responsive">
+
+                        <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Account</th>
+                                    <th colspan="2">Margin In/Out</th>
+                                    <th rowspan="2">Item</th>
+                                    <th colspan="2">Open Position</th>
+                                    <th colspan="2">Settled Position</th>
+                                </tr>
+                                <tr>
+                                    <th>Daily</th>
+                                    <th>Monthly</th>
+                                    <th>Buy</th>
+                                    <th>Sell</th>
+                                    <th>Daily</th>
+                                    <th>Monthly</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th>{$total.MARGININ|number_format:2}</th>
+                                    <th>{$total.MARGINMONTHLY|number_format:2}</th>
+                                    <th></th>
+                                    <th>{$total.BUYOPEN}</th>
+                                    <th>{$total.SELLOPEN}</th>
+                                    <th>{$total.DAILYSETTLED}</th>
+                                    <th>{$total.MONTHLYSETTLED}</th>
+                                </tr>
+                            </tfoot>
+
+                            <tbody>
+                                {foreach from=$statements3 item=statement1 key=mt_login} 
+                                {foreach from=$statement1 item=statement2 } 
+                                <tr>
+                                    <td>{$mt_login}</td>
+                                    <td>{$statement2.MARGIN|number_format:2}</td>
+                                    <td>{$statement2.MARGINMONTHLY|number_format:2}</td>
+                                    <td>{$statement2.SYMBOL}</td>
+                                    <td>{$statement2.BUYOPEN}</td>
+                                    <td>{$statement2.SELLOPEN}</td>
+                                    <td>{$statement2.DailySettled}</td>
+                                    <td>{$statement2.MonthlySettled}</td>
+                                </tr>  
+                                {/foreach} 
+                                {/foreach} 
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {foreach from=$turnover item=turnover1 key=thesymbol} 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header">
+                    <h2><strong>Turn Over {$thesymbol} {$total.themonth}</strong></h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a>   
+                        <a href="#" class="widget-maximize hidden"><i class="icon-resize-full-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+
+
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <br>					
+                    <div class="table-responsive">
+                        <table id="example3{$thesymbol}" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>CounterId</th>
+                                    <th>Date</th>
+                                    <th>Open</th>
+                                    <th>Settled</th>
+                                    <th>TurnOver</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>{$subtotal.$thesymbol.OPENLOT}</th>
+                                    <th>{$subtotal.$thesymbol.SETTLEDLOT}</th>
+                                    <th>{$subtotal.$thesymbol.TURNOVERLOT}</th>
+                                </tr>
+                            </tfoot>
+
+                            <tbody>
+
+                                {foreach from=$turnover1 item=turnover2 key=therolldate}
+                                <tr>
+                                    <td>{$thesymbol}
+                                    </td>
+                                    <td>{$therolldate}
+                                    </td>
+                                    <td>{$turnover2.opennya}
+                                    </td>
+                                    <td>{$turnover2.settled}
+                                    </td>
+                                    <td>{$turnover2.turnover2}
+                                    </td>
+                                </tr>                      
+                                {/foreach}
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/foreach}
+    {if $turnover}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header">
+                    <h2><strong>Turn Over Total</strong></h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a>   
+                        <a href="#" class="widget-maximize hidden"><i class="icon-resize-full-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+
+
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <br>					
+                    <div class="table-responsive">
+
+                        <table id="example4" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>CounterId</th>
+                                    <th>Date</th>
+                                    <th>Open</th>
+                                    <th>Settled</th>
+                                    <th>TurnOver</th>
+                                </tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>{$total.OPENLOT}</th>
+                                    <th>{$total.SETTLEDLOT}</th>
+                                    <th>{$total.TURNOVERLOT}</th>
+                                </tr>
+                            </tfoot>
+
+                            <tbody>
+
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/if}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header">
+                    <h2><strong>Margins {$total.themonth}</strong></h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a>   
+                        <a href="#" class="widget-maximize hidden"><i class="icon-resize-full-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <br>					
+                    <div class="table-responsive">
+                        <table id="example5" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Account</th>
+                                    <th>Margin In</th>
+                                    <th>Margin Out</th>
+                                    <th>Credit In</th>
+                                    <th>Credit Out</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>{$total.MARGININ|number_format:2}</th>
+                                    <th>{$total.MARGINOUT|number_format:2}</th>
+                                    <th>{$total.CREDITIN|number_format:2}</th>
+                                    <th>{$total.CREDITOUT|number_format:2}</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>                            
+                                {foreach from=$margins item=margin1 key=rolldate}
+                                {foreach from=$margin1 item=margin2 key=account}
+                                <tr>
+                                    <td>{$rolldate}
+                                    </td>
+                                    <td>{$account}
+                                    </td>
+                                    <td>{$margin2.MARGININ|number_format:2}
+                                    </td>
+                                    <td>{$margin2.MARGINOUT|number_format:2}
+                                    </td>
+                                    <td>{$margin2.CREDITIN|number_format:2}
+                                    </td>
+                                    <td>{$margin2.CREDITOUT|number_format:2}
+                                    </td>
+                                </tr>                      
+                                {/foreach}   
+                                {/foreach} 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header">
+                    <h2><strong>Open Position</strong></h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a>   
+                        <a href="#" class="widget-maximize hidden"><i class="icon-resize-full-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <br>					
+                    <div class="table-responsive">
+                        <table id="example6" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Account</th>
+                                    <th rowspan="2">Item</th>
+                                    <th colspan="1">Unit</th>
+                                    <th rowspan="2">Sell Price</th>
+                                    <th rowspan="2">Buy Price</th>
+                                    <th colspan="2">Date</th>
+                                    <th rowspan="2">Current</th>
+                                    <th colspan="2">Floating PL,Int,</th>
+                                </tr>
+                                <tr>
+                                    <th>(s)</th>
+                                    <th>Buy</th>
+                                    <th>Sell</th>
+                                    <th>Comm,Adjust</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>                            
+                                {foreach from=$opennya item=dataopen1 key=login}
+                                {foreach from=$dataopen1 item=dataopen2 key=symbol}
+                                {foreach from=$dataopen2 item=dataopen3 key=icount}
+                                <tr>
+                                    <td>{$login}
+                                    </td>
+                                    <td>{$symbol}
+                                    </td>
+                                    <td>{$dataopen3.UNIT}
+                                    </td>
+                                    <td>{$dataopen3.SELLPRICE}
+                                    </td>
+                                    <td>{$dataopen3.BUYPRICE}
+                                    </td>
+                                    <td>{$dataopen3.BUYDATE}
+                                    </td>
+                                    <td>{$dataopen3.SELLDATE}
+                                    </td>
+                                    <td>{$dataopen3.CURRENT}
+                                    </td>
+                                    <td>{$dataopen3.FLOATING}
+                                    </td>
+                                </tr>                                        
+                                {/foreach}
+                                {/foreach}
+                                {/foreach}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {/if}
+
+
+    <div class="row">
+        <div class="col-lg-12 portlets">
+            <div class="widget">
+                <div class="widget-header">
+                    <h2>Selection</h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div>
+                <div class="widget-content padding"> 
+
+                    <div class="form-group">
+                        <div class="col-sm-12">                            
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <select name='statements_filter' id="statements_filter">
+                                            {foreach from=$statements_filter item=statements_filter1}
+                                            <option value='{$statements_filter1.mt4dt}' {if $mt4dtselect==$statements_filter1.mt4dt} selected {/if}>{$statements_filter1.alias}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>                                    
+                                </div>    
+                                <div class="col-sm-5">
+                                    <div class="input-group">
+                                        <select name='accountstatus' id="accountstatus">
+                                            <option value='activeaccountposition' {if $accountstatusselect=='activeaccountposition'} selected {/if}>Active Account with Position</option>
+                                            <option value='activeaccountnoposition' {if $accountstatusselect=='activeaccountnoposition'} selected {/if}>Active Account with no Open Position</option>
+                                            <option value='closeaccount' {if $accountstatusselect=='closeaccount'} selected {/if}>Close Account</option>
+                                        </select>
+                                    </div>                                    
+                                </div>     
+                                <div class="col-sm-5">
+                                    <div class="input-group">
+                                        <input type="button" class="btn btn-blue-3" id="button3" 
+                                               name="seetugas"  value="Reload Today Summary"  clas s="form-control"
+                                               onClick="Report_Summary_Client_Running_JS.reloadfilter(statements_filter.value,accountstatus.value);"/>
+                                    </div>                                    
+                                </div> 
+                            </div>
+                        </div>
+                    </div>                  
+                    <br>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="custom/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="assets/libs/bootstrap-inputmask/inputmask.js"></script>
+{literal}
+<script src="custom/js/report_summary_client_running.js" type="text/javascript"></script>
+<script>
+    jQuery(document).ready(function() {
+        Report_Summary_Client_Running_JS.init();
+    });
+</script>
+{/literal}
+<script src="assets/libs/jquery-notifyjs/notify.min.js"></script>
+<script src="assets/libs/jquery-notifyjs/styles/metro/notify-metro.js"></script>
+<script src="custom/js/noty_general.js"></script>

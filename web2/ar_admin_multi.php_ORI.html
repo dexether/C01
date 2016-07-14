@@ -1,0 +1,127 @@
+<?php
+include_once("$_SERVER[DOCUMENT_ROOT]/includes/functions.php");
+include_once("$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php");
+include_once("includes/wr_tools.php");
+$var_to_pass = null;
+global $user;
+global $template;
+global $themonth;
+global $mysql;
+global $DB;
+
+if (isset($user)) {
+    $user;
+}
+$user = $_SESSION['user'];
+$template->assign("user", $user);
+
+
+//TradeLogUnderConstruct_Secure("Profile-175-Get_PostMode:" . $_GET[postmode]);
+$postmode = '';
+if (isset($_GET['postmode'])) {
+    $postmode = $_GET['postmode'];
+}
+
+/*==============================
+=            Coding            =
+==============================*/
+$date = date('Ym', time());
+$query = "SELECT 
+mlm.`ACCNO`,
+mlm_payment.`Status`,
+mlm_bonus_settings.`description`,
+mlm_bonus_settings.`lv`,
+mlm_bonus_settings.`amount` 
+FROM
+mlm,
+mlm_payment,
+mlm_bonus_settings 
+WHERE mlm.`ACCNO` = mlm_payment.`Account` 
+AND mlm_payment.`PayFor` = 'PV:201604' 
+AND mlm_payment.`Status` = '2' 
+AND mlm.`group_play` = mlm_bonus_settings.`group_play` LIMIT 0,1 ";
+$result = $DB->execresultset($query);
+var_dump($result);
+foreach($result as $rows) {
+	$account_lv1 = $rows['ACCNO'];
+	$query = "SELECT 
+	mlm.`ACCNO`,
+	mlm_bonus_settings.`amount`
+	FROM
+	mlm,
+	mlm_payment,
+	mlm_bonus_settings
+	WHERE mlm.`Upline` = '$account_lv1' 
+	AND mlm_payment.`Account` = mlm.`ACCNO`
+	AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
+	AND mlm_payment.`PayFor` = 'PV:$date' 
+	AND mlm_payment.`Status` = '2'  ";
+	$total_lv1 = 0;
+	$result2 = $DB->execresultset($query);
+	var_dump($result2);
+	$total_lv2_has = 0;
+	foreach($result2 as $rows2){
+		$account_lv2 = $rows2['ACCNO'];
+		$total_lv1 = $total_lv1 + $rows2['amount'];
+		$query = "SELECT 
+		mlm.`ACCNO`,
+		mlm_bonus_settings.`amount`
+		FROM
+		mlm,
+		mlm_payment,
+		mlm_bonus_settings
+		WHERE mlm.`Upline` = '$account_lv2' 
+		AND mlm_payment.`Account` = mlm.`ACCNO`
+		AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
+		AND mlm_payment.`PayFor` = 'PV:$date' 
+		AND mlm_payment.`Status` = '2'  ";
+		$total_lv2 = 0;
+		$result3 = $DB->execresultset($query);
+		var_dump($result3);
+		foreach($result3 as $rows3){
+			$total_lv2 = $total_lv2 + $rows3['amount'];
+		}
+		// echo "<br>BONUS FOR LV 1 FOR - ".$account_lv1 . " IS " . $total_lv2;
+		$total_lv2_has = $total_lv2_has + $total_lv2;	
+	}
+	// var_dump($result2);
+	echo "<br>BONUS FOR LV 1 FOR - ".$account_lv1 . " IS " . $total_lv1;
+	
+}
+/*=====  End of Coding  ======*/
+
+
+function checkchild($account){
+	global $DB;
+	$date = date('Ym', time());
+	$query = "SELECT 
+	mlm.`ACCNO`,
+	mlm_bonus_settings.`amount`
+	FROM
+	mlm,
+	mlm_payment,
+	mlm_bonus_settings
+	WHERE mlm.`Upline` = '$account' 
+	AND mlm_payment.`Account` = mlm.`ACCNO`
+	AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
+	AND mlm_payment.`PayFor` = 'PV:$date' 
+	AND mlm_payment.`Status` = '2'  ";
+	$result = $DB->execresultset($query);
+	$hasil = array();
+	foreach($result as $rows) {
+		$hasil[] = $rows;
+	}
+	return $hasil;
+}
+
+function TradeLogUnderConstruct_Secure($msg) {
+    $fp = fopen("trader.log", "a");
+    $logdate = date("Y-m-d H:i:s => ");
+    $msg = preg_replace("/\s+/", " ", $msg);
+    fwrite($fp, $logdate . $msg . "\n");
+    fclose($fp);
+    return;
+}
+
+
+?>

@@ -1,0 +1,135 @@
+<div class="table-responsive">
+<img src="{$logo}" class="img-responsive center-block" height="53">
+    {foreach from=$statements item=statement}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th colspan="4" class="text-center">Account</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Previous Balance</strong></td>
+                <td>{$statement.status.PREVBALANCE|number_format:$statement.status.user_decimal}</td>
+                <td><strong>Floating P/L,Interest,Commission,Adjustment</strong></td>
+                <td>{$statement.status.floatingsemua|number_format:$statement.status.user_decimal}</td>
+            </tr>
+            <tr>
+                <td><strong>Margin In</strong></td>
+                <td>{$statement.status.MARGININ|number_format:$statement.status.user_decimal}</td>
+                <td><strong>Equity</strong></td>
+                <td>{$statement.status.EQUITY|number_format:$statement.status.user_decimal}</td>
+                
+            </tr>
+            <tr>
+                <td><strong>Margin Out</strong></td>
+                <td>{$statement.status.MARGINOUT|number_format:$statement.status.user_decimal}</td>
+                <td><strong>Margin Required</strong></td>
+                <td>{$statement.status.MARGIN|number_format:$statement.status.user_decimal}</td>
+            </tr>
+            <tr>
+                <td><strong>Profit / Loss</strong></td>
+                <td>{$statement.status.PL|number_format:$statement.status.user_decimal}</td>
+                <td><strong>Free Margin</strong></td>
+                <td>{$statement.status.MARGIN_FREE|number_format:$statement.status.user_decimal}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><strong>Equity Ratio</strong></td>
+                <td>{$statement.status.eqratio}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<div class="text-center"><strong>SETTLED POSITION</strong></div>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Meta Trader Id</th>
+                <th>Item</th>
+                <th>Units</th>
+                <th>Open</th>
+                <th>BUY</th>
+                <th>SELL</th>
+                <th>LIQ. DATE</th>
+                <th>LIQ. PRICE</th>
+                <th>COMM</th>
+                <th>PL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {if $statement.settled|@count > 1}
+            {foreach from=$statement.settled item=settledposition}
+            <tr>
+                <td><div align="center">{$settledposition.SYMBOL}</div></td>
+                <td><div align="center">{$settledposition.Unit|number_format:2}</div></td>
+                <td><div align="center">{$settledposition.OPEN_TIME}</div></td>
+                <td><div align="center">{$settledposition.BuyPrice}</div></td>
+                <td><div align="center">{$settledposition.SellPrice}</div></td>
+                <td><div align="center">{$settledposition.CLOSE_TIME}</div></td>
+                <td><div align="center">{$settledposition.CLOSE_PRICE}</div></td>
+                <td><div align="right">{$settledposition.COMMISSION|number_format:2}</div></td>
+                <td><div align="right">{$settledposition.PROFIT|number_format:2}</div></td>
+                <td><div align="center">{$settledposition.TICKET}</div></td>
+            </tr>
+            {foreachelse}
+            <tr>
+                <td height="auto" colspan="10"><p align="center" class="style8">NO SETTLE POSITION</p></td>
+            </tr>
+            {/foreach}
+            {else}
+            <tr>
+                <td height="auto" colspan="10"><p align="center" class="style8">NO SETTLE POSITION</p></td>
+            </tr>
+            {/if}
+        </tbody>
+    </table>
+</div>
+<br>
+<div class="text-center"><strong>OPEN POSITION</strong></div>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Meta ID</th>
+                <th>Items</th>
+                <th>Units</th>
+                <th>Date</th>
+                <th>Bought</th>
+                <th>Sold</th>
+                <th>Closing</th>
+                <th>Floating PL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach from=$statement.open item=openposition}
+            <tr>
+                <td class="text-center">{$openposition.TICKET}</td>
+                <td class="text-center">{$openposition.SYMBOL}</td>
+                <td class="text-center">{$openposition.Unit|number_format:2}
+                </td>
+                <td class="text-center">
+                    {$openposition.OPEN_TIME}
+                </td>
+                <td class="text-center">
+                    {if $openposition.CMD=='0'} {$openposition.OPEN_PRICE} {else} - {/if}
+                </td>
+                <td class="text-center">
+                    {if $openposition.CMD=='1'} {$openposition.OPEN_PRICE} {else} - {/if}
+                </td>
+                <td class="text-center">{$openposition.CLOSE_PRICE}</td>
+                <td class="text-center">{$openposition.PL|number_format:$statement.status.user_decimal}</td>
+            </tr>
+
+            {foreachelse}
+            <tr>
+                <td height="auto" colspan="9"><p align="center">NO OPEN POSITION</p></td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+    {/foreach}
+</div>

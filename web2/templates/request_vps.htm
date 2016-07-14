@@ -1,0 +1,95 @@
+<link rel="stylesheet" type="text/css" href="custom/datatable2/media/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="custom/datatable2/resources/syntax/shCore.css">
+
+<script type="text/javascript" language="javascript" src="custom/datatable2/media/js/jquery.dataTables.js">
+</script>
+<script type="text/javascript" language="javascript" src="custom/datatable2/resources/syntax/shCore.js">
+</script>
+<script type="text/javascript" language="javascript" src="custom/datatable2/resources/demo.js">
+</script>
+
+<!-- Extra CSS Libraries Start -->
+<link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+<!-- Extra CSS Libraries End -->
+<div id="main_content" class="content">
+	<div class="page-heading">
+		<h1>
+			<i class='fa icon-list'></i> REQUEST A VPS
+		</h1>
+	</div>
+
+	<!-- Page Heading End-->
+	<!-- Your awesome content goes here -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="widget">
+				<div class="widget-header">
+					<h2>
+						<strong>REQUEST</strong> A VPS
+					</h2>
+					<div class="additional-btn">
+						<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a> <a
+							href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+						<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+					</div>
+				</div>
+				<div class="widget-content padding">
+					<div class="alert alert-success">
+						you can request IC Markets sponsored VPS by submitting your
+						request below. please note that the an IC Markets sponsored VPS
+						require a minimum monthly trading volume of 100 lots. if you do
+						not meet these ruquitments you can subscribe to one of our <a
+							href="#">prefered VPS Partners</a> to receive a discount rate
+					</div>
+					<div class="horizontal-form">
+						<form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="account" class="col-sm-2 control-label">Request Details</label>
+                                <div class="col-md-4">
+                                	<textarea class="form-control"></textarea>
+                            	</div>
+                            </div>
+                            <div class="form-group">
+                            	<div class="col-md-offset-2 col-md-2">
+                            		<button class="btn btn-success">Send Request <span class="glyphicon glyphicon-play"></button>
+                            	</div>
+                            </div>
+						</form>
+					</div>
+					<br>
+					<h2>Your Request</h2>
+					<br>
+					<div class="table-responsive">
+						<table class="table table-responsive table-hover" id="dt">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>2016-01-01</td>
+									<td>Active</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#dt').DataTable( {
+        "paging":   false,
+        "searching": false
+    } );
+   
+} );
+</script>
+<script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+<script src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="assets/js/pages/datatables.js"></script>

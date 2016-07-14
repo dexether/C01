@@ -1,0 +1,963 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+* {
+    padding-top: 0;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+input[type="submit"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner{   
+    border : 0px;
+} 
+
+@font-face {  
+    font-family:"Calibri";
+    src: url(font/calibri.ttf ) format("truetype");  
+}  
+
+@font-face {  
+    font-family:"BELL";
+    src: url(font/BELL.ttf ) format("truetype");  
+}  
+
+img{
+    border:none;
+}
+
+a{
+    text-decoration:;
+}
+
+
+/*------------------------------------------------HEADER-------------------------------*/
+body{
+    background:#ffffff;
+}
+
+#header{
+    position:relative;
+    overflow: hidden;
+    padding-top:15px;
+}
+
+#logo{
+    margin:0 auto;
+    background:url(logo.png) no-repeat center;
+    width:221px;
+    height:44px;
+    margin-bottom:15px;
+}
+
+
+.all_bungkus{
+    position:relative;
+    overflow:hidden;
+    width:95%;
+    margin-left:auto;
+    margin-right:auto;
+    /*background:#999999;*/
+}
+
+
+
+/*-----------------------------------------LOGIN--------------------------*/
+
+
+.text_login{
+    width:96%;
+    border:none;
+    background:#e3e3e3;
+    font-family: Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:95%;
+    color:#6d6d6d;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:2%;
+    padding-right:2%;
+    margin-bottom:10px;
+    -moz-border-radius-topleft:7px;
+    -moz-border-radius-bottomleft:7px; 
+    -webkit-border-bottom-left-radius:7px;
+    -webkit-border-top-left-radius:7px;
+    -moz-border-radius-topright:7px;
+    -moz-border-radius-bottomright:7px;
+    -webkit-border-bottom-right-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    border-top-right-radius:7px;
+    border-bottom-right-radius:7px;
+    border-bottom-left-radius:7px;
+    border-top-left-radius:7px;
+}
+
+
+
+#slide{
+    background:url(header.png) no-repeat center;
+    position:relative;
+    overflow:hidden;
+    height:100px;
+}
+
+
+
+/*-----------------------------TOMBOL-LOGIN-----------------------*/
+
+
+.tombol_login{
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:90%;
+    text-decoration:none;
+    display:block;
+    cursor:pointer;
+    padding-top:10px;
+    padding-bottom:10px;
+    width:100%;
+    border-style:none;
+    background:#41a8dc;
+    color:#ffffff;
+    font-weight:bold;
+    -moz-border-radius-topleft:7px;
+    -moz-border-radius-bottomleft:7px; 
+    -webkit-border-bottom-left-radius:7px;
+    -webkit-border-top-left-radius:7px;
+    -moz-border-radius-topright:7px;
+    -moz-border-radius-bottomright:7px;
+    -webkit-border-bottom-right-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    border-top-right-radius:7px;
+    border-bottom-right-radius:7px;
+    border-bottom-left-radius:7px;
+    border-top-left-radius:7px;
+}
+.tombol_login:hover{
+    background:#3ea4d7;
+}
+.tombol_login:active{
+    background:#3498cb;
+}
+
+
+
+.tombol_daftar{
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:90%;
+    text-decoration:none;
+    display:block;
+    cursor:pointer;
+    padding-top:10px;
+    padding-bottom:10px;
+    width:100%;
+    border-style:none;
+    background:#8064a2;
+    color:#ffffff;
+    font-weight:bold;
+    -moz-border-radius-topleft:7px;
+    -moz-border-radius-bottomleft:7px; 
+    -webkit-border-bottom-left-radius:7px;
+    -webkit-border-top-left-radius:7px;
+    -moz-border-radius-topright:7px;
+    -moz-border-radius-bottomright:7px;
+    -webkit-border-bottom-right-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    border-top-right-radius:7px;
+    border-bottom-right-radius:7px;
+    border-bottom-left-radius:7px;
+    border-top-left-radius:7px;
+}
+.tombol_daftar:hover{
+    background:#785c9a;
+}
+.tombol_daftar:active{
+    background:#6e5291;
+}
+
+
+
+.lupa_password{
+    margin-top:15px;
+    text-align:center;
+}
+.lupa_password a{
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:95%;
+    color:#6d6d6d;
+    text-decoration:underline;
+    text-align:center;
+}
+.lupa_password a:hover{
+    color:#666666;
+}
+
+
+/*----------------------------------------------CONTENT-------------------------------*/
+
+
+#content{
+    position:relative;
+    overflow:hidden;
+    padding-left:2%;
+    padding-right:2%;
+}
+
+
+/*----------------------------------------------BAGAN-------------------------------*/
+
+
+
+
+/*------------------------------HIJAU-------------------------------*/
+.bagan_hijau_left a{
+    /*background:url(user_bagan_hijau.png) no-repeat top center;*/
+    display:block;
+    float:left;
+    margin-right:12%;
+    margin-left:0.5%;
+    width:23%;
+    padding:1%;
+    /*padding-top:53px;*/
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    background-color:#dadada;
+    -moz-border-radius-topleft:50px;
+    -moz-border-radius-bottomleft:50px; 
+    -webkit-border-bottom-left-radius:50px;
+    -webkit-border-top-left-radius:50px;
+    -moz-border-radius-topright:50px;
+    -moz-border-radius-bottomright:50px;
+    -webkit-border-bottom-right-radius:50px;
+    -webkit-border-top-right-radius:50px;
+    border-top-right-radius:50px;
+    border-bottom-right-radius:50px;
+    border-bottom-left-radius:50px;
+    border-top-left-radius:50px;
+}
+
+.bagan_hijau_netral a{
+    /*background:url(user_bagan_hijau.png) no-repeat top center;*/
+    display:block;
+    float:right;
+    width:23%;
+    padding:1%;
+    /*padding-top:53px;*/
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    background-color:#dadada;
+    -moz-border-radius-topleft:50px;
+    -moz-border-radius-bottomleft:50px; 
+    -webkit-border-bottom-left-radius:50px;
+    -webkit-border-top-left-radius:50px;
+    -moz-border-radius-topright:50px;
+    -moz-border-radius-bottomright:50px;
+    -webkit-border-bottom-right-radius:50px;
+    -webkit-border-top-right-radius:50px;
+    border-top-right-radius:50px;
+    border-bottom-right-radius:50px;
+    border-bottom-left-radius:50px;
+    border-top-left-radius:50px;
+}
+
+
+/*------BINTANG-----*/
+.bintang_hijau_left a{
+    background:url(bintang_hijau.png) no-repeat top center;
+    display:block;
+    float:left;
+    margin-right:12%;
+    margin-left:0.5%;
+    width:23%;
+    padding:1%;
+    padding-top:53px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+}
+
+.bintang_hijau_netral a{
+    background:url(bintang_hijau.png) no-repeat top center;
+    display:block;
+    float:right;
+    width:23%;
+    padding:1%;
+    padding-top:53px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+}
+
+
+
+/*------KOTAK-----*/
+.kotak_hijau_left a{
+    /*background:url(bagan_hijau_kotak.png) no-repeat top center;*/
+    display:block;
+    float:left;
+    margin-right:12%;
+    margin-left:0.5%;
+    width:23%;
+    padding:1%;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    background-color:#dadada;
+    -moz-border-radius-topleft:50px;
+    -moz-border-radius-bottomleft:50px; 
+    -webkit-border-bottom-left-radius:50px;
+    -webkit-border-top-left-radius:50px;
+    -moz-border-radius-topright:50px;
+    -moz-border-radius-bottomright:50px;
+    -webkit-border-bottom-right-radius:50px;
+    -webkit-border-top-right-radius:50px;
+    border-top-right-radius:50px;
+    border-bottom-right-radius:50px;
+    border-bottom-left-radius:50px;
+    border-top-left-radius:50px;
+}
+
+.kotak_hijau_netral a{
+    /*background:url(bagan_hijau_kotak.png) no-repeat top center;*/
+    display:block;
+    float:right;
+    width:23%;
+    padding:1%;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    background-color:#dadada;
+    -moz-border-radius-topleft:50px;
+    -moz-border-radius-bottomleft:50px; 
+    -webkit-border-bottom-left-radius:50px;
+    -webkit-border-top-left-radius:50px;
+    -moz-border-radius-topright:50px;
+    -moz-border-radius-bottomright:50px;
+    -webkit-border-bottom-right-radius:50px;
+    -webkit-border-top-right-radius:50px;
+    border-top-right-radius:50px;
+    border-bottom-right-radius:50px;
+    border-bottom-left-radius:50px;
+    border-top-left-radius:50px;
+}
+/*------------------------------MERAH-------------------------------*/
+.bagan_merah_left a{
+    background:url(user_bagan_merah.png) no-repeat top center;
+    display:block;
+    float:left;
+    margin-right:12%;
+    margin-left:0.5%;
+    width:23%;
+    padding:1%;
+    padding-top:53px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+}
+
+.bagan_merah_netral a{
+    /*background:url(user_bagan_merah.png) no-repeat top center;*/
+    display:block;
+    float:right;
+    width:23%;
+    padding:1%;
+    padding-top:53px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    background-color:#dadada;
+    -moz-border-radius-topleft:50px;
+    -moz-border-radius-bottomleft:50px; 
+    -webkit-border-bottom-left-radius:50px;
+    -webkit-border-top-left-radius:50px;
+    -moz-border-radius-topright:50px;
+    -moz-border-radius-bottomright:50px;
+    -webkit-border-bottom-right-radius:50px;
+    -webkit-border-top-right-radius:50px;
+    border-top-right-radius:50px;
+    border-bottom-right-radius:50px;
+    border-bottom-left-radius:50px;
+    border-top-left-radius:50px;
+}
+
+/*-----BINTANG------*/
+.bintang_merah_left a{
+    background:url(bintang_merah.png) no-repeat top center;
+    display:block;
+    float:left;
+    margin-right:12%;
+    margin-left:0.5%;
+    width:23%;
+    padding:1%;
+    padding-top:53px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+}
+
+.bintang_merah_netral a{
+    background:url(bintang_merah.png) no-repeat top center;
+    display:block;
+    float:right;
+    width:23%;
+    padding:1%;
+    padding-top:53px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+}
+
+
+/*-----KOTAK------*/
+.kotak_merah_left a{
+    /*background:url(bagan_merah_kotak.png) no-repeat top center;*/
+    display:block;
+    float:left;
+    margin-right:8%;
+    margin-left:0.5%;
+    width:25%;
+    padding:1%;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    background-color:#8165a2;
+}
+
+.kotak_merah_netral a{
+    /*background:url(bagan_merah_kotak.png) no-repeat top center;*/
+    display:block;
+    float:right;
+    width:25%;
+    padding:1%;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    background-color:#8165a2;
+}
+
+/*------------------------------KUNING-------------------------------*/
+.bagan_kuning_left a{
+    background:url(user_bagan_kuning.png) no-repeat top center;
+    display:block;
+    float:left;
+    margin-right:12%;
+    margin-left:0.5%;
+    width:23%;
+    padding:1%;
+    padding-top:53px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+}
+
+
+
+.bagan_kuning_netral a{
+    background:url(user_bagan_kuning.png) no-repeat top center;
+    display:block;
+    float:right;
+    width:23%;
+    padding:1%;
+    padding-top:53px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+}
+
+/*----------BINTANG--------*/
+.bintang_kuning_left a{
+    background:url(bintang_kuning.png) no-repeat top center;
+    display:block;
+    float:left;
+    margin-right:12%;
+    margin-left:0.5%;
+    width:23%;
+    padding:1%;
+    padding-top:53px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+}
+
+
+
+.bintang_kuning_netral a{
+    background:url(bintang_kuning.png) no-repeat top center;
+    display:block;
+    float:right;
+    width:23%;
+    padding:1%;
+    padding-top:53px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+}
+
+
+
+.text_bagan{
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#ffffff;
+    font-weight:bold;
+    margin-top:2px;
+}
+
+
+.baris_bagan{
+    position:relative;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+
+
+
+
+
+
+
+
+/*------hidden-----*/
+.bagan_hidden{
+    float:left;
+    margin-right:8%;
+    margin-left:0.5%;
+    width:25%;
+    padding:1%;
+    position:relative;
+    overflow:hidden;
+}
+
+
+.bagan_hidden_2{
+    float:right;
+    width:25%;
+    padding:1%;
+    position:relative;
+    overflow:hidden;
+}
+
+.this_you{
+    /*background:url(arrow.png) no-repeat left center;
+    float:right;
+    width:20%;
+    position:relative;
+    overflow:hidden;
+    padding-left:5px;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:11px;
+    color:#4f81bd;
+    font-weight:bold;
+    padding-top:25px;
+    padding-bottom:25px;
+    border-left:2px #666666 solid;
+            -moz-border-radius-topleft:50px;
+            -moz-border-radius-bottomleft:50px; 
+            -webkit-border-bottom-left-radius:50px;
+            -webkit-border-top-left-radius:50px;
+            -moz-border-radius-topright:50px;
+            -moz-border-radius-bottomright:50px;
+            -webkit-border-bottom-right-radius:50px;
+            -webkit-border-top-right-radius:50px;
+    border-top-right-radius:50px;
+    border-bottom-right-radius:50px;
+    border-bottom-left-radius:50px;
+    border-top-left-radius:50px;
+    */
+
+    /*background:url(bagan_kuning_kotak.png) no-repeat top center;*/
+    float:right;
+    width:23%;
+    padding:1%;
+    /*padding-top:53px;*/
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:11px;
+    color:#4f81bd;
+    font-weight:bold;
+    border-left:2px #666666 solid;
+    -moz-border-radius-topleft:50px;
+    -moz-border-radius-bottomleft:50px; 
+    -webkit-border-bottom-left-radius:50px;
+    -webkit-border-top-left-radius:50px;
+    -moz-border-radius-topright:50px;
+    -moz-border-radius-bottomright:50px;
+    -webkit-border-bottom-right-radius:50px;
+    -webkit-border-top-right-radius:50px;
+    border-top-right-radius:50px;
+    border-bottom-right-radius:50px;
+    border-bottom-left-radius:50px;
+    border-top-left-radius:50px;
+}
+
+
+.statusgrey {
+    background-color:#D3D3D3;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#000000;
+    font-weight:bold;
+    margin-top:2px;
+}
+.block {
+
+
+    display:block;
+    float:left;
+    width:5%;
+    padding:0%;
+}
+
+.statusred {
+    background-color:#e84c3d;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#ffffff;
+    font-weight:bold;
+    margin-top:2px;
+}
+
+.statusredalert {
+    background-color:#EFDCD6;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#ffffff;
+    font-weight:bold;
+    margin-top:2px;
+}
+.statusgreenalert {
+    background-color:#D7F1D8;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#ffffff;
+    font-weight:bold;
+    margin-top:2px;
+}
+.statusgreen {
+    background-color:#138417;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#ffffff;
+    font-weight:bold;
+    margin-top:2px;
+}
+
+.statusyelow {
+    background-color:#F6F8E0;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#000000;
+    font-weight:bold;
+    margin-top:2px;
+}
+
+.statusblue {
+    background-color:#D7ECEF;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#000000;
+    font-weight:bold;
+    margin-top:2px;
+}
+
+
+
+.anda1_judul{
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:16px;
+    color:#000E81;
+    font-weight:bold;
+}
+
+
+.anda1 a{
+    /*background:url(user_bagan_hijau.png) no-repeat top center;*/
+    float:left;
+    margin-right:0%;
+    margin-left:0%;
+    padding:0%;
+    width:100%;
+    padding:0.25%;
+    /*padding-top:53px;*/
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    -webkit-border-radius: 5px;
+}
+
+
+
+.asatu_left a{
+    /*background:url(user_bagan_hijau.png) no-repeat top center;*/
+    display:block;
+    float:left;
+    margin-right:0%;
+    margin-left:0%;
+    padding:0.25%;
+    width:50%;
+    /*padding-top:53px;*/
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    -webkit-border-radius: 5px;
+}
+
+
+.dua_left a{
+    /*background:url(bagan_kuning_kotak.png) no-repeat top center;*/
+    display:block;
+    float:left;
+    margin-right:0%;
+    margin-left:0%;
+    width:25%;
+    padding:0.25%;
+    /*padding-top:53px;*/
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    -webkit-border-radius: 5px;
+}
+
+.tiga_left a{
+    /*background:url(bagan_kuning_kotak.png) no-repeat top center;*/
+    display:block;
+    float:left;
+    margin-right:0%;
+    margin-left:0%;
+    width:12.5%;
+    padding:0.25%;
+    /*padding-top:53px;*/
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    word-wrap: break-word;
+    font-size:50%;
+
+    -webkit-border-radius: 5px;
+
+}
+/*------------------------------------------DETAIL_BAGAN-----------------------*/
+
+.bagan_hijau_detail{
+    margin:0 auto;
+    width:23%;
+    padding:1%;
+    position:relative;
+    overflow:hidden;
+    background-color:#9bbb59;
+    text-align:center;
+    -moz-border-radius-topleft:7px;
+    -moz-border-radius-bottomleft:7px; 
+    -webkit-border-bottom-left-radius:7px;
+    -webkit-border-top-left-radius:7px;
+    -moz-border-radius-topright:7px;
+    -moz-border-radius-bottomright:7px;
+    -webkit-border-bottom-right-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    border-top-right-radius:7px;
+    border-bottom-right-radius:7px;
+    border-bottom-left-radius:7px;
+    border-top-left-radius:7px;
+    margin-bottom:10px;
+}
+.bagan_biru_detail{
+    margin:0 auto;
+    width:23%;
+    padding:1%;
+    position:relative;
+    overflow:hidden;
+    background-color:#41a8dc;
+    text-align:center;
+    -moz-border-radius-topleft:7px;
+    -moz-border-radius-bottomleft:7px; 
+    -webkit-border-bottom-left-radius:7px;
+    -webkit-border-top-left-radius:7px;
+    -moz-border-radius-topright:7px;
+    -moz-border-radius-bottomright:7px;
+    -webkit-border-bottom-right-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    border-top-right-radius:7px;
+    border-bottom-right-radius:7px;
+    border-bottom-left-radius:7px;
+    border-top-left-radius:7px;
+    margin-bottom:10px;
+}
+.bagan_ungu_detail{
+    margin:0 auto;
+    width:23%;
+    padding:1%;
+    position:relative;
+    overflow:hidden;
+    background-color:#8165a2;
+    text-align:center;
+    -moz-border-radius-topleft:7px;
+    -moz-border-radius-bottomleft:7px; 
+    -webkit-border-bottom-left-radius:7px;
+    -webkit-border-top-left-radius:7px;
+    -moz-border-radius-topright:7px;
+    -moz-border-radius-bottomright:7px;
+    -webkit-border-bottom-right-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    border-top-right-radius:7px;
+    border-bottom-right-radius:7px;
+    border-bottom-left-radius:7px;
+    border-top-left-radius:7px;
+    margin-bottom:10px;
+}
+.bagan_abu_detail{
+    margin:0 auto;
+    width:23%;
+    padding:1%;
+    position:relative;
+    overflow:hidden;
+    background-color:#7f7f7f;
+    text-align:center;
+    -moz-border-radius-topleft:7px;
+    -moz-border-radius-bottomleft:7px; 
+    -webkit-border-bottom-left-radius:7px;
+    -webkit-border-top-left-radius:7px;
+    -moz-border-radius-topright:7px;
+    -moz-border-radius-bottomright:7px;
+    -webkit-border-bottom-right-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    border-top-right-radius:7px;
+    border-bottom-right-radius:7px;
+    border-bottom-left-radius:7px;
+    border-top-left-radius:7px;
+    margin-bottom:10px;
+}
+
+.text_detail_title{
+    float:left;
+    width:110px;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#666666;
+}
+
+.text_detail_status{
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#666666;
+}
+
+.text_detail_status_hasil{
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#666666;
+    font-weight:bold;
+}
+
+.text_detail_bagan{
+    float:left;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#666666;
+    font-weight:bold;
+}
+
+.bungkus_bagan{
+    position:relative;
+    overflow:hidden;
+    margin-bottom:5px;
+}
+
+
+
+.kembali a{
+    width:90%;
+    margin:0 auto;
+    background:url(back_icon.png) no-repeat 10px; center;
+    display:block;
+    padding-top:15px;
+    padding-bottom:15px;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:14px;
+    color:#666666;
+    background-color:#e3e3e3;
+    text-align:center;
+    -moz-border-radius-topleft:7px;
+    -moz-border-radius-bottomleft:7px; 
+    -webkit-border-bottom-left-radius:7px;
+    -webkit-border-top-left-radius:7px;
+    -moz-border-radius-topright:7px;
+    -moz-border-radius-bottomright:7px;
+    -webkit-border-bottom-right-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    border-top-right-radius:7px;
+    border-bottom-right-radius:7px;
+    border-bottom-left-radius:7px;
+    border-top-left-radius:7px;
+    margin-bottom:10px;
+}
+
+.kembali a:hover{
+    background-color:#f2f2f2;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*----------------------------------------ABOUT---------------*/
+
+.title_about{
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:24px;
+    color:#4aacc5;
+    font-weight:bold;
+    margin-left:15px;
+}
+
+.text_about{
+    position:relative;
+    overflow:hidden;
+    padding:5px;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:14px;
+    color:#666666;
+    line-height:1.5;
+    margin:5px;
+    text-shadow: inset 0px 0px 10px #ff0000;
+    -moz-border-radius-topleft:7px;
+    -moz-border-radius-bottomleft:7px; 
+    -webkit-border-bottom-left-radius:7px;
+    -webkit-border-top-left-radius:7px;
+    -moz-border-radius-topright:7px;
+    -moz-border-radius-bottomright:7px;
+    -webkit-border-bottom-right-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    border-top-right-radius:7px;
+    border-bottom-right-radius:7px;
+    border-bottom-left-radius:7px;
+    border-top-left-radius:7px;
+    background: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+    /* Chrome, Safari:*/
+    background: -webkit-gradient(linear,
+        left top, left bottom, from(#ffffff), to(#f2f2f2));
+    /* MSIE */
+    filter: progid:DXImageTransform.Microsoft.Gradient(
+        StartColorStr='#ffffff', EndColorStr='#f2f2f2', GradientType=0);
+    -moz-box-shadow: 0px 0px 4px #000; /* FF3.5+ */
+    -webkit-box-shadow: 0px 0px 5px #b3b3b3; /* Saf3.0+, Chrome */
+    box-shadow: 0px 0px 5px #b3b3b3; /* Opera 10.5, IE 9.0 */
+    filter:  progid:DXImageTransform.Microsoft.dropshadow(OffX=0px, OffY=0px, Color='#b3b3b3'); /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.dropshadow(OffX=0px, OffY=0px, Color='#b3b3b3')"; /* IE8 */
+}
+
+.text_about a{
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:14px;
+    color:#8165a2;
+    font-style:italic;
+}
+/*----------------------------------------------FOOOTER-------------------------------*/
+

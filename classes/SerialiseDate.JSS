@@ -1,0 +1,17 @@
+[{"opcode":83,"result":[4,0],"op1":[1,querystring],"op2":[8,1]}
+{"opcode":63,"result":[4,0],"op1":[1,1],"op2":[8,-1]}
+{"opcode":83,"result":[4,1],"op1":[1,this],"op2":[8,1]}
+{"opcode":85,"result":[4,2],"op1":[4,1],"op2":[1,db2]}
+{"opcode":59,"result":[4,3],"op1":[4,2],"op2":[1,exec]}
+{"opcode":92,"result":[4,4],"op1":[1,querystring],"op2":[8,1]}
+{"opcode":66,"result":[8,-1],"op1":[4,4],"op2":[8,1]}
+{"opcode":61,"result":[4,5],"op1":[4,3],"op2":[8,-1]}
+{"opcode":83,"result":[4,7],"op1":[1,this],"op2":[8,1]}
+{"opcode":85,"result":[4,8],"op1":[4,7],"op2":[1,db2]}
+{"opcode":59,"result":[4,9],"op1":[4,8],"op2":[1,single]}
+{"opcode":61,"result":[4,10],"op1":[4,9],"op2":[8,-1]}
+{"opcode":83,"result":[4,6],"op1":[1,row],"op2":[8,1]}
+{"opcode":38,"result":[4,11],"op1":[4,6],"op2":[4,10]}
+{"opcode":80,"result":[4,12],"op1":[1,row],"op2":[8,1]}
+{"opcode":62,"result":[8,-1],"op1":[4,12],"op2":[8,-1]}
+]
