@@ -13,7 +13,6 @@ $ipnya_host = 'mlm';
 $mysql['host'] = "10.10.0.103";
 switch ($httphost) {
 	case 'thecabinetsystems.dev':
-		// $mysql['host'] = "10.10.0.122:1603";
 		$mysql['host'] = "10.10.0.103";
 	// $mysql['host'] = "localhost";
 		$mysql['user'] = "root";
