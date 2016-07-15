@@ -206,7 +206,7 @@ foreach ($quick as $key => $value) {
    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . $i_row, $value['ACCNO']);
    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B' . $i_row, $value['name']);
    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C' . $i_row, $print_type);
-   $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D' . $i_row, number_format($value['subtotal'], 2));
+   $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D' . $i_row, $value['subtotal']);
    $i_row++;
 }
 
@@ -287,7 +287,7 @@ foreach ($detailed2 as $key => $value) {
    $objPHPExcel->setActiveSheetIndex(1)->setCellValue('E' . $i_row, $print_type);
    $objPHPExcel->setActiveSheetIndex(1)->setCellValue('F' . $i_row, $value['level']);
    $objPHPExcel->setActiveSheetIndex(1)->setCellValue('G' . $i_row, number_format($value['LOTS'], 2));
-   $objPHPExcel->setActiveSheetIndex(1)->setCellValue('H' . $i_row, number_format($amounted, 2));
+   $objPHPExcel->setActiveSheetIndex(1)->setCellValue('H' . $i_row, $amounted);
    $i_row++;
    // foreach ($value['full'] as $key1 => $value1) {
    //    $typeaccount = $value['typeaccount'];
