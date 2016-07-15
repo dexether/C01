@@ -21,9 +21,9 @@ $tahun         = @$_POST['tahun'];
 $agen          = @$_POST['keanggotaan'];
 $rolldate      = @$_POST['rolldate'];
 $account       = @$_POST['account'];
-$periode_start = date('Y-m-01 23:00:01', strtotime($tahun . "-" . $bulan));
+$periode_start = date('Y-m-01 22:30:01', strtotime($tahun . "-" . $bulan));
 $periode_start = date('Y-m-d', (strtotime('-1 day', strtotime($periode_start))));
-$periode_end   = date('Y-m-t 23:00:00', strtotime($tahun . "-" . $bulan));
+$periode_end   = date('Y-m-t 22:30:0', strtotime($tahun . "-" . $bulan));
 $filter_date   = "";
 $date          = $tahun . '-' . $bulan;
 // tradeLogComm($bulan . " " . $tahun . " " . $agen . " ");
@@ -102,7 +102,7 @@ foreach ($result as $key => $value) {
    foreach ($hasil as $key1 => $value1) {
 
       $from_date = date('Y-m-d', (strtotime('-1 day', strtotime($from_date))));
-      $query     = "SELECT SUM(VOLUME)/100 as lot FROM " . $value1['mt4dt'] . ".mt4_trades WHERE LOGIN = '$value1[mt4login]' AND CMD IN ('1', '0') AND CLOSE_TIME BETWEEN '" . $from_date . " 23:00:01' AND '" . $to_date . " 23:00:00' GROUP BY LOGIN";
+      $query     = "SELECT SUM(VOLUME)/100 as lot FROM " . $value1['mt4dt'] . ".mt4_trades WHERE LOGIN = '$value1[mt4login]' AND CMD IN ('1', '0') AND CLOSE_TIME BETWEEN '" . $from_date . " 22:30:01' AND '" . $to_date . " 22:30:0' GROUP BY LOGIN";
       $hasil1    = $DB->execresultset($query);
       $lots      = 0;
       foreach ($hasil1 as $key2 => $value2) {

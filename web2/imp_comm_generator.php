@@ -525,8 +525,8 @@ function checktrade($account, $rangetanggal)
 // FROM
 //   askap_source_mini.`mt4_trades` 
 // WHERE lOGIN = '88000237' 
-//   AND CLOSE_TIME BETWEEN '2016-04-30 23:00:01' 
-//   AND '2016-05-31 23:00:00' 
+//   AND CLOSE_TIME BETWEEN '2016-04-30 22:30:01' 
+//   AND '2016-05-31 22:30:00' 
 //   AND CMD IN ('1', '0') ;
 
    foreach ($result as $key => $value) {
@@ -536,8 +536,8 @@ function checktrade($account, $rangetanggal)
             $value[mt4dt].`mt4_trades`
             WHERE mt4_trades.`LOGIN` = '$value[mt4login]'
             AND CMD IN ('1', '0')
-            and CLOSE_TIME BETWEEN '" . $datefrom . " 23:00:01'
-            and '" . $dateto . " 23:00:00'";
+            and CLOSE_TIME BETWEEN '" . $datefrom . " 22:30:01'
+            and '" . $dateto . " 22:30:00'";
       $result = $DB->execresultset($query);
       // var_dump($query);
       $hasil = 0;
@@ -569,8 +569,8 @@ function checkTradeDetalis($source, $login)
             " . $source . ".`mt4_trades`
             WHERE mt4_trades.`LOGIN` = '" . $login . "'
             AND CMD IN ('1', '0')
-            and CLOSE_TIME BETWEEN '" . $datefrom . " 23:00:01'
-            and '" . $dateto . " 23:00:00'";
+            and CLOSE_TIME BETWEEN '" . $datefrom . " 22:30:01'
+            and '" . $dateto . " 22:30:00'";
    $result = $DB->execresultset($query);
    // var_dump($query);
    $hasil = 0;
