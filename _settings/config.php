@@ -26,7 +26,7 @@ switch ($httphost) {
 		// $mysql['host'] = "localhost";
 		$mysql['user'] = "root";
 		$mysql['password'] = "mugen1996";
-		$mysql['database'] = "apex_cabinet";
+		$mysql['database'] = "apex";
 		$mysql['meta'] = "askap_source";
 		$mysql['crypt_key'] = "139";
 		break;

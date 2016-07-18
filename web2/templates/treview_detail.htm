@@ -45,68 +45,7 @@
 					<br>
 					<legend></legend>
 
-					<div class="table-responsive">
-						<div class="text-center"><h4><strong>Bonus Log</strong></h4></div>
-						<!-- location.href = 'daily_statement.php?account=' + account.value +  '&datesearch=' + datesearch.value + '&mt4dt='+ mt4dt.value +'&excell=yes' -->
-						<form class="form-inline" role="form" method="post" name="bonussetting" action="bonus_detail.php?postmode=excell">
-							<div class="form-group">
-								<input type="hidden" name="account" value="{$dataACCNO.ACCNO}"></input>
-								<select class="form-control" name="bonus" id="bonus">
-									<option value="">-- All Bonus --</option>
-									{foreach from=$allbonus item=a}
-									<option value="{$a.module}">{$a.full}</option>
-									{/foreach}
-								</select>
-							</div>
-							<div class="form-group">
-								<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-									<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
-									<span></span> <b class="caret"></b>
-								</div>
-								<input type="hidden" name="tglnya" id="tglnya" value="">
-							</div>
-
-							<button type="button" class="btn btn-success" onclick="Treview_JS.view_result(bonus.value, tglnya.value);"><span class="ladda-label">Submit</span></button>
-							<aa id="to-excel-bonus" hidden>
-								<button id="to-excel" type="submit" class="btn btn-green-3">
-									<i class="fa fa-file-text"></i> Export to Excell
-								</button>
-							</aa>
-						</form>
-						<table class="table table-hover table-striped" id="ajax-table">
-							<thead>
-								<tr>
-									<th>No.</th>
-									<th>Date Receipt</th>
-									<th>Type</th>
-									<th>Amount</th>
-									<th>Comment</th>
-								</tr>
-							</thead>
-							<tbody>
-								{assign var="i" value="1"}
-								{foreach from=$bonuslogs item=bonuslog}
-								<tr>
-									<td>{$i}</td>
-									<td>{$bonuslog.date_receipt}</td>
-									<td>{$bonuslog.full}</td>
-									<td>{$bonuslog.amount|number_format:2}</td>
-									<td>{$bonuslog.comment}</td>
-								</tr>
-								{assign var="i" value=$i+1}
-								{foreachelse}
-
-								<tr>
-									<td colspan="5" class="text-center"><em>No data ...</em></td>
-
-								</tr>
-
-								{/foreach}
-							</tbody>
-						</table>
-						<br>
-						<br>
-					</div>
+					
 					<div class="panel-group accordion-toggle" id="accordiondemo3">
 						<div class="panel panel-lightblue-2">
 							<div class="panel-heading">

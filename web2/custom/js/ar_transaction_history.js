@@ -10,16 +10,17 @@ var ar_transaction_history_JS = function() {
             $.ajax({
                 url: 'ar_transaction_history_do.php',
                 data: data,
-                //dataType: 'JSON',
+                dataType: 'JSON',
                 type: 'POST',
                 beforeSend: function() {
                     $(button).button('loading');
                 },
                 success: function(response) {
-                    console.log(response);
+                    $('input[name=token]').val(response.token);
+                    console.log(response.token)
                 },
                 error: function() {
-                    console.log('Erorr')
+                    alert('Error, call publisher');
                 },
                 complete: function() {
                     $(button).button('reset');

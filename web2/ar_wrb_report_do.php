@@ -20,9 +20,7 @@ $user = $_SESSION['user'];
 $template->assign("user", $user);
  */
 $account = @$_POST['accounts'];
-
 $token     = @$_POST['token'];
-$type      = @$_POST['type'];
 $tglnya    = @$_POST['tglnya'];
 $date      = explode(' - ', $tglnya);
 $date_from = $date[0];
@@ -30,12 +28,7 @@ $date_to   = $date[1];
 if ($account === '0') {
     $filter_account = "";
 } else {
-    $filter_account = " AND account_from = '".$account."'";
-}
-if ($type === '0') {
-    $filter_type = "";
-} else {
-    $filter_type = " AND type_transaction LIKE '%$type%'";
+    $filter_account = " AND account = '".$account."'";
 }
 /*==============================
 =            Coding            =
@@ -48,7 +41,7 @@ if ($error != 'error') {
             /* Query */
             // $query = "SELECT * FROM mlm_transaction WHERE 1=1 $filter_account $filter_type AND date_transaction BETWEEN '$date_from' AND '$date_to'";
             $result = array();
-            $query = "SELECT * FROM mlm_transaction WHERE 1=1 $filter_account $filter_type";
+            $query = "SELECT *, (SELECT client_aecode.`name` FROM client_accounts, client_aecode WHERE client_accounts.`aecodeid` = client_aecode.`aecodeid` AND client_accounts.`accountname` = mlm_bonus_logs.`from`) as name_from FROM mlm_bonus_logs WHERE mlm_bonus_logs.`bonus_type` = 'wrb' AND mlm_bonus_logs.`from` <> '0' $filter_account";
             $result = $DB->execresultset($query);
 
             // print_r($query);
@@ -64,7 +57,7 @@ if ($error != 'error') {
 // $response['title']    = $subject;
 $response['msg']      = $query;
 $response['result'] = $result;
-$token                = $security->set(3, 3600);
+// $token                = $security->set(3, 3600);
 $response['token']    = $token;
 
 echo json_encode($response);
