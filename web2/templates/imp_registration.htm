@@ -40,6 +40,17 @@
                 <input type="hidden" name="token" value="{$token}"></input>
               </div>
             </div>
+            <div class="form-group">
+              <label class="col-sm-6 control-label">Type plan do you want to join</label>
+              <div class="col-sm-6">
+                <select name="plan" class="form-control">
+                  <option value="0" selected>Follow your upline plan</option>
+                  {foreach from=$group_play item=row}
+                  <option value="{$row.group_play}">{$row.alias}</option>
+                  {/foreach}
+                </select>
+              </div>
+            </div>
             <!-- <div class="form-group">
               <label class="col-sm-6 control-label">Please Select the Plan</label>
               <div class="col-sm-6">
