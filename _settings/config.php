@@ -9,7 +9,6 @@ $SETTINGS_DIR = "$_SERVER[DOCUMENT_ROOT]/_settings";
 $httphost     = $_SERVER['HTTP_HOST'];
 $httphost     = strtolower($httphost);
 $ipnya_host   = 'mlm';
-
 $mysql['host'] = "10.10.0.103";
 switch ($httphost) {
     case 'thecabinetsystems.dev':
@@ -22,6 +21,15 @@ switch ($httphost) {
         $mysql['crypt_key'] = "139";
         break;
     case 'cabinet.apexregent.dev':
+        $mysql['host'] = "10.10.0.103";
+        // $mysql['host'] = "localhost";
+        $mysql['user']      = "root";
+        $mysql['password']  = "mugen1996";
+        $mysql['database']  = "apex";
+        $mysql['meta']      = "askap_source";
+        $mysql['crypt_key'] = "139";
+        break;
+	 case 'cabinet.apexregent.dev:90':
         $mysql['host'] = "10.10.0.103";
         // $mysql['host'] = "localhost";
         $mysql['user']      = "root";
