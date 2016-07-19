@@ -63,11 +63,17 @@ function userdatas($account)
   client_aecode.`name` as username,
   client_aecode.`foto`,
   client_accounts.`name`,
+  group_play.alias,
+  group_play.group_play,
   (SELECT COUNT(ACCNO) FROM mlm WHERE upline = '$account') AS downline
 FROM
   client_accounts,
-  client_aecode
+  client_aecode,
+  mlm,
+  group_play
 WHERE client_accounts.`aecodeid` = client_aecode.`aecodeid`
+AND client_accounts.accountname = mlm.ACCNO
+AND mlm.group_play = group_play.group_play
 AND client_accounts.`accountname` = '$account'";
  $result = $DB->execresultset($query);
  foreach ($result as $key => $value) {
