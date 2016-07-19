@@ -65,12 +65,7 @@ if ($user->groupid == '3') {
     }
     $template->assign("clientaecode", $clientaecode);
 
-    $query = "SELECT 
-    mlm_bonus_settings.`group_play`,
-    mlm_bonus_settings.`description`
-    FROM
-    mlm_bonus_settings 
-    WHERE mlm_bonus_settings.`active` = TRUE";
+    $query = "SELECT group_play, alias FROM group_play WHERE is_active = TRUE";
     $result = $DB->execresultset($query);
     $template->assign("group_play", $result);
 
