@@ -1,4 +1,24 @@
 <link href="assets/libs/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="assets/libs/datatable-server-side/css/jquery.dataTables.css">
+<script type="text/javascript" language="javascript" src="assets/libs/datatable-server-side/js/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript" >
+			$(document).ready(function() {
+				var dataTable = $('#employee-grid').DataTable( {
+					"processing": true,
+					"serverSide": true,
+					"ajax":{
+						url :"tampil_email.php", // json datasource
+						type: "post",  // method  , by default get
+						error: function(){  // error handling
+							$(".employee-grid-error").html("");
+							$("#employee-grid").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+							$("#employee-grid_processing").css("display","none");
+							
+						}
+					}
+				} );
+			} );
+		</script>
 <div id="main_content" class="content">
    <div id="carousel-example" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
@@ -167,11 +187,22 @@
                         </div>
                      </div>
                      <div class="widget-content">
-                        <a  href="http://panendollar.com/" target="_new" title="The Art of Money Maker">
+                        <!-- <a  href="http://panendollar.com/" target="_new" title="The Art of Money Maker">
                            <div class="img-wrap">
                               <img src="images/education/1.jpg" width="100%" height="315px" alt="Image gallery" title="The Art of Money Maker" class="mfp-fade">
                            </div>
-                        </a>
+                        </a> -->
+						<div class="container">
+							<table id="employee-grid"  cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
+									<thead>
+										<tr>
+											<th>Time Send</th>
+											<th>Email Subject</th>
+											<th>Email Descriptions</th>
+										</tr>
+									</thead>
+							</table>
+						</div>
                      </div>
                   </div>
                </div>
