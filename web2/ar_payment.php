@@ -63,13 +63,13 @@ FROM
 WHERE mlm_payment.`Account` = mlm.`ACCNO` 
 AND mlm_payment.`aecode` = '$user->username'
 AND mlm_payment.Status = '0'
-AND mlm_payment.PayFor LIKE ('%".date('Y-m-d', time())."%')
+AND mlm_payment.PayFor LIKE ('%".date('Ym', time())."%')
 ";
 $result = $DB->execresultset($query);
 foreach ($result as $rows) {
     $ceksemuaccounts[] = $rows;
 }
-
+// var_dump($query);
 /*=====  End of Start Of Coding  ======*/
 
 $template->assign("ceksemuaccounts", $ceksemuaccounts);

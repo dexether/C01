@@ -159,7 +159,7 @@ if($postmode == 'yes') {
 			$query = "UPDATE mlm_wcd SET next_pay = '$new_tgl', status = '1' WHERE account = '$accnya'";
 			$DB->execonly($query);
 			$bonuswrb = storeToWalletWrb($account_upline, $amount, $wrb_upline);
-			bonusLogs($account_upline, 'wrb', $bonuswrb, 'you got WEALTH REFERRAL BONUS from '.$accnya.'This bonus will be split into two type Account (6% goes to E-Wallet / 1% goes to Gold Saving Account)');
+			bonusLogs($account_upline, $accnya, 'wrb', $bonuswrb, 'you got WEALTH REFERRAL BONUS from '.$accnya.'This bonus will be split into two type Account (6% goes to E-Wallet / 1% goes to Gold Saving Account)');
 			$subject = "Congratulations, you have got a bonus";
 			$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
 			$body = $body . "Dear ".$name_upline.",<br>";
@@ -282,9 +282,9 @@ function tradeLogConstruct($msg) {
 	fclose($fp);
 	return;
 }
-function bonusLogs($account, $type, $amount, $comment) {
+function bonusLogs($account, $from = 0, $type, $amount, $comment) {
 	global $DB;
-	$query = "INSERT INTO mlm_bonus_logs SET account = '$account', bonus_type = '$type', amount = '$amount', comment = '$comment', date_receipt = NOW()";
+	$query = "INSERT INTO mlm_bonus_logs SET account = '$account', mlm_bonus_logs.from = '$from', bonus_type = '$type', amount = '$amount', comment = '$comment', date_receipt = NOW()";
 	$DB->execonly($query);
 }
 function getBalance($account) {

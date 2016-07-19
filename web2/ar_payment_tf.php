@@ -98,9 +98,10 @@ PayDoc = '".$targetPath."'
 WHERE IDPay = '".$IDPay."'
 
 ";
+// TradeLogUnderConstruct_Secure($query);
 $DB->execonly($query);
 if ($query) {
-
+// TradeLogUnderConstruct_Secure($query);
 
 	$query = "SELECT 
 	NAME,
@@ -125,7 +126,8 @@ if ($query) {
 	$body = $body . " Email : ".$companys['email']." <br>";
 	$body = $body . " ".$companys['companyurl']." <br>";
 
-	$query = "UPDATE mlm SET payment = '1' WHERE ACCNO = ".$accountname."";
+	$query = "UPDATE mlm SET payment = '1' WHERE ACCNO = '".$accountname."'";
+	// TradeLogUnderConstruct_Secure($query);
 	$DB->execonly($query);
 
 	$query = "INSERT INTO email SET
@@ -138,7 +140,14 @@ if ($query) {
 	$DB->execonly($query);
 	echo "0";
 }
-
+function TradeLogUnderConstruct_Secure($msg) {
+    $fp = fopen("trader.log", "a");
+    $logdate = date("Y-m-d H:i:s => ");
+    $msg = preg_replace("/\s+/", " ", $msg);
+    fwrite($fp, $logdate . $msg . "\n");
+    fclose($fp);
+    return;
+}
 /*=====  End of Start Coding  ======*/
 
 

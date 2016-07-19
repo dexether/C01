@@ -168,6 +168,7 @@ if ($_GET['postmode']) {
         Amount = '0',
         TxnDate = '".date('Y-m-d', time())."',
         Status = '0',
+        date_confirm = '1970-01-01 00:00:00',
         PayType = 'Club Package',
         PayFor = 'club_package:" . date('Ym') . "'
         ";
