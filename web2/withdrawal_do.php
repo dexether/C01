@@ -211,7 +211,7 @@ function cutwallet($account, $type, $amount)
    $balance_wallet = $wallet['balance'];
    $lastupdate     = $wallet['lastupdate'];
    $newbalance     = $balance_wallet - $amount;
-   $query          = "UPDATE " . $type . " SET balance = '$newbalance', balance_prev = '$balance_wallet', lastupdate = NOW(), lastupdate_prev = '$lastupdate'";
+   $query          = "UPDATE " . $type . " SET balance = '$newbalance', balance_prev = '$balance_wallet', lastupdate = NOW(), lastupdate_prev = '$lastupdate' WHERE account = '$account'";
    // logstrade($query);
    // logstrade($query);
    $do             = $DB->execonly($query);
