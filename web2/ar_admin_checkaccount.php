@@ -46,6 +46,7 @@ if ($postmode=="yes") {
 	AND client_accounts.`accountname` <> 'COMPANY'
 	AND mlm.`datetime` <= DATE_SUB(NOW(), INTERVAL 5 DAY)";
 	$result = $DB->execresultset($query);
+	
 	foreach($result as $rows){
 		$account = $rows['accountname'];
 		$name = $rows['name'];
@@ -66,7 +67,7 @@ if ($postmode=="yes") {
 		$DB->execonly($delete);
 		$delete = "DELETE FROM mlm_wcd WHERE account = '$account'";
 		$DB->execonly($delete);*/
-		$query = "UPDATE client_accounts SET suspend = '1' WHERE accountname = '$accountname'";
+		$query = "UPDATE client_accounts SET suspend = '1' WHERE accountname = '$account'";
 		$DB->execonly($query);
 
 		// Send Email
