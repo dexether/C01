@@ -1,0 +1,117 @@
+<div class="content" id="main_content">
+  <style type="text/css">
+    table thead {
+      background-color: #000099;
+      color: white;
+
+    }
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+      background-color: #FF9966;
+    }
+    
+  </style>
+  <div class="page-heading">
+    <h1>
+      <i class="icon-vcard">
+      </i>
+      Commission Report
+    </h1>
+  </div>
+  <div class="row">
+    <div class="col-md-12 portlets">
+      <div class="widget">
+        <div class="widget-header ">
+          <h2>
+            <strong>
+              Client
+            </strong>
+            Commission Report
+          </h2>
+          <div class="additional-btn">
+            <a class="widget-toggle" href="#">
+              <i class="icon-down-open-2">
+              </i>
+            </a>
+          </div>
+        </div>
+        <div class="widget-content padding">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="col-sm-5"></div>
+              <div class="col-sm-7" align="right">
+                <form class="form-inline " role="form" id="ajax-form">
+                  <div class="form-group">
+                    <select class="form-control" name="account">
+                      <option value="">- pilih Member ID -</option>
+                      {foreach from=$alldata.listaccount item=row}
+                      <option value="{$row}">{$row}</option>
+                      {/foreach}
+                    </select>
+                  </div>
+                  <div class="form-group">
+                  <select class="form-control" name="rolldate">
+                      <option value="">- pilih Periode -</option>
+                      {foreach from=$alldata.rolldate item=row}
+                      <option value="{$row.value}">{$row.title}</option>
+                      {/foreach}
+                    </select>
+                  </div>
+                  <button class="btn btn-blue-2" type="button">
+                    Submit
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-center"><strong> Laporan Komisi Total / Mamber</strong></h3>
+          <hr/>
+          <table class="table table-striped table-hover" id="table-komisi-group">
+          <thead>
+            <tr>
+              <th>Member ID</th>
+              <th>Nama</th>
+              <th>Keanggotaan</th>
+              <th>Komisi</th>
+            </tr>
+          </thead>
+          <tbody>
+             <td colspan=5 class=text-center> Tidak ada komisi untuk bulan ini </td>
+          </tbody>
+          </table>
+          <br/>
+          <h3 class="text-center"><strong> Laporan Komisi Lengkap / Member id</strong></h3>
+          <table class="table table-striped table-hover" id="table-komisi">
+            <thead>
+              <tr>
+                <th>Member ID</th>
+                <th>Nama</th>
+                <th>Dari Member</th>
+                <th>Keanggotaan</th>
+                <th>Level</th>
+                <th>Lot</th>
+                <th>Komisi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan=8 class=text-center> Tidak ada komisi untuk bulan ini </td>
+                
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="custom/js/imp_detailed_commison.js"></script>
+
+  <script type="text/javascript">
+    jQuery(document).ready(function() {
+      imp_comm_JS.init();
+      $('button[type=button]').click(function(event) {
+        imp_comm_JS.get_data_client(this);
+      });
+    });
+  </script>
+</div>
