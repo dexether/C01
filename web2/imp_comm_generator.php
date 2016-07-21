@@ -129,7 +129,7 @@ function compression($account, $base_account, $periode_date)
    $downline = 0;
    $lots     = 0;
    //if ($type != 'agent') { //Ini untuk Agent
-   if ($Upline != 'COMPANY') {
+   if ($type != 'agent') {
       $downline = hitungdownline($Upline);
       $lots     = checktrade($Upline, $periode_date);
       if ($downline > 1 && $lots >= 1) {
@@ -299,22 +299,22 @@ function hitungkomisi($account, $periode_date, $periode)
        $typeaccount = $value['typeaccount'];
    }
    $query = "SELECT 
-  mlm_temp.`ACCNO`,
-  mlm_temp.`Upline`,
-  mlm2.`mt4dt`,
-  mlm2.`mt4login`,
-  mlm.`Upline` AS uplineasli,
-  client_accounts.`typeaccount` 
-FROM
-  mlm_temp 
-  LEFT JOIN mlm2 
-    ON mlm_temp.`ACCNO` = mlm2.`ACCNO` 
-  LEFT JOIN mlm 
-    ON mlm_temp.`ACCNO` = mlm.`ACCNO` 
-  LEFT JOIN client_accounts 
-    ON mlm_temp.`ACCNO` = client_accounts.`accountname` 
-WHERE mlm_temp.`rolldate` = '".$periode_date."'
-AND mlm_temp.ACCNO = '".$account."'";
+    mlm_temp.`ACCNO`,
+    mlm_temp.`Upline`,
+    mlm2.`mt4dt`,
+    mlm2.`mt4login`,
+    mlm.`Upline` AS uplineasli,
+    client_accounts.`typeaccount` 
+  FROM
+    mlm_temp 
+    LEFT JOIN mlm2 
+      ON mlm_temp.`ACCNO` = mlm2.`ACCNO` 
+    LEFT JOIN mlm 
+      ON mlm_temp.`ACCNO` = mlm.`ACCNO` 
+    LEFT JOIN client_accounts 
+      ON mlm_temp.`ACCNO` = client_accounts.`accountname` 
+  WHERE mlm_temp.`rolldate` = '".$periode_date."'
+  AND mlm_temp.ACCNO = '".$account."'";
    // tradeLogs($query);
    $result = $DB->execresultset($query);
    $data = array();
