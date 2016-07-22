@@ -1,14 +1,15 @@
 <?php
 include_once "$_SERVER[DOCUMENT_ROOT]/includes/functions.php";
 include_once "$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php";
+require_once "$_SERVER[DOCUMENT_ROOT]/classes/security.csrf.php";
 include_once "includes/wr_tools.php";
-$var_to_pass = null;
 global $user;
 global $template;
-global $themonth;
 global $mysql;
 global $DB;
-
+$security = new \security\CSRF;
+$token = $security->set(3, 3600);
+$template->assign("token", $token);
 if (isset($user)) {
     $user;
 }
@@ -27,40 +28,16 @@ $_SESSION['page'] = 'imp_client_comm_realtime';
 =            Start Coding            =
 ====================================*/
 
-$alldata = array();
-$query   = "SELECT
-  mlm_comm.`ACCNO`,
-  mlm_comm.`rolldate`
-FROM
-  mlm_comm,
-  client_accounts,
-  client_aecode
-  WHERE mlm_comm.`ACCNO` = client_accounts.`accountname`
-  AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
-  AND client_aecode.`aecode` = '$user->username'";
+$query = "SELECT client_accounts.accountname FROM client_aecode, client_accounts WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid` AND client_aecode.aecode = '$user->username'";
 $result = $DB->execresultset($query);
-$rolldate = array();
-$accountname = array();
+$accountdata = array();
 foreach ($result as $key => $value) {
-    $accountname[] = $value['ACCNO'];
-    $rolldate[]    = $value['rolldate'];
+  $accountdata[] = $value;
 }
-$unique_date        = array_unique($rolldate);
-$unique_accountname = array_unique($accountname);
-sort($unique_date);
-sort($unique_accountname);
-$date = array();
-foreach($unique_date as $key => $val){
-    $date[$key]['title'] = date('M, Y', strtotime($val));
-    $date[$key]['value'] = $val;
-}
-
-$alldata['listaccount'] = $unique_accountname;
-$alldata['rolldate']    = $date;
-$template->assign('alldata',$alldata);
-
+$alldata['listaccount'] = $accountdata;
+// var_dump($alldata);
 /*=====  End of Start Coding  ======*/
-
+$template->assign('alldatas',$alldata);
 $template->display("imp_client_comm_realtime.htm");
 
 function myfilter($input_var_outer, $param)
