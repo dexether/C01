@@ -28,4 +28,7 @@ class Store extends CI_Controller
         );
         $this->load->view('mall/index', $part);
     }
+    public function basic(){
+        redirect(base_url()."web2",'refresh');
+    }
 }

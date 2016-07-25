@@ -33,6 +33,7 @@ if ($postmode == 'cekib') {
 
 } else if ($postmode == 'cekid') {
    $query  = "SELECT client_accounts.`accountname` FROM client_accounts WHERE   client_accounts.`aecodeid` = '$users'";
+   tradeLog($query);
    $result = $DB->execresultset($query);
    if (empty($result)) {
       $response[""] = "-- Select Cabinet ID --";
