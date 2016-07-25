@@ -70,7 +70,7 @@ if ($usernya==9) {
 $query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*   
         FROM client_aecode,client_accounts,mlm  
         WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
-        AND client_accounts.`suspend` = '0' 
+         
         AND client_accounts.`accountname` = mlm.`ACCNO`
           $condiional
         ";
@@ -106,7 +106,7 @@ function updatechild($longtree, $ACCNO2) {
     $query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*   
     FROM client_aecode,client_accounts,mlm  
     WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid` 
-    AND client_accounts.`suspend` = '0'
+
     AND client_accounts.`accountname` = mlm.`ACCNO` 
     AND mlm.Upline = '$ACCNO2' ";
 
