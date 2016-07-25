@@ -1,14 +1,15 @@
 <?php
-include_once("$_SERVER[DOCUMENT_ROOT]/includes/functions.php");
-include_once("$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php");
-include_once("includes/wr_tools.php");
-$var_to_pass = null;
+include_once "$_SERVER[DOCUMENT_ROOT]/includes/functions.php";
+include_once "$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php";
+require_once "$_SERVER[DOCUMENT_ROOT]/classes/security.csrf.php";
+include_once "includes/wr_tools.php";
 global $user;
 global $template;
-global $themonth;
 global $mysql;
 global $DB;
-
+$security = new \security\CSRF;
+$token = $security->set(3, 3600);
+$template->assign('token', $token);
 if (isset($user)) {
     $user;
 }
@@ -72,53 +73,11 @@ $_SESSION['page'] = 'ar_email_admin';
 /*==============================
 =        Start Coding          =
 ==============================*/
-/*  Cari Downline */
-$usernya = $user->groupid;
-$condiional = "";
-if ($usernya==9) {
-    $condiional = "AND mlm.Upline = 'COMPANY' AND mlm.ACCNO <> 'COMPANY'";
-    $condiional_header = "''";
-    $condiional_footer = "";
-}else{
-    $condiional = "AND client_aecode.aecode = '" . $user->username . "'";
-    $condiional_header = "''";
-    $condiional_footer = "";
-}
 
-$query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*   
-        FROM client_aecode,client_accounts,mlm  
-        WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
-        AND client_accounts.`suspend` = '0' 
-        AND client_accounts.`accountname` = mlm.`ACCNO`
-		AND mlm.`group_play`='Car' 
-          $condiional
-        ";
-$datatress = array();
-$rows = $DB->execresultset($query);
-foreach ($rows as $row) {
-    $datatress[$row['ACCNO']] = $row;
-}
-// var_dump($datatress);
-$longtree = $condiional_header;
-if (count($datatress) > 0) {
-    foreach ($datatress AS $ACCNO1 => $datatres) {
-        $longtree = $longtree .",'".$ACCNO1."'";
-        $longtree = updatechild($longtree, $ACCNO1);
-        $longtree = $longtree . "";
-    }
-}
-$longtree = $longtree . $condiional_footer;
-$template->assign("longtree", $longtree);
 // var_dump($longtree);
 /* End Cari Downline */
 
-$query = "SELECT 
-  client_accounts.`email` 
-FROM
-  client_accounts,
-  mlm 
-WHERE mlm.`ACCNO` = client_accounts.`accountname` 
-  AND client_accounts.`accountname` IN ($longtree)";
+$query = "SELECT email FROM client_aecode";
    
      $rows = $DB->execresultset($query);
 		$view= "";
