@@ -50,28 +50,28 @@ if ($postmode == "export") {
 }elseif ($postmode == "doit") {
 	storeToCronLogs('wcd');
 	$query = "SELECT 
-	mlm_wcd.`account`,
-	mlm_wcd.`last_pay`,
-	mlm_wcd.`next_pay`,
-	mlm_wcd.`status`,
-	mlm_bonus_settings.`group_play`,
-	mlm_bonus_settings.`amount`,
-	mlm_bonus_settings.`description`,
-	mlm_bonus_settings.`wcd` 
-	FROM
-	client_aecode,
-	client_accounts,
-	mlm_wcd,
-	mlm,
-	mlm_bonus_settings 
-	WHERE mlm_wcd.status = '1' 
-	AND mlm_wcd.`account` = mlm.`ACCNO` 
-	AND client_aecode.aecodeid = client_accounts.aecodeid
-	AND client_accounts.`suspend` = '0'
-	AND mlm_wcd.account = client_accounts.`accountname` 
-	AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
-	AND mlm.`companyconfirm` = '2' 
-	AND mlm_wcd.`next_pay` = DATE(NOW())";
+  mlm_wcd.`account`,
+  mlm_wcd.`last_pay`,
+  mlm_wcd.`next_pay`,
+  mlm_wcd.`status`,
+  mlm_bonus_settings.`group_play`,
+  mlm_bonus_settings.`amount`,
+  mlm_bonus_settings.`description`,
+  mlm_bonus_settings.`wcd` 
+FROM
+  client_aecode,
+  client_accounts,
+  mlm_wcd,
+  mlm,
+  mlm_bonus_settings 
+WHERE mlm_wcd.status = '1' 
+  AND mlm_wcd.`account` = mlm.`ACCNO` 
+  AND client_aecode.aecodeid = client_accounts.aecodeid 
+  AND client_accounts.`suspend` = '0' 
+  AND mlm_wcd.account = client_accounts.`accountname` 
+  AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
+  AND mlm.`companyconfirm` = '2' 
+  AND mlm_wcd.`next_pay` = DATE(NOW())";
 	// tradeLogConstruct("ar_admin_wcd- 75 : ". $query);
 	$result = $DB->execresultset($query);
 	foreach($result as $rows) {
@@ -80,7 +80,7 @@ if ($postmode == "export") {
 	$total = $rows['amount'];
 	$total_bagi = $total * ($rows['wcd'] / 100);
 	$do = storeToWallet($rows['account'], $total_bagi);
-	if($do == 0) {
+	if($do == '0') {
 		$new_tgl = date('Y-m-d', strtotime("+1 week", strtotime($rows['next_pay'])));
 		$query = "UPDATE mlm_wcd SET next_pay = '$new_tgl', last_pay = '$rows[next_pay]' WHERE account = '$rows[account]' ";
 		$DB->execonly($query);
