@@ -1,10 +1,5 @@
 <?php
-$email = "john.doe@example.com";
-
-if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-  $output = true;
-} else {
-  $output = false;
-}
-echo $output;
-?> 
+$email = "tarikh@si.co.id";
+$pecah = strtoupper(substr($email, 0,2));
+echo ($pecah.rand(10, 1000));
+?>

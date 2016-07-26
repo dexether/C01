@@ -1,0 +1,1 @@
+<script id="askap-regform" src="//account.askapsocial.com/widget/reg-form/?askap&id=0"></script>
