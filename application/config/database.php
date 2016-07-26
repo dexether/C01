@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require_once('../_settings/config.php');
+require('_settings/config.php');
+// var_dump($mysql);
 
 /*
 | -------------------------------------------------------------------

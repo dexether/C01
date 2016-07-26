@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+require('_settings/config.php');
+// var_dump($mysql);
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -49,7 +50,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'Store/basic';
+if ($mall) {
+	# code...
+	$route['default_controller'] = 'Store';
+	
+}else{
+	$route['default_controller'] = 'Store/basic';
+}
+
 $route['backoffice'] = 'Store/basic';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
