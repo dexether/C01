@@ -39,6 +39,7 @@ FROM
   WHERE client_aecode.`aecode` = '$user->username'
   AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
   AND client_accounts.`accountname` = mlm.`ACCNO`
+  AND client_accounts.accountname = '$account'
   AND mlm.`group_play` = mlm_bonus_settings.`group_play`";
 $result = $DB->execresultset($query);
 foreach($result as $row){

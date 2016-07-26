@@ -1,7 +1,4 @@
 <?php
-
-header("Content-type: text/plain");
-
-print_r($_SERVER['HTTPS']);
+echo base64_decode('MTYwNDIxMTEx');
 
 ?>

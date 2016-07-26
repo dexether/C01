@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>the box - Index footer layout 2</title>
+    <title><?php echo $this->config->item('APP_TITLE'); ?> - <?php echo $this->config->item('APP_DESC'); ?></title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
     <meta name="keywords" content="Template, html, premium, themeforest" />
@@ -24,7 +24,8 @@
 <body>
     <div class="global-wrapper clearfix" id="global-wrapper">
         <!-- Start of mainheader -->
-        <?php include "mainheader.php"; ?>
+        
+        <?php echo $header ?>
         <!-- End of mainheader -->
         <?php echo $slider ?>
         <!-- Start Of Crausel -->
@@ -36,7 +37,7 @@
         <!-- End Of Body -->
 
         <!-- Start of Footer -->
-        <?php include "mainfooter.php" ?>;
+        <?php include "mainfooter.php"; ?>
         <!-- End Of Footer -->
         
     </div>

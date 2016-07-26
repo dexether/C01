@@ -61,3 +61,5 @@ if ($mall) {
 $route['backoffice'] = 'Store/basic';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['c/(:any)'] = 'Store/product/$2';
+// $route['c/(:any)/(:any)'] = 'Store/cat/$1';
