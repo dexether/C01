@@ -5,13 +5,22 @@
  * Note: Include all site-wide settings here.
  * ************************************************************************************* */
 ini_set("max_execution_time", "0");
-$SETTINGS_DIR = "$_SERVER[DOCUMENT_ROOT]/_settings";
-$httphost     = $_SERVER['HTTP_HOST'];
-$httphost     = strtolower($httphost);
-$ipnya_host   = 'mlm';
+$SETTINGS_DIR  = "$_SERVER[DOCUMENT_ROOT]/_settings";
+$httphost      = $_SERVER['HTTP_HOST'];
+if (isset($_SERVER['HTTPS'])) {
+    # code...
+    $base = "https://".$httphost;
+}else{
+    $base = "http://".$httphost;
+}
+// var_dump($base);
+$httphost      = strtolower($httphost);
+$ipnya_host    = 'mlm';
 $mysql['host'] = "10.10.0.103";
 switch ($httphost) {
     case 'thecabinetsystems.dev':
+        // $base = "";
+        $mall          = true;
         $mysql['host'] = "10.10.0.103";
         // $mysql['host'] = "localhost";
         $mysql['user']      = "root";
@@ -21,6 +30,7 @@ switch ($httphost) {
         $mysql['crypt_key'] = "139";
         break;
     case 'cabinet.apexregent.dev':
+        $mall          = false;
         $mysql['host'] = "10.10.0.103";
         // $mysql['host'] = "localhost";
         $mysql['user']      = "root";
@@ -29,7 +39,8 @@ switch ($httphost) {
         $mysql['meta']      = "askap_source";
         $mysql['crypt_key'] = "139";
         break;
-	 case 'cabinet.apexregent.dev:90':
+    case 'cabinet.apexregent.dev:90':
+        $mall          = false;
         $mysql['host'] = "10.10.0.103";
         // $mysql['host'] = "localhost";
         $mysql['user']      = "root";
@@ -40,6 +51,7 @@ switch ($httphost) {
         break;
     case 'agendafx.dev':
         $mysql['host'] = "10.10.0.103";
+        $mall          = true;
         // $mysql['host'] = "localhost";
         $mysql['user']      = "root";
         $mysql['password']  = "mugen1996";
