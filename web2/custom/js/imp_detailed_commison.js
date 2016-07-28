@@ -79,7 +79,7 @@ var imp_comm_JS = function() {
                                 tr.append("<td>" + value[i].aliases + "</td>");
                                 tr.append("<td>" + value[i].periode + "</td>");
                                 tr.append("<td>" + parseFloat(value[i].lots).toFixed(2) + "</td>");
-                                tr.append("<td>" + imp_comm_JS.changetorp(value[i].lot_amount*value[i].lots) + "</td>");
+                                tr.append("<td>" + imp_comm_JS.changetorp(value[i].lot_amount * value[i].lots) + "</td>");
                                 $('table[id=table-anony] tbody').append(tr);
                             }
                         });
@@ -124,6 +124,9 @@ var imp_comm_JS = function() {
                     data: formDatas,
                     type: 'POST',
                     dataType: 'JSON',
+                    error: function() {
+                        alert('Error While creating tree');
+                    },
                     beforeSend: function() {
                         $(a).button('loading')
                         $('span[class=help-block]').html('Creating New Tree with compression ..');
@@ -145,17 +148,43 @@ var imp_comm_JS = function() {
                                 data: formDatas2,
                                 type: 'POST',
                                 dataType: 'JSON',
+                                error: function() {
+                                    alert('Error While Counting Commision');
+                                },
                                 beforeSend: function() {
                                     $('span[class=help-block]').html('Counting Commision ..');
                                 },
                                 success: function(res) {
                                     // console.log(response);
+                                    $('input[name=token]').val(res.token);
                                     $('span[class=help-block]').html('Finished.');
                                     var uls = $('#progress-msg');
                                     uls.append("<li><span class='label label-" + res.status + "'>" + res.title + "</span> " + res.msg + "</li>");
                                     $(".progress-bar").css("width", "" + res.progress + "%");
                                     $(".progress-bar").attr("aria-valuenow", "" + res.progress + "%");
-                                    $(a).button('reset')
+                                    /*  Wallet Doing */
+                                    var formDatas2 = $('#ajax-form').serializeArray();
+                                    $.ajax({
+                                        url: 'imp_comm_generator.php?postmode=wallet',
+                                        data: formDatas2,
+                                        type: 'POST',
+                                        dataType: 'JSON',
+                                        error: function() {
+                                            alert('Error While Transfering wallet');
+                                        },
+                                        beforeSend: function() {
+                                            $('span[class=help-block]').html('Transfering to wallet ..');
+                                        },
+                                        success: function(res) {
+                                            // console.log(response);
+                                            $('span[class=help-block]').html('Finished.');
+                                            var uls = $('#progress-msg');
+                                            uls.append("<li><span class='label label-" + res.status + "'>" + res.title + "</span> " + res.msg + "</li>");
+                                            $(".progress-bar").css("width", "" + res.progress + "%");
+                                            $(".progress-bar").attr("aria-valuenow", "" + res.progress + "%");
+                                            $(a).button('reset')
+                                        }
+                                    });
                                 }
                             });
                         }, 2000); // Execute something() 2 second later.
