@@ -47,7 +47,16 @@ if ($error != 'error') {
                $progress = 50;
             } else {
 
-               $query  = "SELECT mlm.ACCNO, upline FROM mlm, client_accounts WHERE mlm.`ACCNO` = client_accounts.`accountname` AND client_accounts.`suspend` = '0' AND ACCNO != 'COMPANY'";
+               $query  = "SELECT 
+              mlm.ACCNO,
+              upline 
+            FROM
+              mlm,
+              client_accounts 
+            WHERE mlm.`ACCNO` = client_accounts.`accountname` 
+              AND client_accounts.`suspend` = '0' 
+              AND ACCNO != 'COMPANY' 
+              AND mlm.`group_play` LIKE '%askap%'";
                $result = $DB->execresultset($query);
                foreach ($result as $key => $value) {
                   compression($value['ACCNO'], $value['ACCNO'], $periode_date);
@@ -118,18 +127,21 @@ echo json_encode($response);
 function compression($account, $base_account, $periode_date)
 {
    // echo "ACCNOC : " . $account . " BASE :" . $base_account . "<br/>";
+
    global $DB;
    $query  = "SELECT Upline, client_accounts.`typeaccount` FROM mlm, client_accounts WHERE mlm.`ACCNO` = client_accounts.`accountname` AND ACCNO = '$account'";
+   // tradeLogs($query);
    $result = $DB->execresultset($query);
    foreach ($result as $key => $value) {
       $Upline = $value['Upline'];
       $type   = $value['typeaccount'];
+      $typeofaccounts = $value['typeaccount'];
    }
    // echo $account . " " . $Upline . "<br>";
    $downline = 0;
    $lots     = 0;
-   //if ($type != 'agent') { //Ini untuk Agent
-   if ($type != 'agent') {
+   if ($typeofaccounts != 'agent' && $Upline != 'COMPANY') { //Ini untuk Agent
+   // if ($Upline != 'COMPANY') {
       $downline = hitungdownline($Upline);
       $lots     = checktrade($Upline, $periode_date);
       if ($downline > 1 && $lots >= 1) {
@@ -299,22 +311,22 @@ function hitungkomisi($account, $periode_date, $periode)
        $typeaccount = $value['typeaccount'];
    }
    $query = "SELECT 
-    mlm_temp.`ACCNO`,
-    mlm_temp.`Upline`,
-    mlm2.`mt4dt`,
-    mlm2.`mt4login`,
-    mlm.`Upline` AS uplineasli,
-    client_accounts.`typeaccount` 
-  FROM
-    mlm_temp 
-    LEFT JOIN mlm2 
-      ON mlm_temp.`ACCNO` = mlm2.`ACCNO` 
-    LEFT JOIN mlm 
-      ON mlm_temp.`ACCNO` = mlm.`ACCNO` 
-    LEFT JOIN client_accounts 
-      ON mlm_temp.`ACCNO` = client_accounts.`accountname` 
-  WHERE mlm_temp.`rolldate` = '".$periode_date."'
-  AND mlm_temp.ACCNO = '".$account."'";
+  mlm_temp.`ACCNO`,
+  mlm_temp.`Upline`,
+  mlm2.`mt4dt`,
+  mlm2.`mt4login`,
+  mlm.`Upline` AS uplineasli,
+  client_accounts.`typeaccount` 
+FROM
+  mlm_temp 
+  LEFT JOIN mlm2 
+    ON mlm_temp.`ACCNO` = mlm2.`ACCNO` 
+  LEFT JOIN mlm 
+    ON mlm_temp.`ACCNO` = mlm.`ACCNO` 
+  LEFT JOIN client_accounts 
+    ON mlm_temp.`ACCNO` = client_accounts.`accountname` 
+WHERE mlm_temp.`rolldate` = '".$periode_date."'
+AND mlm_temp.ACCNO = '".$account."'";
    // tradeLogs($query);
    $result = $DB->execresultset($query);
    $data = array();
