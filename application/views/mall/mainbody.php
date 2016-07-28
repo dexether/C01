@@ -2,16 +2,16 @@
 <div class="container">
         <div class="row" data-gutter="15">
                 <div class="col-md-4">
-                    <div class="banner banner-o-hid" style="background-image:url(http://placehold.it/380x220/2ecc71/fff);">
+                    <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/backgrounds/categories-indicator.png);">
                         <a class="banner-link" href="#"></a>
-                        <div class="banner-caption-left">
+                       <!--  <div class="banner-caption-left">
                             <h5 class="banner-title">Discover The Mountains</h5>
                             <p class="banner-desc">Pro Backpacks 70% Off.</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
 
-                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/16-i.png" alt="Image Alternative text" title="Image Title" style="bottom: -68px; right: -32px; width: 200px;" />
+                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/16-i.png" alt="Image Alternative text" title="Image Title" style="bottom: -68px; right: -32px; width: 200px;" /> -->
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -53,15 +53,15 @@
                 </div>
                 <div class="col-md-4">
 
-                    <div class="banner banner-o-hid" style="background-image:url(http://placehold.it/380x200/2ecc71/fff);">
-                        <a class="banner-link" href="#"></a>
+                    <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/backgrounds/categories-indicator.png);">
+                        <!-- <a class="banner-link" href="#"></a>
                         <div class="banner-caption-left">
                             <h5 class="banner-title">Back to School</h5>
                             <p class="banner-desc">Class is Almost in Session!</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
-                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/20-i.png" alt="Image Alternative text" title="Image Title" style="bottom: -20px; right: -60px; width: 240px;" />
+                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/20-i.png" alt="Image Alternative text" title="Image Title" style="bottom: -20px; right: -60px; width: 240px;" /> -->
                     </div>
                 </div>
                 <div class="col-md-4">

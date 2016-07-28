@@ -51,7 +51,7 @@
                     <img class="product-img-primary" src="<?php echo base_url() ?>/assets/img/product/1.jpg" alt="Image Alternative text" title="Image Title" />
                     <img class="product-img-alt" src="<?php echo base_url() ?>/assets/img/product/1.jpg" alt="Image Alternative text" title="Image Title" />
                 </div>
-                <a class="product-link" href="#"></a>
+                <a class="product-link" href="<?php echo base_url() ?>c/forex-indicator/indikator-fore--profit-konsisten-minimal-5-persen"></a>
                 <div class="product-caption">
                     <ul class="product-caption-rating">
                         <li class="rated"><i class="fa fa-star"></i>

@@ -374,6 +374,10 @@ if ( ! is_php('5.4'))
 	// Set a mark point for benchmarking
 	$BM->mark('loading_time:_base_classes_end');
 
+	/*  404_ovveride Force */
+	// Override show_404 method
+
+
 /*
  * ------------------------------------------------------
  *  Sanity checks

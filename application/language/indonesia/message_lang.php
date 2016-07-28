@@ -12,3 +12,6 @@ $lang["header_menu_help"] = "Bantuan";
 $lang["header_menu_sign"] = "Masuk";
 $lang["header_menu_register"] = "Buat Akun";
 $lang["header_field_seacrh"] = "Cari yang anda mau disini ...";
+
+$lang["page_404_title"] = "Maaf, halaman yang anda cari tidak ditemukan.";
+$lang["page_404_button_title"] = "Kembali keberanda.";

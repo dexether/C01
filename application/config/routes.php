@@ -59,7 +59,8 @@ if ($mall) {
 }
 
 $route['backoffice'] = 'Store/basic';
-$route['404_override'] = '';
+$route['404_override'] = 'Errorpage/index';
+$route['404'] = 'Store/pagenotfound';
 $route['translate_uri_dashes'] = FALSE;
-$route['c/(:any)'] = 'Store/product/$2';
-// $route['c/(:any)/(:any)'] = 'Store/cat/$1';
+$route['c/(:any)'] = 'Store/cat/$1';
+$route['c/(:any)/(:any)'] = 'Store/product/$1/$2';

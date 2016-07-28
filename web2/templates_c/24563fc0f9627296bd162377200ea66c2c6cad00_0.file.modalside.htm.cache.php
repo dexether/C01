@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2016-07-26 10:04:34
+<?php /* Smarty version 3.1.27, created on 2016-07-28 09:57:53
          compiled from "D:\web-dir\git\cabinet\web2\templates\modalside.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:146815796d342454e01_66176413%%*/
+/*%%SmartyHeaderCode:233579974b11ef343_64540622%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -13,16 +13,16 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '146815796d342454e01_66176413',
+  'nocache_hash' => '233579974b11ef343_64540622',
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_5796d342464890_65196061',
+  'unifunc' => 'content_579974b127c4a4_35693639',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_5796d342464890_65196061')) {
-function content_5796d342464890_65196061 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_579974b127c4a4_35693639')) {
+function content_579974b127c4a4_35693639 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '146815796d342454e01_66176413';
+$_smarty_tpl->properties['nocache_hash'] = '233579974b11ef343_64540622';
 ?>
 
 <!-- Modal Start -->

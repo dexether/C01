@@ -83,13 +83,22 @@ if ($errno == 0) {
             foreach ($result as $rows) {
                $companys = $rows;
             }
+			
+			$query = "SELECT value FROM app_config WHERE `key` = 'AR_WITHDRAWAL_TAX'";
+			$result = $DB->execresultset($query);
+			$tax = '';
+			foreach($result as $row){
+				$tax = $row['value'];
+			}
+			$after_tax = $amount - ($amount * $tax / 100);
+			logstrade("After tax :".$after_tax);
 
             $to      = $companys['finance_email'];
             $subject = "A Withdrawal request from $account";
             $body    = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
             $body    = $body . "Dear " . $companys['companyname'] . ",<br>";
             $body    = $body . " <br>";
-            $body    = $body . "Withdrawal requests from user $account of USD $amount , check the " . $companys['programname'] . " to confirm after transfer<br>";
+            $body    = $body . "Withdrawal requests from user $account of USD $amount (After Tax USD $after_tax), check the " . $companys['programname'] . " to confirm after transfer<br>";
             $body    = $body . " <br>";
             $body    = $body . "You may login to your program account via our website at " . $companys['companyurl'] . " <br>";
             $body    = $body . " <br>";
@@ -107,7 +116,7 @@ if ($errno == 0) {
             $body     = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
             $body     = $body . "Dear " . $userdata['name'] . ",<br>";
             $body     = $body . " <br>";
-            $body     = $body . "Withdrawal requests from user $account of USD $amount , we have send to Finance Department. We will inform you as soon as possible for the progress<br>";
+            $body     = $body . "Withdrawal requests from user $account of USD $amount (After Tax USD $after_tax) , we have send to Finance Department. We will inform you as soon as possible for the progress<br>";
             $body     = $body . " <br>";
             $body     = $body . "You may login to your program account via our website at " . $companys['companyurl'] . " <br>";
             $body     = $body . " <br>";

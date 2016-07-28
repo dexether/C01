@@ -49,8 +49,18 @@ AND mlm_transaction.`account_from` = mlm_ewallet.`account`
 AND mlm_transaction.`type_transaction` IN ('withdrawal') 
 ORDER BY mlm_transaction.`date_transaction` DESC ";
 $result = $DB->execresultset($query);
+$amount = '';
 $template->assign("request", $result);
 // var_dump($result);
+
+$query = "SELECT value FROM app_config WHERE `key` = 'AR_WITHDRAWAL_TAX'";
+$result = $DB->execresultset($query);
+$tax = '';
+foreach($result as $row){
+	$tax = $row['value'];
+}
+
+$template->assign("tax",$tax);
 $template->display("ar_admin_withdrawal.htm");
 
 

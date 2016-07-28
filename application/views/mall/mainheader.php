@@ -748,9 +748,9 @@
                         <a class="fa fa-search navbar-main-search-submit" href="#"></a>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#nav-login-dialog" data-effect="mfp-move-from-top" class="popup-text"><?php echo $this->lang->line('header_menu_sign'); ?></a>
+                        <li><a href="<?php echo base_url(); ?>web2/index.php" ><?php echo $this->lang->line('header_menu_sign'); ?></a>
                         </li>
-                        <li><a href="#nav-account-dialog" data-effect="mfp-move-from-top" class="popup-text"><?php echo $this->lang->line('header_menu_register'); ?></a>
+                        <li><a href="<?php echo base_url(); ?>web2/openaccount.php?cabang=1"><?php echo $this->lang->line('header_menu_register'); ?></a>
                         </li>
                         <!-- <li class="dropdown">
                             <a class="fa fa-shopping-cart" href="shopping-cart.html"></a>

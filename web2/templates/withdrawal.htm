@@ -21,6 +21,9 @@
                     </div>
                 </div>
                 <div class="widget-content padding">
+				<div class="alert alert-info">
+					Notice : User withdrawal now will be charged 5% of the amount as Tax. 
+					</div>
                 {if $bankaccounts.0.status == '1'}
                 <div class="alert alert-warning">
                     <p class="text-justify">
@@ -67,11 +70,31 @@
                                 </div>
                             </div>
                             <div class="form-group col-sm-12">
-                                <label for="amount" class="col-sm-2 control-label">I wold like to Withdrawal</label>
+                                <label for="amount" class="col-sm-2 control-label">I would like to Withdraw</label>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control" name="amount" id="amount" value="" placeholder="Amount ..">
                                 </div>
                             </div>
+							
+							<script>
+								window.onload = function(){
+									var tax = "{$tax}";
+									var amount = document.getElementById("amount");
+									amount.oninput = function(){
+										amoun = document.getElementById("amount").value;
+										if(amoun !=''){
+											var after_tax = amoun - (amoun * tax / 100);
+											document.getElementById("after_tax").innerHTML=after_tax;
+										}
+									};
+								};
+							</script>
+						
+							<div class="form-group col-sm-12">
+								<label for="amount" class="col-sm-2 control-label">Withdrawal amount after tax</label>
+								<span id="after_tax" class="col-sm-2"></span>
+							</div>
+
                             <div class="form-group col-sm-4">
                                 <div class="col-sm-offset-7">
                                     <label class="control-label" id="captchaOperation"></label>

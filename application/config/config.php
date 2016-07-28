@@ -24,7 +24,7 @@ require('_settings/config.php');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = $base;
+$config['base_url'] = '';
 
 /*
 |--------------------------------------------------------------------------

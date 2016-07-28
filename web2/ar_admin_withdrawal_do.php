@@ -45,6 +45,14 @@ foreach ($result as $rows) {
    $type     = $rows['type_transaction'];
 }
 
+$query = "SELECT value FROM app_config WHERE `key` = 'AR_WITHDRAWAL_TAX'";
+			$result = $DB->execresultset($query);
+			$tax = '';
+			foreach($result as $row){
+				$tax = $row['value'];
+			}
+			$after_tax = $amount - ($amount * $tax / 100);
+
 if ($postmode == 'approve') {
    $query  = "SELECT balance, lastupdate_prev FROM mlm_ewallet WHERE account = '$acc_from'";
    $result = $DB->execresultset($query);
@@ -96,7 +104,7 @@ if ($errno == 0) {
             $body    = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
             $body    = $body . "Dear " . $datas['name'] . ",<br>";
             $body    = $body . " <br>";
-            $body    = $body . "Companies has approved your withdrawal request for account " . $acc_from . " of USD " . number_format($amount, 2) . "<br>";
+            $body    = $body . "Companies has approved your withdrawal request for account " . $acc_from . " of USD " . number_format($amount, 2) ."(After Tax USD ".$after_tax.")<br>";
             $body    = $body . "Check your BANK account<br>";
             $body    = $body . " <br>";
             $body    = $body . "Thank you,<br>";
@@ -120,7 +128,7 @@ if ($errno == 0) {
             $body    = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
             $body    = $body . "Dear " . $datas['name'] . ",<br>";
             $body    = $body . " <br>";
-            $body    = $body . "We have received your withdrawal request " . $acc_from . " of USD " . number_format($amount, 2) . "<br>";
+            $body    = $body . "We have received your withdrawal request " . $acc_from . " of USD " . number_format($amount, 2) . "(After Tax USD ".$after_tax.")<br>";
             $body    = $body . "We hope you can wait at least 3 days of work and we will process your request, status of your withdrawal request we will change to <strong>PENDING</strong>,<br>";
             $body    = $body . " <br>";
             $body    = $body . "Thank you,<br>";

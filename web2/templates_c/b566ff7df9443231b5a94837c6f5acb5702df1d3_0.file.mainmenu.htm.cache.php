@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2016-07-26 10:04:34
+<?php /* Smarty version 3.1.27, created on 2016-07-28 09:57:52
          compiled from "D:\web-dir\git\cabinet\web2\templates\mainmenu.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:311365796d342232be9_63846316%%*/
+/*%%SmartyHeaderCode:25968579974b0a26737_90451463%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -13,7 +13,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '311365796d342232be9_63846316',
+  'nocache_hash' => '25968579974b0a26737_90451463',
   'variables' => 
   array (
     'companys' => 0,
@@ -21,13 +21,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_5796d342357384_69165785',
+  'unifunc' => 'content_579974b102b494_02316667',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_5796d342357384_69165785')) {
-function content_5796d342357384_69165785 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_579974b102b494_02316667')) {
+function content_579974b102b494_02316667 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '311365796d342232be9_63846316';
+$_smarty_tpl->properties['nocache_hash'] = '25968579974b0a26737_90451463';
 ?>
 <!DOCTYPE html>
 <html>
@@ -143,7 +143,7 @@ $_smarty_tpl->properties['nocache_hash'] = '311365796d342232be9_63846316';
                                                 <!-- ============================================================== -->
                                                 <!-- CONTENT -->
                                                 
-                                                <?php include_once ('home_01.php');?>
+                                                <?php include_once ('home_03.php');?>
 
                                                 
                                                 <!-- /END OF CONTENT -->

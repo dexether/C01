@@ -141,7 +141,7 @@
                                        {$r.aeaccountnumber} - ({$r.aeaccountname} - {$r.tipe_akun})
                                     </td>
                                     <td>
-                                       {$r.amount|number_format:2}
+                                       {$r.amount|number_format:2} (After Tax : {$r.amount - ($r.amount * $tax / 100)})
                                     </td>
                                     <td>
                                        {if $r.status == '0'}

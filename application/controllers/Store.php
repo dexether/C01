@@ -24,6 +24,7 @@ class Store extends CI_Controller
         parent::__construct();
         $this->lang->load('message_lang', 'indonesia');
         $this->load->model('Shop_model', 'basicmodel');
+        // $this->load->helper('error');
 
     }
     public function index()
@@ -42,8 +43,7 @@ class Store extends CI_Controller
     }
     public function bahasa()
     {
-        echo $this->lang->line("msg_first_name");
-        echo base_url();
+        show_404();
     }
     public function cat($type = null)
     {
@@ -65,22 +65,34 @@ class Store extends CI_Controller
         );
         $this->load->view('mall/index', $part);
     }
-    public function product($type = null)
+    public function product($cat = null, $type = null)
     {
 
-       /* // $this->shop_model->test();
-        $result = $this->basicmodel->getData('master_cat', 'cat_name, cat_desc, cat_alias', array('cat_name' => $type));
+        // $this->shop_model->test();
+        // var_dump($type);
+        $result = $this->basicmodel->getData('master_product', 'prod_alias, prod_name, prod_desc, prod_star, prod_price, is_active, prod_star, prod_desc_long ', array('prod_name' => $type));
         if (count($result) <= '0') {
+            $this->output->set_status_header('404');
             show_404();
         }
         $data['title'] = array();
         foreach ($result as $key => $value) {
             $data['title'] = $value;
         }
-        // var_dump($data);*/
+        // var_dump($data);
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
-            "body"   => $this->load->view('mall/cat', array('data' => $data), true),
+            "body"   => $this->load->view('mall/product', array('data' => $data), true),
+            "slider" => "",
+        );
+        $this->load->view('mall/index', $part);
+    }
+    public function pageNotFound($cat = null, $type = null)
+    {
+
+        $part = array(
+            "header" => $this->load->view('mall/mainheader', array(), true),
+            "body"   => $this->load->view('mall/404', array(), true),
             "slider" => "",
         );
         $this->load->view('mall/index', $part);

@@ -104,6 +104,8 @@ WHERE client_aecode.`aecode` = '$user->username'
 AND client_aecode.`aecode` = client_aecode_bank.`aecode` ";
 $result = $DB->execresultset($query);
 $template->assign("bankaccounts", $result);
+//TradeLogUnderConstruct_Secure("Query Bank Accounts :". $query);
+
 
 $query = "SELECT 
 mlm_transaction.`date_transaction`,
@@ -124,6 +126,14 @@ AND client_aecode.`aecode` = '$user->username'";
 $result = $DB->execresultset($query);
 $template->assign("witdrawlstat", $result);
 
+$query = "SELECT value FROM app_config WHERE `key` = 'AR_WITHDRAWAL_TAX'";
+$result = $DB->execresultset($query);
+$tax = '';
+foreach($result as $row){
+	$tax = $row['value'];
+}
+$template->assign("tax", $tax);
+//TradeLogUnderConstruct_Secure("Tax :".$tax);
 /*=====  End of Coding  ======*/
 
 
