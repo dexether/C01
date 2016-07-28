@@ -28,8 +28,9 @@ class MY_Exceptions extends CI_Exceptions
 
         $CI = &get_instance();
         // $CI->load->view('mall/404', $CI->view_data); //Note I am using layout library. You'll probably use $CI->load->view()
-        redirect('404','refresh');
-        echo $CI->output->get_output();
+        // redirect('404','refresh');
+        header("Location: ../404");
+        // echo $CI->output->get_output();
         exit(4); // EXIT_UNKNOWN_FILE
     }
 }

@@ -1,4 +1,5 @@
 <?php
+// session_start();
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Store extends CI_Controller
@@ -24,12 +25,15 @@ class Store extends CI_Controller
         parent::__construct();
         $this->lang->load('message_lang', 'indonesia');
         $this->load->model('Shop_model', 'basicmodel');
+        // $this->load->library('session');
+        $this->load->library( 'nativesession' );
         // $this->load->helper('error');
 
     }
     public function index()
     {
-
+        var_dump($_SESSION);
+        // var_dump($this->session);
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
             "body"   => $this->load->view('mall/mainbody', array(), true),
