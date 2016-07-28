@@ -3,7 +3,7 @@
 session_start();
 $skip_authentication = 1;
 include("../includes/functions.php");
-
+$redirect = @$_POST['redirect'];
 $session = '';
 if (isset($_SESSION['login_depan'])) {
     $session = $_SESSION['login_depan'];
@@ -106,7 +106,12 @@ if ($_POST) {
     }
     if ($user->groupid == 3 || $user->groupid == 9 || $user->groupid == 15) { //Client & AE
         //display_error("<b>Underconstruction</b>");
-        header("Location: mainmenu.php");
+        if ($redirect == '') {
+            header("Location: mainmenu.php");    
+        }else{
+            header("Location: ".$redirect);    
+        }
+        
     } else {
         display_error("<b>Sorry This username can not login here</b><br>Please ask admin");
         header("Location: login.php");

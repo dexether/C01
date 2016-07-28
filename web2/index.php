@@ -6,6 +6,7 @@ $theparent = '';
 if(isset($_GET['page'])) {
     $theparent = $_GET['page'];
 }
+$redirect = htmlspecialchars_decode(@$_GET['redirect']);
 $target = "_self";
 if($theparent=='iframe'){
     $target = "_blank";
@@ -16,6 +17,7 @@ $years = date('Y', time());
 foreach($result as $rows) {
 	$companys = $rows;
 }
+$template->assign('redirect', $redirect);
 $template->assign("companys", $companys);
 //tradeLog("Index.php-14");
 $template->assign("target", $target);

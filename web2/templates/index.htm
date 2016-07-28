@@ -111,7 +111,8 @@
                     <form method="post" action="login.php" target="_blank" onClick="javascript:window.close();">
                     -->
                     <form method="post" action="login.php" target="{$target}" >
-                        <div class="content-box">
+                        <input type="hidden" value="{$redirect}" name="redirect"></input>
+                        <div class="content-box">   
                             <h3 class="content-box-header content-box-header-alt bg-default">
                                 <span class="icon-separator">
                                     <img src="{$companys.company_icon}" alt="MT {$companys.programname}" class="img-responsive">
