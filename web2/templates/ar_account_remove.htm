@@ -1,0 +1,101 @@
+<script src="custom/js/remove_account.js">
+</script>
+<script src="custom/sweetalert/dist/sweetalert-dev.js">
+</script>
+<link href="custom/sweetalert/dist/sweetalert.css" rel="stylesheet"/>
+<!-- Page Heading Start -->
+<div class="content" id="main_content">
+    <div class="page-heading">
+        <h1>
+            <i class="fa fa-wrench">
+            </i>
+            Account Management
+        </h1>
+    </div>
+    <!-- Page Heading End-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header ">
+                    <h2>
+                        <strong>
+                            Remove Account
+                        </strong>
+                    </h2>
+                    <div class="additional-btn">
+                        <a class="widget-toggle" href="#">
+                            <i class="icon-down-open-2">
+                            </i>
+                        </a>
+                    </div>
+                </div>
+                <br>
+                    <div class="widget-content padding">
+                        <div class="alert alert-success">
+                            <strong>
+                                NOTE :
+                            </strong>
+                            Only admin can see this menu
+                        </div>
+                        <div id="horizontal-form">
+                            <form id="remove-form" role="form">
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 control-label" for="client">
+                                        Client Name
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" id="client" name="client" onchange="remove_account_JS.getAccno(client.value);">
+                                            <option disabled="" selected="" value="">
+                                                -- select client name --
+                                            </option>
+                                            {foreach from=$names item=name}
+                                            <option value="{$name.name}">
+                                                {$name.name}
+                                            </option>
+                                            {/foreach}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 control-label" for="accno">
+                                        Account Number
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" id="accno" name="accno" onchange="remove_account_JS.getUpline(accno.value)">
+                                            <option disabled="" selected="" value="">
+                                                -- select account number --
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 control-label" for="upline">
+                                        Upline
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" disabled="" id="upline" name="upline">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-primary" onclick="remove_account_JS.doRemove(accno.value,upline.value)" type="button">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </br>
+            </div>
+        </div>
+    </div>
+</div>
+{literal}
+<script>
+    jQuery(document).ready(function() {
+        remove_account_JS.init();
+    });
+</script>
+{/literal}
