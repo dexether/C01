@@ -64,3 +64,7 @@ $route['404'] = 'Store/pagenotfound';
 $route['translate_uri_dashes'] = FALSE;
 $route['c/(:any)'] = 'Store/cat/$1';
 $route['c/(:any)/(:any)'] = 'Store/product/$1/$2';
+$route['cart'] = 'Buy_sell/showMyCart';
+$route['cart/add/(:any)/(:num)'] = 'Buy_sell/addProductToChart/$1/$2';
+$route['cart/(:any)/checkout'] = 'Buy_sell/userCheckOut/$1';
+$route['cart/alter/(:any)'] = 'Buy_sell/deleteProductFromcart/$1';
