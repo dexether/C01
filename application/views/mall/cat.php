@@ -38,8 +38,8 @@
     <?php 
     $i = 0;
     $last = 12;
-    for ($i=0; $i < $last; $i++) { 
-        # code...
+    foreach ($list as $key => $value) {
+        # code..    
     ?>
         <div class="col-md-3">
             <div class="product ">
@@ -48,10 +48,10 @@
                     <li>hot</li>
                 </ul> -->
                 <div class="product-img-wrap">
-                    <img class="product-img-primary" src="<?php echo base_url() ?>/assets/img/product/1.jpg" alt="Image Alternative text" title="Image Title" />
-                    <img class="product-img-alt" src="<?php echo base_url() ?>/assets/img/product/1.jpg" alt="Image Alternative text" title="Image Title" />
+                    <img class="product-img-primary" src="<?php echo base_url().$value['prod_images'] ?>" alt="Image Alternative text" title="Image Title" />
+                    <img class="product-img-alt" src="<?php echo base_url().$value['prod_images'] ?>" alt="Image Alternative text" title="Image Title" />
                 </div>
-                <a class="product-link" href="<?php echo base_url() ?>c/forex-indicator/indikator-fore--profit-konsisten-minimal-5-persen"></a>
+                <a class="product-link" href="<?php echo base_url(). "c/".$value['cat_name']. "/".$value['prod_name']?>"></a>
                 <div class="product-caption">
                     <ul class="product-caption-rating">
                         <li class="rated"><i class="fa fa-star"></i>
@@ -65,8 +65,18 @@
                         <li><i class="fa fa-star"></i>
                         </li>
                     </ul>
-                    <h5 class="product-caption-title">Indikator Forex - Profit Konsisten Minimal 5% Perhari Dari Modal</h5>
-                    <div class="product-caption-price"><span class="product-caption-price-old">Rp 60.000</span><span class="product-caption-price-new">Rp 50.000</span>
+                    <h5 class="product-caption-title"><?php echo $value['prod_alias'] ?></h5>
+                    <div class="product-caption-price">
+                    <?php if($value['id'] == NULL){
+                        echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['amount']).'</span>';
+                    }else{
+                        echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
+                        echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['amount']).'</span>';
+                    }
+
+                    ?>
+                    
+                    
                     </div>
                    <!--  <ul class="product-caption-feature-list">
                         <li>Free Shipping</li>

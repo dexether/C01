@@ -5,9 +5,9 @@
     <title><?php echo $this->config->item('APP_TITLE'); ?> - <?php echo $this->config->item('APP_DESC'); ?></title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
-    <meta name="keywords" content="Template, html, premium, themeforest" />
-    <meta name="description" content="TheBox - premium e-commerce template">
-    <meta name="author" content="Tsoy">
+    <meta name="keywords" content="Finance, Forex, Ecommerce, Robot, Trading, Broker" />
+    <meta name="description" content="><?php echo $this->config->item('APP_TITLE'); ?> - <?php echo $this->config->item('APP_DESC'); ?>">
+    <meta name="author" content="<?php echo $this->config->item('APP_TITLE'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='http://fonts.googleapis.com/css?family=Roboto:500,300,700,400italic,400' rel='stylesheet' type='text/css'>
@@ -18,13 +18,14 @@
     <link rel="stylesheet" href="<?php echo base_url('assets') ?>/css/font-awesome.css">
     <link rel="stylesheet" href="<?php echo base_url('assets') ?>/css/styles.css">
     <link rel="stylesheet" href="<?php echo base_url('assets') ?>/css/mystyles.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets') ?>/js/libs/ratings/css/star-rating-svg.css">
 
 </head>
 
 <body>
     <div class="global-wrapper clearfix" id="global-wrapper">
         <!-- Start of mainheader -->
-        
+        <script src="<?php echo base_url('assets') ?>/js/jquery.js"></script>
         <?php echo $header ?>
         <!-- End of mainheader -->
         <?php echo $slider ?>
@@ -41,7 +42,7 @@
         <!-- End Of Footer -->
         
     </div>
-    <script src="<?php echo base_url('assets') ?>/js/jquery.js"></script>
+    
     <script src="<?php echo base_url('assets') ?>/js/bootstrap.js"></script>
     <script src="<?php echo base_url('assets') ?>/js/icheck.js"></script>
     <script src="<?php echo base_url('assets') ?>/js/ionrangeslider.js"></script>
@@ -50,6 +51,7 @@
     <script src="<?php echo base_url('assets') ?>/js/owl-carousel.js"></script>
     <script src="<?php echo base_url('assets') ?>/js/magnific.js"></script>
     <script src="<?php echo base_url('assets') ?>/js/custom.js"></script>
+    <script src="<?php echo base_url('assets') ?>/js/libs/ratings/jquery.star-rating-svg.js"></script>
 
 
 

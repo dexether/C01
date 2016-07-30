@@ -310,8 +310,8 @@
                                                     <div class="col-md-6">
                                                         <h5 class="dropdown-menu-category-title">Forex</h5>
                                                         <ul class="dropdown-menu-category-list">
-                                                            <li><a href="#">Indikator Forex</a>
-                                                                <p>Menjual Semua tentang Indikator</p>
+                                                            <li><a href="<?php echo base_url().'c/forex-analisa'; ?>">Forex Analisa</a>
+                                                                <p>Berbagai Analisa tentang Forex</p>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -329,8 +329,8 @@
                                                     <div class="col-md-6">
                                                         <h5 class="dropdown-menu-category-title">Forex</h5>
                                                         <ul class="dropdown-menu-category-list">
-                                                            <li><a href="#">Indikator Forex</a>
-                                                                <p>Menjual Semua tentang Indikator</p>
+                                                            <li><a href="<?php echo base_url().'c/forex-book'; ?>">Buku Finansial</a>
+                                                                <p>Menjual Semua tentang Buku</p>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -348,8 +348,8 @@
                                                     <div class="col-md-6">
                                                         <h5 class="dropdown-menu-category-title">Forex</h5>
                                                         <ul class="dropdown-menu-category-list">
-                                                            <li><a href="#">Indikator Forex</a>
-                                                                <p>Menjual Semua tentang Indikator</p>
+                                                            <li><a href="<?php echo base_url().'c/forex-education'; ?>">Edukasi Finansial</a>
+                                                                <p>Menjual Semua tentang Edukasi Finansial</p>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -367,8 +367,8 @@
                                                     <div class="col-md-6">
                                                         <h5 class="dropdown-menu-category-title">Forex</h5>
                                                         <ul class="dropdown-menu-category-list">
-                                                            <li><a href="#">Indikator Forex</a>
-                                                                <p>Menjual Semua tentang Indikator</p>
+                                                            <li><a href="<?php echo base_url().'c/forex-robot'; ?>">Forex EA</a>
+                                                                <p>Menjual Semua tentang EA & Bot</p>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -397,7 +397,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                 <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Produk</a>
+                                <!--  <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Produk</a>
                                     <div class="dropdown-menu-category-section">
                                         <div class="dropdown-menu-category-section-inner">
                                             <div class="dropdown-menu-category-section-content">
@@ -415,17 +415,17 @@
                                             <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/7-i.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
                                         </div>
                                     </div>
-                                </li>
+                                </li> -->
                                 <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Seminar</a>
                                     <div class="dropdown-menu-category-section">
                                         <div class="dropdown-menu-category-section-inner">
                                             <div class="dropdown-menu-category-section-content">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <h5 class="dropdown-menu-category-title">Sports</h5>
+                                                        <h5 class="dropdown-menu-category-title">Forex</h5>
                                                         <ul class="dropdown-menu-category-list">
-                                                            <li><a href="#">Athletic Clothing</a>
-                                                                <p>Dolor ligula auctor a ut</p>
+                                                            <li><a href="<?php echo base_url().'c/forex-seminar'; ?>">Seminar Finansial</a>
+                                                                <p>Semua tentang seminar Finansial</p>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -748,59 +748,22 @@
                         <a class="fa fa-search navbar-main-search-submit" href="#"></a>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
+                    	<?php if (!$this->nativesession->getObject('username')) {
+                    		# code...
+                    	?>
                         <li><a href="<?php echo base_url(); ?>web2/index.php?redirect=<?php echo base_url() ?>" ><?php echo $this->lang->line('header_menu_sign'); ?></a>
                         </li>
                         <li><a href="<?php echo base_url(); ?>web2/openaccount.php?cabang=1"><?php echo $this->lang->line('header_menu_register'); ?></a>
                         </li>
-                        <!-- <li class="dropdown">
-                            <a class="fa fa-shopping-cart" href="shopping-cart.html"></a>
-                            <ul class="dropdown-menu dropdown-menu-shipping-cart">
-                                <li>
-                                    <a class="dropdown-menu-shipping-cart-img" href="#">
-                                        <img src="<?php echo base_url('assets') ?>/img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                                    </a>
-                                    <div class="dropdown-menu-shipping-cart-inner">
-                                        <p class="dropdown-menu-shipping-cart-price">$89</p>
-                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">Gucci Patent Leather Open Toe Platform</a>
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-menu-shipping-cart-img" href="#">
-                                        <img src="<?php echo base_url('assets') ?>/img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                                    </a>
-                                    <div class="dropdown-menu-shipping-cart-inner">
-                                        <p class="dropdown-menu-shipping-cart-price">$91</p>
-                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">Nikon D5200 24.1 MP Digital SLR Camera</a>
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-menu-shipping-cart-img" href="#">
-                                        <img src="<?php echo base_url('assets') ?>/img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                                    </a>
-                                    <div class="dropdown-menu-shipping-cart-inner">
-                                        <p class="dropdown-menu-shipping-cart-price">$92</p>
-                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">Apple 11.6" MacBook Air Notebook </a>
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-menu-shipping-cart-img" href="#">
-                                        <img src="<?php echo base_url('assets') ?>/img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                                    </a>
-                                    <div class="dropdown-menu-shipping-cart-inner">
-                                        <p class="dropdown-menu-shipping-cart-price">$37</p>
-                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">Fossil Women's Original Boyfriend</a>
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <p class="dropdown-menu-shipping-cart-total">Total: $150</p>
-                                    <button class="dropdown-menu-shipping-cart-checkout btn btn-primary">Checkout</button>
-                                </li>
-                            </ul>
-                        </li> -->
+                        <?php }else{ ?>
+                        <li><a href="<?php echo base_url(); ?>web2/mainmenu.php" target="_blank"><?php echo $this->lang->line('header_menu_myagenda'); ?></a>
+                        </li>
+                        <li><a href="<?php echo base_url(); ?>auth/logout"><?php echo $this->lang->line('header_menu_logout'); ?></a>
+                        </li>
+                        <?php } ?>
+                        <li><a class="fa fa-shopping-cart" href="<?php echo base_url('cart') ?>"></a>
+                        </li>
+                      
                     </ul>
                 </div>
             </div>

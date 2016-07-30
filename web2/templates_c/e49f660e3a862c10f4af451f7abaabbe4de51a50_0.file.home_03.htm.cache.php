@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2016-07-28 09:57:54
+<?php /* Smarty version 3.1.27, created on 2016-07-30 20:58:08
          compiled from "D:\web-dir\git\cabinet\web2\templates\home_03\home_03.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:26780579974b280cc75_62669002%%*/
+/*%%SmartyHeaderCode:975579cb270839b40_50516541%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -13,7 +13,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '26780579974b280cc75_62669002',
+  'nocache_hash' => '975579cb270839b40_50516541',
   'variables' => 
   array (
     'status' => 0,
@@ -28,13 +28,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_579974b2bcc369_40916527',
+  'unifunc' => 'content_579cb270a5ec08_90366864',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_579974b2bcc369_40916527')) {
-function content_579974b2bcc369_40916527 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_579cb270a5ec08_90366864')) {
+function content_579cb270a5ec08_90366864 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '26780579974b280cc75_62669002';
+$_smarty_tpl->properties['nocache_hash'] = '975579cb270839b40_50516541';
 ?>
 <link href="assets/libs/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
 <div class="content" id="main_content">

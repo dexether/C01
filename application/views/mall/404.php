@@ -6,7 +6,7 @@
         <p class="lead">
             <?php echo $this->lang->line('page_404_title'); ?>
         </p>
-        <a class="btn btn-primary btn-lg">
+        <a class="btn btn-primary btn-lg" href="<?php echo base_url() ?>">
             <i class="fa fa-undo">
             </i>
             <?php echo $this->lang->line('page_404_button_title'); ?>

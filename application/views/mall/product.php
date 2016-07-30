@@ -14,8 +14,8 @@
                 <div class="col-md-6">
                     <div class="product-page-product-wrap jqzoom-stage jqzoom-stage-lg">
                         <div class="clearfix">
-                            <a href="<?php echo base_url() ?>/assets/img/product/1.jpg" id="jqzoom" data-rel="gal-1">
-                                <img src="<?php echo base_url() ?>/assets/img/product/1.jpg" alt="Image Alternative text" title="Image Title" />
+                            <a href="<?php echo base_url().$data['title']['prod_images']; ?>" id="jqzoom" data-rel="gal-1">
+                                <img src="<?php echo base_url().$data['title']['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
                             </a>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                             <li><i class="fa fa-star"></i>
                             </li> -->
                         </ul>
-                        <p class="product-page-product-rating-sign"><a href="#">238 customer reviews</a>
+                        <!-- <p class="product-page-product-rating-sign"><a href="#">238 customer reviews</a> -->
                         </p>
                         <h1><?php echo $data['title']['prod_alias'] ?></h1>
                         <p class="product-page-price"><?php echo "Rp. ". number_format($data['title']['prod_price']); ?></p>
@@ -101,14 +101,14 @@
                             </li>
                         </ul> -->
                         <ul class="product-page-actions-list">
-                            <li class="product-page-qty-item">
+                            <!-- <li class="product-page-qty-item">
                                 <button class="product-page-qty product-page-qty-minus">-</button>
                                 <input class="product-page-qty product-page-qty-input" type="text" value="1" />
                                 <button class="product-page-qty product-page-qty-plus">+</button>
+                            </li> -->
+                            <li><a class="btn btn-lg btn-primary" href="<?php echo base_url()."cart/add/".$data['title']['prod_name']."/1" ?>"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
                             </li>
-                            <li><a class="btn btn-lg btn-primary" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                            </li>
-                            <li><a class="btn btn-lg btn-default" href="#"><i class="fa fa-star"></i>Wishlist</a>
+                            <!-- <li><a class="btn btn-lg btn-default" href="#"><i class="fa fa-star"></i>Wishlist</a> -->
                             </li>
                         </ul>
                         <div class="gap gap-small"></div>
