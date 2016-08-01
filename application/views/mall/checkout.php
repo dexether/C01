@@ -5,6 +5,14 @@
             lang->line('checkout_title'); ?>
         </h1>
     </header>
+    <?php
+    if (empty($user['address']) || $user['address'] == "") {
+        $this->nativesession->set('page','profile');
+    ?>
+    <div class="alert alert-warning">Profile anda belum lengkap, silahkan lengkapi <a href="<?php echo base_url('web2/mainmenu.php') ?>" target="_blank">disini</a></div>
+    <?php
+    }
+    ?>
     <div class="row row-col-gap" data-gutter="60">
         <div class="col-md-4">
             <h3 class="widget-title">
@@ -27,80 +35,23 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                        foreach ($list as $key => $value) {
+                            # code...
+                        ?>
+
                         <tr>
                             <td>
-                                Gucci Patent Leather Open Toe Platform
+                                <?php echo $value['prod_alias']; ?>
                             </td>
                             <td>
-                                1
+                                <?php echo $value['qty']; ?>
                             </td>
                             <td>
-                                $499
+                                <?php echo $this->format->set_rp($value['final_price']); ?>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                Nikon D5200 24.1 MP Digital SLR Camera
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                $350
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Apple 11.6" MacBook Air Notebook
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                $1100
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Fossil Women's Original Boyfriend
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                $250
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Subtotal
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                                $2199
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Shipping
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                                $0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Total
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                                $2199
-                            </td>
-                        </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
@@ -135,12 +86,12 @@
                         Create TheBox Profile
                     </label>
                 </div> -->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label>
                         Country
                     </label>
                     <input class="form-control" type="text" value="<?php echo $user['nationality'] ?>" readonly/>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label>
                         Address
@@ -159,9 +110,18 @@
                 <p><strong>No : 1111111</strong></p>
                 <p><strong>A.n : AgendaFX</strong></p>
             </div>
-            <a class="btn btn-primary">
-                Proceed Payment
-            </a>
+            <?php 
+            if (empty($user['address']) || $user['address'] == "") {
+            }else{
+            ?>
+            <?php echo form_open('checkout', array("name" => 'payform'));
+            echo form_input(array('type' => 'submit', 'name' => 'submit', 'value' => 'Proceed Payment', 'class' => 'btn btn-primary'));
+            echo form_input(array('type' => 'hidden', 'name' => 'invoice', 'value' => $this->uri->segment(2)));
+            ?>           
+            <?php
+            form_close();
+            }
+            ?>
         </div>
     </div>
 </div>

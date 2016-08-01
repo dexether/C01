@@ -90,7 +90,7 @@
                     </span>
                 </li>
             </ul>
-            <a class="btn btn-primary" href="#">
+            <a class="btn btn-primary" href="<?php echo base_url()?>cart/checkout">
                 <?php echo $this->lang->line('cart_checkout'); ?>
             </a>
         </div>
