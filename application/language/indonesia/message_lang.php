@@ -46,4 +46,16 @@ $lang["checkout_title"] = "Checkout Pesanan";
 $lang["checkout_order_info"] = "Daftar Pesanan";
 $lang["checkout_alamat_info"] = "Detail penagihan";
 $lang["checkout_payment_info"] = "Pembayaran";
+$lang["checkout_success_info"] = "Pesanan anda akan kami proses";
+$lang["checkout_success_detail"] = "Detail pesanan anda telah kami kirim ke ";
 /* End of Checkout */
+
+/* Invoice */
+$lang["invoice_title"] = "Silahkan Lengkapi Pembayaran Anda";
+$lang["invoice_desc"] = " Terima kasih atas kepercayaanmu telah berbelanja di";
+$lang["invoice_desc1"] = ". Mohon segera lakukan pembayaran Sebesar :";
+
+$lang["invoice_desc2"] = "Silahkan lakukan Pembayaran pada Rekening AgendaFX dan lakukan konfirmasi.
+
+";
+/* End Of Invoce */
