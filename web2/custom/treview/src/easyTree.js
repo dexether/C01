@@ -42,17 +42,18 @@
                 var text;
                 if ($(this).is('li:has(ul)')) {
                     var children = $(this).find(' > ul');
+					var id = this.id;
                     $(children).remove();
                     text = $(this).text();
-                
-                    $(this).html('<span><span class="glyphicon"></span><a href="javascript: myDetail(\'' + text + '\');void(0);" " ></a> </span>');
+                    $(this).html('<span id="'+id+'1"><span class="glyphicon"></span><a href="javascript: myDetail(\'' + text + '\');void(0);" " ></a> </span>');
                     $(this).find(' > span > span').addClass('glyphicon-folder-open');
                     $(this).find(' > span > a').text(text);
                     $(this).append(children);
                 }
                 else {
                     text = $(this).text();
-                    $(this).html('<span><span class="glyphicon"></span><a href="javascript: myDetail(\'' + text + '\');void(0);"></a> </span>');
+					var id = this.id;
+                    $(this).html('<span id="'+id+'1"><span class="glyphicon"></span><a href="javascript: myDetail(\'' + text + '\');void(0);"></a> </span>');
                     $(this).find(' > span > span').addClass('glyphicon-file');
                     $(this).find(' > span > a').text(text);
                 }

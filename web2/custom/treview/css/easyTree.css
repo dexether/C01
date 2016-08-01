@@ -20,6 +20,26 @@
     position: relative
 }
 
+#suspended1{
+	background: red;
+}
+
+.block {
+    display:block;
+    float:left;
+    width:5%;
+    padding:0%;
+}
+
+.statusredalert {
+    background-color:red;
+    font-family:Arial, Helvetica, sans-serif, 'Calibri';
+    font-size:12px;
+    color:#ffffff;
+    font-weight:bold;
+    margin-top:2px;
+}
+
 .easy-tree li::before, .easy-tree li::after {
     content: '';
     left: -30px;
