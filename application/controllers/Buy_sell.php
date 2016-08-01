@@ -10,6 +10,8 @@ class Buy_sell extends CI_Controller
         parent::__construct();
         $this->lang->load('message_lang', 'indonesia');
         $this->load->model('Shop_model', 'basicmodel');
+        $this->load->helper('form');
+        $this->load->helper('url');
         // $this->load->library('session');
         $this->load->library('nativesession');
         $this->load->library('format');
@@ -89,23 +91,26 @@ class Buy_sell extends CI_Controller
         $join = array(
             array('table' => 'client_aecode', 'on' => 'master_cart.aecodeid = client_aecode.aecodeid', 'type' => 'left'),
             array('table' => 'master_product', 'on' => 'master_cart.id_prod = master_product.id', 'type' => 'left'),
-            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product', 'type' => 'left'),
+            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= "' . $this->db->escape($tgl) . '" AND master_product_promo.dateto >= "' . $this->db->escape($tgl) . '"', 'type' => 'left'),
             array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
         );
         $where = array(
             array('col' => 'client_aecode.aecodeid', 'val' => $aecodeid),
             array('col' => 'master_cart.cmd', 'val' => '6'),
-            array('col' => 'master_product_promo.datefrom <=', 'val' => $tgl),
-            array('col' => 'master_product_promo.dateto >=', 'val' => $tgl));
+            // array('col' => 'master_product_promo.datefrom <=', 'val' => $tgl),
+            // array('col' => 'master_product_promo.dateto >=', 'val' => $tgl)
+        );
         $data = $this->basicmodel->getDataPromo('master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
         // var_dump($data);
         $datas = array();
+        // var_dump($data);
         foreach ($data as $key => $value) {
             # code...
             $datas[$key]                = $value;
             $datas[$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
 
         }
+        // var_dump($this->db->last_query());
         $template = "cart";
         if (empty($datas)) {
             # code...
@@ -142,15 +147,21 @@ class Buy_sell extends CI_Controller
         }
         $invoice = $this->generateInvoice('AGFX');
         $array   = array(
-            'cmd'   => '7',
-            'invoice'  => $invoice            
+            'cmd'     => '7',
+            'invoice' => $invoice,
         );
 
         $this->db->set($array);
         $this->db->where('aecodeid', $aecodeid);
         $this->db->where('cmd', '6');
-        $this->db->update('master_cart'); // gives UPDATE `mytable` SET `field` = 'field+1' WHERE `id` = 2
-        var_dump($invoice);
+        $sql = $this->db->update('master_cart'); // gives UPDATE `mytable` SET `field` = 'field+1' WHERE `id` = 2
+        if ($sql) {
+            # code...
+            redirect('cart/' . $invoice . '/checkout', 'refresh');
+        } else {
+            show_404();
+        }
+        // var_dump($invoice);
     }
 
     private function generateInvoice($company)
@@ -176,7 +187,8 @@ class Buy_sell extends CI_Controller
             return $invoice;
         }
     }
-    public function userCheckOut($invoice){
+    public function userCheckOut($invoice)
+    {
         $cek = $this->basicmodel->getData('master_invoice', 'id', array('invoice' => $invoice));
         if (empty($cek)) {
             # code...
@@ -187,10 +199,104 @@ class Buy_sell extends CI_Controller
             # code...
             $datas = $value;
         }
-        // var_dump($data);
+
+        $tgl  = date('Y-m-d H:i:s', time());
+        $join = array(
+            array('table' => 'client_aecode', 'on' => 'master_cart.aecodeid = client_aecode.aecodeid', 'type' => 'left'),
+            array('table' => 'master_product', 'on' => 'master_cart.id_prod = master_product.id', 'type' => 'left'),
+            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= "' . $this->db->escape($tgl) . '" AND master_product_promo.dateto >= "' . $this->db->escape($tgl) . '"', 'type' => 'left'),
+            array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
+        );
+        $where = array(
+            array('col' => 'master_cart.cmd', 'val' => '7'),
+            array('col' => 'master_cart.invoice', 'val' => $invoice),
+            // array('col' => 'master_product_promo.datefrom <=', 'val' => $tgl),
+            // array('col' => 'master_product_promo.dateto >=', 'val' => $tgl)
+        );
+        $data = $this->basicmodel->getDataPromo('master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
+        // $datas = array();
+        $datas_barang = array();
+        foreach ($data as $key => $value) {
+            # code...
+            $datas_barang[$key]                = $value;
+            $datas_barang[$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
+
+        }
+        if (empty($datas_barang)) {
+            # code...
+            show_404();
+        }
+
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
-            "body"   => $this->load->view('mall/checkout', array('user' => $datas), true),
+            "body"   => $this->load->view('mall/checkout', array('user' => $datas, 'list' => $datas_barang), true),
+            "slider" => "",
+        );
+        $this->load->view('mall/index', $part);
+    }
+    public function itemCheckoutPay()
+    {
+
+        /* Send Information Email To Client*/
+        $subject = $this->lang->line('invoice_title');
+        $invoice = $this->input->post('invoice');
+        $body    = file_get_contents(base_url('email/invoice/' . $invoice));
+        $tgl     = date('Y-m-d H:i:s', time());
+        $sql     = $this->basicmodel->insertData('email', array('timeupdate' => $tgl, 'email_to' => $this->nativesession->getObject('username'), 'email_subject' => $subject, 'email_body' => $body, 'module' => 'itemCheckoutPay'));
+        if ($sql) {
+            # code...
+            $array = array(
+                'cmd'     => '8'
+            );
+
+            $this->db->set($array);
+            $this->db->where('invoice', $invoice);
+            $sql = $this->db->update('master_cart');
+            if ($sql) {
+                # code...
+                redirect('checkout/'.$invoice.'/success','refresh');
+            }
+        } else {
+            show_404();
+        }
+
+    }
+    public function itemCheckoutSuccess($invoice)
+    {
+        $data = $this->basicmodel->getData('client_aecode', 'telephone_mobile,aecode, name, email, nationality, address', array('aecode' => $this->nativesession->getObject('username')));
+        foreach ($data as $key => $value) {
+            # code...
+            $datausers = $value;
+        }
+        $tgl  = date('Y-m-d H:i:s', time());
+        $join = array(
+            array('table' => 'client_aecode', 'on' => 'master_cart.aecodeid = client_aecode.aecodeid', 'type' => 'left'),
+            array('table' => 'master_product', 'on' => 'master_cart.id_prod = master_product.id', 'type' => 'left'),
+            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= "' . $this->db->escape($tgl) . '" AND master_product_promo.dateto >= "' . $this->db->escape($tgl) . '"', 'type' => 'left'),
+            array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
+        );
+        $where = array(
+            array('col' => 'master_cart.cmd', 'val' => '8'),
+            array('col' => 'master_cart.invoice', 'val' => $invoice),
+            // array('col' => 'master_product_promo.datefrom <=', 'val' => $tgl),
+            // array('col' => 'master_product_promo.dateto >=', 'val' => $tgl)
+        );
+        $data = $this->basicmodel->getDataPromo('master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
+        // $datas = array();
+        $datas_barang = array();
+        foreach ($data as $key => $value) {
+            # code...
+            $datas_barang[$key]                = $value;
+            $datas_barang[$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
+
+        }
+        if (empty($datas_barang)) {
+            # code...
+            show_404();
+        }
+        $part = array(
+            "header" => $this->load->view('mall/mainheader', array(), true),
+            "body"   => $this->load->view('mall/checkoutsuccess', array('user' => $datausers, 'list' => $datas_barang), true),
             "slider" => "",
         );
         $this->load->view('mall/index', $part);
