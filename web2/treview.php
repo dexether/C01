@@ -56,6 +56,7 @@ $_SESSION['page'] = 'treview';
 
 /* Conditional Acoount */
 $usernya = $user->groupid;
+$template->assign("user", $usernya);
 $condiional = "";
 if ($usernya==9) {
     $condiional = "AND mlm.Upline = 'COMPANY' AND mlm.ACCNO <> 'COMPANY'";
@@ -102,11 +103,11 @@ $template->display("treview.htm");
 function updatechild($longtree, $ACCNO2) {
     $longtree = $longtree . "<ul>";
     global $DB;
+	global $user;
     $datatress = array();
-    $query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*   
-    FROM client_aecode,client_accounts,mlm  
+    $query = "SELECT client_accounts.suspend,client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*   
+    FROM client_aecode,client_accounts,mlm,user
     WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid` 
-
     AND client_accounts.`accountname` = mlm.`ACCNO` 
     AND mlm.Upline = '$ACCNO2' ";
 
@@ -116,13 +117,39 @@ function updatechild($longtree, $ACCNO2) {
         //TradeLogTreView("TreView-104:".$row['ACCNO']);
         $datatress[$row['ACCNO']] = $row;
     }
+	
     if (count($datatress) > 0) {
-        foreach ($datatress AS $ACCNO1 => $datatres) {
-            //TradeLogTreView("TreView-112:" . $ACCNO1);
-            $longtree = $longtree . "<li>" . $ACCNO1 . " - ". $datatres['name'];
-            $longtree = updatechild($longtree, $ACCNO1);
-            $longtree = $longtree . "</li>";
+		if($user->groupid == 9){
+			//TradeLogTreView("User Admin");
+			foreach ($datatress AS $ACCNO1 => $datatres) {
+            //TradeLogTreView("TreView-112:" . $ACCNO1.";".$datatres['suspend']);
+			if($datatres['suspend'] == '1'){
+				//TradeLogTreView("TreView-112:" . $datatres['name'].";".$datatres['suspend']);
+				$longtree = $longtree . "<li id=\"suspended\">" . $ACCNO1 . " - ". $datatres['name'];
+				$longtree = updatechild($longtree, $ACCNO1);
+				$longtree = $longtree . "</li>";
+			}else{
+				$longtree = $longtree . "<li>" . $ACCNO1 . " - ". $datatres['name'];
+				$longtree = updatechild($longtree, $ACCNO1);
+				$longtree = $longtree . "</li>";
+			}
+            
         }//foreach ($datatress AS $ACCNO => $datatres) {
+		}else{
+			//TradeLogTreView("User Normal");
+			foreach ($datatress AS $ACCNO1 => $datatres) {
+            //TradeLogTreView("TreView-112:" . $ACCNO1);
+			if($datatres['suspend'] == '1'){
+				
+			}else{
+				$longtree = $longtree . "<li>" . $ACCNO1 . " - ". $datatres['name'];
+				$longtree = updatechild($longtree, $ACCNO1);
+				$longtree = $longtree . "</li>";
+			}
+            
+        }//foreach ($datatress AS $ACCNO => $datatres) {
+		}
+        
     }//if(count($datatress)>0){
     $longtree = $longtree . "</ul>";
     //TradeLogTreView("TreView-126:" . $longtree);
