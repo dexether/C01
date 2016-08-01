@@ -35,6 +35,21 @@ class Shop_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function getDataPromoOrder($select, $from, $join, $where, $order, $act)
+    {
+        $this->db->select($select);
+        $this->db->from($from);
+        foreach ($join as $key1 => $value1) {
+            # code...
+            $this->db->join($value1['table'], $value1['on'], $value1['type']);
+        }
+        foreach ($where as $key => $value) {
+            $this->db->where($value['col'], $value['val']);
+        }
+        $this->db->order_by($order, $act);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
     public function getDataByCat($type = '')
     {
         $query = "SELECT
@@ -115,16 +130,17 @@ class Shop_model extends CI_Model
                 break;
             case '%':
                 # code...
-                $amount = $price * $promo_value / 100;
+                $amount = $price - ($price * ($promo_value / 100));
                 break;
 
             default:
                 # code...
-                $amount = $price;
+                // $amount = $price;
                 break;
 
         }
         return $amount;
+
     }
     public function deleteData($table, $where)
     {

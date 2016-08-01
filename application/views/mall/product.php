@@ -76,7 +76,10 @@
                         <!-- <p class="product-page-product-rating-sign"><a href="#">238 customer reviews</a> -->
                         </p>
                         <h1><?php echo $data['title']['prod_alias'] ?></h1>
-                        <p class="product-page-price"><?php echo "Rp. ". number_format($data['title']['prod_price']); ?></p>
+                        <p class="product-page-price">
+
+                        <?php echo "Rp. ". number_format($data['title']['final_price']); ?>
+                        </p>
                         <!-- <p class="text-muted text-sm">Free Shipping</p> -->
                         <p class="product-page-desc-lg"><?php echo $data['title']['prod_desc'] ?></p>
                         <!-- <ul class="product-page-option-list">

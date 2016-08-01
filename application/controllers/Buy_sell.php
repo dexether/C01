@@ -12,6 +12,7 @@ class Buy_sell extends CI_Controller
         $this->load->model('Shop_model', 'basicmodel');
         $this->load->helper('form');
         $this->load->helper('url');
+        date_default_timezone_set('Asia/Jakarta');
         // $this->load->library('session');
         $this->load->library('nativesession');
         $this->load->library('format');
@@ -48,7 +49,7 @@ class Buy_sell extends CI_Controller
             }
             if (!empty($get_aecodeid)) {
                 # code...
-                $cek = $this->basicmodel->getData('master_cart', 'id', $where = array('aecodeid' => $aecodeid, 'id_prod' => $id));
+                $cek = $this->basicmodel->getData('master_cart', 'id', $where = array('aecodeid' => $aecodeid, 'id_prod' => $id, 'cmd' => 6));
                 if (!empty($cek)) {
                     # code...
                     redirect(base_url('cart'), 'refresh');
@@ -91,7 +92,7 @@ class Buy_sell extends CI_Controller
         $join = array(
             array('table' => 'client_aecode', 'on' => 'master_cart.aecodeid = client_aecode.aecodeid', 'type' => 'left'),
             array('table' => 'master_product', 'on' => 'master_cart.id_prod = master_product.id', 'type' => 'left'),
-            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= "' . $this->db->escape($tgl) . '" AND master_product_promo.dateto >= "' . $this->db->escape($tgl) . '"', 'type' => 'left'),
+            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= ' . $this->db->escape($tgl) . ' AND master_product_promo.dateto >= ' . $this->db->escape($tgl) . '', 'type' => 'left'),
             array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
         );
         $where = array(
@@ -101,7 +102,7 @@ class Buy_sell extends CI_Controller
             // array('col' => 'master_product_promo.dateto >=', 'val' => $tgl)
         );
         $data = $this->basicmodel->getDataPromo('master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
-        // var_dump($data);
+        
         $datas = array();
         // var_dump($data);
         foreach ($data as $key => $value) {
@@ -110,7 +111,6 @@ class Buy_sell extends CI_Controller
             $datas[$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
 
         }
-        // var_dump($this->db->last_query());
         $template = "cart";
         if (empty($datas)) {
             # code...
@@ -204,7 +204,7 @@ class Buy_sell extends CI_Controller
         $join = array(
             array('table' => 'client_aecode', 'on' => 'master_cart.aecodeid = client_aecode.aecodeid', 'type' => 'left'),
             array('table' => 'master_product', 'on' => 'master_cart.id_prod = master_product.id', 'type' => 'left'),
-            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= "' . $this->db->escape($tgl) . '" AND master_product_promo.dateto >= "' . $this->db->escape($tgl) . '"', 'type' => 'left'),
+            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= ' . $this->db->escape($tgl) . ' AND master_product_promo.dateto >= ' . $this->db->escape($tgl) . '', 'type' => 'left'),
             array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
         );
         $where = array(
@@ -272,7 +272,7 @@ class Buy_sell extends CI_Controller
         $join = array(
             array('table' => 'client_aecode', 'on' => 'master_cart.aecodeid = client_aecode.aecodeid', 'type' => 'left'),
             array('table' => 'master_product', 'on' => 'master_cart.id_prod = master_product.id', 'type' => 'left'),
-            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= "' . $this->db->escape($tgl) . '" AND master_product_promo.dateto >= "' . $this->db->escape($tgl) . '"', 'type' => 'left'),
+            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= ' . $this->db->escape($tgl) . ' AND master_product_promo.dateto >= ' . $this->db->escape($tgl) . '', 'type' => 'left'),
             array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
         );
         $where = array(

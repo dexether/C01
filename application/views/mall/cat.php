@@ -67,11 +67,11 @@
                     </ul>
                     <h5 class="product-caption-title"><?php echo $value['prod_alias'] ?></h5>
                     <div class="product-caption-price">
-                    <?php if($value['id'] == NULL){
-                        echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['amount']).'</span>';
+                    <?php if($value['promo_name'] == NULL){
+                        echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['prod_price']).'</span>';
                     }else{
                         echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
-                        echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['amount']).'</span>';
+                        echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['final_price']).'</span>';
                     }
 
                     ?>

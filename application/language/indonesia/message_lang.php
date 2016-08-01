@@ -21,13 +21,14 @@ $lang["page_404_button_title"] = "Kembali keberanda.";
 /* Main Body */
 
 $lang["main_daily_promo_title"] = "Promo Hari ini";
-$lang["main_best_ea"] = "Terbaik dari EA";
-$lang["main_best_signal"] = "Terbaik dari Signal";
-$lang["main_best_book"] = "Terbaik dari Buku";
-$lang["main_best_seminar"] = "Terbaik dari Seminar";
-$lang["main_best_copytrade"] = "Terbaik dari Copytrade";
-$lang["main_best_education"] = "Terbaik dari Edukasi";
-$lang["main_best_merch"] = "Terbaik dari Merchandise";
+$lang["main_best_ea"] = "Terbaru dari EA";
+$lang["main_best_signal"] = "Terbaru dari Signal";
+$lang["main_best_book"] = "Terbaru dari Buku";
+$lang["main_best_seminar"] = "Terbaru dari Seminar";
+$lang["main_best_copytrade"] = "Terbaru dari Copytrade";
+$lang["main_best_education"] = "Terbaru dari Edukasi";
+$lang["main_best_merch"] = "Terbaru dari Merchandise";
+$lang["main_best_indicator"] = "Terbaru dari Indikator";
 
 /* End Of Main Body */
 

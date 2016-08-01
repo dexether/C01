@@ -37,26 +37,54 @@ class Store extends CI_Controller
     }
     public function index()
     {
-  
-        // var_dump($_SESSION);
         $tgl = date('Y-m-d H:i:s', time());
-        $on    = array(
+
+        $on = array(
+            array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
+            array('table' => 'master_product', 'on' => 'master_product_promo.id_product = master_product.id AND master_product_promo.datefrom <= ' . $this->db->escape($tgl) . ' AND master_product_promo.dateto >= ' . $this->db->escape($tgl) . '', 'type' => 'left'),
             array('table' => 'master_cat', 'on' => 'master_product.id_cat = master_cat.id', 'type' => 'left'),
-            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product', 'type' => 'left'),
-            array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'));
-        $where = array(
-            array('col' => 'master_product_promo.cmd', 'val' => '0'),
-            array('col' => 'master_promo.cmd', 'val' => '0'),
-            array('col' => 'master_product_promo.datefrom <=', 'val' => $tgl),
-            array('col' => 'master_product_promo.dateto >=', 'val' => $tgl));
-        $datas = $this->basicmodel->getDataPromo('master_product.prod_price, master_product_promo.datefrom, master_product_promo.dateto, master_promo.promo_alias, master_product.prod_alias, prod_images, master_cat.cat_name, prod_name', 'master_product', $on, $where);
-        
+        );
+        $where = array();
+        $datas = $this->basicmodel->getDataPromo('promo_alias, prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product_promo', $on, $where);
+
+        foreach ($datas as $key => $value) {
+            # code...
+            $datas2[$key]                = $value;
+            $datas2[$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
+
+        }
+        // var_dump($datas);
+        $homedata = $this->homeData();
+        // var_dump($homedata);
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
-            "body"   => $this->load->view('mall/mainbody', array('promo' => $datas), true),
+            "body"   => $this->load->view('mall/mainbody', array('promo' => $datas2, 'brand' => $homedata), true),
             "slider" => $this->load->view('mall/slideshow', array(), true),
         );
         $this->load->view('mall/index', $part);
+    }
+    private function homeData()
+    {
+        $tgl = date('Y-m-d H:i:s', time());
+
+        $on = array(
+            array('table' => 'master_cat', 'on' => 'master_product.id_cat = master_cat.id', 'type' => 'left'),
+            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product', 'type' => 'left'),
+            array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
+            // array('table' => 'master_product', 'on' => 'master_product_promo.id_product = master_product.id AND master_product_promo.datefrom <= ' . $this->db->escape($tgl) . ' AND master_product_promo.dateto >= ' . $this->db->escape($tgl) . '', 'type' => 'left'),
+            
+        );
+        $where = array();
+        $datas = $this->basicmodel->getDataPromoOrder('promo_alias, prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where, 'master_product.timestamp', 'DESC');
+        $datas2 = array();
+        foreach ($datas as $key => $value) {
+            # code...
+            $datas2[$value['cat_name']][$key] =  $value;
+            $datas2[$value['cat_name']][$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
+
+        }
+
+        return $datas2;
     }
     public function basic()
     {
@@ -68,10 +96,28 @@ class Store extends CI_Controller
     }
     public function cat($type = null)
     {
-        $dataByCat = $this->basicmodel->getDataByCat($type);
-        // var_dump($dataByCat);
-        // $this->shop_model->test();
+
+        $tgl = date('Y-m-d H:i:s', time());
+        $on  = array(
+            array('table' => 'master_cat', 'on' => 'master_product.id_cat = master_cat.id', 'type' => 'left'),
+            // array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product', 'type' => 'left'),
+            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= ' . $this->db->escape($tgl) . ' AND master_product_promo.dateto >= ' . $this->db->escape($tgl) . '', 'type' => 'left'),
+            array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
+        );
+        $where = array(
+            array('col' => 'master_cat.cat_name', 'val' => $type),
+        );
+        $datas = $this->basicmodel->getDataPromo('prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where);
+
+        foreach ($datas as $key => $value) {
+            # code...
+            $datas2[$key]                = $value;
+            $datas2[$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
+
+        }
+
         $result = $this->basicmodel->getData('master_cat', 'cat_name, cat_desc, cat_alias', array('cat_name' => $type));
+
         if (count($result) <= '0') {
             // show_404();
         }
@@ -83,24 +129,41 @@ class Store extends CI_Controller
         // var_dump($data);
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
-            "body"   => $this->load->view('mall/cat', array('data' => $data, 'list' => $dataByCat), true),
+            "body"   => $this->load->view('mall/cat', array('data' => $data, 'list' => $datas2), true),
             "slider" => "",
         );
         $this->load->view('mall/index', $part);
     }
     public function product($cat = null, $type = null)
     {
+        $tgl = date('Y-m-d H:i:s', time());
+        $on  = array(
+            array('table' => 'master_cat', 'on' => 'master_product.id_cat = master_cat.id', 'type' => 'left'),
+            // array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product', 'type' => 'left'),
+            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= ' . $this->db->escape($tgl) . ' AND master_product_promo.dateto >= ' . $this->db->escape($tgl) . '', 'type' => 'left'),
+            array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
+        );
+        $where = array(
+            array('col' => 'master_product.prod_name', 'val' => $type),
+        );
+        $datas = $this->basicmodel->getDataPromo('prod_desc, prod_desc_long, prod_star,prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where);
+
+        foreach ($datas as $key => $value) {
+            # code...
+            $datas2[$key]                = $value;
+            $datas2[$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
+
+        }
 
         // $this->shop_model->test();
         // var_dump($type);
-        $result = $dataByCat = $this->basicmodel->getDataByProd($type);
-        // var_dump($result);
-        if (count($result) <= '0') {
+
+        if (count($datas2) <= '0') {
             $this->output->set_status_header('404');
             show_404();
         }
         $data['title'] = array();
-        foreach ($result as $key => $value) {
+        foreach ($datas2 as $key => $value) {
             $data['title'] = $value;
         }
         // var_dump($data);
