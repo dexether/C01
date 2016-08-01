@@ -65,6 +65,13 @@ $route['translate_uri_dashes'] = FALSE;
 $route['c/(:any)'] = 'Store/cat/$1';
 $route['c/(:any)/(:any)'] = 'Store/product/$1/$2';
 $route['cart'] = 'Buy_sell/showMyCart';
+$route['cart/checkout'] = 'Buy_sell/itemCheckout';
 $route['cart/add/(:any)/(:num)'] = 'Buy_sell/addProductToChart/$1/$2';
 $route['cart/(:any)/checkout'] = 'Buy_sell/userCheckOut/$1';
 $route['cart/alter/(:any)'] = 'Buy_sell/deleteProductFromcart/$1';
+$route['checkout'] = 'Buy_sell/itemCheckoutPay';
+$route['checkout/(:any)/success'] = 'Buy_sell/itemCheckoutSuccess/$1';
+
+/* API */
+$route['email/invoice/(:any)'] = 'api/getEmailInvoice/$1';
+/* End of API */
