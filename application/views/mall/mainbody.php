@@ -62,9 +62,9 @@
 <div class="row" data-gutter="15">
     <div class="col-md-4">
         <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">
-            <a class="banner-link" href="#"></a>
+            <a class="banner-link" href="<?php echo base_url().'c/forex-indicator'; ?>"></a>
                        <div class="banner-caption-left">
-                            <h5 class="banner-title">Discover The Mountains</h5>
+                            <h5 class="banner-title">Indikator Forex</h5>
                             <p class="banner-desc">Pro Backpacks 70% Off.</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
@@ -88,9 +88,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/560x200background.png);">
-                        <a class="banner-link" href="#"></a>
+                        <a class="banner-link" href="<?php echo base_url().'c/forex-book'; ?>"></a>
                         <div class="banner-caption-left">
-                            <h5 class="banner-title">Made by Nature</h5>
+                            <h5 class="banner-title">Buku Finansial</h5>
                             <p class="banner-desc">Just for the Taste of Health</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
@@ -101,9 +101,9 @@
                 <div class="col-md-6">
 
                     <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/560x200background.png);">
-                        <a class="banner-link" href="#"></a>
+                        <a class="banner-link" href="<?php echo base_url().'c/forex-seminar'; ?>"></a>
                         <div class="banner-caption-left">
-                            <h5 class="banner-title">Smartphones Under $80</h5>
+                            <h5 class="banner-title">Seminar Finansial</h5>
                             <p class="banner-desc">Low Price for Great Perfomance</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
@@ -114,9 +114,9 @@
                 <div class="col-md-4">
 
                     <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">
-                        <a class="banner-link" href="#"></a>
+                        <a class="banner-link" href="<?php echo base_url().'c/forex-robot'; ?>"></a>
                         <div class="banner-caption-left">
-                            <h5 class="banner-title">Back to School</h5>
+                            <h5 class="banner-title">EA & Bot</h5>
                             <p class="banner-desc">Class is Almost in Session!</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
@@ -127,9 +127,9 @@
                 <div class="col-md-4">
 
                     <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">
-                        <a class="banner-link" href="#"></a>
+                        <a class="banner-link" href="<?php echo base_url().'c/forex-education'; ?>"></a>
                         <div class="banner-caption-left">
-                            <h5 class="banner-title">New Jeans Collection</h5>
+                            <h5 class="banner-title">Edukasi Finansial</h5>
                             <p class="banner-desc">Exeedingly Good Jeans</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
