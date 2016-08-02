@@ -101,7 +101,7 @@ class Slim {
     }
 
     // $path should have trailing slash
-    public static function saveFile($data, $name, $path = 'assets/product/', $uid = true) {
+    public static function saveFile($data, $name, $path = 'assets/img/product/', $uid = true) {
 
         // Add trailing slash if omitted
         if (substr($path, -1) !== '/') {
