@@ -65,7 +65,7 @@
             <a class="banner-link" href="<?php echo base_url().'c/forex-indicator'; ?>"></a>
                        <div class="banner-caption-left">
                             <h5 class="banner-title">Indikator Forex</h5>
-                            <p class="banner-desc">Pro Backpacks 70% Off.</p>
+                            <!-- <p class="banner-desc">Pro Backpacks 70% Off.</p> -->
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
@@ -76,10 +76,10 @@
                 <div class="col-md-8">
 
                     <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/750x200background.png);">
-                        <a class="banner-link" href="#"></a>
+                        <a class="banner-link" href="<?php echo base_url()?>c/forex-signal"></a>
                         <div class="banner-caption-left">
-                            <h5 class="banner-title">Family Vacation Packs</h5>
-                            <p class="banner-desc">Save Your Family Budget</p>
+                            <h5 class="banner-title">Daily Signal</h5>
+                            <p class="banner-desc">Best Forex Signal</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
@@ -91,7 +91,7 @@
                         <a class="banner-link" href="<?php echo base_url().'c/forex-book'; ?>"></a>
                         <div class="banner-caption-left">
                             <h5 class="banner-title">Buku Finansial</h5>
-                            <p class="banner-desc">Just for the Taste of Health</p>
+                            <p class="banner-desc">Koleksi buku finansial terbaik</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
@@ -104,7 +104,7 @@
                         <a class="banner-link" href="<?php echo base_url().'c/forex-seminar'; ?>"></a>
                         <div class="banner-caption-left">
                             <h5 class="banner-title">Seminar Finansial</h5>
-                            <p class="banner-desc">Low Price for Great Perfomance</p>
+                            <p class="banner-desc">Acara Seminar finansial terbaik</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
@@ -140,10 +140,10 @@
                 <div class="col-md-4">
 
                     <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">
-                        <a class="banner-link" href="#"></a>
+                        <a class="banner-link" href="<?php echo base_url() ?>c/forex-merchandise"></a>
                         <div class="banner-caption-left">
-                            <h5 class="banner-title">Top Office Furniture</h5>
-                            <p class="banner-desc">Officeized!!</p>
+                            <h5 class="banner-title">Merchandise</h5>
+                            <p class="banner-desc">Top Finance Merchandise!</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
