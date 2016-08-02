@@ -44,7 +44,9 @@ class Store extends CI_Controller
             array('table' => 'master_product', 'on' => 'master_product_promo.id_product = master_product.id AND master_product_promo.datefrom <= ' . $this->db->escape($tgl) . ' AND master_product_promo.dateto >= ' . $this->db->escape($tgl) . '', 'type' => 'left'),
             array('table' => 'master_cat', 'on' => 'master_product.id_cat = master_cat.id', 'type' => 'left'),
         );
-        $where = array();
+        $where = array(
+            array('col' => 'master_product.is_active', 'val' => TRUE)
+        );
         $datas = $this->basicmodel->getDataPromo('promo_alias, prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product_promo', $on, $where);
 
         foreach ($datas as $key => $value) {
@@ -74,7 +76,9 @@ class Store extends CI_Controller
             // array('table' => 'master_product', 'on' => 'master_product_promo.id_product = master_product.id AND master_product_promo.datefrom <= ' . $this->db->escape($tgl) . ' AND master_product_promo.dateto >= ' . $this->db->escape($tgl) . '', 'type' => 'left'),
             
         );
-        $where = array();
+        $where = array(
+            array('col' => 'master_product.is_active', 'val' => TRUE)
+        );
         $datas = $this->basicmodel->getDataPromoOrder('promo_alias, prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where, 'master_product.timestamp', 'DESC');
         $datas2 = array();
         foreach ($datas as $key => $value) {
@@ -106,6 +110,7 @@ class Store extends CI_Controller
         );
         $where = array(
             array('col' => 'master_cat.cat_name', 'val' => $type),
+            array('col' => 'master_product.is_active', 'val' => TRUE)
         );
         $datas = $this->basicmodel->getDataPromo('prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where);
         $datas2 = array();

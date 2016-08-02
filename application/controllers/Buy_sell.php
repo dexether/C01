@@ -302,9 +302,10 @@ class Buy_sell extends CI_Controller
         $this->load->view('mall/index', $part);
     }
     public function sell(){
+        $sql = $this->basicmodel->getData('master_cat', 'id, cat_name, cat_alias', array());
          $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
-            "body"   => $this->load->view('mall/sell', array(), true),
+            "body"   => $this->load->view('mall/sell', array('list_cat' => $sql), true),
             "slider" => "",
         );
         $this->load->view('mall/index', $part);

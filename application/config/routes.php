@@ -75,3 +75,8 @@ $route['checkout/(:any)/success'] = 'Buy_sell/itemCheckoutSuccess/$1';
 /* API */
 $route['email/invoice/(:any)'] = 'api/getEmailInvoice/$1';
 /* End of API */
+
+/* Create Product */
+$route['product/new'] = 'Buy_sell/sell';
+$route['product/success/(:any)'] = 'Uploader/successCreatePage/$1';
+/* End Create Product */
