@@ -1,5 +1,3 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-02 11:37:16
-         compiled from "D:\web-dir\git\cabinet\web2\templates\topside.htm" */ ?>
 <?php
 /*%%SmartyHeaderCode:1856657a0237c36aa95_14897103%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
@@ -14,6 +12,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     ),
   ),
   'nocache_hash' => '1856657a0237c36aa95_14897103',
+  'tpl_function' => 
+  array (
+  ),
   'variables' => 
   array (
     'logonya' => 0,
@@ -22,17 +23,15 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57a0237c3ce826_30219967',
-),false);
+  'unifunc' => 'content_57a0237c491ba4_90955086',
+  'cache_lifetime' => 120,
+),true);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57a0237c3ce826_30219967')) {
-function content_57a0237c3ce826_30219967 ($_smarty_tpl) {
-
-$_smarty_tpl->properties['nocache_hash'] = '1856657a0237c36aa95_14897103';
+if ($_valid && !is_callable('content_57a0237c491ba4_90955086')) {
+function content_57a0237c491ba4_90955086 ($_smarty_tpl) {
 ?>
 <!-- 
-<?php echo '<script'; ?>
->
+<script>
 	setInterval(function() {
 		autoloadpage();
 	}, 30000); // it will call the function autoload() after each 30 seconds. 
@@ -53,16 +52,14 @@ $_smarty_tpl->properties['nocache_hash'] = '1856657a0237c36aa95_14897103';
 			}
 		});
 	}
-<?php echo '</script'; ?>
->
+</script>
  -->
 <!-- Top Bar Start -->
 <div class="topbar">
 	<div class="topbar-left">
 		<div class="logo">
 			<h1>
-				<a href="#"><img src="<?php echo $_smarty_tpl->tpl_vars['logonya']->value['company_logo'];?>
-" 
+				<a href="#"><img src="templates/home_03/logo.png" 
 					alt="Logo"></a>
 			</h1>
 		</div>
@@ -80,21 +77,15 @@ $_smarty_tpl->properties['nocache_hash'] = '1856657a0237c36aa95_14897103';
 				<ul class="nav navbar-nav navbar-right top-navbar">
 					<li class="language_bar dropdown hidden-xs"><a href="#"
 						data-toggle="tooltip" data-placement="bottom" title=''>
-							Login as <?php echo $_smarty_tpl->tpl_vars['user']->value->username;?>
- </a></li>
+							Login as reza@thecabinetsystems.com </a></li>
 					<li class="dropdown iconify hide-phone"><a href="#"
 						onclick="javascript:toggle_fullscreen()"><i
 							class="icon-resize-full-2"></i></a></li>
 					<li class="dropdown topbar-profile"><a href="#"
 						class="dropdown-toggle" data-toggle="dropdown"> <span
 							class="rounded-image topbar-profile-image">
-							<?php if ($_smarty_tpl->tpl_vars['fotonya']->value != '') {?>
-							<img src="<?php echo $_smarty_tpl->tpl_vars['fotonya']->value;?>
-">
-							<?php } else { ?>
-							<img src="images/logo/sicoid/sicoid_logo.png">
-							<?php }?>
-						</span> <i class="fa fa-caret-down"> </i>
+														<img src="images/data/profile/profile_987.jpg">
+													</span> <i class="fa fa-caret-down"> </i>
 					</a>
 						<ul class="dropdown-menu">
 							<li><a href="profile.php" class='mm_menuitem'>My Profile</a></li>
@@ -120,25 +111,13 @@ $_smarty_tpl->properties['nocache_hash'] = '1856657a0237c36aa95_14897103';
 </div>
 <!-- Top Bar End -->
 
-<?php echo '<script'; ?>
- src="custom/js/jquery.validate.min.js" type="text/javascript"><?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/bootstrap-inputmask/inputmask.js"><?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/summernote/summernote.js"><?php echo '</script'; ?>
->
+<script src="custom/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="assets/libs/bootstrap-inputmask/inputmask.js"></script>
+<script src="assets/libs/summernote/summernote.js"></script>
 
 
-<?php echo '<script'; ?>
- src="assets/libs/jquery-notifyjs/notify.min.js"><?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-notifyjs/styles/metro/notify-metro.js"><?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="custom/js/autoload_noty.js"><?php echo '</script'; ?>
-><?php }
+<script src="assets/libs/jquery-notifyjs/notify.min.js"></script>
+<script src="assets/libs/jquery-notifyjs/styles/metro/notify-metro.js"></script>
+<script src="custom/js/autoload_noty.js"></script><?php }
 }
 ?>

@@ -1,5 +1,3 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-02 11:37:15
-         compiled from "D:\web-dir\git\cabinet\web2\templates\leftside.htm" */ ?>
 <?php
 /*%%SmartyHeaderCode:1776157a0237bdbc318_13828056%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
@@ -14,6 +12,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     ),
   ),
   'nocache_hash' => '1776157a0237bdbc318_13828056',
+  'tpl_function' => 
+  array (
+  ),
   'variables' => 
   array (
     'alldatas' => 0,
@@ -24,17 +25,15 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57a0237c0635f4_88802610',
-),false);
+  'unifunc' => 'content_57a0237c28d7b8_58706786',
+  'cache_lifetime' => 120,
+),true);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57a0237c0635f4_88802610')) {
-function content_57a0237c0635f4_88802610 ($_smarty_tpl) {
-
-$_smarty_tpl->properties['nocache_hash'] = '1776157a0237bdbc318_13828056';
+if ($_valid && !is_callable('content_57a0237c28d7b8_58706786')) {
+function content_57a0237c28d7b8_58706786 ($_smarty_tpl) {
 ?>
 
-<?php echo '<script'; ?>
- language="javascript">
+<script language="javascript">
     var doubleclick = '1';
     function cek_active(thenewid)
     {
@@ -51,8 +50,7 @@ $_smarty_tpl->properties['nocache_hash'] = '1776157a0237bdbc318_13828056';
         //alert("LeftSide-16:"+yangactive);
         yangactive.className = yangactive.className + " active";
     }
-<?php echo '</script'; ?>
->
+</script>
 
 <!-- Left Sidebar Start -->
 <div class="left side-menu">
@@ -61,17 +59,12 @@ $_smarty_tpl->properties['nocache_hash'] = '1776157a0237bdbc318_13828056';
         <div class="profile-info">
             <div class="col-xs-4">
                 <a href="profile.php" class="rounded-image profile-image mm_menuitem">
-                    <?php if ($_smarty_tpl->tpl_vars['alldatas']->value['foto'] != '') {?>
-                    <img src="<?php echo $_smarty_tpl->tpl_vars['alldatas']->value['foto'];?>
-">
-                    <?php } else { ?>          
-                    <img src="images/users/user-100.jpg">          
-                    <?php }?> 
+                                        <img src="images/data/profile/profile_987.jpg">
+                     
                 </a>
             </div>
             <div class="col-xs-8">
-                <div class="profile-text">Welcome <b><?php echo $_smarty_tpl->tpl_vars['user']->value->aename;?>
- </b></div>
+                <div class="profile-text">Welcome <b>Reza </b></div>
                 <div class="profile-buttons">                    
                     <a href="#connect" class="open-right"><i class="fa fa-envelope-o pulse"></i></a>
                     <a href="#feed" class="open-right"><i class="icon-rss-2"></i></a>
@@ -83,90 +76,49 @@ $_smarty_tpl->properties['nocache_hash'] = '1776157a0237bdbc318_13828056';
         <!--- Divider -->
 		
 		 <div id="sidebar-menu">
-			<?php echo $_smarty_tpl->tpl_vars['menu']->value;?>
-
+			
+		<ul class='list-unstyled' id='updates-list'>
+			<li class='has_sub'><a href="javascript:void(0);"  class=""  id="0"><i class="glyphicon glyphicon-list"></i>Home<span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+				<ul class='list-unstyled' id='updates-list'>
+					<li class='has_sub'><a href="home_03.php" onclick=cek_active("home_03") class="mm_menuitem"  id="home_03"><i class=""></i>Dashboard</a></li>
+					<li class='has_sub'><a href="trade_investigationform.php" onclick=cek_active("trade_investigationform") class="mm_menuitem"  id="trade_investigationform"><i class=""></i>Trade Investigation Form</a></li>
+				</ul>
+			</li>
+			<li class='has_sub'><a href="javascript:void(0);"  class=""  id="0"><i class="glyphicon glyphicon-asterisk"></i>Brokers<span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+				<ul class='list-unstyled' id='updates-list'>
+					<li class='has_sub'><a href="javascript:void(0);"  class=""  id="0"><i class="glyphicon glyphicon-asterisk"></i>Imperium<span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+						<ul class='list-unstyled' id='updates-list'>
+							<li class='has_sub'><a href="imp_treeview.php" onclick=cek_active("imp_treeview") class="mm_menuitem"  id="imp_treeview"><i class=""></i>Treeview</a></li>
+							<li class='has_sub'><a href="menu_openlive.php" onclick=cek_active("menu_openlive") class="mm_menuitem"  id="menu_openlive"><i class=""></i>Open Live Account</a></li>
+							<li class='has_sub'><a href="imp_client_comm_realtime.php" onclick=cek_active("imp_client_comm_realtime") class="mm_menuitem"  id="imp_client_comm_realtime"><i class=""></i>Realtime Commision</a></li>
+							<li class='has_sub'><a href="imp_client_comm.php" onclick=cek_active("imp_client_comm") class="mm_menuitem"  id="imp_client_comm"><i class=""></i>Monthly Commision report</a></li>
+							<li class='has_sub'><a href="kliring_day_end.php" onclick=cek_active("kliring_day_end") class="mm_menuitem"  id="kliring_day_end"><i class=""></i>Kliring Day End</a></li>
+						</ul>
+					</li>
+					<li class='has_sub'><a href="javascript:void(0);"  class=""  id="0"><i class="glyphicon glyphicon-asterisk"></i>Two Forex<span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+						<ul class='list-unstyled' id='updates-list'>
+							<li class='has_sub'><a href="two_webtrader.php" onclick=cek_active("two_webtrader") class="mm_menuitem"  id="two_webtrader"><i class=""></i>Web Trader</a></li>
+							<li class='has_sub'><a href="menu_openlive_two.php" onclick=cek_active("menu_openlive_two") class="mm_menuitem"  id="menu_openlive_two"><i class=""></i>Open Live Account</a></li>
+							<li class='has_sub'><a href="imp_client_comm.php" onclick=cek_active("imp_client_comm") class="mm_menuitem"  id="imp_client_comm"><i class=""></i>Monthly Commision report</a></li>
+							<li class='has_sub'><a href="imp_client_comm_realtime.php" onclick=cek_active("imp_client_comm_realtime") class="mm_menuitem"  id="imp_client_comm_realtime"><i class=""></i>Realtime Commision</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li class='has_sub'><a href="javascript:void(0);"  class=""  id="0"><i class="glyphicon glyphicon-asterisk"></i>Your Plan<span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+				<ul class='list-unstyled' id='updates-list'>
+					<li class='has_sub'><a href="imp_registration.php" onclick=cek_active("imp_registration") class="mm_menuitem"  id="imp_registration"><i class=""></i>New Plan</a></li>
+					<li class='has_sub'><a href="imp_myaccount.php" onclick=cek_active("imp_myaccount") class="mm_menuitem"  id="imp_myaccount"><i class=""></i>My Account</a></li>
+				</ul>
+			</li>
+		</ul>
 		</div>
 		
         <div id="sidebar-menu">        
             <ul class="list-unstyled" id="updates-list">
                 <input type="hidden" id="pengactive" value="dashboard1">
-                <?php if ($_smarty_tpl->tpl_vars['user']->value->username == 'ALBERTOSCARINA' || $_smarty_tpl->tpl_vars['user']->value->username == 'THEPROGRAMMER' || $_smarty_tpl->tpl_vars['user']->value->username == 'info01@si.co.id' || $_smarty_tpl->tpl_vars['user']->value->username == 'albertoscarina@gmail.com' || $_smarty_tpl->tpl_vars['user']->value->username == 'admin') {?>
-                <li class='has_sub'>
-                    <a href='javascript:void(0);'>
-                        <i class='icon-home-3'></i><span>Programmer Menu</span> 
-                        <span class="pull-right"><i class="fa fa-angle-down"></i></span>
-                    </a>
-                    <ul>
-                        <li><a href='checklicense.php?value=onlyprogrammer' class='mm_menuitem' id="checklicense" onclick="cek_active('checklicense');" >
-                                <i class='icons icon-award-empty'></i><span>Update License</span>
-                            </a>
-                        </li>
-                        <li><a href='../backoffice/cronjob/backprocess.php?getsend=yes&getsend=yes' class='mm_menuitem' id="backprocess" onclick="cek_active('backprocess');" >
-                                <i class='icons icon-target-1'></i><span>Cronjob</span>
-                            </a>
-                        </li>
-                        <li><a href='http://cabinet.si.co.id:86/login.php' target="_blank"  id="backprocessold"  >
-                                <i class='icons icon-keyboard'></i><span>BackOffice</span>
-                            </a>
-                        </li>
-                        <li><a href='underconstruct.php' class='mm_menuitem' id="underconstruct" onclick="cek_active('underconstruct');" >
-                                <i class='fa fa-file-o'></i><span>Underconstruct Not Secure</span>
-                            </a>
-                        </li>
-                        <li><a href='underconstruct_secure.php' class='mm_menuitem' id="underconstruct_secure" onclick="cek_active('underconstruct_secure');" >
-                                <i class='fa fa-file-text'></i><span>Underconstruct Secure</span>
-                            </a>
-                        </li>    
-                        <li><a href='mql5_146316.php'  onclick="cek_active('mql5_146316');" class='mm_menuitem'  id="mql5_146316"><i class="fa fa-money"></i><span>MQL5 146316</span></a></li>
-					</ul>
-                </li>
-                <?php }?>
-
-                <!-- <?php if ($_smarty_tpl->tpl_vars['user']->value->username == 'ALBERTOSCARINA' || $_smarty_tpl->tpl_vars['user']->value->username == 'THEPROGRAMMER' || $_smarty_tpl->tpl_vars['user']->value->username == 'info01@si.co.id' || $_smarty_tpl->tpl_vars['user']->value->username == 'albertoscarina@gmail.com' || $_smarty_tpl->tpl_vars['user']->value->groupid == '9') {?>
-                <li class='has_sub'>
-                    <a href='javascript:void(0);'>
-                        <i class='icon-address-book'></i><span>Admin</span> 
-                        <span class="pull-right"><i class="fa fa-angle-down"></i></span>
-                    </a>
-                    <ul>
-                        <?php
-$_from = $_smarty_tpl->tpl_vars['database_ips']->value;
-if (!is_array($_from) && !is_object($_from)) {
-settype($_from, 'array');
-}
-$_smarty_tpl->tpl_vars['database_ip'] = new Smarty_Variable;
-$_smarty_tpl->tpl_vars['database_ip']->_loop = false;
-$_smarty_tpl->tpl_vars['database_ip1'] = new Smarty_Variable;
-foreach ($_from as $_smarty_tpl->tpl_vars['database_ip1']->value => $_smarty_tpl->tpl_vars['database_ip']->value) {
-$_smarty_tpl->tpl_vars['database_ip']->_loop = true;
-$foreach_database_ip_Sav = $_smarty_tpl->tpl_vars['database_ip'];
-?>
-                        <li><a href='<?php echo $_smarty_tpl->tpl_vars['database_ip']->value['namafile'];?>
-' class='mm_menuitem' id="<?php echo $_smarty_tpl->tpl_vars['database_ip']->value['namafile'];?>
-" onclick="cek_active('<?php echo $_smarty_tpl->tpl_vars['database_ip']->value['namafile'];?>
-');" >
-                                <i class='icons icon-user'></i><span><?php echo $_smarty_tpl->tpl_vars['database_ip']->value['alias'];?>
-</span>
-                            </a>
-                        </li>
-                        <?php
-$_smarty_tpl->tpl_vars['database_ip'] = $foreach_database_ip_Sav;
-}
-?>
-                        <li><a href='logip.php'  onclick="cek_active('logip');" class='mm_menuitem'  id="logip"><i class="fa fa-money"></i><span>Log IP Cabinet</span></a></li>                   
-                        <li><a href='acckota.php' class='mm_menuitem' id="acckota" onclick="cek_active('acckota');" >
-                                <i class='icons icon-user'></i><span>Acc Kota</span>
-                            </a>
-                        </li>
-                        <li><a href='report_summary_client.php'  onclick="cek_active('report_summary_client');"  class='mm_menuitem' id="report_summary_client" ><i class=' icon-arrows-cw'></i><span  >Today Summary</span></a></li>            
-                        <li><a href='report_summary_client_daily.php'  onclick="cek_active('report_summary_client_daily');" class='mm_menuitem'  id="report_summary_client_daily"><i class="icon-ccw-1"></i><span>Daily Summary</span></a></li>
-                        <li><a href='report_turnover_running.php'  onclick="cek_active('report_turnover_running');" class='mm_menuitem'  id="report_turnover_running"><i class="icon-folder-open"></i><span>Report Turnover Equity</span></a></li>
-                        <li><a href='report_equity.php'  onclick="cek_active('report_equity');" class='mm_menuitem'  id="report_equity"><i class=" icon-doc-circled"></i><span>Report NTR Summary</span></a></li>
-                        <li><a href='ntr_update.php'  onclick="cek_active('ntr_update');" class='mm_menuitem'  id="ntr_update"><i class=" icon-doc-circled"></i><span>NTR Update</span></a></li>
-                        <li><a href='mt4_weekly_initial.php'  onclick="cek_active('mt4_weekly_initial');" class='mm_menuitem'  id="mt4_weekly_initial"><i class=" icon-doc-circled"></i><span>MT4 Weekly Initial</span></a></li>
-                    </ul>
-                </li>
-                <?php }?> -->
+                
+                <!--  -->
 
                <!--  <li class='has_sub'>
                     <a href='javascript:void(0);'>

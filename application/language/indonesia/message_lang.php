@@ -11,6 +11,7 @@ $lang["header_menu_faq"] = "Tanya Jawab";
 $lang["header_menu_help"] = "Bantuan";
 $lang["header_menu_sign"] = "Masuk";
 $lang["header_menu_myagenda"] = "AgendaKu";
+$lang["header_menu_sell"] = "Jual";
 $lang["header_menu_logout"] = "Keluar";
 $lang["header_menu_register"] = "Buat Akun";
 $lang["header_field_seacrh"] = "Cari yang anda mau disini ...";
@@ -60,3 +61,11 @@ $lang["invoice_desc2"] = "Silahkan lakukan Pembayaran pada Rekening AgendaFX dan
 
 ";
 /* End Of Invoce */
+
+/* Sell */
+$lang["sell_title"] = "Jual sesuatu disini";
+$lang["sell_title_detail"] = "Isi identitas barang";
+$lang["sell_name_prod"] = "Nama Barang";
+$lang["sell_name_price"] = "Harga Barang";
+$lang["sell_name_cat"] = "Kategori";
+/* End of sell */

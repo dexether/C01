@@ -1,5 +1,3 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-02 11:37:16
-         compiled from "D:\web-dir\git\cabinet\web2\templates\home_03\home_03.htm" */ ?>
 <?php
 /*%%SmartyHeaderCode:2592757a0237ca380c3_72068783%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
@@ -14,6 +12,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     ),
   ),
   'nocache_hash' => '2592757a0237ca380c3_72068783',
+  'tpl_function' => 
+  array (
+  ),
   'variables' => 
   array (
     'status' => 0,
@@ -28,13 +29,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57a0237cc6dce4_21439266',
-),false);
+  'unifunc' => 'content_57a0237ceea6b8_35769241',
+  'cache_lifetime' => 120,
+),true);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57a0237cc6dce4_21439266')) {
-function content_57a0237cc6dce4_21439266 ($_smarty_tpl) {
-
-$_smarty_tpl->properties['nocache_hash'] = '2592757a0237ca380c3_72068783';
+if ($_valid && !is_callable('content_57a0237ceea6b8_35769241')) {
+function content_57a0237ceea6b8_35769241 ($_smarty_tpl) {
 ?>
 <link href="assets/libs/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
 <div class="content" id="main_content">
@@ -58,18 +58,7 @@ $_smarty_tpl->properties['nocache_hash'] = '2592757a0237ca380c3_72068783';
   margin-bottom: 1px
 }*/
    </style>
-   <?php if ($_smarty_tpl->tpl_vars['status']->value == '0') {?>
-   <br/>
-   <div class="alert alert-danger">
-      <strong>
-         NOTE:
-      </strong>
-      <p class="text-justify">
-         You haven't confirmed your email, please check your e-mail now and click the activation link has been sent
-      </p>
-   </div>
-   <?php }?>
-   <div class="carousel slide" data-ride="carousel" id="carousel-example">
+      <div class="carousel slide" data-ride="carousel" id="carousel-example">
       <ol class="carousel-indicators">
          <li class="active" data-slide-to="0" data-target="#carousel-example">
          </li>
@@ -110,8 +99,7 @@ $_smarty_tpl->properties['nocache_hash'] = '2592757a0237ca380c3_72068783';
             <!-- Start info box -->
             <div class="row top-summary">
                <button class="btn btn-primary btn-lg btn-block" type="button">
-                  Welcome to <?php echo $_smarty_tpl->tpl_vars['companys']->value['programname'];?>
-
+                  Welcome to AgendaFX
                   <p class="text-muted">
                      Solution for Financial Risk and Reward
                   </p>
@@ -133,10 +121,8 @@ $_smarty_tpl->properties['nocache_hash'] = '2592757a0237ca380c3_72068783';
                                     </b>
                                  </p>
                                  <h3>
-                                    <span class="animate-number" data-duration="3000" data-value="<?php echo number_format($_smarty_tpl->tpl_vars['ewallet']->value['total'],2);?>
-">
-                                       <?php echo number_format($_smarty_tpl->tpl_vars['ewallet']->value['total'],2);?>
-
+                                    <span class="animate-number" data-duration="3000" data-value="0.00">
+                                       0.00
                                     </span>
                                  </h3>
                                  <div class="clearfix">
@@ -172,10 +158,8 @@ $_smarty_tpl->properties['nocache_hash'] = '2592757a0237ca380c3_72068783';
                                     </b>
                                  </p>
                                  <h2>
-                                    <span class="animate-number" data-duration="3000" data-value="<?php echo number_format($_smarty_tpl->tpl_vars['bonus']->value['bonus'],2);?>
-">
-                                       <?php echo number_format($_smarty_tpl->tpl_vars['bonus']->value['bonus'],2);?>
-
+                                    <span class="animate-number" data-duration="3000" data-value="0.00">
+                                       0.00
                                     </span>
                                  </h2>
                                  <div class="clearfix">
@@ -211,10 +195,8 @@ $_smarty_tpl->properties['nocache_hash'] = '2592757a0237ca380c3_72068783';
                                     </b>
                                  </p>
                                  <h2>
-                                    <span class="animate-number" data-duration="3000" data-value="<?php echo $_smarty_tpl->tpl_vars['account']->value['account'];?>
-">
-                                       <?php echo $_smarty_tpl->tpl_vars['account']->value['account'];?>
-
+                                    <span class="animate-number" data-duration="3000" data-value="1">
+                                       1
                                     </span>
                                  </h2>
                                  <div class="clearfix">
@@ -250,10 +232,8 @@ $_smarty_tpl->properties['nocache_hash'] = '2592757a0237ca380c3_72068783';
                                     </b>
                                  </p>
                                  <h2>
-                                    <span class="animate-number" data-duration="3000" data-value="<?php echo number_format($_smarty_tpl->tpl_vars['goldsaving']->value['total'],2);?>
-">
-                                       <?php echo number_format($_smarty_tpl->tpl_vars['goldsaving']->value['total'],2);?>
-
+                                    <span class="animate-number" data-duration="3000" data-value="0.00">
+                                       0.00
                                     </span>
                                  </h2>
                                  <div class="clearfix">
@@ -325,31 +305,7 @@ $_smarty_tpl->properties['nocache_hash'] = '2592757a0237ca380c3_72068783';
                            </div>
                            <div class="widget-content padding-sm">
                               <ul class="todo-list">
-                                 <?php
-$_from = $_smarty_tpl->tpl_vars['todo']->value;
-if (!is_array($_from) && !is_object($_from)) {
-settype($_from, 'array');
-}
-$_smarty_tpl->tpl_vars['row'] = new Smarty_Variable;
-$_smarty_tpl->tpl_vars['row']->_loop = false;
-foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
-$_smarty_tpl->tpl_vars['row']->_loop = true;
-$foreach_row_Sav = $_smarty_tpl->tpl_vars['row'];
-?>
-                                 <li class="<?php echo $_smarty_tpl->tpl_vars['row']->value['type'];?>
- <?php if ($_smarty_tpl->tpl_vars['row']->value['finished']) {?> done <?php } else { ?> <?php }?>" disabled="">
-                                    <span class="todo-item" data-link="<?php echo $_smarty_tpl->tpl_vars['row']->value['link'];?>
-" data-stat="<?php echo $_smarty_tpl->tpl_vars['row']->value['finished'];?>
-" style="cursor: pointer">
-                                       <?php echo $_smarty_tpl->tpl_vars['row']->value['description'];?>
-
-                                    </span>
-                                 </li>
-                                 <?php
-$_smarty_tpl->tpl_vars['row'] = $foreach_row_Sav;
-}
-?>
-                              </ul>
+                                                               </ul>
                            </div>
                         </div>
                      </div>
@@ -384,29 +340,27 @@ $_smarty_tpl->tpl_vars['row'] = $foreach_row_Sav;
                               <div class="widget-body">
                                  <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                       <?php
-$_from = $_smarty_tpl->tpl_vars['news']->value;
-if (!is_array($_from) && !is_object($_from)) {
-settype($_from, 'array');
-}
-$_smarty_tpl->tpl_vars['row'] = new Smarty_Variable;
-$_smarty_tpl->tpl_vars['row']->_loop = false;
-foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
-$_smarty_tpl->tpl_vars['row']->_loop = true;
-$foreach_row_Sav = $_smarty_tpl->tpl_vars['row'];
-?>
-                                       <?php echo $_smarty_tpl->tpl_vars['row']->value['line0'];?>
-
-                                       <?php echo $_smarty_tpl->tpl_vars['row']->value['line1'];?>
-
-                                       <?php echo $_smarty_tpl->tpl_vars['row']->value['line2'];?>
-
+                                                                              <p><strong><a href="http://finance.detik.com/read/2016/08/02/111053/3266484/4/di-depan-petinggi-negara-islam-jokowi-2016-tahun-penuh-tantangan" target="_blank" title="Di Depan Petinggi Negara Islam, Jokowi: 2016 Tahun Penuh Tantangan">Di Depan Petinggi Negara Islam, Jokowi: 2016 Tahun Penuh Tantangan</a></strong><br />
+                                       <small><em>Posted on Tuesday August 02, 2016</em></small></p>
+                                       <p><img src="http://images.detik.com/visual/2016/08/02/d5f7793c-230d-4bc7-ae46-6f38e46db8ff_169.jpg" align="left" hspace="7" width="100" />Dalam sambutannya, Jokowi menyinggung soal krisis ekonomi global 2008 dan tantangan ekonomi. Jokowi menilai, tahun ini sebagai tahun yang penuh tantangan.</p>
                                        <hr/>
-                                       <?php
-$_smarty_tpl->tpl_vars['row'] = $foreach_row_Sav;
-}
-?>
-                                    </div>
+                                                                              <p><strong><a href="http://finance.detik.com/read/2016/08/02/110026/3266478/459/mimpi-pertamina-jadi-perusahaan-kelas-dunia" target="_blank" title="Mimpi Pertamina Jadi Perusahaan Kelas Dunia">Mimpi Pertamina Jadi Perusahaan Kelas Dunia</a></strong><br />
+                                       <small><em>Posted on Tuesday August 02, 2016</em></small></p>
+                                       <p><img src="http://images.detik.com/visual/2016/08/01/91d2a381-1a67-4b6c-8160-03f2e6fc56ad.jpg" align="left" hspace="7" width="100" />Tak ada kata terlambat bagi Direktur Utama PT Pertamina, Dwi Soetjipto, untuk membangun Pertamina menjadi perusahaan energi berskala global.</p>
+                                       <hr/>
+                                                                              <p><strong><a href="http://finance.detik.com/read/2016/08/02/104008/3266458/4/jokowi-buka-pertemuan-petinggi-negara-islam-di-senayan" target="_blank" title="Jokowi Buka Pertemuan Petinggi Negara Islam di Senayan">Jokowi Buka Pertemuan Petinggi Negara Islam di Senayan</a></strong><br />
+                                       <small><em>Posted on Tuesday August 02, 2016</em></small></p>
+                                       <p><img src="http://images.detik.com/visual/2016/08/02/d5f7793c-230d-4bc7-ae46-6f38e46db8ff.jpg" align="left" hspace="7" width="100" />Delapan Kepala Negara beserta Menteri dari 18 Negara Islam hadir dalam perhelatan akbar bertajuk 12 th World Islamic Economic Forum (WIEF).</p>
+                                       <hr/>
+                                                                              <p><strong><a href="http://finance.detik.com/read/2016/08/02/102823/3266448/4/3-menteri-merapat-ke-kantor-darmin-bahas-paket-kebijakan" target="_blank" title="3 Menteri Merapat ke Kantor Darmin, Bahas Paket Kebijakan">3 Menteri Merapat ke Kantor Darmin, Bahas Paket Kebijakan</a></strong><br />
+                                       <small><em>Posted on Tuesday August 02, 2016</em></small></p>
+                                       <p><img src="http://images.detik.com/visual/2016/07/18/ac3610c9-0d7a-42cb-8a83-178d0859ee5f.jpg" align="left" hspace="7" width="100" />Rapat membahas implementasi dari paket-paket ekonomi jilid I hingga XII yang telah dikeluarkan pemerintah sejak Oktober 2015.</p>
+                                       <hr/>
+                                                                              <p><strong><a href="http://finance.detik.com/read/2016/08/02/102324/3266446/4/harga-emas-antam-naik-rp-2000-gram" target="_blank" title="Harga Emas Antam Naik Rp 2.000/Gram">Harga Emas Antam Naik Rp 2.000/Gram</a></strong><br />
+                                       <small><em>Posted on Tuesday August 02, 2016</em></small></p>
+                                       <p><img src="http://images.detik.com/visual/2016/07/28/52585041-6d00-4e2d-a06f-ca20024021ac_169.jpg" align="left" hspace="7" width="100" />Harga Logam Mulia milik PT Aneka Tambang Tbk (Antam) hari ini dibuka naik di Rp 2.000/gram, sementara harga buyback juga dibuka naik Rp 2.000/gram.</p>
+                                       <hr/>
+                                                                           </div>
                                  </div>
                               </div>
                            </div>
@@ -603,153 +557,81 @@ $_smarty_tpl->tpl_vars['row'] = $foreach_row_Sav;
          </div>
       </div>
    </div>
-   <?php echo '<script'; ?>
- src="assets/libs/d3/d3.v3.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/rickshaw/rickshaw.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/raphael/raphael-min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/morrischart/morris.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/jquery-knob/jquery.knob.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-1.2.2.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-us-aea-en.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/jquery-clock/clock.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/jquery-easypiechart/jquery.easypiechart.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/jquery-weather/jquery.simpleWeather-2.6.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/bootstrap-xeditable/js/bootstrap-editable.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/bootstrap-calendar/js/bic_calendar.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/js/apps/calculator.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/js/apps/todo.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/js/apps/notes.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/js/pages/index.js">
-   <?php echo '</script'; ?>
->
+   <script src="assets/libs/d3/d3.v3.js">
+   </script>
+   <script src="assets/libs/rickshaw/rickshaw.min.js">
+   </script>
+   <script src="assets/libs/raphael/raphael-min.js">
+   </script>
+   <script src="assets/libs/morrischart/morris.min.js">
+   </script>
+   <script src="assets/libs/jquery-knob/jquery.knob.js">
+   </script>
+   <script src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-1.2.2.min.js">
+   </script>
+   <script src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-us-aea-en.js">
+   </script>
+   <script src="assets/libs/jquery-clock/clock.js">
+   </script>
+   <script src="assets/libs/jquery-easypiechart/jquery.easypiechart.min.js">
+   </script>
+   <script src="assets/libs/jquery-weather/jquery.simpleWeather-2.6.min.js">
+   </script>
+   <script src="assets/libs/bootstrap-xeditable/js/bootstrap-editable.min.js">
+   </script>
+   <script src="assets/libs/bootstrap-calendar/js/bic_calendar.min.js">
+   </script>
+   <script src="assets/js/apps/calculator.js">
+   </script>
+   <script src="assets/js/apps/todo.js">
+   </script>
+   <script src="assets/js/apps/notes.js">
+   </script>
+   <script src="assets/js/pages/index.js">
+   </script>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<?php echo '<script'; ?>
- src="assets/libs/bootstrap-fileinput/bootstrap.file-input.js">
-<?php echo '</script'; ?>
->
+<script src="assets/libs/bootstrap-fileinput/bootstrap.file-input.js">
+</script>
 <!-- Page Specific JS Libraries -->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-blockui/jquery.blockUI.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/d3/d3.v3.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/rickshaw/rickshaw.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/raphael/raphael-min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/morrischart/morris.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-knob/jquery.knob.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-1.2.2.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-us-aea-en.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-clock/clock.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-easypiechart/jquery.easypiechart.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-weather/jquery.simpleWeather-2.6.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/bootstrap-xeditable/js/bootstrap-editable.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/bootstrap-calendar/js/bic_calendar.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/js/apps/calculator.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/js/apps/todo.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/js/apps/notes.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/js/pages/index.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/fullcalendar/fullcalendar.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/js/pages/calendar.js">
-<?php echo '</script'; ?>
->
+<script src="assets/libs/jquery-blockui/jquery.blockUI.js">
+</script>
+<script src="assets/libs/d3/d3.v3.js">
+</script>
+<script src="assets/libs/rickshaw/rickshaw.min.js">
+</script>
+<script src="assets/libs/raphael/raphael-min.js">
+</script>
+<script src="assets/libs/morrischart/morris.min.js">
+</script>
+<script src="assets/libs/jquery-knob/jquery.knob.js">
+</script>
+<script src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-1.2.2.min.js">
+</script>
+<script src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-us-aea-en.js">
+</script>
+<script src="assets/libs/jquery-clock/clock.js">
+</script>
+<script src="assets/libs/jquery-easypiechart/jquery.easypiechart.min.js">
+</script>
+<script src="assets/libs/jquery-weather/jquery.simpleWeather-2.6.min.js">
+</script>
+<script src="assets/libs/bootstrap-xeditable/js/bootstrap-editable.min.js">
+</script>
+<script src="assets/libs/bootstrap-calendar/js/bic_calendar.min.js">
+</script>
+<script src="assets/js/apps/calculator.js">
+</script>
+<script src="assets/js/apps/todo.js">
+</script>
+<script src="assets/js/apps/notes.js">
+</script>
+<script src="assets/js/pages/index.js">
+</script>
+<script src="assets/libs/fullcalendar/fullcalendar.min.js">
+</script>
+<script src="assets/js/pages/calendar.js">
+</script>
 <?php }
 }
 ?>

@@ -301,6 +301,14 @@ class Buy_sell extends CI_Controller
         );
         $this->load->view('mall/index', $part);
     }
+    public function sell(){
+         $part = array(
+            "header" => $this->load->view('mall/mainheader', array(), true),
+            "body"   => $this->load->view('mall/sell', array(), true),
+            "slider" => "",
+        );
+        $this->load->view('mall/index', $part);
+    }
 }
 
 /* End of file Buy_sell.php */
