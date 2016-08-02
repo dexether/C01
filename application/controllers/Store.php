@@ -108,7 +108,7 @@ class Store extends CI_Controller
             array('col' => 'master_cat.cat_name', 'val' => $type),
         );
         $datas = $this->basicmodel->getDataPromo('prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where);
-
+        $datas2 = array();
         foreach ($datas as $key => $value) {
             # code...
             $datas2[$key]                = $value;

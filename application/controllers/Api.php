@@ -12,6 +12,7 @@ class Api extends CI_Controller
         $this->load->model('Shop_model', 'basicmodel');
         $this->load->helper('form');
         $this->load->helper('url');
+        date_default_timezone_set('Asia/Jakarta');
         // $this->load->library('session');
         $this->load->library('nativesession');
         $this->load->library('format');
@@ -42,7 +43,7 @@ class Api extends CI_Controller
             );
         $data = $this->basicmodel->getDataPromo('name,master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);        
         $datas_barang = array();
-
+        
         foreach ($data as $key => $value) {
             # code...
             $datas_barang[$key]                = $value;
