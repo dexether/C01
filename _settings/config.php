@@ -16,7 +16,7 @@ if (isset($_SERVER['HTTPS'])) {
 // var_dump($base);
 $httphost      = strtolower($httphost);
 $ipnya_host    = 'mlm';
-$mysql['host'] = "10.10.0.103";
+$mysql['host'] = "localhost";
 switch ($httphost) {
     case 'thecabinetsystems.dev':
         // $base = "";
@@ -39,12 +39,22 @@ switch ($httphost) {
         $mysql['meta']      = "askap_source";
         $mysql['crypt_key'] = "139";
         break;
-    case 'cabinet.apexregent.dev:90':
+    // case 'cabinet.apexregent.dev:90':
+        // $mall          = false;
+        // $mysql['host'] = "10.10.0.103";
+        // // $mysql['host'] = "localhost";
+        // $mysql['user']      = "root";
+        // $mysql['password']  = "mugen1996";
+        // $mysql['database']  = "apex";
+        // $mysql['meta']      = "askap_source";
+        // $mysql['crypt_key'] = "139";
+        // break;
+	case 'cabinet.apexregent.dev:90':
         $mall          = false;
-        $mysql['host'] = "10.10.0.103";
-        // $mysql['host'] = "localhost";
+        // $mysql['host'] = "10.10.0.103";
+        $mysql['host'] = "localhost";
         $mysql['user']      = "root";
-        $mysql['password']  = "mugen1996";
+        $mysql['password']  = "";
         $mysql['database']  = "apex";
         $mysql['meta']      = "askap_source";
         $mysql['crypt_key'] = "139";
@@ -55,6 +65,16 @@ switch ($httphost) {
         // $mysql['host'] = "localhost";
         $mysql['user']      = "root";
         $mysql['password']  = "mugen1996";
+        $mysql['database']  = "imperium_cabinet";
+        $mysql['meta']      = "askap_source_mini";
+        $mysql['crypt_key'] = "139";
+        break;
+	case 'agendafx.dev:90':
+        // $mysql['host'] = "10.10.0.103";
+        $mall          = true;
+        $mysql['host'] = "localhost";
+        $mysql['user']      = "root";
+        $mysql['password']  = "";
         $mysql['database']  = "imperium_cabinet";
         $mysql['meta']      = "askap_source_mini";
         $mysql['crypt_key'] = "139";

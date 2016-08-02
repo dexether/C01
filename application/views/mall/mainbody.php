@@ -61,21 +61,21 @@
 <div class="gap"></div>
 <div class="row" data-gutter="15">
     <div class="col-md-4">
-        <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/backgrounds/categories-indicator.png);">
+        <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">
             <a class="banner-link" href="#"></a>
-                       <!--  <div class="banner-caption-left">
+                       <div class="banner-caption-left">
                             <h5 class="banner-title">Discover The Mountains</h5>
                             <p class="banner-desc">Pro Backpacks 70% Off.</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
 
-                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/16-i.png" alt="Image Alternative text" title="Image Title" style="bottom: -68px; right: -32px; width: 200px;" /> -->
+                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/STOCHASTIC.png" alt="Image Alternative text" title="Image Title" style="bottom: -2px; right: -12px; width: 200px;" />
                     </div>
                 </div>
                 <div class="col-md-8">
 
-                    <div class="banner banner-o-hid" style="background-image:url(http://placehold.it/750x200/2ecc71/fff);">
+                    <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/750x200background.png);">
                         <a class="banner-link" href="#"></a>
                         <div class="banner-caption-left">
                             <h5 class="banner-title">Family Vacation Packs</h5>
@@ -83,10 +83,11 @@
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
+						<img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/graph.png" alt="Image Alternative text" title="Image Title" style="bottom: -21px; right: -100px; width: 340px;" />
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="banner banner-o-hid" style="background-color:#EA873B;">
+                    <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/560x200background.png);">
                         <a class="banner-link" href="#"></a>
                         <div class="banner-caption-left">
                             <h5 class="banner-title">Made by Nature</h5>
@@ -94,12 +95,12 @@
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
-                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/17-i.png" alt="Image Alternative text" title="Image Title" style="top: 17px; right: -45px; width: 350px;" />
+                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/FIBONACCI BOOK.png" alt="Image Alternative text" title="Image Title" style="top: 0px; right: -35px; width: 220px;" />
                     </div>
                 </div>
                 <div class="col-md-6">
 
-                    <div class="banner banner-o-hid" style="background-image:url(http://placehold.it/560x200/2ecc71/fff);">
+                    <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/560x200background.png);">
                         <a class="banner-link" href="#"></a>
                         <div class="banner-caption-left">
                             <h5 class="banner-title">Smartphones Under $80</h5>
@@ -112,20 +113,20 @@
                 </div>
                 <div class="col-md-4">
 
-                    <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/backgrounds/categories-indicator.png);">
-                        <!-- <a class="banner-link" href="#"></a>
+                    <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">
+                        <a class="banner-link" href="#"></a>
                         <div class="banner-caption-left">
                             <h5 class="banner-title">Back to School</h5>
                             <p class="banner-desc">Class is Almost in Session!</p>
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
-                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/20-i.png" alt="Image Alternative text" title="Image Title" style="bottom: -20px; right: -60px; width: 240px;" /> -->
+                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/COPY TRADE.png" alt="Image Alternative text" title="Image Title" style="bottom: -10px; right: -2px; width: 200px;" />
                     </div>
                 </div>
                 <div class="col-md-4">
 
-                    <div class="banner banner-o-hid" style="background-image:url(http://placehold.it/380x200/2ecc71/fff);">
+                    <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">
                         <a class="banner-link" href="#"></a>
                         <div class="banner-caption-left">
                             <h5 class="banner-title">New Jeans Collection</h5>
@@ -133,12 +134,12 @@
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
-                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/21-i.png" alt="Image Alternative text" title="Image Title" style="bottom: -29px; right: -51px; width: 240px;" />
+                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/MAGIC BOX TRADING SYSTEM.png" alt="Image Alternative text" title="Image Title" style="bottom: -32px; right: -92px; width: 300px;" />
                     </div>
                 </div>
                 <div class="col-md-4">
 
-                    <div class="banner banner-o-hid" style="background-image:url(http://placehold.it/380x200/2ecc71/fff);">
+                    <div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">
                         <a class="banner-link" href="#"></a>
                         <div class="banner-caption-left">
                             <h5 class="banner-title">Top Office Furniture</h5>
@@ -146,7 +147,7 @@
                             <p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
                             </p>
                         </div>
-                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/23-i.png" alt="Image Alternative text" title="Image Title" style="bottom: -118px; right: 8px; width: 190px;" />
+                        <img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/mrc.png" alt="Image Alternative text" title="Image Title" style="bottom: -38px; right: -20px; width: 200px;" />
                     </div>
                 </div>
             </div>
