@@ -48,10 +48,10 @@
                 <legend></legend>
                 <div class="form-group">
                     <label>
-                        <?php echo $this->lang->line('sell_name_price'); ?>
+                        Masukan gambar anda 
                     </label>
                        <div class="slim"
-                     data-label="Drop your avatar here"
+                     data-label="Tarik gambar anda kesini"
                      data-size="640,640"
                      data-ratio="1:1">
                     <input type="file" name="slim[]" required />
