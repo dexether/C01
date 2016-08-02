@@ -80,7 +80,7 @@
                 </div>
                 <div class="form-group">
                     <label>
-                        Komisi untuk perusahaan sebesar : <p id="percent"></p>
+                        Komisi untuk <?php echo $this->config->item('APP_TITLE') ?> sebesar : <p id="percent"></p>
                     </label>
                     <br/>
                     <input id="ex1" name="comm" class="form-control" data-slider-id='ex1Slider' type="text" data-slider-min="10" data-slider-max="100" data-slider-step="1" data-slider-value="10"/>
