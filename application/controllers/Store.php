@@ -124,7 +124,7 @@ class Store extends CI_Controller
         $result = $this->basicmodel->getData('master_cat', 'cat_name, cat_desc, cat_alias', array('cat_name' => $type));
 
         if (count($result) <= '0') {
-            // show_404();
+            show_404();
         }
         $data['title'] = array();
         foreach ($result as $key => $value) {
