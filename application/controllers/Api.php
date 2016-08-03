@@ -59,6 +59,7 @@ class Api extends CI_Controller
         }
         $this->load->view('api/invoce_email', array('data' => $datas_barang));
     }
+    
 }
 
 /* End of file Buy_sell.php */
