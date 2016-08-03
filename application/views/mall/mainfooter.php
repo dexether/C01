@@ -54,7 +54,7 @@
                     <div class="col-md-6">
                         <p class="copyright-text">Copyright &copy; <a href="#"><?php echo $this->config->item('APP_TITLE') ?></a> <?php echo date('Y') ?> <?php echo $this->config->item('APP_DESC') ?></p>
                     </div>
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <ul class="payment-icons-list">
                             <li>
                                 <img src="<?php echo base_url('assets') ?>/img/payment/visa-straight-32px.png" alt="Image Alternative text" title="Pay with Visa" />
@@ -75,7 +75,7 @@
                                 <img src="<?php echo base_url('assets') ?>/img/payment/discover-straight-32px.png" alt="Image Alternative text" title="Pay with Discover" />
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
