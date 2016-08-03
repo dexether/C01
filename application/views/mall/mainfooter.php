@@ -52,7 +52,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="copyright-text">Copyright &copy; <a href="#">TheBox</a> 2014. Designed my remtsoy. All rights reseved</p>
+                        <p class="copyright-text">Copyright &copy; <a href="#"><?php echo $this->config->item('APP_TITLE') ?></a> <?php echo date('Y') ?> <?php echo $this->config->item('APP_DESC') ?></p>
                     </div>
                     <div class="col-md-6">
                         <ul class="payment-icons-list">
