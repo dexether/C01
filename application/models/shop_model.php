@@ -123,6 +123,7 @@ class Shop_model extends CI_Model
     }
     public function cekPromo($promoname, $promo_value, $price)
     {
+    	
         switch ($promoname) {
             case null:
                 # code...
@@ -135,7 +136,7 @@ class Shop_model extends CI_Model
 
             default:
                 # code...
-                // $amount = $price;
+                $amount = $price;
                 break;
 
         }
