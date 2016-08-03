@@ -21,7 +21,7 @@ $lang["page_404_button_title"] = "Kembali keberanda.";
 
 /* Main Body */
 
-$lang["main_daily_promo_title"] = "Promo Hari ini";
+$lang["main_daily_promo_title"] = "Hot List";
 $lang["main_best_ea"] = "Terbaru dari EA";
 $lang["main_best_signal"] = "Terbaru dari Signal";
 $lang["main_best_book"] = "Terbaru dari Buku";
