@@ -242,7 +242,7 @@
                     	<?php if (!$this->nativesession->getObject('username')) {
                     		# code...
                            ?>
-                           <li><a href="<?php echo base_url(); ?>web2/index.php?redirect=<?php echo base_url() ?>" ><?php echo $this->lang->line('header_menu_sign'); ?></a>
+                           <li><a href="<?php echo base_url(); ?>web2/index.php?redirect=<?php echo urlencode(base_url()) ?>" ><?php echo $this->lang->line('header_menu_sign'); ?></a>
                            </li>
                            <li><a href="<?php echo base_url(); ?>web2/openaccount.php?cabang=1"><?php echo $this->lang->line('header_menu_register'); ?></a>
                            </li>

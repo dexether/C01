@@ -3,7 +3,7 @@
 session_start();
 $skip_authentication = 1;
 include("../includes/functions.php");
-$redirect = @$_POST['redirect'];
+$redirect = @(urldecode($_POST['redirect']));
 $session = '';
 if (isset($_SESSION['login_depan'])) {
     $session = $_SESSION['login_depan'];
