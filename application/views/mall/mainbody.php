@@ -18,8 +18,8 @@
 						</li>
 					</ul>
 					<div class="product-img-wrap">
-					<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
-					<img class="product-img-alt" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+						<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+						<img class="product-img-alt" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
 					</div>
 					<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
 					<div class="product-caption">
@@ -217,7 +217,7 @@
 	<div class="container">
 		<div class="slider-item-inner">
 			<div class="slider-item-caption slider-item-caption-white">
-			<br/>
+				<br/>
 				<h4 class="slider-item-caption-title">If you buy things you do not need, soon you will have to sell things you need</h4>
 				<p class="slider-item-caption-desc"><i> - Warren Buffet</i></p>
 				<!-- <a class="btn btn-lg btn-ghost btn-white" href="#">Shop Now</a> -->
@@ -230,56 +230,56 @@
 <div class="container">
 	<h3 class="widget-title-lg"><?php echo $this->lang->line('main_best_book'); ?></h3>
 	<div class="row row-sm-gap" data-gutter="10">
-		<?php
-		foreach ($brand['forex-book'] as $key => $value) {
+	<?php
+	foreach ($brand['forex-book'] as $key => $value) {
                     # code...
-			?>
-			<div class="col-md-4">
-				<div class="product">
-					<ul class="product-labels">
-						<li>
-							<?php if(!$value['promo_alias'] == NULL){
-								echo $value['promo_alias'];
-							}
-							?>
-						</li>
-					</ul>
-					<div class="product-img-wrap">
-						<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+		?>
+		<div class="col-md-4">
+			<div class="product">
+				<ul class="product-labels">
+					<li>
+						<?php if(!$value['promo_alias'] == NULL){
+							echo $value['promo_alias'];
+						}
+						?>
+					</li>
+				</ul>
+				<div class="product-img-wrap">
+
+					<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
 					<img class="product-img-alt" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
-					</div>
-					</div>
-					<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
-					<div class="product-caption">
+				</div>
+				<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
+				<div class="product-caption">
 
-						<div class="my-rating" data-rating="4.5"></div>
-						<h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
-						<div class="product-caption-price">
-							<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
-								echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['prod_price']).'</span>';
-							}else{
-								echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
-								echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['final_price']).'</span>';
-							}
+					<div class="my-rating" data-rating="4.5"></div>
+					<h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
+					<div class="product-caption-price">
+						<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
+							echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['prod_price']).'</span>';
+						}else{
+							echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
+							echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['final_price']).'</span>';
+						}
 
-							?>
-						</div>
-
+						?>
 					</div>
+
 				</div>
 			</div>
-			<?php 
-		}
-		?>
-	</div>
+		</div>
+		<?php 
+	}
+	?>
+</div>
 </div>
 <div class="gap"></div>
 <div class="slider-item-sm" style="background-color:#6AAD4B;">
 	<div class="container">
 		<div class="slider-item-inner">
-		<div class="gap"></div>
+			<div class="gap"></div>
 			<div class="slider-item-caption slider-item-caption-white">
-			<br/>
+				<br/>
 				<h4 class="slider-item-caption-title">Never test the depth of river with both the feet</h4>
 				<p class="slider-item-caption-desc"><i> - Warren Buffet</i></p>
 				<!-- <a class="btn btn-lg btn-ghost btn-white" href="#">Shop Now</a> -->
@@ -293,54 +293,54 @@
 <div class="container">
 	<h3 class="widget-title-lg"><?php echo $this->lang->line('main_best_indicator'); ?></h3>
 	<div class="row row-sm-gap" data-gutter="10">
-		<?php
-		foreach ($brand['forex-indicator'] as $key => $value) {
+	<?php
+	foreach ($brand['forex-indicator'] as $key => $value) {
                     # code...
-			?>
-			<div class="col-md-4">
-				<div class="product">
-					<ul class="product-labels">
-						<li>
-							<?php if(!$value['promo_alias'] == NULL){
-								echo $value['promo_alias'];
-							}
-							?>
-						</li>
-					</ul>
-					<div class="product-img-wrap">
-						<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+		?>
+		<div class="col-md-4">
+			<div class="product">
+				<ul class="product-labels">
+					<li>
+						<?php if(!$value['promo_alias'] == NULL){
+							echo $value['promo_alias'];
+						}
+						?>
+					</li>
+				</ul>
+				<div class="product-img-wrap">
+
+					<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
 					<img class="product-img-alt" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
-					</div>
-					</div>
-					<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
-					<div class="product-caption">
+				</div>
+				<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
+				<div class="product-caption">
 
-						<div class="my-rating" data-rating="4.5"></div>
-						<h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
-						<div class="product-caption-price">
-							<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
-								echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['prod_price']).'</span>';
-							}else{
-								echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
-								echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['final_price']).'</span>';
-							}
+					<div class="my-rating" data-rating="4.5"></div>
+					<h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
+					<div class="product-caption-price">
+						<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
+							echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['prod_price']).'</span>';
+						}else{
+							echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
+							echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['final_price']).'</span>';
+						}
 
-							?>
-						</div>
-
+						?>
 					</div>
+
 				</div>
 			</div>
-			<?php 
-		}
-		?>
-	</div>
+		</div>
+		<?php 
+	}
+	?>
+</div>
 </div>
 <div class="gap"></div>
 <div class="slider-item-sm" style="background-color:#B56532;">
 	<div class="container">
 		<div class="slider-item-inner">
-		<div class="gap"></div>
+			<div class="gap"></div>
 			<div class="slider-item-caption slider-item-caption-white">
 				<h4 class="slider-item-caption-title">Never depend on single income Make investment to create a second source</h4>
 				<p class="slider-item-caption-desc"><i> - Warren Buffet</i></p>
@@ -349,181 +349,59 @@
 		</div>
 	</div>
 </div>
-<!--  End of indikator -->
-<!-- Start of copytrade -->
-       <!--  <div class="gap"></div>
-        <div class="container">
-            <h3 class="widget-title-lg"><?php echo $this->lang->line('main_best_copytrade'); ?></h3>
-            <div class="row row-sm-gap" data-gutter="10">
-                <?php
-                foreach ($brand['forex-book'] as $key => $value) {
+<div class="gap"></div>
+<div class="container">
+	<h3 class="widget-title-lg"><?php echo $this->lang->line('main_best_merch'); ?></h3>
+	<div class="row row-sm-gap" data-gutter="10">
+	<?php
+	foreach ($brand['forex-merchandise'] as $key => $value) {
                     # code...
-                    ?>
-                    <div class="col-md-4">
-                        <div class="product">
-                            <ul class="product-labels">
-                                <li>
-                                    <?php if(!$value['promo_alias'] == NULL){
-                                        echo $value['promo_alias'];
-                                    }
-                                    ?>
-                                </li>
-                            </ul>
-                            <div class="product-img-wrap">
-                                <img class="product-img-primary" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
-                                <img class="product-img-alt" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
-                            </div>
-                            <a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
-                            <div class="product-caption">
+		?>
+		<div class="col-md-4">
+			<div class="product">
+				<ul class="product-labels">
+					<li>
+						<?php if(!$value['promo_alias'] == NULL){
+							echo $value['promo_alias'];
+						}
+						?>
+					</li>
+				</ul>
+				<div class="product-img-wrap">
 
-                                <div class="my-rating" data-rating="4.5"></div>
-                                <h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
-                                <div class="product-caption-price">
-                                    <?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
-                                        echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['prod_price']).'</span>';
-                                    }else{
-                                        echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
-                                        echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['final_price']).'</span>';
-                                    }
-
-                                    ?>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <?php 
-                }
-                ?>
-            </div>
-        </div>
-        <div class="gap"></div>
-        <div class="slider-item-sm" style="background-color:#E66514;">
-            <div class="container">
-                <div class="slider-item-inner">
-                    <div class="slider-item-caption-left slider-item-caption-white">
-                        <h4 class="slider-item-caption-title">Time to Upgrade Your Smartphone</h4>
-                        <p class="slider-item-caption-desc">It's Smartphone Time.</p><a class="btn btn-lg btn-ghost btn-white" href="#">Shop Now</a>
-                    </div>
-                    <img class="slider-item-img" src="<?php echo base_url('assets') ?>/img/test_slider/7-i.png" alt="Image Alternative text" title="Image Title" style="right: 0; bottom: 0; width: 22%;" />
-                </div>
-            </div>
-        </div> -->
-        <!-- End Of copytrade -->
-        <!-- Start of Education -->
-        <!-- <div class="gap"></div>
-        <div class="container">
-            <h3 class="widget-title-lg"><?php echo $this->lang->line('main_best_education'); ?></h3>
-            <div class="row row-sm-gap" data-gutter="10">
-                <?php
-                foreach ($brand['forex-book'] as $key => $value) {
-                    # code...
-                    ?>
-                    <div class="col-md-4">
-                        <div class="product">
-                            <ul class="product-labels">
-                                <li>
-                                    <?php if(!$value['promo_alias'] == NULL){
-                                        echo $value['promo_alias'];
-                                    }
-                                    ?>
-                                </li>
-                            </ul>
-                            <div class="product-img-wrap">
-                                <img class="product-img-primary" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
-                                <img class="product-img-alt" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
-                            </div>
-                            <a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
-                            <div class="product-caption">
-
-                                <div class="my-rating" data-rating="4.5"></div>
-                                <h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
-                                <div class="product-caption-price">
-                                    <?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
-                                        echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['prod_price']).'</span>';
-                                    }else{
-                                        echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
-                                        echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['final_price']).'</span>';
-                                    }
-
-                                    ?>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <?php 
-                }
-                ?>
-            </div>
-        </div>
-        <div class="gap"></div>
-        <div class="slider-item-sm" style="background-color:#E66514;">
-            <div class="container">
-                <div class="slider-item-inner">
-                    <div class="slider-item-caption-left slider-item-caption-white">
-                        <h4 class="slider-item-caption-title">Time to Upgrade Your Smartphone</h4>
-                        <p class="slider-item-caption-desc">It's Smartphone Time.</p><a class="btn btn-lg btn-ghost btn-white" href="#">Shop Now</a>
-                    </div>
-                    <img class="slider-item-img" src="<?php echo base_url('assets') ?>/img/test_slider/7-i.png" alt="Image Alternative text" title="Image Title" style="right: 0; bottom: 0; width: 22%;" />
-                </div>
-            </div>
-        </div> -->
-        <!-- End Of education -->
-        <!-- Start of merch -->
-        <div class="gap"></div>
-        <div class="container">
-        	<h3 class="widget-title-lg"><?php echo $this->lang->line('main_best_merch'); ?></h3>
-        	<div class="row row-sm-gap" data-gutter="10">
-        		<?php
-        		foreach ($brand['forex-merchandise'] as $key => $value) {
-                    # code...
-        			?>
-        			<div class="col-md-4">
-        				<div class="product">
-        					<ul class="product-labels">
-        						<li>
-        							<?php if(!$value['promo_alias'] == NULL){
-        								echo $value['promo_alias'];
-        							}
-        							?>
-        						</li>
-        					</ul>
-        					<div class="product-img-wrap">
-        						<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+					<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
 					<img class="product-img-alt" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+				</div>
+				<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
+				<div class="product-caption">
+
+					<div class="my-rating" data-rating="4.5"></div>
+					<h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
+					<div class="product-caption-price">
+						<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
+							echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['prod_price']).'</span>';
+						}else{
+							echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
+							echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['final_price']).'</span>';
+						}
+
+						?>
 					</div>
-        					</div>
-        					<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
-        					<div class="product-caption">
 
-        						<div class="my-rating" data-rating="4.5"></div>
-        						<h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
-        						<div class="product-caption-price">
-        							<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
-        								echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['prod_price']).'</span>';
-        							}else{
-        								echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
-        								echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['final_price']).'</span>';
-        							}
+				</div>
+			</div>
+		</div>
+		<?php 
+	}
+	?>
+</div>
+</div>
+<div class="gap"></div>
 
-        							?>
-        						</div>
-
-        					</div>
-        				</div>
-        			</div>
-        			<?php 
-        		}
-        		?>
-        	</div>
-        </div>
-        <div class="gap"></div>
-
-        <script type="text/javascript">
-        	$(document).ready(function($) {
-        		$(".my-rating").starRating({
-        			starSize: 25
-        		});
-        	}); 
-        </script>
+<script type="text/javascript">
+	$(document).ready(function($) {
+		$(".my-rating").starRating({
+			starSize: 25
+		});
+	}); 
+</script>

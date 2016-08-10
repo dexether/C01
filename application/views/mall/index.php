@@ -32,6 +32,7 @@
     <div class="global-wrapper clearfix" id="global-wrapper">
         <!-- Start of mainheader -->
         <script src="<?php echo base_url('assets') ?>/js/jquery.js"></script>
+        <script src="<?php echo base_url('assets') ?>/js/jquery.unveil.js"></script>
         <?php echo $header ?>
         <!-- End of mainheader -->
         <?php echo $slider ?>
@@ -48,7 +49,7 @@
         <!-- End Of Footer -->
         
     </div>
-    <script src="<?php echo base_url('assets') ?>/js/jquery.unveil.js"></script>
+    
     <script src="<?php echo base_url('assets') ?>/js/bootstrap.js"></script>
     <script src="<?php echo base_url('assets') ?>/js/icheck.js"></script>
     <script src="<?php echo base_url('assets') ?>/js/ionrangeslider.js"></script>
