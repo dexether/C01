@@ -19,6 +19,12 @@
     <link rel="stylesheet" href="<?php echo base_url('assets') ?>/css/styles.css">
     <link rel="stylesheet" href="<?php echo base_url('assets') ?>/css/mystyles.css">
     <link rel="stylesheet" href="<?php echo base_url('assets') ?>/js/libs/ratings/css/star-rating-svg.css">
+    <style type="text/css">
+        img {
+          opacity: 50;
+          transition: opacity .3s ease-in;
+        }
+    </style>
 
 </head>
 
@@ -42,7 +48,7 @@
         <!-- End Of Footer -->
         
     </div>
-    
+    <script src="<?php echo base_url('assets') ?>/js/jquery.unveil.js"></script>
     <script src="<?php echo base_url('assets') ?>/js/bootstrap.js"></script>
     <script src="<?php echo base_url('assets') ?>/js/icheck.js"></script>
     <script src="<?php echo base_url('assets') ?>/js/ionrangeslider.js"></script>
@@ -52,8 +58,15 @@
     <script src="<?php echo base_url('assets') ?>/js/magnific.js"></script>
     <script src="<?php echo base_url('assets') ?>/js/custom.js"></script>
     <script src="<?php echo base_url('assets') ?>/js/libs/ratings/jquery.star-rating-svg.js"></script>
-
-
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $("img").unveil(200, function() {
+              $(this).load(function() {
+                this.style.opacity = 1;
+              });
+            });
+        });
+    </script>
 
 
 

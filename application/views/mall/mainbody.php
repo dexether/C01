@@ -18,8 +18,8 @@
 						</li>
 					</ul>
 					<div class="product-img-wrap">
-						<img class="product-img-primary" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
-						<img class="product-img-alt" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
+					<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+					<img class="product-img-alt" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
 					</div>
 					<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
 					<div class="product-caption">
@@ -70,7 +70,7 @@
 				</p>
 			</div>
 
-			<img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/STOCHASTIC.png" alt="Image Alternative text" title="Image Title" style="bottom: -2px; right: -12px; width: 200px;" />
+			<img class="banner-img" data-src="<?php echo base_url('assets') ?>/img/test_banner/STOCHASTIC.png" src="" alt="Image Alternative text" title="Image Title" style="bottom: -2px; right: -12px; width: 200px;" />
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -83,7 +83,7 @@
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
-			<img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/graph.png" alt="Image Alternative text" title="Image Title" style="bottom: -21px; right: -100px; width: 340px;" />
+			<img class="banner-img" data-src="<?php echo base_url('assets') ?>/img/test_banner/graph.png" src="" alt="Image Alternative text" title="Image Title" style="bottom: -21px; right: -100px; width: 340px;" />
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -96,7 +96,7 @@
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
-			<img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/copytrade2.png" alt="Image Alternative text" title="Image Title" style="bottom: 0px; right: 0px; width: 200px;" />
+			<img class="banner-img" data-src="<?php echo base_url('assets') ?>/img/test_banner/copytrade2.png" src="" alt="Image Alternative text" title="Image Title" style="bottom: 0px; right: 0px; width: 200px;" />
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -108,7 +108,7 @@
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
-			<img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/FIBONACCI BOOK.png" alt="Image Alternative text" title="Image Title" style="top: 0px; right: -35px; width: 220px;" />
+			<img class="banner-img" data-src="<?php echo base_url('assets') ?>/img/test_banner/FIBONACCI BOOK.png" src="" alt="Image Alternative text" title="Image Title" style="top: 0px; right: -35px; width: 220px;" />
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -121,7 +121,7 @@
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
-			<img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/18-i.png" alt="Image Alternative text" title="Image Title" style="top: 17px; right: -45px; width: 350px;" />
+			<img class="banner-img" data-src="<?php echo base_url('assets') ?>/img/test_banner/18-i.png" src="" alt="Image Alternative text" title="Image Title" style="top: 17px; right: -45px; width: 350px;" />
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -134,7 +134,7 @@
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
-			<img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/COPY TRADE.png" alt="Image Alternative text" title="Image Title" style="bottom: -10px; right: -2px; width: 200px;" />
+			<img class="banner-img" data-src="<?php echo base_url('assets') ?>/img/test_banner/COPY TRADE.png" src="" alt="Image Alternative text" title="Image Title" style="bottom: -10px; right: -2px; width: 200px;" />
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -147,7 +147,7 @@
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
-			<img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/MAGIC BOX TRADING SYSTEM.png" alt="Image Alternative text" title="Image Title" style="bottom: -32px; right: -92px; width: 300px;" />
+			<img class="banner-img" data-src="<?php echo base_url('assets') ?>/img/test_banner/MAGIC BOX TRADING SYSTEM.png" src="" alt="Image Alternative text" title="Image Title" style="bottom: -32px; right: -92px; width: 300px;" />
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -160,7 +160,7 @@
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
-			<img class="banner-img" src="<?php echo base_url('assets') ?>/img/test_banner/mrc.png" alt="Image Alternative text" title="Image Title" style="bottom: -38px; right: -20px; width: 200px;" />
+			<img class="banner-img" data-src="<?php echo base_url('assets') ?>/img/test_banner/mrc.png" src="" alt="Image Alternative text" title="Image Title" style="bottom: -38px; right: -20px; width: 200px;" />
 		</div>
 	</div>
 </div>
@@ -182,8 +182,9 @@
 					</li>
 				</ul>
 				<div class="product-img-wrap">
-					<img class="product-img-primary" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
-					<img class="product-img-alt" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
+
+					<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+					<img class="product-img-alt" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
 				</div>
 				<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
 				<div class="product-caption">
@@ -244,8 +245,9 @@
 						</li>
 					</ul>
 					<div class="product-img-wrap">
-						<img class="product-img-primary" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
-						<img class="product-img-alt" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
+						<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+					<img class="product-img-alt" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+					</div>
 					</div>
 					<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
 					<div class="product-caption">
@@ -306,8 +308,9 @@
 						</li>
 					</ul>
 					<div class="product-img-wrap">
-						<img class="product-img-primary" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
-						<img class="product-img-alt" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
+						<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+					<img class="product-img-alt" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+					</div>
 					</div>
 					<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
 					<div class="product-caption">
@@ -487,8 +490,9 @@
         						</li>
         					</ul>
         					<div class="product-img-wrap">
-        						<img class="product-img-primary" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
-        						<img class="product-img-alt" src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
+        						<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+					<img class="product-img-alt" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="Image Alternative text" title="Image Title" />
+					</div>
         					</div>
         					<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
         					<div class="product-caption">
