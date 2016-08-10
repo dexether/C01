@@ -231,7 +231,7 @@
 	<h3 class="widget-title-lg"><?php echo $this->lang->line('main_best_book'); ?></h3>
 	<div class="row row-sm-gap" data-gutter="10">
 	<?php
-	var_dump($brand['forex-book']);
+	// var_dump($brand['forex-book']);
 	foreach ($brand['forex-book'] as $key => $value) {
                     # code...
 		?>
