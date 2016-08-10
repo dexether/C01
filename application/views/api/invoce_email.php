@@ -3,7 +3,7 @@
         <tbody>
             <tr>
                 <td>
-                    <table align="center" bgcolor="#eeeeee" border="0" cellpadding="0" cellspacing="0" style="width:750px!important" width="750px">
+                    <table align="center" bgcolor="#eeeeee" border="0" cellpadding="0" cellspacing="0" style="width: 750px!important; text-align: center;" width="750px">
                         <tbody>
                             <tr>
                                 <td>
@@ -86,6 +86,24 @@
                                                                         </p>
                                                                     </br>
                                                                 </td>
+                                                            </tr>
+                                                            <tr align="center">
+                                                              <td colspan="3" height="30"><table width="200" align="center">
+                                                                <tr>
+                                                                  <td colspan="2"><img src="<?php echo base_url() ?>assets/logo/atm_bca.gif"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td style="text-align: center">No rek</td>
+                                                                  <td style="text-align: center">2218050455</td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td style="text-align: center">A / N</td>
+                                                                  <td style="text-align: center">Roby Martiarto</td>
+                                                                </tr>
+                                                              </table></td>
+                                                            </tr>
+                                                            <tr align="center">
+                                                              <td colspan="3" height="30">&nbsp;</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>

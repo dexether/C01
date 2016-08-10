@@ -105,10 +105,11 @@
             <h3 class="widget-title">
                 <?php echo $this->lang->line('checkout_payment_info'); ?>
             </h3>
+            <img src="<?php echo base_url() ?>assets/logo/atm_bca.gif" style="height: 100px" class="img-responsive img-rounded">
             <div class="cc-form">
                 <p>Silahkan transfer Ke :</p>
-                <p><strong>No : 1111111</strong></p>
-                <p><strong>A.n : AgendaFX</strong></p>
+                <p><strong>No : 2218050455</strong></p>
+                <p><strong>A.n : Roby Martiarto</strong></p>
             </div>
             <?php 
             if (empty($user['address']) || $user['address'] == "") {
