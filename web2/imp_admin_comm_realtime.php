@@ -28,7 +28,7 @@ $_SESSION['page'] = 'imp_admin_comm_realtime';
 =            Start Coding            =
 ====================================*/
 
-$query = "SELECT client_aecode.email, client_aecode.aecodeid FROM client_aecode WHERE client_aecode.suspend = '0' ORDER BY client_aecode.email ASC";
+$query = "SELECT client_accounts.accountname FROM client_aecode, client_accounts WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid` AND client_aecode.suspend = '0'";
 $result = $DB->execresultset($query);
 $accountdata = array();
 foreach ($result as $key => $value) {

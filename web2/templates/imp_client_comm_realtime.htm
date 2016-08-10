@@ -49,7 +49,7 @@
                 <input name="token" type="hidden" value="{$token}"></input>
                   <div class="form-group">
                     <select class="form-control" name="account">
-                      <!-- <option value="">- pilih Member ID -</option> -->
+                      <!-- <option value="0" selected>- Semua -</option> -->
                       {foreach from=$alldatas.listaccount item=row}
                       <option value="{$row.accountname}">{$row.accountname}</option>
                       {/foreach}

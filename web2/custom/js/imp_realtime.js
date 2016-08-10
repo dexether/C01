@@ -137,6 +137,31 @@ var imp_realtime_JS = function() {
                 complete: function() {}
             });
         },
+        generate_admin: function(a) {
+            // console.log(a)
+            var data = $('#ajax-form').serializeArray();
+            $.ajax({
+                url: 'imp_admin_comm_realtime_do.php?postmode=tmp',
+                data: data,
+                type: 'POST',
+                dataType: 'JSON',
+                success: function(response) {
+                    // console.log(response)
+                    $('input[name=token]').val(response.token);
+                    imp_realtime_JS.compress_admin(response);
+                },
+                beforeSend: function() {
+                    $(a).button('loading');
+                    $('table[id=table-komisi] tbody').html('<td colspan="8"><img height="50" src="images/loading/cari.svg" class="center-block" align="center" class="img-responsive"></td>');
+                    $('table[id=table-komisi-group] tbody').html('<td colspan="8"><img height="50" src="images/loading/cari.svg" class="center-block" align="center" class="img-responsive"></td>');
+                    $('table[id=table-anony] tbody').html('<td colspan="8"><img height="50" src="images/loading/cari.svg" class="center-block" align="center" class="img-responsive"></td>');
+                },
+                error: function() {
+                    alert('Erorr')
+                },
+                complete: function() {}
+            });
+        },
         compress: function(data) {
             $.ajax({
                 url: 'imp_client_comm_realtime_do.php?postmode=tree',
@@ -147,6 +172,24 @@ var imp_realtime_JS = function() {
                     // console.log(response)
                     $('input[name=token]').val(response.token);
                     imp_realtime_JS.comm(response);
+                },
+                beforeSend: function() {},
+                error: function() {
+                    alert('Erorr')
+                },
+                complete: function() {}
+            });
+        },
+        compress_admin: function(data) {
+            $.ajax({
+                url: 'imp_admin_comm_realtime_do.php?postmode=tree',
+                data: data,
+                type: 'POST',
+                dataType: 'JSON',
+                success: function(response) {
+                    // console.log(response)
+                    $('input[name=token]').val(response.token);
+                    imp_realtime_JS.comm_admin(response);
                 },
                 beforeSend: function() {},
                 error: function() {
@@ -219,6 +262,70 @@ var imp_realtime_JS = function() {
                 }
             });
         },
+        ambil_data_admin: function(data) {
+            $.ajax({
+                url: 'imp_admin_comm_realtime_do.php?postmode=get_data',
+                data: data,
+                type: 'POST',
+                dataType: 'JSON',
+                success: function(response) {
+                    // console.log(response)
+                    $('table tbody').html('');
+                    $('input[name=token]').val(response.token);
+                    // imp_realtime_JS.comm(response);
+                    /* To Table  */
+                    if (response.detailed.length > 0) {
+                        /* Quick */
+                        for (var i = 0; i < response.quick.length; i++) {
+                            var typenya = response.quick[i].typeaccount;
+                            if (typenya == 'agent') {
+                                var keangotaan = 'Agen';
+                            } else {
+                                var keangotaan = 'Nasabah';
+                            }
+                            tr = $('<tr/>');
+                            tr.append("<td>" + response.quick[i].ACCNO + "</td>");
+                            tr.append("<td>" + response.quick[i].name + "</td>");
+                            tr.append("<td>" + keangotaan + "</td>");
+                            tr.append("<td>" + imp_realtime_JS.changetorp(response.quick[i].subtotal) + "</td>");
+                            $('table[id=table-komisi-group] tbody').append(tr);
+                        }
+                        /* End Quick */
+                        for (var i = 0; i < response.detailed.length; i++) {
+                            var uang = imp_realtime_JS.changetorp(response.detailed[i].amount);
+                            var jumlah = parseInt(response.detailed[i].amount, 10);
+                            // console.log(jumlah)
+                            var typenya = response.detailed[i].typeaccount;
+                            if (typenya == 'agent') {
+                                var keangotaan = 'Agen';
+                            } else {
+                                var keangotaan = 'Nasabah';
+                            }
+                            tr = $('<tr/>');
+                            tr.append("<td>" + response.detailed[i].ACCNO + "</td>");
+                            tr.append("<td>" + response.detailed[i].name + "</td>");
+                            tr.append("<td>" + response.detailed[i].nama2 + "</td>");
+                            tr.append("<td>" + keangotaan + "</td>");
+                            tr.append("<td>" + response.detailed[i].level + "</td>");
+                            tr.append("<td>" + response.detailed[i].lot + "</td>");
+                            tr.append("<td>" + uang + "</td>");
+                            $('table[id=table-komisi] tbody').append(tr);
+                        }
+                    } else {
+                        tr = $('<tr/>');
+                        tr.append("<td colspan=8 class=text-center> Tidak ada komisi untuk bulan ini </td>");
+                        $('table tbody').append(tr);
+                    }
+                },
+                beforeSend: function() {},
+                error: function() {
+                    alert('Erorr')
+                },
+                complete: function() {
+                    $('#ajax-button').button('reset');
+                }
+            });
+        },
         comm: function(data) {
             $.ajax({
                 url: 'imp_client_comm_realtime_do.php?postmode=comm',
@@ -229,6 +336,24 @@ var imp_realtime_JS = function() {
                     // console.log(response)
                     $('input[name=token]').val(response.token);
                     imp_realtime_JS.ambil_data(response);
+                },
+                beforeSend: function() {},
+                error: function() {
+                    alert('Erorr')
+                },
+                complete: function() {}
+            });
+        },
+        comm_admin: function(data) {
+            $.ajax({
+                url: 'imp_admin_comm_realtime_do.php?postmode=comm',
+                data: data,
+                type: 'POST',
+                dataType: 'JSON',
+                success: function(response) {
+                    // console.log(response)
+                    $('input[name=token]').val(response.token);
+                    imp_realtime_JS.ambil_data_admin(response);
                 },
                 beforeSend: function() {},
                 error: function() {
