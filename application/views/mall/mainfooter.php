@@ -2,30 +2,19 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-9">
-                        <ul class="main-footer-links-list-lg">
-                            <li><a href="#">About Us</a>
-                            </li>
-                            <li><a href="#">Jobs</a>
-                            </li>
-                            <li><a href="#">Legal</a>
-                            </li>
-                            <li><a href="#">Support & Customer Service</a>
-                            </li>
-                            <li><a href="#">Blog</a>
-                            </li>
-                            <li><a href="#">Privacy</a>
-                            </li>
-                            <li><a href="#">Terms</a>
-                            </li>
-                            <li><a href="#">Press</a>
-                            </li>
-                            <li><a href="#">Shipping</a>
-                            </li>
-                            <li><a href="#">Payments & Refunds</a>
-                            </li>
-                        </ul>
+                         <div class="disclaminair">
+                         <h4>Disclaimer : </h4>
+                         <p class="text-justify">
+                              Trading Foreign Exchange memiliki resiko tinggi dan mungkin tidak cocok untuk semua investor. Pastikan untuk memahami berbagai resiko yang terlibat termasuk mempertimbangkan tujuan, situasi keuangan, kebutuhan dan tingkat pengalaman trading Anda.
+Setiap produk yang kami jual sudah kami uji coba terlebih dahulu sebelum kami pasarkan melalui web ini, segala hasil transaksi akibat dari setiap produk EA & Indikator merupakan resiko dari pembeli, AgendaFX tidak bertanggung jawab atas setiap keuntungan dan kerugian yang dialami oleh trade
+                         </p>
+                        
+                    </div>
+
+
                     </div>
                     <div class="col-md-3">
+
                         <ul class="main-footer-social-list pull-right">
                             <li>
                                 <a class="fa fa-facebook" href="#"></a>
