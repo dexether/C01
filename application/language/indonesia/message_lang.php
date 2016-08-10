@@ -10,7 +10,7 @@ $lang["header_menu_contact"] = "Hubungi Kami";
 $lang["header_menu_faq"] = "Tanya Jawab";
 $lang["header_menu_help"] = "Bantuan";
 $lang["header_menu_sign"] = "Masuk";
-$lang["header_menu_myagenda"] = "AgendaKu";
+$lang["header_menu_myagenda"] = "AgendaFX";
 $lang["header_menu_sell"] = "Jual";
 $lang["header_menu_logout"] = "Keluar";
 $lang["header_menu_register"] = "Buat Akun";
@@ -70,6 +70,8 @@ $lang["sell_title_detail"] = "Isi identitas barang";
 $lang["sell_name_prod"] = "Nama Barang";
 $lang["sell_name_price"] = "Harga Barang";
 $lang["sell_name_cat"] = "Kategori";
+$lang["sell_disallow"] = "Nampaknya identitas anda belum lengkap, silahkan lengkapi data diri anda";
+$lang["sell_disallow_link"] = " disini";
 /* End of sell */
 
 /* New Prodct */
