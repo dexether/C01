@@ -174,12 +174,12 @@
 		<div class="col-md-4">
 			<div class="product">
 				<ul class="product-labels">
-					<li>
+					
 						<?php if(!$value['promo_alias'] == NULL){
-							echo $value['promo_alias'];
+							echo "<li>".$value['promo_alias']."</li>";
 						}
 						?>
-					</li>
+
 				</ul>
 				<div class="product-img-wrap">
 
@@ -231,18 +231,19 @@
 	<h3 class="widget-title-lg"><?php echo $this->lang->line('main_best_book'); ?></h3>
 	<div class="row row-sm-gap" data-gutter="10">
 	<?php
+	var_dump($brand['forex-book']);
 	foreach ($brand['forex-book'] as $key => $value) {
                     # code...
 		?>
 		<div class="col-md-4">
 			<div class="product">
 				<ul class="product-labels">
-					<li>
+					
 						<?php if(!$value['promo_alias'] == NULL){
-							echo $value['promo_alias'];
+							echo "<li>".$value['promo_alias']."</li>";
 						}
 						?>
-					</li>
+
 				</ul>
 				<div class="product-img-wrap">
 
@@ -300,12 +301,12 @@
 		<div class="col-md-4">
 			<div class="product">
 				<ul class="product-labels">
-					<li>
+					
 						<?php if(!$value['promo_alias'] == NULL){
-							echo $value['promo_alias'];
+							echo "<li>".$value['promo_alias']."</li>";
 						}
 						?>
-					</li>
+
 				</ul>
 				<div class="product-img-wrap">
 
@@ -360,12 +361,12 @@
 		<div class="col-md-4">
 			<div class="product">
 				<ul class="product-labels">
-					<li>
+					
 						<?php if(!$value['promo_alias'] == NULL){
-							echo $value['promo_alias'];
+							echo "<li>".$value['promo_alias']."</li>";
 						}
 						?>
-					</li>
+
 				</ul>
 				<div class="product-img-wrap">
 

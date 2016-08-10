@@ -33,6 +33,7 @@
         <!-- Start of mainheader -->
         <script src="<?php echo base_url('assets') ?>/js/jquery.js"></script>
         <script src="<?php echo base_url('assets') ?>/js/jquery.unveil.js"></script>
+        <script src="<?php echo base_url('assets') ?>/js/bootstrap.js"></script>
         <?php echo $header ?>
         <!-- End of mainheader -->
         <?php echo $slider ?>
