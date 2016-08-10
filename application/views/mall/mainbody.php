@@ -130,7 +130,7 @@
 			<a class="banner-link" href="<?php echo base_url().'c/forex-robot'; ?>"></a>
 			<div class="banner-caption-left">
 				<h5 class="banner-title">EA & Bot</h5>
-				<p class="banner-desc">Class is Almost in Session!</p>
+				<p class="banner-desc">Best EA & Bots, get It !</p>
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
@@ -143,7 +143,7 @@
 			<a class="banner-link" href="<?php echo base_url().'c/forex-education'; ?>"></a>
 			<div class="banner-caption-left">
 				<h5 class="banner-title">Edukasi Finansial</h5>
-				<p class="banner-desc">Exeedingly Good Jeans</p>
+				<p class="banner-desc">Best Education For you</p>
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
