@@ -51,7 +51,7 @@ if ($error != 'error') {
                     $msg      = "Approval Success";
                     $progress = 0;
                     # code...
-                    $data = getDatas($id);
+                    $data    = getDatas($id);
                     $to      = $data['email'];
                     $subject = "Produk anda telah dikonfimasi oleh admin";
                     $body    = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
@@ -76,9 +76,9 @@ if ($error != 'error') {
                     $progress = 0;
                 }
 
-            } else {
-                
-                $data = getDatas($id);
+            } elseif ($postmode == 'reject') {
+
+                $data    = getDatas($id);
                 $to      = $data['email'];
                 $subject = "Produk anda telah ditolak oleh admin";
                 $body    = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
@@ -98,6 +98,32 @@ if ($error != 'error') {
                 $msg     = "Reject Success";
                 $update  = "DELETE FROM master_product WHERE id = '$id'";
                 $do      = $DB->execonly($update);
+            } elseif ($postmode == 'view_data') {
+
+                $query = "SELECT
+                  master_product.`id`,
+                  client_aecode.`name`,
+                  client_aecode.`email`,
+                  master_product.`prod_alias`,
+                  client_aecode.`telephone_mobile`
+                FROM
+                  master_product,
+                  master_cat,
+                  client_aecode
+                WHERE master_product.`is_active` = FALSE
+                  AND master_product.`aecodeid` = client_aecode.`aecodeid`
+                  AND master_product.`id_cat` = master_cat.`id`
+                  AND master_product.`id` = '$id'";
+                $result = $DB->execresultset($query);
+                foreach ($result as $key => $value) {
+                    # code...
+                    $response['get_data'] = $value;
+                }
+
+                $error   = "success";
+                $subject = "Success";
+                $msg     = "Query Success";
+
             }
 
             $token = $security->set(3, 3600);
@@ -141,11 +167,12 @@ function sendEmail($to, $subject, $body, $module)
     ";
     $DB->execonly($query);
 }
-function getDatas($id){
+function getDatas($id)
+{
     global $DB;
-    $query = "SELECT email, name FROM client_aecode, master_product WHERE master_product.aecodeid = client_aecode.aecodeid AND master_product.id = '$id'";
+    $query  = "SELECT email, name FROM client_aecode, master_product WHERE master_product.aecodeid = client_aecode.aecodeid AND master_product.id = '$id'";
     $result = $DB->execresultset($query);
-    $data = array();
+    $data   = array();
     foreach ($result as $key => $value) {
         # code...
         $data = $value;
