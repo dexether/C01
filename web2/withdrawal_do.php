@@ -57,11 +57,11 @@ foreach ($result as $key => $rows) {
    $balance = $rows['balance'];
 }
 
-if ($balance < $amount) {
+if ($balance < $amount || $amount <= 26.25) {
    $errno   = 1;
    $error   = "error";
    $subject = "Sorry, Request failed";
-   $msg     = "your balance for ACCNO $account is Not enought";
+   $msg     = "your balance for ACCNO $account is Not enought Minimal USD 26.25";
 }
 
 /*==============================
