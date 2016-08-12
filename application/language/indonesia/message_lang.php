@@ -23,7 +23,7 @@ $lang["page_404_button_title"] = "Kembali keberanda.";
 
 $lang["main_disclaimer"] = "Trading Foreign Exchange memiliki resiko tinggi dan mungkin tidak cocok untuk semua investor. Pastikan untuk memahami berbagai resiko yang terlibat termasuk mempertimbangkan tujuan, situasi keuangan, kebutuhan dan tingkat pengalaman trading Anda.
 Setiap produk yang kami jual sudah kami uji coba terlebih dahulu sebelum kami pasarkan melalui web ini, segala hasil transaksi akibat dari setiap produk EA & Indikator merupakan resiko dari pembeli, AgendaFX tidak bertanggung jawab atas setiap keuntungan dan kerugian yang dialami oleh trade";
-$lang["main_daily_promo_title"] = "Hot List";
+$lang["main_daily_promo_title"] = "Editor's choice";
 $lang["main_best_ea"] = "Terbaru dari EA";
 $lang["main_best_signal"] = "Terbaru dari Signal";
 $lang["main_best_book"] = "Terbaru dari Buku";
