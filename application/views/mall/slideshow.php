@@ -1,4 +1,4 @@
-<div class="owl-carousel owl-loaded" data-options='{"items":1,"loop":true}'>
+<div class="owl-carousel owl-loaded" data-autoplay="true" data-options='{"items":1,"loop":true}'>
             <?php 
             for ($i=0; $i < 3 ; $i++) { 
                 # code...
