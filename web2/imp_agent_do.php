@@ -104,7 +104,7 @@ if ($error != 'error') {
              datetime = NOW(),
              companyconfirm = '2',
              payment = '0',
-             group_play = 'no_plan',
+             group_play = 'askap',
              updateby = '$user->username'
              ";
                         //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);

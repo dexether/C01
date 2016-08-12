@@ -58,7 +58,20 @@ foreach($result as $row){
     $alldatas[$i]['url'] = $companys['appurl'].'web2/referal.php?memberkey='.base64_encode($row['accountname']);
     $i++;
 }
-$template->assign("alldatas", $alldatas);
+foreach ($alldatas as $key => $value) {
+	# code...
+	$query = "SELECT ACCNO, mt4login, mt_database.`alias` FROM mlm2, mt_database WHERE mlm2.`mt4dt` = mt_database.`mt4dt` AND  mlm2.`ACCNO` = '$value[accountname]'";
+	$result = $DB->execresultset($query);
+	$newdatas[$key] = $value;
+	$mt4login_data = array();
+	foreach ($result as $key2 => $value2) {
+		# code...
+		$mt4login_data[] = $value2;
+	}
+	$newdatas[$key]['mt4dt_login'] = $mt4login_data;
+}
+// var_dump($newdatas);
+$template->assign("alldatas", $newdatas);
 /*=====  End of Start Coding  ======*/
 
 

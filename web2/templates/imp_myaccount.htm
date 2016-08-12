@@ -74,6 +74,9 @@
                                     Status
                                  </th>
                                  <th>
+                                    Meta LOGIN
+                                 </th>
+                                 <th>
                                     Referal Link
                                  </th>
                               </tr>
@@ -100,6 +103,14 @@
                                     Suspend
                                  </span>
                                  {/if}
+                              </td>
+                              <td>
+                              {foreach from=$a.mt4dt_login item=b}
+                              {$b.alias} ({$b.mt4login}),
+                              {foreachelse}
+                              <span class="label label-warning">Not Sync to Any meta LOGIN</span>
+                              {/foreach}
+                              
                               </td>
                               <td>
                                  <button class="btn btn-xs btn-blue-1" data-clipboard-text="{$a.url}">
