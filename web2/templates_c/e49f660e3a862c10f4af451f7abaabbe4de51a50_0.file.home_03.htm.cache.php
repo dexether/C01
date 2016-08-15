@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-02 11:37:16
+<?php /* Smarty version 3.1.27, created on 2016-08-15 15:12:30
          compiled from "D:\web-dir\git\cabinet\web2\templates\home_03\home_03.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:2592757a0237ca380c3_72068783%%*/
+/*%%SmartyHeaderCode:3154857b1796e22f924_47493470%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -9,11 +9,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'e49f660e3a862c10f4af451f7abaabbe4de51a50' => 
     array (
       0 => 'D:\\web-dir\\git\\cabinet\\web2\\templates\\home_03\\home_03.htm',
-      1 => 1468914036,
+      1 => 1471238543,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2592757a0237ca380c3_72068783',
+  'nocache_hash' => '3154857b1796e22f924_47493470',
   'variables' => 
   array (
     'status' => 0,
@@ -22,19 +22,16 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'bonus' => 0,
     'account' => 0,
     'goldsaving' => 0,
-    'todo' => 0,
-    'row' => 0,
-    'news' => 0,
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57a0237cc6dce4_21439266',
+  'unifunc' => 'content_57b1796e365f66_06679664',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57a0237cc6dce4_21439266')) {
-function content_57a0237cc6dce4_21439266 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_57b1796e365f66_06679664')) {
+function content_57b1796e365f66_06679664 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '2592757a0237ca380c3_72068783';
+$_smarty_tpl->properties['nocache_hash'] = '3154857b1796e22f924_47493470';
 ?>
 <link href="assets/libs/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
 <div class="content" id="main_content">
@@ -278,328 +275,7 @@ $_smarty_tpl->properties['nocache_hash'] = '2592757a0237ca380c3_72068783';
                </p>
             </div>
             <!-- End of info box -->
-            <div class="row">
-               <div class="col-lg-8 portlets">
-                  <div class="widget" id="website-statistics1">
-                     <div class="widget-content">
-                        <a href="https://twofrx.com/trading-contest-2016/" target="_new" title="Trading Contest 2016">
-                           <div class="img-wrap">
-                              <img alt="Image gallery" class="mfp-fade" height="100%" src="images/education/thecabinet.jpg" title="Trading Contest 2016" width="100%">
-                              </img>
-                           </div>
-                        </a>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-4 portlets">
-                  <div class="row">
-                     <div class="col-sm-12">
-                        <div class="widget" id="todo-app">
-                           <div class="widget-header centered">
-                              <!-- <div class="left-btn"><a class="btn btn-sm btn-default add-todo"><i class="fa fa-plus"></i></a></div> -->
-                              <h2>
-                                 Todo List
-                              </h2>
-                              <div class="additional-btn">
-                                 <a class="hidden reload" href="#">
-                                    <i class="icon-ccw-1">
-                                    </i>
-                                 </a>
-                                 <a class="widget-popout hidden tt" href="#" title="Pop Out/In">
-                                    <i class="icon-publish">
-                                    </i>
-                                 </a>
-                                 <a class="widget-maximize hidden" href="#">
-                                    <i class="icon-resize-full-1">
-                                    </i>
-                                 </a>
-                                 <a class="widget-toggle" href="#">
-                                    <i class="icon-down-open-2">
-                                    </i>
-                                 </a>
-                                 <a class="widget-close" href="#">
-                                    <i class="icon-cancel-3">
-                                    </i>
-                                 </a>
-                              </div>
-                           </div>
-                           <div class="widget-content padding-sm">
-                              <ul class="todo-list">
-                                 <?php
-$_from = $_smarty_tpl->tpl_vars['todo']->value;
-if (!is_array($_from) && !is_object($_from)) {
-settype($_from, 'array');
-}
-$_smarty_tpl->tpl_vars['row'] = new Smarty_Variable;
-$_smarty_tpl->tpl_vars['row']->_loop = false;
-foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
-$_smarty_tpl->tpl_vars['row']->_loop = true;
-$foreach_row_Sav = $_smarty_tpl->tpl_vars['row'];
-?>
-                                 <li class="<?php echo $_smarty_tpl->tpl_vars['row']->value['type'];?>
- <?php if ($_smarty_tpl->tpl_vars['row']->value['finished']) {?> done <?php } else { ?> <?php }?>" disabled="">
-                                    <span class="todo-item" data-link="<?php echo $_smarty_tpl->tpl_vars['row']->value['link'];?>
-" data-stat="<?php echo $_smarty_tpl->tpl_vars['row']->value['finished'];?>
-" style="cursor: pointer">
-                                       <?php echo $_smarty_tpl->tpl_vars['row']->value['description'];?>
-
-                                    </span>
-                                 </li>
-                                 <?php
-$_smarty_tpl->tpl_vars['row'] = $foreach_row_Sav;
-}
-?>
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-lg-8 portlets">
-                  <div class="widget">
-                     <div class="widget-header">
-                        <h2>
-                           News
-                        </h2>
-                        <div class="additional-btn">
-                           <a class="hidden reload" href="#">
-                              <i class="icon-ccw-1">
-                              </i>
-                           </a>
-                           <a class="widget-toggle" href="#">
-                              <i class="icon-down-open-2">
-                              </i>
-                           </a>
-                           <a class="widget-close" href="#">
-                              <i class="icon-cancel-3">
-                              </i>
-                           </a>
-                        </div>
-                     </div>
-                     <div class="widget-content padding">
-                        <div class="col-md-12">
-                           <div class="widget bg-white">
-                              <div class="widget-body">
-                                 <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                       <?php
-$_from = $_smarty_tpl->tpl_vars['news']->value;
-if (!is_array($_from) && !is_object($_from)) {
-settype($_from, 'array');
-}
-$_smarty_tpl->tpl_vars['row'] = new Smarty_Variable;
-$_smarty_tpl->tpl_vars['row']->_loop = false;
-foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
-$_smarty_tpl->tpl_vars['row']->_loop = true;
-$foreach_row_Sav = $_smarty_tpl->tpl_vars['row'];
-?>
-                                       <?php echo $_smarty_tpl->tpl_vars['row']->value['line0'];?>
-
-                                       <?php echo $_smarty_tpl->tpl_vars['row']->value['line1'];?>
-
-                                       <?php echo $_smarty_tpl->tpl_vars['row']->value['line2'];?>
-
-                                       <hr/>
-                                       <?php
-$_smarty_tpl->tpl_vars['row'] = $foreach_row_Sav;
-}
-?>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-4 portlets">
-                  <div class="widget">
-                     <div class="widget-header transparent">
-                        <h2>
-                           <strong>
-                              Online Trading
-                           </strong>
-                           Platform
-                        </h2>
-                        <div class="additional-btn">
-                           <a class="hidden reload" href="#">
-                              <i class="icon-ccw-1">
-                              </i>
-                           </a>
-                           <a class="hidden" data-toggle="dropdown" id="dropdownMenu1">
-                              <i class="fa fa-cogs">
-                              </i>
-                           </a>
-                           <ul aria-labelledby="dropdownMenu1" class="dropdown-menu pull-right" role="menu">
-                              <li>
-                                 <a href="#">
-                                    Action
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="#">
-                                    Another action
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="#">
-                                    Something else here
-                                 </a>
-                              </li>
-                              <li class="divider">
-                              </li>
-                              <li>
-                                 <a href="#">
-                                    Separated link
-                                 </a>
-                              </li>
-                           </ul>
-                           <a class="widget-popout hidden tt" href="#" title="Pop Out/In">
-                              <i class="icon-publish">
-                              </i>
-                           </a>
-                           <a class="widget-maximize hidden" href="#">
-                              <i class="icon-resize-full-1">
-                              </i>
-                           </a>
-                           <a class="widget-toggle" href="#">
-                              <i class="icon-down-open-2">
-                              </i>
-                           </a>
-                           <a class="widget-close" href="#">
-                              <i class="icon-cancel-3">
-                              </i>
-                           </a>
-                        </div>
-                     </div>
-                     <div class="widget-content">
-                        <div class="gallery-wrap">
-                           <div class="column1">
-                              <div class="inner">
-                                 <a href="http://panendollar.com/" target="_new" title="The Art of Money Maker">
-                                    <div class="img-wrap">
-                                       <img alt="Please click here for download" class="mfp-fade" src="images/metatrader/mt4_logo_white.jpg" title="MetaTrader 4">
-                                       </img>
-                                    </div>
-                                    <div class="caption-hover">
-                                       Click Here to download Demo
-                                    </div>
-                                 </a>
-                              </div>
-                              <div class="inner">
-                                 <a href="http://panendollar.com/" target="_new" title="The Art of Money Maker">
-                                    <div class="img-wrap">
-                                       <img alt="Image gallery" class="mfp-fade" src="images/thecabinet/education.jpg" title="Education" width="50%">
-                                       </img>
-                                    </div>
-                                    <div class="caption-hover">
-                                       Click Here to download Demo
-                                    </div>
-                                 </a>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-sm-4">
-                  <div align="center" class="widget ">
-                     <div class="gallery-wrap">
-                        <div class="column1">
-                           <div class="inner">
-                              <a href="https://twofrx.com/" target="_new" title="Two Forex">
-                                 <div class="img-wrap">
-                                    <img alt="Image gallery" src="images/thecabinet/twofrx.png" title="Education">
-                                    </img>
-                                 </div>
-                                 <div class="caption-hover">
-                                    Two Forex
-                                 </div>
-                              </a>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-sm-4">
-                  <div align="center" class="widget ">
-                     <div class="gallery-wrap">
-                        <div class="column1">
-                           <div class="inner">
-                              <a href="#" target="_new" title="The Art of Money Maker">
-                                 <div class="img-wrap">
-                                    <img alt="Image gallery" src="images/thecabinet/copytrade.png" title="Education">
-                                    </img>
-                                 </div>
-                                 <div class="caption-hover">
-                                    Copytrade
-                                 </div>
-                              </a>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-sm-4">
-                  <div align="center" class="widget ">
-                     <div class="gallery-wrap">
-                        <div class="column1">
-                           <div class="inner">
-                              <a href="http://www.askapimperium.com/" target="_new" title="Askap Futurus">
-                                 <div class="img-wrap">
-                                    <img alt="Image gallery" src="images/thecabinet/askapnew.jpg" title="Education">
-                                    </img>
-                                 </div>
-                                 <div class="caption-hover">
-                                    Askap Imperium
-                                 </div>
-                              </a>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="grid-custom">
-               <div class="row ">
-                  <div class="row col-sm-6">
-                     <div class="col-sm-12">
-                        <img alt="" class="img-responsive" src="images/thecabinet/edu.png"/>
-                     </div>
-                     <div class="col-sm-12">
-                        <!-- <img src="http://placehold.it/600x195/2ecc71/fff" alt="" class="img-responsive"> -->
-                        <div class="row nopadding">
-                           <div class="col-sm-6">
-                              <img alt="" class="img-responsive" src="images/thecabinet/ea.png">
-                              </img>
-                           </div>
-                           <div class="col-sm-6">
-                              <img alt="" class="img-responsive" src="images/thecabinet/indikator.png">
-                              </img>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row col-sm-6">
-                     <div class="col-xs-6">
-                        <img alt="" class="img-responsive" src="images/thecabinet/book.png"/>
-                     </div>
-                     <div class="col-xs-6">
-                        <img alt="" class="img-responsive" src="images/thecabinet/analisa.png"/>
-                     </div>
-                     <div class="col-xs-6">
-                        <img alt="" class="img-responsive" src="images/thecabinet/produk.png"/>
-                     </div>
-                     <div class="col-xs-6">
-                        <img alt="" class="img-responsive" src="images/thecabinet/seminar.png"/>
-                     </div>
-                  </div>
-               </div>
-            </div>
+            
          </div>
       </div>
    </div>
