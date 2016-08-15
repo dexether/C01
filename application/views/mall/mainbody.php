@@ -106,7 +106,7 @@
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
-			<img class="banner-img" data-src="<?php echo base_url('assets') ?>/img/test_banner/18-i.png" src="" alt="Image Alternative text" title="Image Title" style="top: 17px; right: -45px; width: 350px;" />
+			<img class="banner-img" data-src="<?php echo base_url('assets') ?>/img/test_banner/seminar.png" src="" alt="Image Alternative text" title="Image Title" style="top: 30px; right: 10px;" />
 		</div>
 	</div>
 	<div class="col-md-4">
