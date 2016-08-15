@@ -88,9 +88,15 @@ foreach($result as $row){
 $urlnya2 = listFolderFiles2($dir, $file_display);
 $template->assign('fotonya', $fotonya);
 
-$query = "SELECT company_logo FROM usercompany";
+$query = "SELECT company_logo, appurl FROM usercompany";
 $result = $DB->execresultset($query);
-$template->assign('logonya', $result[0]);
+foreach ($result as $key => $value) {
+    # code...
+    $data = $value;
+}
+
+$template->assign('logonya', $data['company_logo']);
+$template->assign('url', $data['appurl']);
 $template->display("topside.htm");
 
 /* * ***************************************************************************
