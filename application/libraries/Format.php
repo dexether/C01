@@ -30,4 +30,19 @@ class Format
         $string = preg_replace("/[\s_]/", "-", $string);
         return $string;
     }
+    public function getFirstNameWithEs($name){
+        $pecah = explode(" ", $name);
+        if (count($pecah > 0)) {
+            # code...
+
+            return array_shift($pecah)."'s";
+        }else{
+            return NULL;
+        }
+
+
+    }
 }
+
+
+

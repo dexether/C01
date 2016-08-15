@@ -249,7 +249,7 @@
                            <?php }else{ ?>
                            <li><a href="<?php echo base_url('product/new'); ?>"><?php echo $this->lang->line('header_menu_sell'); ?></a>
                            </li>
-                           <li><a href="<?php echo base_url(); ?>web2/mainmenu.php" target="_blank"><?php echo $this->lang->line('header_menu_myagenda'); ?></a>
+                           <li><a href="<?php echo base_url(); ?>web2/mainmenu.php" target="_blank"><?php echo $this->format->getFirstNameWithEs($this->nativesession->getObject('aename'))." ".$this->lang->line('header_menu_myagenda'); ?></a>
                            </li>
                            <li><a href="<?php echo base_url(); ?>auth/logout"><?php echo $this->lang->line('header_menu_logout'); ?></a>
                            </li>
