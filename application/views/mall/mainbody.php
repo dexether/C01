@@ -149,6 +149,11 @@
 		</div>
 	</div>
 </div>
+<div class="gap"></div>
+<!-- Ads -->
+<img style="height: 150px" data-src="<?php echo base_url();  ?>assets/img/ads/twofrx.gif" class="img-responsive">
+<!-- End Ads -->
+
 </div>
 <div class="gap"></div>
 <div class="slider-item-sm" style="background-image:url(<?php echo base_url('assets') ?>/img/1200x500.png);">
@@ -210,16 +215,18 @@
 </div>
 
 <div class="gap"></div>
-<div class="slider-item-sm" style="background-color:#6AAD4B;">
+<div class="slider-item-sm" style="background-color:#708566;">
 	<div class="container">
 		<div class="slider-item-inner">
-			<div class="gap"></div>
+			<!-- <div class="gap"></div> -->
 			<div class="slider-item-caption slider-item-caption-white">
 				<br/>
-				<h4 class="slider-item-caption-title">Never test the depth of river with both the feet</h4>
+				<br/><br/>
+				<h4 class="slider-item-caption-title"> The most important investment you can make is in yourself.</h4>
 				<p class="slider-item-caption-desc"><i> - Warren Buffet</i></p>
 				<!-- <a class="btn btn-lg btn-ghost btn-white" href="#">Shop Now</a> -->
 			</div>
+			<a href="http://www.askapimperium.com/"><img class="slider-item-img" data-src="<?php echo base_url()?>assets/img/imperium200x60.png" alt="Image Alternative text" title="Image Title" style="right: 0;bottom: 0;" /></a>
 		</div>
 	</div>
 </div>
