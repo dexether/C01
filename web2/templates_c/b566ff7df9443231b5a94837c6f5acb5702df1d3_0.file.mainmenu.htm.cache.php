@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-15 15:12:29
+<?php /* Smarty version 3.1.27, created on 2016-08-17 11:02:59
          compiled from "D:\web-dir\git\cabinet\web2\templates\mainmenu.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:360057b1796d4e46a8_35279514%%*/
+/*%%SmartyHeaderCode:2202457b3e1f39253b2_10718032%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -13,7 +13,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '360057b1796d4e46a8_35279514',
+  'nocache_hash' => '2202457b3e1f39253b2_10718032',
   'variables' => 
   array (
     'companys' => 0,
@@ -21,13 +21,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57b1796d643a25_79311327',
+  'unifunc' => 'content_57b3e1f43cef54_05859399',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57b1796d643a25_79311327')) {
-function content_57b1796d643a25_79311327 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_57b3e1f43cef54_05859399')) {
+function content_57b3e1f43cef54_05859399 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '360057b1796d4e46a8_35279514';
+$_smarty_tpl->properties['nocache_hash'] = '2202457b3e1f39253b2_10718032';
 ?>
 <!DOCTYPE html>
 <html>
