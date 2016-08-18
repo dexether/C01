@@ -18,7 +18,7 @@ class Buy_sell extends CI_Controller
         $this->load->library('format');
         if (!$this->nativesession->getObject('username')) {
             # code...
-            redirect(base_url() . "web2/index.php?redirect=" . current_url());
+            redirect(base_url() . "web2/index.php?redirect=" . urlencode(current_url()));
 
         }
 
@@ -313,6 +313,14 @@ class Buy_sell extends CI_Controller
          $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
             "body"   => $this->load->view('mall/sell', array('list_cat' => $sql, 'userdata' => $datausers), true),
+            "slider" => "",
+        );
+        $this->load->view('mall/index', $part);
+    }
+    public function userPaymentTransaction(){
+        $part = array(
+            "header" => $this->load->view('mall/mainheader', array(), true),
+            "body"   => $this->load->view('mall/userPayment', array(), true),
             "slider" => "",
         );
         $this->load->view('mall/index', $part);

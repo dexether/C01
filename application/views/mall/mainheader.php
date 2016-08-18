@@ -253,8 +253,10 @@
                            </li>
                            <li><a href="<?php echo base_url(); ?>auth/logout"><?php echo $this->lang->line('header_menu_logout'); ?></a>
                            </li>
+                            <li><a class="fa fa-money" href="<?php echo base_url('payment/transactions') ?>" data-toggle="tooltip" title="Transaksi" data-placement="bottom"></a>
+                           </li>
                            <?php } ?>
-                           <li><a class="fa fa-shopping-cart" href="<?php echo base_url('cart') ?>"></a>
+                           <li><a class="fa fa-shopping-cart" href="<?php echo base_url('cart') ?>" data-toggle="tooltip" title="Cart" data-placement="bottom"></a>
                            </li>
 
                        </ul>

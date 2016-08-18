@@ -80,3 +80,7 @@ $route['email/invoice/(:any)'] = 'api/getEmailInvoice/$1';
 $route['product/new'] = 'Buy_sell/sell';
 $route['product/success/(:any)'] = 'Uploader/successCreatePage/$1';
 /* End Create Product */
+
+/* Payment */
+$route['payment/transactions'] = 'Buy_sell/userPaymentTransaction';
+/* END Payment */

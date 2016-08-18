@@ -78,3 +78,7 @@ $lang["sell_disallow_link"] = " disini";
 $lang["product_new_title"] = "Sukses";
 $lang["product_new_msg"] = "Produk yang anda minta telah kami kirim ke Admin untuk approval";
 /* End New Prodct */
+
+/* Payment */
+$lang["payment_empty"] = "Anda belum melakukan Transaksi apapun";
+/* End Payment */
