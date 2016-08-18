@@ -17,7 +17,7 @@
                                                                 <td width="30">
                                                                 </td>
                                                                 <td align="left" style="padding:0;margin:0;font-size:0;line-height:0" valign="middle">
-                                                                    <a href="http://www.codexworld.com/" target="_blank">
+                                                                    <a href="<?php echo base_url(); ?>" target="_blank">
                                                                         <img alt="codexworld" height="50px" src="<?php echo base_url() ?>assets/img/logo-w.png"/>
                                                                     </a>
                                                                 </td>
@@ -103,7 +103,13 @@
                                                               </table></td>
                                                             </tr>
                                                             <tr align="center">
-                                                              <td colspan="3" height="30">&nbsp;</td>
+                                                              <td colspan="3" height="30"><table align="center" cellpadding="0" cellspacing="0" style="font-family:HelveticaNeue-Light,Arial,sans-serif;margin:0 auto;padding:0">
+                                                                <tbody>
+                                                                  <tr>
+                                                                    <td align="center" style="margin:0;text-align:center"><a href="<?php echo base_url() ?>payment/transactions" style="font-size:21px;line-height:22px;text-decoration:none;color:#ffffff;font-weight:bold;border-radius:2px;background-color:#0096d3;padding:14px 40px;display:block;letter-spacing:1.2px"> Konfirmasi Pembayaran </a></td>
+                                                                  </tr>
+                                                                </tbody>
+                                                              </table></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -132,23 +138,6 @@
                                                                         Made in Indonesia
                                                                     </div>
                                                                 </td>
-                                                                <!-- <td align="right" valign="top">
-                                                                    <span style="line-height:20px;font-size:10px">
-                                                                        <a href="https://www.facebook.com/codexworld" target="_blank">
-                                                                            <img alt="fb" src="http://i.imgbox.com/BggPYqAh.png"/>
-                                                                        </a>
-                                                                    </span>
-                                                                    <span style="line-height:20px;font-size:10px">
-                                                                        <a href="https://twitter.com/codexworldblog" target="_blank">
-                                                                            <img alt="twit" src="http://i.imgbox.com/j3NsGLak.png"/>
-                                                                        </a>
-                                                                    </span>
-                                                                    <span style="line-height:20px;font-size:10px">
-                                                                        <a href="https://plus.google.com/+codexworld" target="_blank">
-                                                                            <img alt="g" src="http://i.imgbox.com/wFyxXQyf.png"/>
-                                                                        </a>
-                                                                    </span>
-                                                                </td> -->
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="2" height="5">

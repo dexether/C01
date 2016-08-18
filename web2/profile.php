@@ -230,6 +230,11 @@ $template->assign('userdoc', $result);
 //tradeLogProfile("Profile-158");
 
 
+/* Bank List */
+$query = "SELECT id, bank_name FROM master_bank ORDER BY bank_name ASC";
+$result = $DB->execresultset($query);
+$template->assign('bank_list', $result);
+
 function tradeLogProfile($msg) {
     $fp = fopen("trader.log", "a");
     $logdate = date("Y-m-d H:i:s => ");

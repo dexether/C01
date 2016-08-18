@@ -1,3 +1,11 @@
+<!-- Trigger the modal with a button -->
+
+<!-- load CSS -->
+
+<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/js/libs/daterange-picker/css/daterangepicker.css">
+
+<!-- Modal -->
+
 <div class="container">
     <header class="page-header">
         <h1 class="page-title">Transaksi Anda</h1>
@@ -20,6 +28,17 @@
             <button type="submit" class="btn btn-default">Submit</button>
         </form> -->
         <div class="gap-small"></div>
+        <?php if($bank_data['banktype'] == ""): ?>
+            <div class="alert alert-warning">
+                <strong>PERINGATAN : </strong>
+                Nampaknya anda belum mengisi data rekeing anda, Lengkapi data rekening anda <a href="<?php echo base_url() ?>web2/mainmenu.php" target="_blank">disini</a> , masuk ke tab Bank Account
+            </div>
+        <?php elseif($bank_data['status'] == '1'): ?>
+            <div class="alert alert-warning">
+                <strong>PERINGATAN : </strong>
+                Terimakasih anda telah melengkapi data rekening anda, silahkan tunggu untuk approval Admin
+            </div>
+        <?php endif;?>
         <hr/>
         <br/>
         <table  cellspacing="" cellpadding="1" class="table table-responsive">
@@ -33,18 +52,145 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Invoice</td>
-                    <td>Total</td>
-                    <td>Time Update</td>
-                    <td>Status</td>
-                    <td>Tindakan</td>
-                </tr>
-            </tbody>
-        </table>
+
+                <?php 
+                // var_dump($data);
+                foreach ($data as $key => $value) {
+                    # code...
+                    ?>
+                    <tr>
+                        <td><a href="#"><?php echo $value['invoice'] ?></a></td>
+                        <td><?php echo $this->format->set_rp($value['total']) ?></td>
+                        <td><?php echo $value['timestamp'] ?></td>
+                        <td><?php echo $value['cmd_alias'] ?></td>
+                        <td>
+                            <?php if(!$bank_data['banktype'] == '' && $bank_data['status'] == '0'): ?>
+
+                                <?php if($value['cmd']== '9'): ?>
+                                    <button type="button" name="confirm" class="btn btn-success" data-aecodeid="<?php echo $value['aecodeid'] ?>" data-inv="<?php echo $value['invoice'] ?>" name="confirm">Konfirmasi</button>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+
+
     </div>
+</div>
+<div id="myModals" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Konfirmasi pembayaran</h4>
+    </div>
+    <div class="modal-body">
+        <!-- <p>Some text in the modal.</p> -->
+        <!-- <form action="" method="POST" role="form" class="form-horizontal"> -->
+        <?php echo form_open('buy_sell/confirmPayment', array('class' => "form-horizontal", "name" => "ajax-form"));
+        echo form_hidden('aecodeid', '0');
+        echo form_hidden('inv', '0');
+        ?>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Invoice</label>
+                <div class="col-sm-9">
+                  <!-- <input type="email" class="form-control" id="email" placeholder="Enter email"> -->
+                  <p class="form-control-static">IIJIJI</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="pwd">Tanggal Pembayaran</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="tgl_pay"></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="pwd">Dari rekening</label>
+                <div class="col-sm-9"> 
+                  <!-- <input type="password" class="form-control" id="pwd" placeholder="Enter password"> -->
+                  <select class="form-control" name="norek">
+                      <option></option>
+                  </select>
+                </div>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="pwd">Rekening Tujuan</label>
+                <div class="col-sm-9"> 
+                  <select class="form-control" name="rekto">
+                      <option value="bca">BCA</option>
+                  </select>
+                </div>
+            </div>
+           <!--  <div class="form-group"> 
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">Submit</button>
+              </div>
+            </div> -->
+<!-- </form> -->
+</div>
+<div class="modal-footer">
+<button type="submit" class="btn btn-success" name="konfirmasi">Konfirmasi</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</form>
+</div>
 
 </div>
 </div>
-
 <div class="gap"></div>
+<script type="text/javascript" src="<?php echo base_url() ?>assets/js/libs/daterange-picker/js/moment.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>assets/js/libs/daterange-picker/js/daterangepicker.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('input[name="tgl_pay"]').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true
+    });
+});
+</script>
+<!-- <script type="text/javascript" src="<?php echo base_url() ?>assets/js/libs/daterange-picker/js/package.js"></script> -->
+
+<script type="text/javascript">
+    $('button[name=confirm]').click(function(event) {
+        /* Act on the event */
+        $aecodeid = $(this).data('aecodeid');
+        $inv = $(this).data('inv');
+        /* Start of ajax */
+        $button = $(this).button();
+        $button.button('loading');
+        $.ajax({
+            url: '<?php echo base_url() ?>buy_sell/getTransactionData',
+            type: 'GET',
+            dataType: 'JSON',
+            data: {},
+        })
+        .done(function(response) {
+            
+            $('select[name=norek]').html('<option value="'+response.banktype+'">'+response.bank_name+'</option>');
+            $('input[name=aecodeid]').val($aecodeid);
+            $('input[name=inv]').val($inv);
+            $('p[class=form-control-static]').html($inv);
+            $('#myModals').modal('show');
+            $button.button('reset');
+            // $(this).button('reset');
+        })
+        .fail(function() {
+            alert('Error')
+        })
+        .always(function() {
+            
+        });
+        // $(this).button('reset');
+        
+    });
+    $('button[name=konfirmasi]').click(function(event) {
+         /*Act on the event */
+        $(this).button('loading');
+    });
+</script>

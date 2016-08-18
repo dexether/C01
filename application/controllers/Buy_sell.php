@@ -248,6 +248,10 @@ class Buy_sell extends CI_Controller
             $array = array(
                 'cmd'     => '8'
             );
+            $data_inv = array(
+                "unix_price" => $this->input->post('total_val')
+            );
+            $this->basicmodel->updateData('master_invoice', $data_inv, 'invoice', $invoice);
 
             $this->db->set($array);
             $this->db->where('invoice', $invoice);
@@ -318,12 +322,90 @@ class Buy_sell extends CI_Controller
         $this->load->view('mall/index', $part);
     }
     public function userPaymentTransaction(){
+        $get_aecodeid = $this->basicmodel->getData('client_aecode', 'aecodeid', $where = array('aecode' => $this->nativesession->getObject('username')));
+        foreach ($get_aecodeid as $key => $value) {
+            # code...
+            @$aecodeid = $value['aecodeid'];
+        }
+
+        /* check banking function */
+        $cek = $this->basicmodel->getData('client_aecode_bank', 'aeaccountnumber, banktype, status', array('aecode' => $this->nativesession->getObject('username')));
+        foreach ($cek as $key => $value) {
+            # code...
+            @$bank_data = $value;
+        }
+
+        /* Jika bank data kosong set Sesion page ke profile */
+        ($bank_data['banktype'] == '' || $bank_data['status'] == '1') ? $this->nativesession->set('page', 'profile') :  "" ;
+        $res = $this->basicmodel->transcationGet($aecodeid);
+        
+        $total = 0;
+        $data = array();
+        // var_dump($res);
+        foreach ($res as $key => $value) {
+            $data[$value['invoice']][] = $value;
+            // var_dump($data);
+            // $total = $total + $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
+            
+        }
+        // var_dump($data);
+        $datas = array();
+        foreach ($data as $key => $value) {
+            $total = 0;
+            foreach ($value as $key1 => $value1) {
+                # code...
+                $datas[$value1['invoice']] = $value1;
+                $total = $total + $this->basicmodel->cekPromo($value1['promo_name'], $value1['promo_value'], $value1['prod_price']);
+                
+
+            }
+            $datas[$value1['invoice']]['total'] = $total;
+        }
+        // $data[$value['invoice']]['total'] = $total;
+    
+        (!empty($datas)) ? $page = 'userPayment' : $page = 'userPaymentEmpty';
+        // var_dump($data);
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
-            "body"   => $this->load->view('mall/userPayment', array(), true),
+            "body"   => $this->load->view('mall/'.$page, array('data' => $datas, 'bank_data' => $bank_data), true),
             "slider" => "",
         );
         $this->load->view('mall/index', $part);
+    }
+
+    public function getTransactionData(){
+        $result = $this->basicmodel->getDataTranscation('client_aecode_bank', 'aecode, banktype, bank_name, aeaccountnumber', array('client_aecode_bank.aecode' => $this->nativesession->getObject('username')));
+        foreach ($result as $key => $value) {
+            # code...
+            $response = $value;
+        }
+        // var_dump($response);
+        $this->output
+        ->set_status_header(200)
+        ->set_content_type('application/json', 'utf-8')
+        ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))
+        ->_display();
+        // var_dump($result);
+        exit;
+    }
+    public function confirmPayment(){
+        // var_dump($_POST);
+        $invoice = $this->input->post('inv');
+        $data = array(
+            "cmd" => 10,
+            "timeupdate" => date('Y:m:d H:i:s', time())
+        );
+        $do = $this->basicmodel->updateData('master_invoice', $data, 'invoice', $invoice);
+        // api/confirmationSendEmail
+        $subject = "Terimakasih sudah melakukan konfirmasi";
+        $invoice = $this->input->post('invoice');
+        $body    = file_get_contents(base_url('api/confirmationSendEmail'));
+        $tgl     = date('Y-m-d H:i:s', time());
+        $sql     = $this->basicmodel->insertData('email', array('timeupdate' => $tgl, 'email_to' => $this->nativesession->getObject('username'), 'email_subject' => $subject, 'email_body' => $body, 'module' => 'itemCheckoutPay'));
+
+
+        $do = $this->basicmodel->updateData('master_invoice', $data, 'invoice', $invoice);
+        redirect('payment/transactions','refresh');
     }
 }
 

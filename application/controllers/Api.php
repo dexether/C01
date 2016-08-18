@@ -59,6 +59,10 @@ class Api extends CI_Controller
         }
         $this->load->view('api/invoce_email', array('data' => $datas_barang));
     }
+    public function confirmationSendEmail(){
+
+        $this->load->view('api/user_payment_confirmation');
+    }
     
 }
 

@@ -51,7 +51,10 @@
                                 <?php echo $this->format->set_rp($value['final_price']); ?>
                             </td>
                         </tr>
-                        <?php } ?>
+                        <?php
+                        @$total = $total + $value['final_price'];
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -118,6 +121,7 @@
             <?php echo form_open('checkout', array("name" => 'payform'));
             echo form_input(array('type' => 'submit', 'name' => 'submit', 'value' => 'Proceed Payment', 'class' => 'btn btn-primary'));
             echo form_input(array('type' => 'hidden', 'name' => 'invoice', 'value' => $this->uri->segment(2)));
+            echo form_hidden('total_val', $total);
             ?>           
             <?php
             form_close();
