@@ -102,7 +102,7 @@ class Buy_sell extends CI_Controller
             // array('col' => 'master_product_promo.dateto >=', 'val' => $tgl)
         );
         $data = $this->basicmodel->getDataPromo('master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
-        
+
         $datas = array();
         // var_dump($data);
         foreach ($data as $key => $value) {
@@ -246,10 +246,10 @@ class Buy_sell extends CI_Controller
         if ($sql) {
             # code...
             $array = array(
-                'cmd'     => '8'
+                'cmd' => '8',
             );
             $data_inv = array(
-                "unix_price" => $this->input->post('total_val')
+                "unix_price" => $this->input->post('total_val'),
             );
             $this->basicmodel->updateData('master_invoice', $data_inv, 'invoice', $invoice);
 
@@ -258,7 +258,7 @@ class Buy_sell extends CI_Controller
             $sql = $this->db->update('master_cart');
             if ($sql) {
                 # code...
-                redirect('checkout/'.$invoice.'/success','refresh');
+                redirect('checkout/' . $invoice . '/success', 'refresh');
             }
         } else {
             show_404();
@@ -305,23 +305,25 @@ class Buy_sell extends CI_Controller
         );
         $this->load->view('mall/index', $part);
     }
-    public function sell(){
+    public function sell()
+    {
         /* Check if data is complete */
-         $data = $this->basicmodel->getData('client_aecode', 'telephone_mobile,aecode, name, email, nationality, address', array('aecode' => $this->nativesession->getObject('username')));
-         $datausers = array();
+        $data      = $this->basicmodel->getData('client_aecode', 'telephone_mobile,aecode, name, email, nationality, address', array('aecode' => $this->nativesession->getObject('username')));
+        $datausers = array();
         foreach ($data as $key => $value) {
             # code...
             $datausers = $value;
         }
-        $sql = $this->basicmodel->getData('master_cat', 'id, cat_name, cat_alias', array());
-         $part = array(
+        $sql  = $this->basicmodel->getData('master_cat', 'id, cat_name, cat_alias', array());
+        $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
             "body"   => $this->load->view('mall/sell', array('list_cat' => $sql, 'userdata' => $datausers), true),
             "slider" => "",
         );
         $this->load->view('mall/index', $part);
     }
-    public function userPaymentTransaction(){
+    public function userPaymentTransaction()
+    {
         $get_aecodeid = $this->basicmodel->getData('client_aecode', 'aecodeid', $where = array('aecode' => $this->nativesession->getObject('username')));
         foreach ($get_aecodeid as $key => $value) {
             # code...
@@ -336,17 +338,17 @@ class Buy_sell extends CI_Controller
         }
 
         /* Jika bank data kosong set Sesion page ke profile */
-        ($bank_data['banktype'] == '' || $bank_data['status'] == '1') ? $this->nativesession->set('page', 'profile') :  "" ;
+        ($bank_data['banktype'] == '' || $bank_data['status'] == '1') ? $this->nativesession->set('page', 'profile') : "";
         $res = $this->basicmodel->transcationGet($aecodeid);
-        
+
         $total = 0;
-        $data = array();
+        $data  = array();
         // var_dump($res);
         foreach ($res as $key => $value) {
             $data[$value['invoice']][] = $value;
             // var_dump($data);
             // $total = $total + $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
-            
+
         }
         // var_dump($data);
         $datas = array();
@@ -355,25 +357,25 @@ class Buy_sell extends CI_Controller
             foreach ($value as $key1 => $value1) {
                 # code...
                 $datas[$value1['invoice']] = $value1;
-                $total = $total + $this->basicmodel->cekPromo($value1['promo_name'], $value1['promo_value'], $value1['prod_price']);
-                
+                $total                     = $total + $this->basicmodel->cekPromo($value1['promo_name'], $value1['promo_value'], $value1['prod_price']);
 
             }
             $datas[$value1['invoice']]['total'] = $total;
         }
         // $data[$value['invoice']]['total'] = $total;
-    
+
         (!empty($datas)) ? $page = 'userPayment' : $page = 'userPaymentEmpty';
         // var_dump($data);
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
-            "body"   => $this->load->view('mall/'.$page, array('data' => $datas, 'bank_data' => $bank_data), true),
+            "body"   => $this->load->view('mall/' . $page, array('data' => $datas, 'bank_data' => $bank_data), true),
             "slider" => "",
         );
         $this->load->view('mall/index', $part);
     }
 
-    public function getTransactionData(){
+    public function getTransactionData()
+    {
         $result = $this->basicmodel->getDataTranscation('client_aecode_bank', 'aecode, banktype, bank_name, aeaccountnumber', array('client_aecode_bank.aecode' => $this->nativesession->getObject('username')));
         foreach ($result as $key => $value) {
             # code...
@@ -381,31 +383,65 @@ class Buy_sell extends CI_Controller
         }
         // var_dump($response);
         $this->output
-        ->set_status_header(200)
-        ->set_content_type('application/json', 'utf-8')
-        ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))
-        ->_display();
+            ->set_status_header(200)
+            ->set_content_type('application/json', 'utf-8')
+            ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))
+            ->_display();
         // var_dump($result);
         exit;
     }
-    public function confirmPayment(){
+    public function confirmPayment()
+    {
+        $this->load->library('slim');
+
+        /* DO any things */
+
+        $images = Slim::getImages();
         // var_dump($_POST);
-        $invoice = $this->input->post('inv');
-        $data = array(
-            "cmd" => 10,
-            "timeupdate" => date('Y:m:d H:i:s', time())
-        );
-        $do = $this->basicmodel->updateData('master_invoice', $data, 'invoice', $invoice);
-        // api/confirmationSendEmail
-        $subject = "Terimakasih sudah melakukan konfirmasi";
-        $invoice = $this->input->post('invoice');
-        $body    = file_get_contents(base_url('api/confirmationSendEmail'));
-        $tgl     = date('Y-m-d H:i:s', time());
-        $sql     = $this->basicmodel->insertData('email', array('timeupdate' => $tgl, 'email_to' => $this->nativesession->getObject('username'), 'email_subject' => $subject, 'email_body' => $body, 'module' => 'itemCheckoutPay'));
+        if ($images == false) {
 
+            // inject your own auto crop or fallback script here
 
-        $do = $this->basicmodel->updateData('master_invoice', $data, 'invoice', $invoice);
-        redirect('payment/transactions','refresh');
+            show_404();
+
+        } else {
+
+            /* Do it */
+            foreach ($images as $image) {
+
+                $file = Slim::saveFile($image['output']['data'], $image['input']['name'], $this->config->item('transfer_secure_upload_dir'));
+            }
+
+            $invoice = $this->input->post('inv');
+            $data    = array(
+                "cmd"         => 10,
+                "timeupdate"  => date('Y:m:d H:i:s', time()),
+                "upload_file" => $file['path'],
+                "date_pay" => $this->input->post('tgl_pay')
+            );
+            $do = $this->basicmodel->updateData('master_invoice', $data, 'invoice', $invoice);
+
+            $subject = "Terimakasih sudah melakukan konfirmasi";
+            $invoice = $this->input->post('invoice');
+            $body    = file_get_contents(base_url('api/confirmationSendEmail'));
+            $tgl     = date('Y-m-d H:i:s', time());
+            $sql     = $this->basicmodel->insertData('email', array('timeupdate' => $tgl, 'email_to' => $this->nativesession->getObject('username'), 'email_subject' => $subject, 'email_body' => $body, 'module' => 'itemCheckoutPay'));
+
+            $do = $this->basicmodel->updateData('master_invoice', $data, 'invoice', $invoice);
+            redirect('payment/transactions', 'refresh');
+
+            // -----------------------
+
+        }
+
+    }
+    public function readImages()
+    {
+        $this->load->library('encryption');
+        $plain_text = 'D:/web-dir/git/upload/transaction/57b6af9d99cbc_IMG-20160309-WA0006.jpg';
+         $ciphertext = $this->encryption->encrypt($plain_text);
+        $crypt  = "a6e03f22e408cf820de3cf9629afd789a996530ad0b6b769f8e4daa6a96c965deab6b40053a52053fb3c3204c2a75b88b441900ec1d615abaaf367c00dad1154kMi+usML1ti+yc3yH/UBb03LT9yLPGEMLc0+EfSUldTA9p1GmnfBl6JBX26faW2mLZZwP9SfzWSMWVGsgSIU3zS92np7CwIqEn+zxzUsy17M4dt9UelOigflJZwPjS+f";
+        echo $this->encryption->decrypt($crypt);
     }
 }
 
