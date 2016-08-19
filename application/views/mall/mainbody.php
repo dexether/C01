@@ -165,7 +165,7 @@
 				<h4 class="slider-item-caption-title">If you buy things you do not need, soon you will have to sell things you need</h4>
 				<p class="slider-item-caption-desc"><i> - Warren Buffet</i></p>
 				<!-- <a class="btn btn-lg btn-ghost btn-white" href="#">Shop Now</a> -->
-				<a href="http://www.twofrx.com" target="_blank"><img class="slider-item-img" data-src="<?php echo base_url()?>assets/img/two600x338.png" alt="Image Alternative text" title="Image Title" style="right: 0;bottom: 0; width: 40%" /></a>
+				<a href="http://www.twofrx.com" target="_blank"><img class="slider-item-img" data-src="<?php echo base_url()?>assets/img/two600x338.png" alt="Image Alternative text" title="Image Title" style="right: 0;bottom: 0; width: 30%; bottom: 30px" /></a>
 			</div>
 		</div>
 	</div>
@@ -227,7 +227,7 @@
 				<p class="slider-item-caption-desc"><i> - Warren Buffet</i></p>
 				<!-- <a class="btn btn-lg btn-ghost btn-white" href="#">Shop Now</a> -->
 			</div>
-			<a href="http://www.askapimperium.com/" target="_blank"><img class="slider-item-img" data-src="<?php echo base_url()?>assets/img/imperium200x60.png" alt="Image Alternative text" title="Image Title" style="right: 0;bottom: 0; width: 40%" /></a>
+			<a href="http://www.askapimperium.com/" target="_blank"><img class="slider-item-img" data-src="<?php echo base_url()?>assets/img/imperium200x60.png" alt="Image Alternative text" title="Image Title" style="right: 0;bottom: 0; width: 40%; bottom: 10px" /></a>
 		</div>
 	</div>
 </div>
