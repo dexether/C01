@@ -1,7 +1,8 @@
 <!-- Trigger the modal with a button -->
 
 <!-- load CSS -->
-
+<link href="<?php echo base_url() ?>assets/js/libs/slim-image/slim/slim.min.css" rel="stylesheet">
+<script src="<?php echo base_url() ?>assets/js/libs/slim-image/slim/slim.kickstart.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/js/libs/daterange-picker/css/daterangepicker.css">
 
 <!-- Modal -->
@@ -119,6 +120,18 @@
                 </div>
             </div>
             <hr/>
+           
+                <div class="form-group">
+                <label class="control-label col-sm-3" for="pwd">Bukti pembayaran</label>
+                <div class="col-sm-9"> 
+                   <div class="slim"
+                     data-label="Tarik gambar anda kesini"
+                     data-size="640,640"
+                     data-ratio="1:1">
+                    <input type="file" name="slim[]" required />
+                </div>
+                </div>
+            </div>
             <div class="form-group">
                 <label class="control-label col-sm-3" for="pwd">Rekening Tujuan</label>
                 <div class="col-sm-9"> 

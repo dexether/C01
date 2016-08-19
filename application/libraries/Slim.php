@@ -101,7 +101,9 @@ class Slim {
     }
 
     // $path should have trailing slash
+    // D:\web-dir\git\upload
     public static function saveFile($data, $name, $path = 'assets/img/product/', $uid = true) {
+    // public static function saveFile($data, $name, $path = 'D:/web-dir/git/upload/', $uid = true) {
 
         // Add trailing slash if omitted
         if (substr($path, -1) !== '/') {
