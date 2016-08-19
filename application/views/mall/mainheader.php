@@ -7,11 +7,11 @@
             </div>
             <div class="col-md-6">
                 <ul class="nav navbar-nav navbar-right navbar-right-no-mar">
-                    <li><a href="#"><?php echo $this->lang->line('header_menu_about'); ?></a>
+                    <li><a href="<?php echo base_url('about-us') ?>"><?php echo $this->lang->line('header_menu_about'); ?></a>
                     </li>
-                    <li><a href="#"><?php echo $this->lang->line('header_menu_contact'); ?></a>
+                    <li><a href="mailto:<?php echo $this->config->item('faq_email') ?>?subject=Isi Judul Pesan anda"><?php echo $this->lang->line('header_menu_contact'); ?></a>
                     </li>
-                    <li><a href="#"><?php echo $this->lang->line('header_menu_faq'); ?></a>
+                    <li><a href="mailto:<?php echo $this->config->item('support_email') ?>?subject=Tanya AgendaFX"><?php echo $this->lang->line('header_menu_faq'); ?></a>
                     </li>
                     <li><a href="#"><?php echo $this->lang->line('header_menu_help'); ?></a>
                     </li>

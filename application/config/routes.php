@@ -71,6 +71,7 @@ $route['cart/(:any)/checkout'] = 'Buy_sell/userCheckOut/$1';
 $route['cart/alter/(:any)'] = 'Buy_sell/deleteProductFromcart/$1';
 $route['checkout'] = 'Buy_sell/itemCheckoutPay';
 $route['checkout/(:any)/success'] = 'Buy_sell/itemCheckoutSuccess/$1';
+$route['about-us'] = 'Store/AboutUs';
 
 /* API */
 $route['email/invoice/(:any)'] = 'api/getEmailInvoice/$1';
