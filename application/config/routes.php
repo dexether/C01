@@ -53,7 +53,7 @@ require('_settings/config.php');
 if ($mall) {
 	# code...
 	$route['default_controller'] = 'Store';
-	
+
 }else{
 	$route['default_controller'] = 'Store/basic';
 }
@@ -74,7 +74,10 @@ $route['checkout/(:any)/success'] = 'Buy_sell/itemCheckoutSuccess/$1';
 $route['about-us'] = 'Store/AboutUs';
 
 /* API */
+// $route['email/adminapprove/'] = 'api/sendEmailAfterApprove';
 $route['email/invoice/(:any)'] = 'api/getEmailInvoice/$1';
+$route['api/images'] = 'api/secureGetImage';
+
 /* End of API */
 
 /* Create Product */

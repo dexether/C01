@@ -18,7 +18,7 @@
                                                                 </td>
                                                                 <td align="left" style="padding:0;margin:0;font-size:0;line-height:0" valign="middle">
                                                                     <a href="<?php echo base_url(); ?>" target="_blank">
-                                                                        <img alt="codexworld" height="50px" src="<?php echo base_url() ?>assets/img/logo-w.png"/>
+                                                                        <img alt="<?php echo $this->config->item('APP_NAME'); ?>" height="50px" src="<?php echo base_url() ?>assets/img/logo-w.png"/>
                                                                     </a>
                                                                 </td>
                                                                 <td width="30">

@@ -1,19 +1,19 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-19 16:45:20
-         compiled from "D:\web-dir\git\cabinet\web2\templates\mainmenu.htm" */ ?>
+<?php /* Smarty version 3.1.27, created on 2016-08-23 20:28:04
+         compiled from "/var/www/html/cabinet/web2/templates/mainmenu.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:1853257b6d530517305_39744524%%*/
+/*%%SmartyHeaderCode:26841949857bc4f649abf42_12610427%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    'b566ff7df9443231b5a94837c6f5acb5702df1d3' => 
+    '9d50cd345c024b737f51f0ab98056c115ce022e2' => 
     array (
-      0 => 'D:\\web-dir\\git\\cabinet\\web2\\templates\\mainmenu.htm',
-      1 => 1468493004,
+      0 => '/var/www/html/cabinet/web2/templates/mainmenu.htm',
+      1 => 1471762945,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1853257b6d530517305_39744524',
+  'nocache_hash' => '26841949857bc4f649abf42_12610427',
   'variables' => 
   array (
     'companys' => 0,
@@ -21,13 +21,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57b6d53067bfa6_65567750',
+  'unifunc' => 'content_57bc4f64a00572_80220516',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57b6d53067bfa6_65567750')) {
-function content_57b6d53067bfa6_65567750 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_57bc4f64a00572_80220516')) {
+function content_57bc4f64a00572_80220516 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '1853257b6d530517305_39744524';
+$_smarty_tpl->properties['nocache_hash'] = '26841949857bc4f649abf42_12610427';
 ?>
 <!DOCTYPE html>
 <html>
@@ -172,6 +172,9 @@ $_smarty_tpl->properties['nocache_hash'] = '1853257b6d530517305_39744524';
  src="assets/libs/jquery-ui-touch/jquery.ui.touch-punch.min.js"><?php echo '</script'; ?>
 > -->
                                         <?php echo '<script'; ?>
+ src="assets/libs/jquery-slimscroll/jquery.slimscroll.js"><?php echo '</script'; ?>
+>
+                                        <?php echo '<script'; ?>
  src="assets/libs/jquery-detectmobile/detect.js"><?php echo '</script'; ?>
 >
                                         <?php echo '<script'; ?>
@@ -248,6 +251,7 @@ $_smarty_tpl->properties['nocache_hash'] = '1853257b6d530517305_39744524';
                                         
                                     </body>
                                     <!-- end: BODY -->
-                                    </html><?php }
+                                    </html>
+<?php }
 }
 ?>

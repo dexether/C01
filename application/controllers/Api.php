@@ -41,9 +41,9 @@ class Api extends CI_Controller
             array('col' => 'master_cart.cmd', 'val' => '7'),
             array('col' => 'master_cart.invoice', 'val' => $invoice)
             );
-        $data = $this->basicmodel->getDataPromo('name,master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);        
+        $data = $this->basicmodel->getDataPromo('name,master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
         $datas_barang = array();
-        
+
         foreach ($data as $key => $value) {
             # code...
             $datas_barang[$key]                = $value;
@@ -63,7 +63,40 @@ class Api extends CI_Controller
 
         $this->load->view('api/user_payment_confirmation');
     }
-    
+    public function sendEmailAfterApprove($invoice){
+
+        $this->load->view('api/sendemailafterapprove', array("invoice" => $invoice));
+    }
+    public function sendEmailAfterReject($invoice){
+
+        $this->load->view('api/sendemailafterreject', array("invoice" => $invoice));
+    }
+    public function sendEmailAfterSend($invoice){
+
+        $this->load->view('api/sendemailafterSend', array("invoice" => $invoice));
+    }
+    public function secureGetImage(){
+      $location = $this->input->get('callback');
+      // $file = file_get_contents('/home/theprogrammer/Pictures/a.jpg');
+      // header('Content-type: image/jpeg');
+      // echo $file;
+      // exit;
+      $file = base64_decode($location);
+      echo $file;
+      ob_end_clean();
+      $imgData = getimagesize($file);
+      header('Content-type: image/jpeg');
+      readfile($file);
+    }
+    // public function b(){
+    //   $this->load->library('encrypt');
+    //   $file = "/home/theprogrammer/Pictures/a.jpg";
+    //   // echo $this->encrypt->encode($file);
+    //   $var = "M8beqPo67FIDltz8iTrg22uyJKaf4wpILqq6R1STCpSqD3fqZ+izHPYL8KsTLrCV9nypZYvT9OwlFpnxA0l95rWmWYo/enJwqsGOndkXRIaCvi/Z/wv7CezVeuBazjxJ";
+    //   echo $this->encrypt->decode($var);
+    //
+    // }
+
 }
 
 /* End of file Buy_sell.php */

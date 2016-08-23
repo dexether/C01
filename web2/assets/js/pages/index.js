@@ -74,7 +74,7 @@ $(document).ready(function(){
         }
     });
   if ("geolocation" in navigator) {
-    $('.js-geolocation').show(); 
+    $('.js-geolocation').show();
   } else {
     $('.js-geolocation').hide();
   }
@@ -86,7 +86,7 @@ $(document).ready(function(){
     });
   });
 
-  resizefunc.push("reload_charts");
+  // resizefunc.push("reload_charts");
   //$(".content-page").resize(debounce(reload_charts,100));
 
   load_charts();
@@ -98,24 +98,24 @@ $(document).ready(function(){
 
   var events = [
       {
-        "date": "4/"+month+"/"+year, 
-        "title": 'Meet a friend', 
-        "link": 'javascript:;', 
-        "color": 'rgba(255,255,255,0.2)', 
+        "date": "4/"+month+"/"+year,
+        "title": 'Meet a friend',
+        "link": 'javascript:;',
+        "color": 'rgba(255,255,255,0.2)',
         "content": 'Contents here'
       },
       {
-        "date": "7/"+month+"/"+year, 
-        "title": 'Kick off meeting!', 
-        "link": 'javascript:;', 
-        "color": 'rgba(255,255,255,0.2)', 
+        "date": "7/"+month+"/"+year,
+        "title": 'Kick off meeting!',
+        "link": 'javascript:;',
+        "color": 'rgba(255,255,255,0.2)',
         "content": 'Have a kick off meeting with .inc company'
       },
       {
-        "date": "19/"+month+"/"+year, 
-        "title": 'Link to Google', 
-        "link": 'http://www.google.com', 
-        "color": 'rgba(255,255,255,0.2)', 
+        "date": "19/"+month+"/"+year,
+        "title": 'Link to Google',
+        "link": 'http://www.google.com',
+        "color": 'rgba(255,255,255,0.2)',
       }
     ];
 
@@ -147,8 +147,8 @@ function loadWeather(location, woeid) {
       html = '<h2><i class="wicon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+' <span class="w-temp2">/ '+weather.tempAlt+'&deg;F</span></h2>';
       html += '<span class="w-region">'+weather.city+', '+weather.region+'</li>';
       html += '<span class="w-currently">'+weather.currently+'</span>';
-      html += '';  
-      
+      html += '';
+
       $("#weather").html(html);
     },
     error: function(error) {
@@ -249,7 +249,7 @@ function load_charts(){
       ]
     });
     */
-   
+
     /*
     var seriesData = [ [], [], []];
     var random = new Rickshaw.Fixtures.RandomData(50);
@@ -325,7 +325,7 @@ function load_charts(){
       random2.addData(seriesData2);
     }
     */
-    
+
     /*
     graph2 = new Rickshaw.Graph( {
       element: document.querySelector("#home-chart-2"),
@@ -344,13 +344,13 @@ function load_charts(){
         }
       ]
     } );
-    
+
     var hoverDetail = new Rickshaw.Graph.HoverDetail( {
       graph: graph2
     });
 
     graph2.render();
-   
+
     clearInterval(timer);
     timer = setInterval( function() {
       random2.removeData(seriesData2);

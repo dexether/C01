@@ -20,7 +20,7 @@ class CSRF {
     $this->deleteExpiredTokens();
 
     if (!isset($_SESSION['security']['csrf'])) {
-      $_SESSION['security']['csrf'] = array();
+      $_SESSION['security']['csrf'] = [];
     }
   }
 

@@ -433,7 +433,7 @@ AND mlm_realtime.ACCNO = '" . $account . "'";
                 $subcomm = $subcomm + $commision;
             }
             // echo $insert = "INSERT INTO mlm_comm SET ACCNO = '$account', from = '$account', level = '1', amount = '$commision'" . "<br>";
-
+            $periode_date = substr($periode_date,0,10);
             $insert = "INSERT INTO mlm_realtime_comm SET ACCNO = '$account', mlm_realtime_comm.from = '$account', level = '1', amount = '$subcomm', lot = '$sublot', rolldate = '$periode_date', unix = '$unix'";
             // tradeLogs($insert);
             $DB->execonly($insert);

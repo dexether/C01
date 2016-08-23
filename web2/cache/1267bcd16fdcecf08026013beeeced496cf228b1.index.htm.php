@@ -1,34 +1,28 @@
 <?php
-/*%%SmartyHeaderCode:2380957b6dc8a5e1621_15681740%%*/
+/*%%SmartyHeaderCode:63817613857bc4f9e322b40_31629826%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '305da1d8edd674c0cf8c54bfdc74238bdf53b283' => 
+    '1267bcd16fdcecf08026013beeeced496cf228b1' => 
     array (
-      0 => 'D:\\web-dir\\git\\cabinet\\web2\\templates\\index.htm',
-      1 => 1471341213,
+      0 => '/var/www/html/cabinet/web2/templates/index.htm',
+      1 => 1471709247,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2380957b6dc8a5e1621_15681740',
+  'nocache_hash' => '63817613857bc4f9e322b40_31629826',
   'tpl_function' => 
   array (
   ),
-  'variables' => 
-  array (
-    'companys' => 0,
-    'target' => 0,
-    'redirect' => 0,
-  ),
-  'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57b6dc8a951a29_18022020',
+  'unifunc' => 'content_57bc4faca2b430_00238046',
+  'has_nocache_code' => false,
   'cache_lifetime' => 120,
 ),true);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57b6dc8a951a29_18022020')) {
-function content_57b6dc8a951a29_18022020 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_57bc4faca2b430_00238046')) {
+function content_57bc4faca2b430_00238046 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html> 
 <html lang="en">
@@ -143,7 +137,7 @@ function content_57b6dc8a951a29_18022020 ($_smarty_tpl) {
                     <form method="post" action="login.php" target="_blank" onClick="javascript:window.close();">
                     -->
                     <form method="post" action="login.php" target="_self" >
-                        <input type="hidden" value="http%3A%2F%2Fagendafx.dev%2F" name="redirect"></input>
+                        <input type="hidden" value="" name="redirect"></input>
                         <div class="content-box">   
                             <h3 class="content-box-header content-box-header-alt bg-default">
                                 <span class="icon-separator">

@@ -6,12 +6,12 @@
 		<div class="owl-carousel owl-loaded owl-nav-out" data-options='{"items":3,"loop":true,"nav":true}'>
 	<?php
 	foreach ($promo as $key => $value) {
-    
+
 	?>
     <div class="owl-item">
         <div class="product  owl-item-slide">
             <ul class="product-labels">
-				
+
 					<?php if(!$value['promo_alias'] == NULL){
 						echo "<li>".$value['promo_alias']."</li>";
 					}
@@ -151,7 +151,7 @@
 </div>
 <div class="gap"></div>
 <!-- Ads -->
-<img style="height: 150px" data-src="<?php echo base_url();  ?>assets/img/ads/twofrx.gif" class="img-responsive">
+<!-- <img style="height: 150px" data-src="<?php echo base_url();  ?>assets/img/ads/twofrx.gif" class="img-responsive"> -->
 <!-- End Ads -->
 
 </div>
@@ -177,12 +177,12 @@
 	<div class="owl-carousel owl-loaded owl-nav-out" data-autoplay="true" data-options='{"items":3,"loop":true,"nav":true}'>
 	<?php
 	foreach ($brand['forex-robot'] as $key => $value) {
-    
+
 	?>
     <div class="owl-item">
         <div class="product  owl-item-slide">
             <ul class="product-labels">
-				
+
 					<?php if(!$value['promo_alias'] == NULL){
 						echo "<li>".$value['promo_alias']."</li>";
 					}
@@ -212,7 +212,7 @@
     </div>
     <?php } ?>
 </div>
-</div>       
+</div>
 </div>
 
 <div class="gap"></div>
@@ -240,12 +240,12 @@
 	<div class="owl-carousel owl-loaded owl-nav-out" data-options='{"items":3,"loop":true,"nav":true}'>
 	<?php
 	foreach ($brand['forex-book'] as $key => $value) {
-    
+
 	?>
     <div class="owl-item">
         <div class="product  owl-item-slide">
             <ul class="product-labels">
-				
+
 					<?php if(!$value['promo_alias'] == NULL){
 						echo "<li>".$value['promo_alias']."</li>";
 					}
@@ -300,12 +300,12 @@
 	<div class="owl-carousel owl-loaded owl-nav-out" data-options='{"items":3,"loop":true,"nav":true}'>
 	<?php
 	foreach ($brand['forex-indicator'] as $key => $value) {
-    
+
 	?>
     <div class="owl-item">
         <div class="product  owl-item-slide">
             <ul class="product-labels">
-				
+
 					<?php if(!$value['promo_alias'] == NULL){
 						echo "<li>".$value['promo_alias']."</li>";
 					}
@@ -357,12 +357,12 @@
 	<div class="owl-carousel owl-loaded owl-nav-out" data-options='{"items":3,"loop":true,"nav":true}'>
 	<?php
 	foreach ($brand['forex-merchandise'] as $key => $value) {
-    
+
 	?>
     <div class="owl-item">
         <div class="product  owl-item-slide">
             <ul class="product-labels">
-				
+
 					<?php if(!$value['promo_alias'] == NULL){
 						echo "<li>".$value['promo_alias']."</li>";
 					}
@@ -401,5 +401,5 @@
 		$(".my-rating").starRating({
 			starSize: 25
 		});
-	}); 
+	});
 </script>

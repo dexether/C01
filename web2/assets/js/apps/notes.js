@@ -4,10 +4,10 @@ var autosave_time = 5000; // miliseconds
 $(document).ready(function() {
     load_list();
 
-    $("#notes-list .scroller").slimscroll({
-        height: '330px',
-        size: "5px"
-    });
+    //$("#notes-list .scroller").slimscroll({
+      //  height: '330px',
+      //  size: "5px"
+    //});
 
     $(".add-note").click(function() {
         save_note();

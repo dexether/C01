@@ -15,7 +15,7 @@
                       <tbody>
                        <tr>
                          <td width="30"></td>
-                         <td align="left" valign="middle" style="padding:0;margin:0;font-size:0;line-height:0"><a href="http://www.codexworld.com/" target="_blank"> <img alt="codexworld" height="50px" src="<?php echo base_url() ?>assets/img/logo-w.png"/></a></td>
+                         <td align="left" valign="middle" style="padding:0;margin:0;font-size:0;line-height:0"><a href="http://www.<?php echo $this->config->item('APP_NAME'); ?>.com/" target="_blank"> <img alt="<?php echo $this->config->item('APP_NAME'); ?>" height="50px" src="<?php echo base_url() ?>assets/img/logo-w.png"/></a></td>
                          <td width="30"></td>
                        </tr>
                      </tbody>
@@ -36,7 +36,7 @@
                     <tr>
                      <td colspan="3" height="40"></td></tr><tr><td colspan="5" align="center">
                      <p style="color:#404040;font-size:16px;line-height:24px;font-weight:lighter;padding:0;margin:0">
-                      
+
                      </p><br>
                      <p style="color:#404040;font-size:16px;line-height:22px;font-weight:lighter;padding:0;margin:0">
                       Terimakasih Telah melakukan pembayaran, selanjutnya harap menunggu untuk konfirmasi admin. Kami akan memberitahu anda secapat mungkin.</p>
@@ -60,7 +60,7 @@
             </table>
           </td>
         </tr>
-        
+
         <tr bgcolor="#ffffff">
           <td width="30" bgcolor="#eeeeee"></td>
           <td>
@@ -88,13 +88,13 @@
                 </div>
               </td>
               <td align="right" valign="top">
-               <span style="line-height:20px;font-size:10px"><a href="https://www.facebook.com/codexworld" target="_blank"><img src="http://i.imgbox.com/BggPYqAh.png" alt="fb"></a>&nbsp;</span>
-               <span style="line-height:20px;font-size:10px"><a href="https://twitter.com/codexworldblog" target="_blank"><img src="http://i.imgbox.com/j3NsGLak.png" alt="twit"></a>&nbsp;</span>
-               <span style="line-height:20px;font-size:10px"><a href="https://plus.google.com/+codexworld" target="_blank"><img src="http://i.imgbox.com/wFyxXQyf.png" alt="g"></a>&nbsp;</span>
+               <span style="line-height:20px;font-size:10px"><a href="https://www.facebook.com/<?php echo $this->config->item('APP_NAME'); ?>" target="_blank"><img src="http://i.imgbox.com/BggPYqAh.png" alt="fb"></a>&nbsp;</span>
+               <span style="line-height:20px;font-size:10px"><a href="https://twitter.com/<?php echo $this->config->item('APP_NAME'); ?>blog" target="_blank"><img src="http://i.imgbox.com/j3NsGLak.png" alt="twit"></a>&nbsp;</span>
+               <span style="line-height:20px;font-size:10px"><a href="https://plus.google.com/+<?php echo $this->config->item('APP_NAME'); ?>" target="_blank"><img src="http://i.imgbox.com/wFyxXQyf.png" alt="g"></a>&nbsp;</span>
              </td>
            </tr>
            <tr><td colspan="2" height="5"></td></tr>
-           
+
          </tbody>
        </table>
      </td>

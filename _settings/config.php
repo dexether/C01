@@ -60,7 +60,7 @@ switch ($httphost) {
         $mysql['crypt_key'] = "139";
         break;
     case 'agendafx.dev':
-        $mysql['host'] = "10.10.0.103";
+        $mysql['host'] = "127.0.0.1";
         $mall          = true;
         // $mysql['host'] = "localhost";
         $mysql['user']      = "root";

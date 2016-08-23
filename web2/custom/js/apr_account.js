@@ -39,7 +39,7 @@ var Apr_account_JS = function() {
                                 data: data,
                                 type: 'POST',
                                 success: function(response) {
-                                   $('#main_content').html(response);
+                                    $('#main_content').html(response);
 
                                 }
                             });

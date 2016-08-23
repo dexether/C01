@@ -1,19 +1,19 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-19 16:45:21
-         compiled from "D:\web-dir\git\cabinet\web2\templates\home_03\home_03.htm" */ ?>
+<?php /* Smarty version 3.1.27, created on 2016-08-23 20:28:05
+         compiled from "/var/www/html/cabinet/web2/templates/home_03/home_03.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:174457b6d5314f3856_80746580%%*/
+/*%%SmartyHeaderCode:35486558257bc4f653bf309_48719988%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    'e49f660e3a862c10f4af451f7abaabbe4de51a50' => 
+    '50c1bc0da3a3f420811ff1322c99879ac66bb3d8' => 
     array (
-      0 => 'D:\\web-dir\\git\\cabinet\\web2\\templates\\home_03\\home_03.htm',
-      1 => 1471238543,
+      0 => '/var/www/html/cabinet/web2/templates/home_03/home_03.htm',
+      1 => 1471763451,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '174457b6d5314f3856_80746580',
+  'nocache_hash' => '35486558257bc4f653bf309_48719988',
   'variables' => 
   array (
     'status' => 0,
@@ -25,13 +25,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57b6d531651025_95382180',
+  'unifunc' => 'content_57bc4f653f0211_62908347',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57b6d531651025_95382180')) {
-function content_57b6d531651025_95382180 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_57bc4f653f0211_62908347')) {
+function content_57bc4f653f0211_62908347 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '174457b6d5314f3856_80746580';
+$_smarty_tpl->properties['nocache_hash'] = '35486558257bc4f653bf309_48719988';
 ?>
 <link href="assets/libs/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
 <div class="content" id="main_content">
@@ -275,7 +275,7 @@ $_smarty_tpl->properties['nocache_hash'] = '174457b6d5314f3856_80746580';
                </p>
             </div>
             <!-- End of info box -->
-            
+
          </div>
       </div>
    </div>

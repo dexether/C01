@@ -69,7 +69,7 @@ class theOtherFetchAccounts {
                 $this->tradeLogFetchAccount("AccountList-66=".$user->groupid.";".$query);
                 $rows = $DB->execresultset($query);
                 foreach ($rows as $row) {
-                    //$this->tradeLogFetchAccount("AccountList-69=".$row[account]);
+                    //$this->tradeLogFetchAccount("AccountList-69=".$row['account']);
                     $accounts[] = $row['account'];
                 }
             }

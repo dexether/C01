@@ -69,8 +69,7 @@ class connDB { // Beginn class
         catch (PDOException $errMsg) {
             // Close connection
             $this->dbc = null;
-            $getTracenya = $errMsg->getTrace();
-            trigger_error("ERROR :" .$errMsg->getMessage() . " in ". $getTracenya[2]['file'] ." on line ". $getTracenya[2]['line']);
+            trigger_error( $errMsg->getMessage() . ";E_USER_ERROR" );
             exit( 1 );
             return false;
         }

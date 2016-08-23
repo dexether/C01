@@ -1,19 +1,19 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-19 17:16:42
-         compiled from "D:\web-dir\git\cabinet\web2\templates\index.htm" */ ?>
+<?php /* Smarty version 3.1.27, created on 2016-08-23 20:29:02
+         compiled from "/var/www/html/cabinet/web2/templates/index.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:2380957b6dc8a5e1621_15681740%%*/
+/*%%SmartyHeaderCode:63817613857bc4f9e322b40_31629826%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '305da1d8edd674c0cf8c54bfdc74238bdf53b283' => 
+    '1267bcd16fdcecf08026013beeeced496cf228b1' => 
     array (
-      0 => 'D:\\web-dir\\git\\cabinet\\web2\\templates\\index.htm',
-      1 => 1471341213,
+      0 => '/var/www/html/cabinet/web2/templates/index.htm',
+      1 => 1471709247,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2380957b6dc8a5e1621_15681740',
+  'nocache_hash' => '63817613857bc4f9e322b40_31629826',
   'variables' => 
   array (
     'companys' => 0,
@@ -22,13 +22,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57b6dc8a73f284_47224136',
+  'unifunc' => 'content_57bc4f9e360d37_37890334',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57b6dc8a73f284_47224136')) {
-function content_57b6dc8a73f284_47224136 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_57bc4f9e360d37_37890334')) {
+function content_57bc4f9e360d37_37890334 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '2380957b6dc8a5e1621_15681740';
+$_smarty_tpl->properties['nocache_hash'] = '63817613857bc4f9e322b40_31629826';
 ?>
 <!DOCTYPE html> 
 <html lang="en">
