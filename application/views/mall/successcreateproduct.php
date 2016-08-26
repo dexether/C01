@@ -11,7 +11,7 @@
             <i class="fa fa-undo">
             </i>
             <?php echo $this->lang->line('page_404_button_title'); ?>
-            
+
         </a>
     </div>
     <div class="gap">

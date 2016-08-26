@@ -12,58 +12,78 @@
             </header>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="product-page-product-wrap jqzoom-stage jqzoom-stage-lg">
+                  <!-- <div class="col-md-5"> -->
+                   <div class="product-page-product-wrap jqzoom-stage">
+                       <div class="clearfix">
+                           <a href="<?php echo base_url().$data['title']['prod_images']; ?>" id="jqzoom" data-rel="gal-1">
+                               <img src="<?php echo base_url().$data['title']['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
+                           </a>
+                       </div>
+                   </div>
+                   <ul class="jqzoom-list">
+                       <li>
+                           <a class="zoomThumbActive" href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: '<?php echo base_url().$data['title']['prod_images']; ?>', largeimage: '<?php echo base_url().$data['title']['prod_images']; ?>'}">
+                               <img src="<?php echo base_url().$data['title']['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
+                           </a>
+                       </li>
+                        <?php
+                        foreach ($images as $key => $value) {
+                            ?>
+                         <li>
+                            <a href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: '<?php echo base_url($value->image_location) ?>', largeimage: '<?php echo base_url($value->image_location) ?>'}">
+                               <img src="<?php echo base_url($value->image_location) ?>" alt="Image Alternative text" title="Image Title" />
+                           </a>
+                        </li>
+                        <?php                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                } ?>
+                       <!-- <li>
+                           <a href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: 'img/500x500.png', largeimage: 'img/800x800.png'}">
+                               <img src="img/100x100.png" alt="Image Alternative text" title="Image Title" />
+                           </a>
+                       </li>
+                       <li>
+                           <a href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: 'img/500x500.png', largeimage: 'img/800x800.png'}">
+                               <img src="img/100x100.png" alt="Image Alternative text" title="Image Title" />
+                           </a>
+                       </li> -->
+                   </ul>
+               <!-- </div> -->
+                    <!-- <div class="product-page-product-wrap jqzoom-stage jqzoom-stage-lg">
                         <div class="clearfix">
                             <a href="<?php echo base_url().$data['title']['prod_images']; ?>" id="jqzoom" data-rel="gal-1">
                                 <img src="<?php echo base_url().$data['title']['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
                             </a>
                         </div>
                     </div>
-                    <!-- <ul class="jqzoom-list">
+                    <ul class="jqzoom-list">
+                        <?php
+                        foreach ($images as $key => $value) {
+                        # code...
+                        ?>
                         <li>
-                            <a class="zoomThumbActive" href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: '<?php echo base_url() ?>/assets/img/500x500.png', largeimage: '<?php echo base_url() ?>/assets/img/800x800.png'}">
-                                <img src="<?php echo base_url() ?>/assets/img/100x100.png" alt="Image Alternative text" title="Image Title" />
+                            <a class="zoomThumbActive" href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: '<?php echo base_url($value->image_location) ?>', largeimage: '<?php echo base_url($value->image_location) ?>'}">
+                                <img src="<?php echo base_url($value->image_location) ?>" alt="Image Alternative text" title="Image Title" />
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: '<?php echo base_url() ?>/assets/img/500x500.png', largeimage: '<?php echo base_url() ?>/assets/img/800x800.png'}">
-                                <img src="<?php echo base_url() ?>/assets/img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: '<?php echo base_url() ?>/assets/img/500x500.png', largeimage: '<?php echo base_url() ?>/assets/img/800x800.png'}">
-                                <img src="<?php echo base_url() ?>/assets/img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: '<?php echo base_url() ?>/assets/img/500x500.png', largeimage: '<?php echo base_url() ?>/assets/img/800x800.png'}">
-                                <img src="<?php echo base_url() ?>/assets/img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: '<?php echo base_url() ?>/assets/img/500x500.png', largeimage: '<?php echo base_url() ?>/assets/img/800x800.png'}">
-                                <img src="<?php echo base_url() ?>/assets/img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                            </a>
-                        </li>
+                        <?php                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 } ?>
                     </ul> -->
                 </div>
                 <div class="col-md-6">
                     <div class="_box-highlight">
                         <ul class="product-page-product-rating">
                             <?php
-                            for ($i=0; $i < $data['title']['prod_star']; $i++) { 
+                            for ($i=0; $i < $data['title']['prod_star']; $i++) {
                                 # code...
                                 echo '<li class="rated"><i class="fa fa-star"></i></li>';
                             }
                             if ($i <= '5') {
-                                for ($i2=0; $i2 < 5-$i; $i2++) { 
+                                for ($i2=0; $i2 < 5-$i; $i2++) {
                                     # code...
                                     echo '<li><i class="fa fa-star"></i></li>';
                                 }
                             }
-                            
+
                             ?>
-                            
+
                             <!-- <li class="rated"><i class="fa fa-star"></i>
                             </li>
                             <li class="rated"><i class="fa fa-star"></i>

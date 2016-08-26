@@ -33,7 +33,6 @@ class Store extends CI_Controller
         $this->users = $this->nativesession->get('user');
 
         // $this->load->helper('error');
-
     }
     public function index()
     {
@@ -45,7 +44,7 @@ class Store extends CI_Controller
             array('table' => 'master_cat', 'on' => 'master_product.id_cat = master_cat.id', 'type' => 'left'),
         );
         $where = array(
-            array('col' => 'master_product.is_active', 'val' => TRUE)
+            array('col' => 'master_product.is_active', 'val' => true)
         );
         $datas = $this->basicmodel->getDataPromo('promo_alias, prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product_promo', $on, $where);
         $datas2 = array();
@@ -53,7 +52,6 @@ class Store extends CI_Controller
             # code...
             $datas2[$key]                = $value;
             $datas2[$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
-
         }
         // var_dump($datas);
         $homedata = $this->homeData();
@@ -74,10 +72,10 @@ class Store extends CI_Controller
             array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product', 'type' => 'left'),
             array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
             // array('table' => 'master_product', 'on' => 'master_product_promo.id_product = master_product.id AND master_product_promo.datefrom <= ' . $this->db->escape($tgl) . ' AND master_product_promo.dateto >= ' . $this->db->escape($tgl) . '', 'type' => 'left'),
-            
+
         );
         $where = array(
-            array('col' => 'master_product.is_active', 'val' => TRUE)
+            array('col' => 'master_product.is_active', 'val' => true)
         );
         $datas = $this->basicmodel->getDataPromoOrder('promo_alias, prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where, 'master_product.timestamp', 'DESC');
         $datas2 = array();
@@ -85,7 +83,6 @@ class Store extends CI_Controller
             # code...
             $datas2[$value['cat_name']][$key] =  $value;
             $datas2[$value['cat_name']][$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
-
         }
 
         return $datas2;
@@ -110,7 +107,7 @@ class Store extends CI_Controller
         );
         $where = array(
             array('col' => 'master_cat.cat_name', 'val' => $type),
-            array('col' => 'master_product.is_active', 'val' => TRUE)
+            array('col' => 'master_product.is_active', 'val' => true)
         );
         $datas = $this->basicmodel->getDataPromo('prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where);
         $datas2 = array();
@@ -118,7 +115,6 @@ class Store extends CI_Controller
             # code...
             $datas2[$key]                = $value;
             $datas2[$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
-
         }
 
         $result = $this->basicmodel->getData('master_cat', 'cat_name, cat_desc, cat_alias', array('cat_name' => $type));
@@ -157,9 +153,19 @@ class Store extends CI_Controller
             # code...
             $datas2[$key]                = $value;
             $datas2[$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
-
         }
 
+        // Get product images
+        $this->db->select('image_location');
+        $this->db->from('master_product');
+        $this->db->join('master_product_images', 'master_product.id = master_product_images.id_prod');
+        $this->db->where('master_product.prod_name', $type);
+        $query = $this->db->get();
+        $image_data = array();
+        foreach ($query->result() as $key => $value) {
+          # code...
+            $image_data[] = $value;
+        }
         // $this->shop_model->test();
         // var_dump($type);
 
@@ -174,7 +180,7 @@ class Store extends CI_Controller
         // var_dump($data);
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
-            "body"   => $this->load->view('mall/product', array('data' => $data), true),
+            "body"   => $this->load->view('mall/product', array('data' => $data, 'images' => $image_data), true),
             "slider" => "",
         );
         $this->load->view('mall/index', $part);
@@ -189,7 +195,8 @@ class Store extends CI_Controller
         );
         $this->load->view('mall/index', $part);
     }
-    public function AboutUs(){
+    public function AboutUs()
+    {
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
             "body"   => $this->load->view('mall/about-us', array(), true),

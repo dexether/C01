@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 require('_settings/config.php');
 // var_dump($mysql);
 /*
@@ -51,17 +51,16 @@ require('_settings/config.php');
 |		my-controller/my-method	-> my_controller/my_method
 */
 if ($mall) {
-	# code...
-	$route['default_controller'] = 'Store';
-
-}else{
-	$route['default_controller'] = 'Store/basic';
+    # code...
+    $route['default_controller'] = 'Store';
+} else {
+    $route['default_controller'] = 'Store/basic';
 }
 
 $route['backoffice'] = 'Store/basic';
 $route['404_override'] = 'Errorpage/index';
 $route['404'] = 'Store/pagenotfound';
-$route['translate_uri_dashes'] = FALSE;
+$route['translate_uri_dashes'] = false;
 $route['c/(:any)'] = 'Store/cat/$1';
 $route['c/(:any)/(:any)'] = 'Store/product/$1/$2';
 $route['cart'] = 'Buy_sell/showMyCart';
@@ -82,6 +81,7 @@ $route['api/images'] = 'api/secureGetImage';
 
 /* Create Product */
 $route['product/new'] = 'Buy_sell/sell';
+$route['product/step/2/(:any)'] = 'Uploader/createProductStepTwo/$1';
 $route['product/success/(:any)'] = 'Uploader/successCreatePage/$1';
 /* End Create Product */
 
