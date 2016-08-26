@@ -443,6 +443,25 @@ class Buy_sell extends CI_Controller
         $crypt  = "a6e03f22e408cf820de3cf9629afd789a996530ad0b6b769f8e4daa6a96c965deab6b40053a52053fb3c3204c2a75b88b441900ec1d615abaaf367c00dad1154kMi+usML1ti+yc3yH/UBb03LT9yLPGEMLc0+EfSUldTA9p1GmnfBl6JBX26faW2mLZZwP9SfzWSMWVGsgSIU3zS92np7CwIqEn+zxzUsy17M4dt9UelOigflJZwPjS+f";
         echo $this->encryption->decrypt($crypt);
     }
+    public function barangSudahDiterima(){
+        $encrypten_invoice = $this->input->post('invoice');
+        $data  = array(
+          'cmd' => '14'
+        );
+        $do = $this->basicmodel->updateData('master_invoice', $data, 'invoice' , $encrypten_invoice);
+        // var_dump($do);
+        if($do):
+          $response['msg'] = "Terimakasih telah berbelanja di AgendaFX";
+        else:
+          $response['msg'] = "Konfirmasi anda belum dapat kami proses";
+        endif;
+        $this->output
+            ->set_status_header(200)
+            ->set_content_type('application/json', 'utf-8')
+            ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))
+            ->_display();
+            exit;
+    }
 }
 
 /* End of file Buy_sell.php */

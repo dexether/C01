@@ -195,7 +195,7 @@ class Shop_model extends CI_Model
     {
         $this->db->where($where, $where_value);
         $do = $this->db->update($table, $data);
-        ($do) ? true : false;
+        return $do;
     }
 
 }

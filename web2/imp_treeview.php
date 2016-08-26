@@ -67,14 +67,15 @@ if ($usernya==9) {
     $condiional_footer = "</ul>";
 }
 
-$query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*   
-        FROM client_aecode,client_accounts,mlm  
+$query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*
+        FROM client_aecode,client_accounts,mlm
         WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
-        AND client_accounts.`suspend` = '0' 
+        AND client_accounts.`suspend` = '0'
         AND client_accounts.`accountname` = mlm.`ACCNO`
+        AND mlm.group_play = 'askap'
           $condiional
         ";
-     
+
 
 
 $datatress = array();
@@ -103,12 +104,15 @@ function updatechild($longtree, $ACCNO2) {
     $longtree = $longtree . "<ul>";
     global $DB;
     $datatress = array();
-    $query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*   
-    FROM client_aecode,client_accounts,mlm  
-    WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid` 
+    $query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*
+    FROM client_aecode,client_accounts,mlm
+    WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
     AND client_accounts.`suspend` = '0'
-    AND client_accounts.`accountname` = mlm.`ACCNO` 
-    AND mlm.Upline = '$ACCNO2' ";
+    AND client_accounts.`accountname` = mlm.`ACCNO`
+    AND mlm.Upline = '$ACCNO2'
+    AND mlm.group_play = 'askap'
+
+    ";
 
     //TradeLogTreView("TreView-111:" . $query);
     $rows = $DB->execresultset($query);

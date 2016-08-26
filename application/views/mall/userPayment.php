@@ -5,6 +5,9 @@
 <script src="<?php echo base_url() ?>assets/js/libs/slim-image/slim/slim.kickstart.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/js/libs/daterange-picker/css/daterangepicker.css">
 
+<!-- Load sweat alert -->
+<script src="<?php echo base_url() ?>web2/custom/sweetalert/dist/sweetalert.min.js"></script>
+<link href="<?php echo base_url() ?>web2/custom/sweetalert/dist/sweetalert.css" rel="stylesheet">
 <!-- Modal -->
 
 <div class="container">
@@ -14,20 +17,7 @@
     <div class="gap gap-small"></div>
     <div class="row" data-gutter="60">
         <div class="col-md-12">
-            <!-- <form class="form-inline" role="form">
-              <div class="form-group">
-                <label for="email">Email address:</label>
-                <input type="email" class="form-control" id="email">
-            </div>
-            <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd">
-            </div>
-            <div class="checkbox">
-                <label><input type="checkbox"> Remember me</label>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form> -->
+
         <div class="gap-small"></div>
         <?php if($bank_data['banktype'] == ""): ?>
             <div class="alert alert-warning">
@@ -54,7 +44,7 @@
             </thead>
             <tbody>
 
-                <?php 
+                <?php
                 // var_dump($data);
                 foreach ($data as $key => $value) {
                     # code...
@@ -69,7 +59,10 @@
 
                                 <?php if($value['cmd']== '9'): ?>
                                     <button type="button" name="confirm" class="btn btn-success" data-aecodeid="<?php echo $value['aecodeid'] ?>" data-inv="<?php echo $value['invoice'] ?>" name="confirm">Konfirmasi</button>
-                                <?php endif; ?>
+
+                            <?php elseif($value['cmd']== '13'): ?>
+                                  <button type="button" name="terima" class="btn btn-success" data-aecodeid="<?php echo $value['aecodeid'] ?>" data-inv="<?php echo $value['invoice'] ?>" name="confirm">Konfirmasi penerimaan</button>
+                                  <?php endif; ?>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -112,7 +105,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-3" for="pwd">Dari rekening</label>
-                <div class="col-sm-9"> 
+                <div class="col-sm-9">
                   <!-- <input type="password" class="form-control" id="pwd" placeholder="Enter password"> -->
                   <select class="form-control" name="norek">
                       <option></option>
@@ -120,10 +113,10 @@
                 </div>
             </div>
             <hr/>
-           
+
                 <div class="form-group">
                 <label class="control-label col-sm-3" for="pwd">Bukti pembayaran</label>
-                <div class="col-sm-9"> 
+                <div class="col-sm-9">
                    <div class="slim"
                      data-label="Tarik gambar anda kesini"
                      data-size="640,640"
@@ -134,13 +127,13 @@
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-3" for="pwd">Rekening Tujuan</label>
-                <div class="col-sm-9"> 
+                <div class="col-sm-9">
                   <select class="form-control" name="rekto">
                       <option value="bca">BCA</option>
                   </select>
                 </div>
             </div>
-           <!--  <div class="form-group"> 
+           <!--  <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                   <button type="submit" class="btn btn-default">Submit</button>
               </div>
@@ -170,6 +163,48 @@ $(function() {
 <!-- <script type="text/javascript" src="<?php echo base_url() ?>assets/js/libs/daterange-picker/js/package.js"></script> -->
 
 <script type="text/javascript">
+    $('button[name=terima]').click(function(event) {
+      /* Act on the event*/
+      var btn = $(this);
+
+          swal({
+              title: "Konfirmasi barang",
+              text: "Apakah anda yakin telah menerima pesanan anda ?",
+              type: "info",
+              showCancelButton: true,
+              closeOnConfirm: false,
+              showLoaderOnConfirm: true,
+            },
+          function(){
+            //
+            $.ajax({
+              url: '<?php echo base_url('Buy_sell/barangSudahDiterima') ?>',
+              type: 'POST',
+              dataType: 'JSON',
+              data: {
+                '<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',
+                invoice: $(btn).data('inv')
+            },
+            })
+            .done(function(response) {
+              $(btn).closest('tr').remove();
+              swal({
+                title: response.msg,
+
+              });
+            })
+            .fail(function() {
+              swal('Terjadi kesalahan tidak dikenal, silahkan coba kembali');
+            })
+            .always(function() {
+              // console.log("complete");
+            });
+
+            // setTimeout(function(){
+            //   // swal("Ajax request finished!");
+            // }, 2000);
+          });
+    });
     $('button[name=confirm]').click(function(event) {
         /* Act on the event */
         $aecodeid = $(this).data('aecodeid');
@@ -184,7 +219,7 @@ $(function() {
             data: {},
         })
         .done(function(response) {
-            
+
             $('select[name=norek]').html('<option value="'+response.banktype+'">'+response.bank_name+'</option>');
             $('input[name=aecodeid]').val($aecodeid);
             $('input[name=inv]').val($inv);
@@ -197,10 +232,10 @@ $(function() {
             alert('Error')
         })
         .always(function() {
-            
+
         });
         // $(this).button('reset');
-        
+
     });
     $('button[name=konfirmasi]').click(function(event) {
          /*Act on the event */

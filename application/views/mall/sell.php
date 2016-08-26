@@ -1,13 +1,18 @@
 <!-- include summernote css/js-->
 <link href="<?php echo base_url() ?>assets/js/libs/summernote/summernote.css" rel="stylesheet">
 <link href="<?php echo base_url() ?>assets/js/libs/bootstrap-slider/css/bootstrap-slider.min.css" rel="stylesheet">
-<link href="<?php echo base_url() ?>assets/js/libs/slim-image/slim/slim.min.css" rel="stylesheet">
+<!-- <link href="<?php echo base_url() ?>assets/js/libs/slim-image/slim/slim.min.css" rel="stylesheet"> -->
 <script src="<?php echo base_url() ?>assets/js/libs/summernote/summernote.js"></script>
 
+<!-- Dropzone CSS -->
+<link href="<?php echo base_url() ?>assets/js/libs/dropzone-master/dist/min/dropzone.min.css" rel="stylesheet">
 <!-- Range Slider -->
 <script src="<?php echo base_url() ?>assets/js/jquery.price_format.min.js"></script>
 <script src="<?php echo base_url() ?>assets/js/libs/bootstrap-slider/bootstrap-slider.min.js"></script>
-<script src="<?php echo base_url() ?>assets/js/libs/slim-image/slim/slim.kickstart.min.js"></script>
+<!-- <script src="<?php echo base_url() ?>assets/js/libs/slim-image/slim/slim.kickstart.min.js"></script> -->
+
+<!-- Dropzone -->
+<script src="<?php echo base_url() ?>assets/js/libs/dropzone-master/dist/min/dropzone.min.js"></script>
 
 <div class="container">
     <header class="page-header">
@@ -16,10 +21,10 @@
             lang->line('sell_title'); ?>
         </h1>
     </header>
-    
+
     <div class="row row-col-gap" data-gutter="60">
     <?php
-    
+
     if ($userdata['address'] == "" || $userdata['telephone_mobile'] == "" || empty($userdata['address'])) {
         $this->nativesession->set('page', 'profile');
     ?>
@@ -34,8 +39,12 @@
                 <?php echo $this->
                 lang->line('sell_title_detail'); ?>
             </h3>
+
             <!-- <form> -->
-            <?php echo form_open_multipart('Uploader/secureSaveUploadedImages');?>
+            <!-- <form action="/file-upload"
+        class="dropzone"
+        id="my-awesome-dropzone"></form> -->
+            <?php echo form_open_multipart('Uploader/secureImagesUpload');?>
                 <div class="form-group">
                     <label>
                         <?php echo $this->lang->line('sell_name_prod'); ?>
@@ -57,15 +66,13 @@
                 <legend></legend>
                 <div class="form-group">
                     <label>
-                        Masukan gambar anda 
+                        Masukan gambar anda
                     </label>
-                       <div class="slim"
-                     data-label="Tarik gambar anda kesini"
-                     data-size="640,640"
-                     data-ratio="1:1">
-                    <input type="file" name="slim[]" required />
-                </div>
-              
+                    <div id="myDropZone" class="dropzone">
+                      <!-- <input type="file" name="file" multiple /> -->
+                    </div>
+
+
                 </div>
                 <div class="form-group">
                     <label>
@@ -96,7 +103,7 @@
                     <!-- <input class="form-control" type="text"/> -->
                 </div>
                 <?php
-    
+
     if ($userdata['address'] == "" || $userdata['telephone_mobile'] == "" || empty($userdata['address'])) {
     ?>
         <div class="alert alert-warning">
@@ -116,6 +123,27 @@
 </div>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
+        // $("#myDropZone").dropzone({ url: "<?php echo base_url('uplaoder/secureImagesUpload')?>file/post" });
+        $("#myDropZone").dropzone({
+       url: "<?php echo base_url('uploader/secureImagesUpload') ?>",
+       maxFiles: 5,
+       maxFilesize: 1,
+       acceptedFiles: 'image/*',
+       addRemoveLinks: true,
+       dictRemoveFile: "Hapus gambar",
+
+      //  autoProcessQueue: false,
+       autoDiscover: false,
+
+       params: {'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'},
+       init: function () {
+           this.on("addedfile", function (file) {
+              console.log(file)
+               $('#init_empty_msg').addClass('hidden');
+           });
+       }
+
+   });
         $('#ex1').slider({
             formatter: function(value) {
                 return 'Current value: ' + value;
