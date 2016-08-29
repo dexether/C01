@@ -33,7 +33,7 @@ $_SESSION['page'] = 'imp_myaccount';
 =            Start Coding            =
 ====================================*/
 
-$query = "SELECT 
+$query = "SELECT
 client_aecode.`name`,
 client_aecode.`email`,
 client_accounts.`accountname`,
@@ -45,19 +45,21 @@ FROM
 client_accounts,
 client_aecode,
 mlm,
-mlm_bonus_settings 
-WHERE client_accounts.`aecodeid` = client_aecode.`aecodeid` 
-AND client_accounts.`accountname` = mlm.`ACCNO` 
+mlm_bonus_settings
+WHERE client_accounts.`aecodeid` = client_aecode.`aecodeid`
+AND client_accounts.`accountname` = mlm.`ACCNO`
 AND mlm.`group_play` = mlm_bonus_settings.`group_play`
 AND client_aecode.`aecode` = '$user->username'";
 $result = $DB->execresultset($query);
 $i = 0;
+$alldatas = array();
 foreach($result as $row){
 	$alldatas[$i] = $row;
 	$alldatas[$i]['acccrypt'] = base64_encode($row['accountname']);
     $alldatas[$i]['url'] = $companys['appurl'].'web2/referal.php?memberkey='.base64_encode($row['accountname']);
     $i++;
 }
+$newdatas = array();
 foreach ($alldatas as $key => $value) {
 	# code...
 	$query = "SELECT ACCNO, mt4login, mt_database.`alias` FROM mlm2, mt_database WHERE mlm2.`mt4dt` = mt_database.`mt4dt` AND  mlm2.`ACCNO` = '$value[accountname]'";
