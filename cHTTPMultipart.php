@@ -1,66 +1,147 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?
+/************************************************************	
+	GET, POSTS and Multipat Posts ( Upload files and etc..)
+	CREATED BY: Tiago Serafim
+	DATE      : 30/08/2003
+	EMAIL     : TIAGO at HEX dot COM dot BR
+
+	This class Extends cHTTP Class 
+	http://www.phpclasses.org/browse.html/package/1119.html
+************************************************************/
+/*
+	Date		Update
+
+
+*/
+	require "cHTTP.php";
+
+	class cHTTPMultipart extends cHTTP {
+		
+		var $boundary;
+		
+		var $multiPartFields = "";
+	
+		function cHTTPMultipart() {
+			
+			$this->boundary = "hereitgoes->>" . md5(time()) . "-hereitgone->>";
+			
+
+		}
+			
+		function addMultipart($field) {
+			
+			$this->multiPartFields.= $field;
+
+		}
+
+		function addMultipartField($sName, $sValue) {
+			
+			$temp  = "Content-Disposition: form-data; name=\"$sName\"";
+			$temp .= "\r\n\r\n";
+			$temp .= $sValue;
+			$temp .= "\r\n";
+			$temp .= "--" . $this->getBoundary();
+
+			$this->addMultipart($temp);
+						
+		}
+
+		function addMultipartFile($sName, $sFileName) {
+			
+			$fileExt = substr($sFileName, strrpos($sFileName, ".")+1);
+			$theFile = implode(file($sFileName), "");
+
+			$temp = "Content-Disposition: form-data; name=\"$sName\"; filename=\"$sFileName\"";
+			$temp .= "\r\n";
+			$temp .= "Content-Type: " . $this->getContentType($fileExt) . "";
+			$temp .= "\r\n\r\n";
+			$temp .= $theFile;
+			$temp .= "\r\n";
+			$temp .= "--" . $this->getBoundary() . "\r\n";
+
+			$this->addMultipart($temp);
+
+		}
+		
+		function postPageMultipart($sURL) {
+		/*
+			IMPORTANT - multipart/form-data Especification
+				
+			RFC: Nebel, E. and L. Masinter, "Form-based File Upload in HTML", RFC 1867, November 1995.
+
+			URL: http://www.faqs.org/rfcs/rfc1867.html
+
+		*/
+
+			$sInfo = $this->parseRequest($sURL);
+				$request = $sInfo['request'];
+				$host    = $sInfo['host'];
+				$port    = $sInfo['port'];
+
+			$httpHeader  = "POST $request HTTP/1.0\r\n";
+			$httpHeader .= "Host: $host\r\n";
+			$httpHeader .= "Connection: Close\r\n";
+			$httpHeader .= "User-Agent: cHTTPMultipart/0.1b (incompatible; M$ sucks; Open Source Rulez)\r\n";
+			
+			$httpHeader .= "Content-Type: multipart/form-data; boundary=" . $this->getBoundary() . "\r\n";;
+
+			$httpHeader .= "Content-length: " . strlen($this->multiPartFields) . "\r\n";
+			$httpHeader .= "Referer: " . $this->referer . "\r\n";
+
+			$httpHeader .= "Cookie: " . $this->theCookies . "\r\n";
+
+			$httpHeader .= "\r\n";
+
+			$httpHeader .= "--" . $this->getBoundary();
+
+			$httpHeader .= "\r\n";
+			
+			$httpHeader .= $this->multiPartFields;
+			
+			$httpHeader .= "--\r\n\r\n";
+			
+
+			$this->theData = $this->downloadData($host, $port, $httpHeader); // envia os dados para o servidor
+
+
+		}
+
+
+
+
+		function getBoundary() {
+			return $this->boundary;;
+		}
+
+		function getContentType($ext) {
+			
+			switch($ext) {
+				
+				case "txt":  return "text/plain";
+				case "rar":  return "application/rar";
+				case "zip":  return "application/zip";
+				case "exe":  return "application/octet-stream";
+				case "jpg":
+				case "jpge": return "image/jpeg";
+				case "gif":  return "image/jpeg";
+				case "htm":
+				case "html": return "text/html";
+				case "css":  return "text/css";
+				case "pdf":  return "application/pdf";
+				case "ppt":  return "application/ms-powerpoint";
+				case "doc":  return "application/msword";
+				case "xls":  return "application/ms-excel";
+
+				default: return "application/unkown";
+				
+			}
+
+		}
+
+
+
+
+	} // class
+	
+
 ?>
-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
-ZPwSubB9P0+moc/b/pry3mwwlvWZrW==
