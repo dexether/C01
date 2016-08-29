@@ -1,6 +1,40 @@
+<?php /* Smarty version 3.1.27, created on 2016-08-29 07:49:31
+         compiled from "/root/project/cabinet-stable/web2/templates/mall_payment.htm" */ ?>
+<?php
+/*%%SmartyHeaderCode:50249676557c3869be6bb25_34862988%%*/
+if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_valid = $_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    'ba413eebe59febcce728cf18364fc15b6f4a44d7' => 
+    array (
+      0 => '/root/project/cabinet-stable/web2/templates/mall_payment.htm',
+      1 => 1472441354,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '50249676557c3869be6bb25_34862988',
+  'variables' => 
+  array (
+    'token' => 0,
+    'list_cmd' => 0,
+    'row' => 0,
+  ),
+  'has_nocache_code' => false,
+  'version' => '3.1.27',
+  'unifunc' => 'content_57c3869be90d75_56132847',
+),false);
+/*/%%SmartyHeaderCode%%*/
+if ($_valid && !is_callable('content_57c3869be90d75_56132847')) {
+function content_57c3869be90d75_56132847 ($_smarty_tpl) {
+
+$_smarty_tpl->properties['nocache_hash'] = '50249676557c3869be6bb25_34862988';
+?>
 <div id="main_content" class="content">
     <link href="custom/daterange/css/daterangepicker.css" media="all" rel="stylesheet" type="text/css" />
-    <script src="custom/sweetalert/dist/sweetalert-dev.js"></script>
+    <?php echo '<script'; ?>
+ src="custom/sweetalert/dist/sweetalert-dev.js"><?php echo '</script'; ?>
+>
     <link rel="stylesheet" href="custom/sweetalert/dist/sweetalert.css">
     <!-- Page Heading Start -->
     <div class="page-heading">
@@ -36,7 +70,8 @@
                         <div class="row">
                             <div class="col-md-12 pull-right">
                                 <form class="form-inline" id="ajax-form">
-                                    <input type="hidden" name="token" id="token" value="{$token}" />
+                                    <input type="hidden" name="token" id="token" value="<?php echo $_smarty_tpl->tpl_vars['token']->value;?>
+" />
                                     <div class="form-group">
                                         <div class="pull-right" id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                                             <i class="glyphicon glyphicon-calendar fa fa-calendar">
@@ -51,11 +86,26 @@
                                     </div>
                                     <div class="form-group">
                                         <select class="form-control" name="cmd">
-                                            {foreach from=$list_cmd item=row}
-                                            <option value="{$row.cmd}">
-                                                {$row.cmd_alias}
+                                            <?php
+$_from = $_smarty_tpl->tpl_vars['list_cmd']->value;
+if (!is_array($_from) && !is_object($_from)) {
+settype($_from, 'array');
+}
+$_smarty_tpl->tpl_vars['row'] = new Smarty_Variable;
+$_smarty_tpl->tpl_vars['row']->_loop = false;
+foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
+$_smarty_tpl->tpl_vars['row']->_loop = true;
+$foreach_row_Sav = $_smarty_tpl->tpl_vars['row'];
+?>
+                                            <option value="<?php echo $_smarty_tpl->tpl_vars['row']->value['cmd'];?>
+">
+                                                <?php echo $_smarty_tpl->tpl_vars['row']->value['cmd_alias'];?>
+
                                             </option>
-                                            {/foreach}
+                                            <?php
+$_smarty_tpl->tpl_vars['row'] = $foreach_row_Sav;
+}
+?>
                                         </select>
                                     </div>
                                     <input type="submit" class="btn btn-primary fa fa-filter" value="Filter" />
@@ -96,12 +146,17 @@
         </div>
     </div>
 </div>
-<script src="custom/daterange/js/moment.js" type="text/javascript">
-</script>
-<script src="custom/daterange/js/daterangepicker.js" type="text/javascript">
-</script>
+<?php echo '<script'; ?>
+ src="custom/daterange/js/moment.js" type="text/javascript">
+<?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="custom/daterange/js/daterangepicker.js" type="text/javascript">
+<?php echo '</script'; ?>
+>
 
-<script type="text/javascript">
+<?php echo '<script'; ?>
+ type="text/javascript">
     $(function() {
 
         function cb(start, end) {
@@ -122,17 +177,23 @@
         }, cb);
 
     });
-</script>
-{literal}
-<script src="custom/js/mall_payment.js" type="text/javascript"></script>
-<script>
+<?php echo '</script'; ?>
+>
+
+<?php echo '<script'; ?>
+ src="custom/js/mall_payment.js" type="text/javascript"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+>
     jQuery(document).ready(function() {
         mall_payment_JS.init();
 
     });
-</script>
-{/literal}
-<script>
+<?php echo '</script'; ?>
+>
+
+<?php echo '<script'; ?>
+>
     jQuery(document).ready(function($) {
         $("form").submit(function(event) {
             // Get the submit button element
@@ -146,4 +207,8 @@
         });
 
     });
-</script>
+<?php echo '</script'; ?>
+>
+<?php }
+}
+?>

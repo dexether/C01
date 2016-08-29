@@ -1,19 +1,19 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-25 11:21:13
-         compiled from "/var/www/html/cabinet/web2/templates/mainmenu.htm" */ ?>
+<?php /* Smarty version 3.1.27, created on 2016-08-29 07:46:58
+         compiled from "/root/project/cabinet-stable/web2/templates/mainmenu.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:31720753557be72392ea3d8_19886199%%*/
+/*%%SmartyHeaderCode:87221326457c38602630c03_99104788%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '9d50cd345c024b737f51f0ab98056c115ce022e2' => 
+    '44b1c64d72d07a996b831eb5beca0b1e55acc30a' => 
     array (
-      0 => '/var/www/html/cabinet/web2/templates/mainmenu.htm',
-      1 => 1471762945,
+      0 => '/root/project/cabinet-stable/web2/templates/mainmenu.htm',
+      1 => 1472441354,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '31720753557be72392ea3d8_19886199',
+  'nocache_hash' => '87221326457c38602630c03_99104788',
   'variables' => 
   array (
     'companys' => 0,
@@ -21,13 +21,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57be72393204a3_21077096',
+  'unifunc' => 'content_57c3860266ee59_99925330',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57be72393204a3_21077096')) {
-function content_57be72393204a3_21077096 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_57c3860266ee59_99925330')) {
+function content_57c3860266ee59_99925330 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '31720753557be72392ea3d8_19886199';
+$_smarty_tpl->properties['nocache_hash'] = '87221326457c38602630c03_99104788';
 ?>
 <!DOCTYPE html>
 <html>
@@ -143,7 +143,7 @@ $_smarty_tpl->properties['nocache_hash'] = '31720753557be72392ea3d8_19886199';
                                                 <!-- ============================================================== -->
                                                 <!-- CONTENT -->
                                                 
-                                                <?php include_once ('two_treeview.php');?>
+                                                <?php include_once ('home_03.php');?>
 
                                                 
                                                 <!-- /END OF CONTENT -->

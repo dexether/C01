@@ -1,19 +1,20 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-25 12:36:04
-         compiled from "/var/www/html/cabinet/web2/templates/index.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:204893141957be83c492fad9_76167247%%*/
+/*%%SmartyHeaderCode:34518347257c386af0bfbd7_50383776%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '1267bcd16fdcecf08026013beeeced496cf228b1' => 
+    'b6e529ebd5da16fa54e36cf1d9e6496075511972' => 
     array (
-      0 => '/var/www/html/cabinet/web2/templates/index.htm',
-      1 => 1471709247,
+      0 => '/root/project/cabinet-stable/web2/templates/index.htm',
+      1 => 1472441354,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '204893141957be83c492fad9_76167247',
+  'nocache_hash' => '34518347257c386af0bfbd7_50383776',
+  'tpl_function' => 
+  array (
+  ),
   'variables' => 
   array (
     'companys' => 0,
@@ -22,13 +23,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57be83c4970fa9_79127045',
-),false);
+  'unifunc' => 'content_57c386af0f6267_36342683',
+  'cache_lifetime' => 120,
+),true);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57be83c4970fa9_79127045')) {
-function content_57be83c4970fa9_79127045 ($_smarty_tpl) {
-
-$_smarty_tpl->properties['nocache_hash'] = '204893141957be83c492fad9_76167247';
+if ($_valid && !is_callable('content_57c386af0f6267_36342683')) {
+function content_57c386af0f6267_36342683 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html> 
 <html lang="en">
@@ -36,8 +36,7 @@ $_smarty_tpl->properties['nocache_hash'] = '204893141957be83c492fad9_76167247';
 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title><?php echo $_smarty_tpl->tpl_vars['companys']->value['programname'];?>
-</title>
+        <title>AgendaFX</title>
         <meta name="description" content="">
         <meta name="keywords" content="Komoditas,Commodity,Multilateral,Pasar,Market,Berjangka,Derivatives,Futures">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -48,8 +47,7 @@ $_smarty_tpl->properties['nocache_hash'] = '204893141957be83c492fad9_76167247';
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="script1/assets-minified/images/icons/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="script1/assets-minified/images/icons/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="script1/assets-minified/images/icons/apple-touch-icon-57-precomposed.png">
-        <link rel="shortcut icon" href="<?php echo $_smarty_tpl->tpl_vars['companys']->value['company_icon'];?>
-">
+        <link rel="shortcut icon" href="templates/home_03/faicon.png">
         <link href="assets/libs/fontello/css/fontello.css" rel="stylesheet" />
         <link href="assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
         <link href="assets/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
@@ -58,30 +56,24 @@ $_smarty_tpl->properties['nocache_hash'] = '204893141957be83c492fad9_76167247';
 
         <!-- JS Core -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/js-core.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/js-core.js"></script>
         
-        <?php echo '<script'; ?>
- language="javascript" type="text/javascript">
+        <script language="javascript" type="text/javascript">
             function windowClose() {
                 //alert("Hi");
                 window.open('', '_parent', '');
                 window.close();
             }
-        <?php echo '</script'; ?>
->
+        </script>
         
 
-        <?php echo '<script'; ?>
- type="text/javascript">
+        <script type="text/javascript">
             $(window).load(function() {
                 setTimeout(function() {
                     $('#loading').fadeOut(400, "linear");
                 }, 300);
             });
-        <?php echo '</script'; ?>
->
+        </script>
         
         <style>
             #loading {position: fixed;width: 100%;height: 100%;left: 0;top: 0;right: 0;bottom: 0;display: block;background: #fff;z-index: 10000;}
@@ -150,20 +142,15 @@ $_smarty_tpl->properties['nocache_hash'] = '204893141957be83c492fad9_76167247';
                     <!--
                     <form method="post" action="login.php" target="_blank" onClick="javascript:window.close();">
                     -->
-                    <form method="post" action="login.php" target="<?php echo $_smarty_tpl->tpl_vars['target']->value;?>
-" >
-                        <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['redirect']->value;?>
-" name="redirect"></input>
+                    <form method="post" action="login.php" target="_self" >
+                        <input type="hidden" value="" name="redirect"></input>
                         <div class="content-box">   
                             <h3 class="content-box-header content-box-header-alt bg-default">
                                 <span class="icon-separator">
-                                    <img src="<?php echo $_smarty_tpl->tpl_vars['companys']->value['company_icon'];?>
-" alt="MT <?php echo $_smarty_tpl->tpl_vars['companys']->value['programname'];?>
-" class="img-responsive">
+                                    <img src="templates/home_03/faicon.png" alt="MT AgendaFX" class="img-responsive">
                                 </span>
                                 <div class="header-wrapper">
-                                    <?php echo $_smarty_tpl->tpl_vars['companys']->value['programname'];?>
-
+                                    AgendaFX
                                     <small>&nbsp</small>
                                 </div>
                             </h3>
@@ -191,18 +178,11 @@ $_smarty_tpl->properties['nocache_hash'] = '204893141957be83c492fad9_76167247';
                                 -->
                                 <br>
                                 <br>
-                                <?php if ($_smarty_tpl->tpl_vars['target']->value == '_self') {?>
-                                <input style="float: center;" class="btn btn-info"  type="button" value="Self Reset Password" onclick="window.open('forgetpassword.php','_self')" />
+                                                                <input style="float: center;" class="btn btn-info"  type="button" value="Self Reset Password" onclick="window.open('forgetpassword.php','_self')" />
                                 
                                 <input style="float: center;" class="btn btn-info"  type="button" value="First time Login?" onclick="window.open('openaccount.php?cabang=1','_self')" />
                                 
-                                <?php } else { ?>
-                                <input style="float: center;" class="btn btn-info"  type="button" value="Self Reset Password" onclick="window.open('forgetpassword.php')" />
-                                
-                                <input style="float: center;" class="btn btn-info"  type="button" value="First time Login?" onclick="window.open('openaccount.php?cabang=1')" />
-                                
-                                <?php }?>
-                                <small>
+                                                                <small>
                                     <dt>Have you forgotten your password?</dt> 
                                     <p>You can reset your password anytime by yourself by clicking the <b>"Self Reset Password"</b> button</p></small>
                             </div>
@@ -231,146 +211,98 @@ $_smarty_tpl->properties['nocache_hash'] = '204893141957be83c492fad9_76167247';
         <!-- Bootstrap Dropdown -->
 
         <link rel="stylesheet" type="text/css" href="script1/assets-minified/widgets/dropdown/dropdown.css">
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/dropdown/dropdown.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/dropdown/dropdown.js"></script>
 
         <!-- PieGage charts -->
 
         <link rel="stylesheet" type="text/css" href="script1/assets-minified/widgets/charts/piegage/piegage.css">
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/charts/piegage/piegage.js"><?php echo '</script'; ?>
->
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/charts/piegage/piegage-demo.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/charts/piegage/piegage.js"></script>
+        <script type="text/javascript" src="script1/assets-minified/widgets/charts/piegage/piegage-demo.js"></script>
 
         <!-- Bootstrap Tooltip -->
 
         <link rel="stylesheet" type="text/css" href="script1/assets-minified/widgets/tooltip/tooltip.css">
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/tooltip/tooltip.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/tooltip/tooltip.js"></script>
 
         <!-- Bootstrap Popover -->
 
         <link rel="stylesheet" type="text/css" href="script1/assets-minified/widgets/popover/popover.css">
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/popover/popover.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/popover/popover.js"></script>
 
 
         <!-- Bootstrap Buttons -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/button/button.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/button/button.js"></script>
 
         <!-- Bootstrap Collapse -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/collapse/collapse.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/collapse/collapse.js"></script>
 
         <!-- Bootstrap Progress Bar -->
 
         <link rel="stylesheet" type="text/css" href="script1/assets-minified/widgets/progressbar/progressbar.css">
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/progressbar/progressbar.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/progressbar/progressbar.js"></script>
 
         <!-- Uniform -->
 
         <link rel="stylesheet" type="text/css" href="script1/assets-minified/widgets/uniform/uniform.css">
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/uniform/uniform.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/uniform/uniform.js"></script>
 
         <!-- Chosen -->
 
         <link rel="stylesheet" type="text/css" href="script1/assets-minified/widgets/chosen/chosen.css">
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/chosen/chosen.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/chosen/chosen.js"></script>
 
         <!-- Superfish -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/superfish/superfish.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/superfish/superfish.js"></script>
 
         <!-- Superclick -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/superclick/superclick.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/superclick/superclick.js"></script>
 
         <!-- Nice scroll -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/nicescroll/nicescroll.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/nicescroll/nicescroll.js"></script>
 
         <!-- Overlay -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/overlay/overlay.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/overlay/overlay.js"></script>
 
         <!-- jQueryUI Autocomplete -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/autocomplete/autocomplete.js"><?php echo '</script'; ?>
->
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/autocomplete/menu.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/autocomplete/autocomplete.js"></script>
+        <script type="text/javascript" src="script1/assets-minified/widgets/autocomplete/menu.js"></script>
 
         <!-- Skycons -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/skycons/skycons.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/skycons/skycons.js"></script>
 
         <!-- Content box -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/content-box/contentbox.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/content-box/contentbox.js"></script>
 
         <!-- Bootstrap Tabs -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/tabs/tabs.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/tabs/tabs.js"></script>
 
         <!-- Sparklines charts -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/charts/sparklines/sparklines.js"><?php echo '</script'; ?>
->
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/charts/sparklines/sparklines-demo.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/charts/sparklines/sparklines.js"></script>
+        <script type="text/javascript" src="script1/assets-minified/widgets/charts/sparklines/sparklines-demo.js"></script>
 
         <!-- Slidebars -->
 
         <link rel="stylesheet" type="text/css" href="script1/assets-minified/widgets/slidebars/slidebars.css">
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets/slidebars/slidebars.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets/slidebars/slidebars.js"></script>
 
         <!-- Widgets init for demo -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/widgets-init.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/widgets-init.js"></script>
 
         <!-- Theme layout -->
 
-        <?php echo '<script'; ?>
- type="text/javascript" src="script1/assets-minified/themes/supina/js/layout.js"><?php echo '</script'; ?>
->
+        <script type="text/javascript" src="script1/assets-minified/themes/supina/js/layout.js"></script>
 
 
 
