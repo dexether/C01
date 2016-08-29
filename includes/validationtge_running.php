@@ -1,1279 +1,2248 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?php
+
+function posting_trading($_account,$_action_type,$_counterid,$_price,$_price_to,$_quantity,$_type,$_liquidate_price,$_liquidate_ref,$_duration,$_durationto,$_isorder,$_closetrade,$_tradeid,$_harga)
+{
+	global $func;
+	global $DB;
+	global $DB_odbc;
+	global $DB_quote;
+	global $user;
+	global $language;
+	$account = $_account;
+	$trade_go_in = "account:".$account;
+	$action_type = strtolower($_action_type);
+	$trade_go_in = $trade_go_in . ";action_type:".$action_type;
+	$query = "select counter_type.action from counter_type  where counter_type.ctr_type = '$action_type'";
+	$DB->connect();
+	$result = $DB->query($query);
+	while ($row = $DB->fetch_array($result))
+	{
+		$action = $row[action];		
+	}
+	$trade_go_in = $trade_go_in . ";action:".$action;
+	$counterid = $_counterid ;
+	$trade_go_in = $trade_go_in . ";counterid:".$counterid;
+	$price = $_price ;
+	$trade_go_in = $trade_go_in . ";price:".$price;
+	$price_to = $_price_to ;
+	$trade_go_in = $trade_go_in . ";price_to:".$price_to;
+	$quantity = round($_quantity);
+	$trade_go_in = $trade_go_in . ";_quantity:".$_quantity;
+	$type = strtolower($_type); // New/Liquidate
+	$trade_go_in = $trade_go_in . ";type:".$type;
+	$liquidate_price = $_liquidate_price;	
+	if($liquidate_price==null || $liquidate_price=='')
+	{
+		$liquidate_price = 0;
+	}
+	$trade_go_in = $trade_go_in . ";liquidate_price:".$liquidate_price;
+	$liquidate_ref =$_liquidate_ref;
+	$trade_go_in = $trade_go_in . ";liquidate_ref:".$liquidate_ref;
+	$duration = strtolower($_duration ); // am1
+	$trade_go_in = $trade_go_in . ";duration:".$duration;
+	$durationto = strtolower($_durationto); // am3 
+	$trade_go_in = $trade_go_in . ";durationto:".$durationto;
+	$isorder =  $_isorder; 
+	$trade_go_in = $trade_go_in . ";isorder:".$isorder;
+	$closetrade = $_closetrade;
+	$trade_go_in = $trade_go_in . ";closetrade:".$closetrade;
+	$tradeid=$_tradeid;
+	$trade_go_in = $trade_go_in . ";tradeid:".$tradeid;
+	$harga=$_harga;
+	$trade_go_in = $trade_go_in . ";harga:".$harga;
+	
+	$query_dealing = "select directdone from user where username = '$account'"; 
+	$result = $DB->query($query_dealing);
+	$row = mysql_fetch_array($result);
+	$query_directdone = $row[directdone];
+	$trade_go_in = $trade_go_in . ";query_directdone:".$query_directdone;
+	
+	$result_log_file = set_log_file($user->userid,'Trader','Trade','',$trade_go_in);
+	
+//echo "<script>alert('$tradeid');</script>";die;
+if ($closetrade=="empty") { unset($closetrade); }
+$index_counter_open = getCounterName($counterid);
+
+if ($index_counter_open[open]==0 && empty($isorder))
+{
+echo "<SCRIPT language=\"Javascript1.2\">";
+echo "parent.myTrade.showMessage(\"<font color=red><b>ref.147 $index[name]</b> counters are currently<br>closed for live trading.<br>Please try again when trading is resumed.</font>\");\n";
+echo "parent.myTrade.showBusy(false);\n";
+echo "</SCRIPT>";  
+$result_log_file = set_log_file($user->userid,'Trader','CounterClosed1',"index_counter_open","0");
+exit;
+}
+
+if ($index_counter_open[activeorder]==0 && !empty($isorder))
+{  
+echo "<SCRIPT language=\"Javascript1.2\">";
+echo "parent.myTrade.showMessage(\"<font color=red><b>ref. 156 $index[name]</b> counters are currently<br>closed for live trading.<br>Please try again when trading is resumed.</font>\");\n";
+echo "parent.myTrade.showBusy(false);\n";
+echo "</SCRIPT>";  
+$result_log_file = set_log_file($user->userid,'Trader','CounterClosed2',"activeorder",$isorder);  
+exit;
+}
+
+//Check AE wheter he take right counter 061229
+if ($user->groupid==3 || $user->groupid==4 || $user->groupid==5 || $user->groupid==11 ) //tambahan for Account Executive so he will not take wrong counter
+{
+	$query = "select marketindex.exchangecode from marketindex where marketindex.indexid =(
+		    			select counter.indexid from counter where counter.counterid = '$counterid'
+		   			)";
+	//tradelog("trader-168=".$query);		   			
+	$result = mysql_query($query);
+	$row = mysql_fetch_array($result);
+	$ae_counter_name = $row[exchangecode]; 	   			
+ 			
+	$query = "select countertype from user where username = '$account' 
+			and countertype  like ('%$ae_counter_name%')";
+	//tradelog("trader-171=".$query);			
+	$result = mysql_query($query);
+	if (mysql_num_rows($result)==0)
+	{	
+		$result_log_file = set_log_file($user->userid,'Trader','NotMatchCounter',$counterid,$query);
+		return "<font color='red'><b>Ref. 174-83 Counter Not Match</b></font><br>The Account doesn't have the counter trade<br>Please try another counter.";
+	}
+}
+//End Check AE wheter he take right counter 061229
+
+// Check whether account has been suspended
+$query = "SELECT * FROM suspension WHERE account='$account'";
+$result = $DB->query($query);
+while ($row = $DB->fetch_array($result))
+{
+	if($row[suspend]=='Cannot Login' || $row[suspend]=='Total' || $row[suspend]=='T'){
+		$result_log_file = set_log_file($user->userid,'Trader','Suspended1',$tradeid,"This account suspend=".$row[suspend]);
+		return "<font color='red'><b>Ref.116 Account $account has been Suspended </b></font><br>Reason : Please Contant Broker to un-Suspend the Account";
+	}
+	if ($row[suspend]=='Call')
+	{
+		$result_log_file = set_log_file($user->userid,'Trader','Suspended2',$tradeid,"This account suspend=".$row[suspend]);
+		return "<font color='red'><b>Ref.121 Account $account has been Suspended </b></font><br>Reason : Only can Liquid position. Please Contant Broker to un-Suspend the Account";
+	}
+	if (empty($liquidate_ref) && empty($closetrade))
+	{
+		$result_log_file = set_log_file($user->userid,'Trader','Suspended3',$tradeid,"This account can only do a Buy/Sell Liquidation(Close Pair)");
+		return "<font color='red'><b>Ref.126 Account $account has been Suspended </b></font><br>Reason : Margin Call or Overtrade. This account can only do a Buy/Sell Liquidation(Close Pair)";
+	}	
+}
+/*
+$que="Select LotsMax from lookup";
+$res=mysql_query($que);
+$r=mysql_fetch_array($res);
+// Quantity cannot exceed 20
+
+if ($quantity > $r['LotsMax'])
+{
+$result_log_file = set_log_file($user->userid,'Trader','Max_Lot',$tradeid,"The maximum quantity allowed are");  
+return "<font color='red'><b>Maximum_quantity exceeded</b></font><br>The maximum quantity allowed are  {$r['LotsMax']} units";
+}
+*/
+
+$query = "SELECT
+	counter.name,counter.symbol,counter.spread,counter.decimal,counter.lotsize,counter.marginday,counter.quotemodeid,counter.topping,
+	marketindex.checkhighlow, marketindex.multiplier, marketindex.limitmultiplier, marketindex.limitceiling,
+	quotemode.functionname,counter.minqty 
+	FROM counter
+	LEFT JOIN marketindex ON counter.indexid = marketindex.indexid
+	LEFT JOIN quotemode ON counter.quotemodeid = quotemode.quotemodeid
+	WHERE counter.counterid = '$counterid'";
+//tradelog("validation_trade-148=".$query);
+$result = mysql_query($query);
+$row = mysql_fetch_array($result);
+
+$counter = $row[name];
+$symbol = $row[symbol]; // Used to query realtime for check_price
+$spread = $row[spread]; // Used to compare range of price allowed
+$decimal = $row[decimal]; // Used to query realtime for check_price
+$lotsize = $row[lotsize];
+$topping = $row[topping];
+$marginday = $row[marginday];
+$minqty = $row[minqty];
+//tradelog("validation_trade-160=".$symbol);
+
+$checkhighlow = $row[checkhighlow]; // Used to determine whether to permit trades outside the day high/low
+$multiplier = $row[multiplier]; // Used to give +- allowance to the current trading price 
+$limitmultiplier = $row[limitmultiplier]; // Used to restrict orders from being to0 close to current price. (multiplier)
+$limitceiling = $row[limitceiling]; // Used to restrict orders from being too far from current price.
+
+$functionname = $row[functionname]; // Used to calculate the check_price based on quoting mode
+$quotemodeid = $row[quotemodeid];
+
+//Replace MarginDay from eacct 20070513
+	$broker = new broker;
+	$query_branchid = "select branchid from client_group,client_aecode,client_accounts 
+				where 
+				client_group.groupid = client_aecode.groupid 
+				and client_aecode.aecodeid = client_accounts.aecodeid 
+				and accountname='$_account'";	
+	$query_broker_temp=$broker->query_first($query_branchid);				
+	$account_branchid = $query_broker_temp[branchid];	
+	$counter_temp = $broker->counter_setting_view($account_branchid);
+	for($z_count=0;$counter_temp[$z_count];$z_count++)
+	{			
+		if($counter_temp[$z_count][counter]==$_counterid){
+			$marginday_counter[$counter_temp[$z_count][counter]]  = $counter_temp[$z_count][marginday];			
+	            	$hedgeratio[$counter_temp[$z_count][counter]] = $counter_temp[$z_count][hedge];            		  
+			$counter_commissions = $counter_temp[$z_count][commission];	
+			$pending_float_comission_required = $counter_temp[$z_count][close_comm]/100;	
+			//return "<font color='red'><b>test-188</b></font><br>$pending_float_comission_required"; 	
+			if($counter_commissions!='floating'){
+				$pending_float_comission_required = 0;
+			}
+		}		
+	}	
+//End Replace MarginDay from eacct 20070513
+
+
+
+
+
+/*****************************************************************************
+* INITIAL CHECKING                                                           *
+*****************************************************************************/
+//### User MUST BE the AeCode in charge of the account
+if ($user->username != $account)
+{
+	checkAccountPermission($account);  
+} 
+//### Check that required fields are present/filled in correctly 
+//1) All fields cannot be empty
+//2) Price must be unsigned integer or float
+//3) Quantity must be unsigned integer
+
+//1)by pass price_to for all, buy and sell anyprice
+while (list($key, $val) = each($_POST))
+{
+if (ucfirst($key)!="Price_to" && $action_type=='buy_mo' && $action_type=='sell_mo'){
+  	$result_log_file = set_log_file($user->userid,'Trader','Value-202',"empty",ucfirst($key));
+  	if ($language->languageid=="1" ){
+  		if (empty($val))  { $error[] = "The value of <b>".ucfirst($key)."</b> cannot be empty";  }
+  	}
+  	if ($language->languageid=="2" ){
+  		if (empty($val))  { $error[] = ucfirst($key)."&#x7684;&#x4EF7;&#x503C;&#x4E0D;&#x80FD;&#x7559;&#x7A7A;";  }
+  	}
+}	
+}
+
+//2)by pass price_to for all, buy and sell anyprice
+if (ucfirst($key)!="Price_to" && $action_type=='buy_mo' && $action_type=='sell_mo'){ 
+if (!preg_match("/^\d+\.{0,1}\d*$/",$price)) { 
+	$error[] = "1.You have entered an invalid <b>Price</b> type."; 
+	$result_log_file = set_log_file($user->userid,'Trader','Value-215',"invalid-price",$price); 
+	}
+}else{
+if (!preg_match("/^\d+\.{0,1}\d*$/",$price)) { 
+	$error[] = "2.You have entered an invalid <b>Price</b> type."; 
+	$result_log_file = set_log_file($user->userid,'Trader','Value-215',"invalid-price",$price); 
+	} 	
+}
+
+//3)
+if (!preg_match("/^\d+$/",$quantity)) { 
+	$error[] = "You have entered an invalid <b>Quantity</b> type."; 
+	$result_log_file = set_log_file($user->userid,'Trader','Value-228',"invalid-qty",$quantity); 
+}
+
+if ($quantity==0)  { 
+	$error[] = "You have entered an invalid <b>Quantity</b> type."; 
+	$result_log_file = set_log_file($user->userid,'Trader','Value-233',"invalid-qty",$quantity);  
+	}
+if ($action=='')  {
+	$error[] = "Action cannot be blank ".$action;
+	$result_log_file = set_log_file($user->userid,'Trader','Value-237',"invalid-action",$action);
+}
+if (count($error)>0)
+{
+return "<font color='red'><b>Empty Fields</b></font><br>".implode("<br>",$error);
+exit;
+}
+
+
+
+/*****************************************************************************
+* Fetch Current price/datetime/timestamp/high/low FROM realtime database for checking/comparison*
+*****************************************************************************/
+include("includes/globals_realtime.php");
+
+//Price Feed Stop more than 30 Seconds
+$query = "SELECT UNIX_TIMESTAMP() - UNIX_TIMESTAMP(MAX(time)) AS lastupdated1 FROM `quote` WHERE symbol = '$symbol' "; 
+$result = mysql_query($query) OR DIE (mysql_error() . " $query");
+$row = mysql_fetch_array($result);
+$time_price_feed = $row[lastupdated1]; 
+
+if ($query_directdone=="yes"){
+	if ($time_price_feed>=30 && $symbol!='XAU'){
+		//global $DB;
+		//if ($DB->close()){
+		//tradeLog("hapus");
+		//}
+		$time_price_feed_desc = "PriceFeed Error" . ";" . $price . ";" . $quantity . ";" . $action_type;
+		$result_log_file = set_log_file($user->userid,'Trader','PriceFeedError-273',$time_price_feed,$time_price_feed_desc); 
+		//return "<font color='red'><b>Price Not Update-273</b></font><br>Price Not Update<br>Ref.285 Please try again after price blink/ Ask Dealing for DQ.";
+		$dealing_quote="pricefeed";
+		$query_directdone="no";
+	} 
+	
+	if ($time_price_feed>=90 && $symbol=='XAU'){
+		//global $DB;
+		//if ($DB->close()){
+		//tradeLog("hapus");
+		//}
+		$time_price_feed_desc = "PriceFeed Error" . ";" . $price . ";" . $quantity . ";" . $action_type;
+		$result_log_file = set_log_file($user->userid,'Trader','PriceFeedError-285',$time_price_feed,$time_price_feed_desc); 
+		//return "<font color='red'><b>Price Not Update-286</b></font><br>Gold Price Not Update<br>Ref.293 Please try again after price blink/ Ask Dealing for DQ.";
+		$dealing_quote="pricefeed";
+		$query_directdone="no";
+	} 
+}
+
+/*****************************************************************************
+* Fetch Current price/datetime/timestamp/high/low FROM realtime database for checking/comparison*
+*****************************************************************************/
+include("includes/globals_realtime.php");
+$query = "SELECT ROUND(last,$decimal) AS check_price,
+time AS check_datetime,
+high, low 
+FROM `quote`
+WHERE symbol = '$symbol'";
+
+$result = mysql_query($query) OR DIE (mysql_error() . " $query");
+$row = mysql_fetch_array($result);
+$check_price = $row[check_price]; // Last
+$check_datetime = $row[check_datetime];
+//tradelog("check_datetime=".$check_datetime);
+$day_high = $row[high];
+$day_low = $row[low];
+
+//##################TAMBAHAN BY INDRA OTOMATIS LIMIT ATO ORDER TANGGAL 09 DECEMBER 2005 ########################3
+
+if($check_price!="")
+{
+if ($quotemodeid==1)
+{
+$_sell = $check_price;
+$_buy =  $check_price  + $spread;
+}
+if ($quotemodeid==2)
+{
+$_sell = $check_price - $spread/2;
+$_buy =  $check_price + $spread/2;
+} 
+if ($quotemodeid==3)
+{
+$_sell = $check_price- $spread;
+$_buy  = $check_price;
+} 
+
+}
+if($action=="buy")
+{
+if($price < $_buy ) $mode_order="LIMIT";else $mode_order="STOP";
+
+}
+if($action=="sell")
+{
+if($price > $_sell) $mode_order="LIMIT";else $mode_order="STOP";
+
+}
+
+//echo $_sell;
+//echo "<br>".$_buy;
+// die;
+//##############################################################
+
+
+//### Check that realtime database was last updated within 10 seconds
+if ($isorder!=1)
+{
+$query = "SELECT UNIX_TIMESTAMP() - UNIX_TIMESTAMP(MAX(time)) AS lastupdated FROM quote HAVING lastupdated <= 5";
+$result = mysql_query($query);
+if (mysql_num_rows($result)==0)
+{
+//comment, ko datanya Blingking tapi disetop ?
+// return "<font color='red'><b>PriceFeed Error</b></font><br>Please call dealing center<br>or try again later." ;
+}
+}
+
+
+/*****************************************************************************
+* Price checks for Immediate Positions (not orders)
+*****************************************************************************/
+//1) Check that price must not be greater or lesser than high/low of the day [Added: 7th May 2004]
+// - IF sell, submitted price must not be lesser or equal than day low & not be greater or equal than day high
+// - IF buy, submitted price must not be lesser or equal than day low & not be greater or equal than day high
+
+//2) Check that difference between price and realtime price is within range 1 spread range  [7th May 2004]
+// - This means that the submitted price should be within actual price +/- spread
+// UNIQUE: Do not check for close pair trades
+
+$check_price = $functionname($check_price, $spread, $decimal,$topping); // $check_price[buy] & $check_price[sell];
+
+if (empty($isorder))
+{
+//1)
+if ($checkhighlow==1)
+{
+switch ($action)
+{
+case "buy":
+if ($price >= $day_high || ($price-$spread) <= $day_low)
+{
+    $campuran = "price=".$price.";day-high=". $day_high.";$spread=".$spread.":day_low=".$day_low;
+    $result_log_file = set_log_file($user->userid,'Trader','PriceBuy-384',"rangehilo-wrong",$campuran); 
+return "<font color='#33FF33'><b>Price Buy outside High Low range doesn't allow</b></font>" ;
+}
+break;
+
+case "sell":
+if (($price+$spread) >= $day_high || $price <= $day_low)
+{
+    $campuran = "price=".$price.";day-high=". $day_high.";$spread=".$spread.":day_low=".$day_low;
+    $result_log_file = set_log_file($user->userid,'Trader','PriceSell-394',"rangehilo-wrong",$campuran); 
+return "<font color='#33FF33'><b>Price Sell outside High Low range doesn't allow</b></font>" ;
+}
+break;
+}
+}
+  //2)   
+  if (!$closetrade)
+  {
+	//tradelog("trader-412-action=".$action);
+	//tradelog("trader-413-price=".$price);
+	//tradelog($check_price[$action]+($spread*$multiplier));
+	//tradelog($check_price[$action]-($spread*$multiplier)); 
+	if ($query_directdone=="yes"){
+		if ($price > ($check_price[$action]+($spread*$multiplier))  )
+		{	
+			if ($action == 'sell'){
+				//global $DB;
+				//if ($DB->close()){
+					//tradeLog("hapus");
+				//}
+				$ceilingUp = $check_price[$action]+($spread*$multiplier);
+				$ceilingDown = $check_price[$action]-($spread*$multiplier);
+				$desc_ceiling = $ceilingUp . ";" . $ceilingDown . ";" . $quantity . ";" . $action_type;
+				$result_log_file = set_log_file($user->userid,'Trader','Price Limit Ceiling-418',$price,$desc_ceiling); 
+				//return "<font color='#33FF33'><b>Price Limit Ceiling has changed</b></font>"; 
+				$dealing_quote="limit_ceiling";
+				$query_directdone="no";
+			}	
+		}	
+		if ( $price < ($check_price[$action]-($spread*$multiplier)) )
+		{	
+			if ($action == 'buy'){
+				//global $DB;
+				//if ($DB->close()){
+					//tradeLog("hapus");
+				//}
+				$ceilingUp = $check_price[$action]+($spread*$multiplier);
+				$ceilingDown = $check_price[$action]-($spread*$multiplier);
+				$desc_ceiling = $ceilingUp . ";" . $ceilingDown . ";" . $quantity . ";" . $action_type;
+				$result_log_file = set_log_file($user->userid,'Trader','Price Limit Ceiling-434',$price,$desc_ceiling); 
+				//return"<font color='#33FF33'><b>Price Limit Ceiling has changed</b></font>"; 
+				$dealing_quote="limit_ceiling";
+				$query_directdone="no";
+			}	
+		}
+	}	
+  }
+}
+
+/*****************************************************************************
+* Price checks for Orders
+*****************************************************************************/ 
+
+$isorderpass="notpass";
+if ($isorderpass=="notpass")
+{ 
+	if (!empty($isorder))
+	{ 	
+		if ($action_type!='oco_buy' && $action_type!='oco_sell')
+		{
+			if ($price < ($check_price[$action]+($spread*$limitmultiplier)) && $price > ($check_price[$action]-($spread*$limitmultiplier)))
+			{
+				$campuran=  "price=".$price.";checkprice=".$check_price[$action].";spread=".$spread.";limitmultiplier=".$limitmultiplier;
+                		$result_log_file = set_log_file($user->userid,'Trader','Orderwrong-457',"to_close",$campuran);
+				return "<font color='red'><b>Ref(390) Order price is too close to current price</b></font><br>Your price is too close to the current price. Please try again."; 
+			}		
+			if ($limitceiling != 0)
+			{
+				//tradelog("checkPrice=".$check_price[$action].";and spread=".$spread.";and limitceiling=".$limitceiling);
+				if ($price < ($check_price[$action]-($spread*$limitceiling)) OR $price > ($check_price[$action]+($spread*$limitceiling)))
+				{
+					$campuran=  "price=".$price.";checkprice=".$check_price[$action].";spread=".$spread.";limitmultiplier=".$limitmultiplier;
+                    			$result_log_file = set_log_file($user->userid,'Trader','Orderwrong-467',"to_far",$campuran);
+					return "<font color='red'><b>Ref(397) Order price exceeds allowed range</b></font><br>Your price is too far from the current price. Please try again."; 
+				}
+			} // end $limitceiling != 0
+		}
+
+
+		
+		//tambahan untuk OCO 200060804 
+		if ($action_type=='oco_buy')
+		{
+			//1.Limit Buy from price		
+			//$checkatas = $check_price[$action]+($spread*$limitmultiplier);
+			$checkbawah = $check_price[$action]-($spread*$limitmultiplier);
+
+			if ($price > $checkbawah)
+			{
+				$campuran=  "price=".$price.";check_price=".$check_price[$action].";spread=".$spread.";limitmultiplier=".$limitmultiplier;
+                		$result_log_file = set_log_file($user->userid,'Trader','OCOwrong-485',"too_high",$campuran);
+				return "<font color='red'><b>Ref(411)Order price Limit Buy $price is too High</b></font><br>Your price must lower than $checkbawah. Please try again."; 
+			}		
+			if ($limitceiling != 0)
+			{
+				//$check_superatas = $check_price[$action]+($spread*$limitceiling);
+				$check_superbawah = $check_price[$action]-($spread*$limitceiling);
+				if ($price < $check_superbawah)
+				{
+					$campuran=  "price=".$price.";check_price=".$check_price[$action].";spread=".$spread.";limitceiling=".$limitceiling;
+					$result_log_file = set_log_file($user->userid,'Trader','OCOwrong-495',"too_Low",$campuran);
+					return "<font color='red'><b>Ref(434) Order price Limit Buy $price is too Low</b></font><br>Your price must higher than $check_superbawah. Please try again."; 
+				}
+			}
+			//1.End Limit Buy from price	
+			//2.Stop Buy from price		
+			$checkatas = $check_price[$action]+($spread*$limitmultiplier);
+			//$checkbawah = $check_price[$action]-($spread*$limitmultiplier);
+			
+			if ($price_to < $checkatas)
+			{
+				$campuran=  "price=".$price.";check_price=".$check_price[$action].";spread=".$spread.";limitmultiplier=".$limitmultiplier;
+                		$result_log_file = set_log_file($user->userid,'Trader','OCOwrong-507',"too_Low",$campuran);
+				return "<font color='red'><b>Ref(429)Order price Stop Buy $price_to is too Low</b></font><br>Your price must higher than $checkatas. Please try again."; 
+			}		
+			if ($limitceiling != 0)
+			{
+				$check_superatas = $check_price[$action]+($spread*$limitceiling);
+				//$check_superbawah = $check_price[$action]-($spread*$limitceiling);
+				if ($price_to > $check_superatas)
+				{
+					$campuran=  "price=".$price.";check_price=".$check_price[$action].";spread=".$spread.";limitceiling=".$limitceiling;
+					$result_log_file = set_log_file($user->userid,'Trader','OCOwrong-517',"too_Low",$campuran);
+					return "<font color='red'><b>Ref(437) Order price Stop Buy $price_to is too High</b></font><br>Your price must lower than $check_superatas. Please try again."; 
+				}
+			}
+			//2.End Stop Buy from price
+		}
+		if ($action_type=='oco_sell')
+		{					
+			//3.Limit Sell from price		
+			$checkatas = $check_price[$action]+($spread*$limitmultiplier);
+			//$checkbawah = $check_price[$action]-($spread*$limitmultiplier);
+			
+			if ($price < $checkatas)
+			{
+				$campuran=  "price=".$price.";check_price=".$check_price[$action].";spread=".$spread.";limitmultiplier=".$limitmultiplier;
+				$result_log_file = set_log_file($user->userid,'Trader','OCOwrong-532',"too_Low",$campuran);
+				return "<font color='red'><b>Ref(447)Order price Limit Sell $price is too Low</b></font><br>Your price must be higher than $checkatas. Please try again."; 
+			}		
+			if ($limitceiling != 0)
+			{
+				$check_superatas = $check_price[$action]+($spread*$limitceiling);
+				//$check_superbawah = $check_price[$action]-($spread*$limitceiling);
+				if ($price > $check_superatas)
+				{
+					$campuran=  "price=".$price.";check_price=".$check_price[$action].";spread=".$spread.";limitceiling=".$limitceiling;
+					$result_log_file = set_log_file($user->userid,'Trader','OCOwrong-542',"too_high",$campuran);
+					return "<font color='red'><b>Ref(458) Order price Limit Sell $price is too High</b></font><br>Your price must be lower than $check_superatas. Please try again."; 
+				}
+			}
+			//3.End Limit Sell from price				
+			//4.Stop Sell from price		
+			//$checkatas = $check_price[$action]+($spread*$limitmultiplier);
+			$checkbawah = $check_price[$action]-($spread*$limitmultiplier);
+
+			if ($price_to > $checkbawah)
+			{
+				$campuran=  "price=".$price.";check_price=".$check_price[$action].";spread=".$spread.";limitmultiplier=".$limitmultiplier;
+				$result_log_file = set_log_file($user->userid,'Trader','OCOwrong-554',"too_high",$campuran);
+				return "<font color='red'><b>Ref(468)Order price Stop Sell $price_to is too High</b></font><br>Your price must be lower than $checkbawah. Please try again."; 
+			}		
+			if ($limitceiling != 0)
+			{
+				//$check_superatas = $check_price[$action]+($spread*$limitceiling);
+				$check_superbawah = $check_price[$action]-($spread*$limitceiling);
+				if ($price_to < $check_superbawah)
+				{
+					$campuran=  "price=".$price.";check_price=".$check_price[$action].";spread=".$spread.";limitceiling=".$limitceiling;
+					$result_log_file = set_log_file($user->userid,'Trader','OCOwrong-564',"too_low",$campuran);
+					return "<font color='red'><b>Ref(476) Order price Stop Buy $price_to is too Low</b></font><br>Your price must be higher than $check_superbawah. Please try again."; 
+				}
+			}
+			//4.End Stop Sell from price				 
+		}
+	//End tambahan untuk OCO 200060804 		
+	}
+}	
+
+
+mysql_close($realtime_connection);
+include("includes/globals.php");  
+
+
+
+//Cek current pending cannot double
+$cek_current_pending == 0;
+//1.Cek same type
+$query = "  select trade.* from trade 
+where trade.statusid='2' 
+and trade.account='$account' 				
+and trade.counterid = '$counterid' 
+and trade.typeorder = '$action_type' 
+and trade.liquidate_price = '$liquidate_price'";
+//tradelog("trader-cek_current_pending=".$query);	
+$result = $DB->query($query);	
+while ($row = $DB->fetch_array($result))
+{
+$cek_current_pending = 1;
+}	
+if ($cek_current_pending==1){
+//return "<font color='red'><b>Ref 645 Double Type </b></font><br>You cannot create another pending order with the same type."; 
+//exit;
+}
+//1. End Cek same type	
+
+//End Cek current pending cannot double
+
+// TEMPORARY MODIFICATION: REFUSE ALL TRADES ATTEMPTING TO GO BELOW 22% OF AVAILABLE EQUITY
+// 1) Get all prices
+// 2) Caculate Total Floating Price
+// 3) Check Equity Ratio
+
+// 1)
+$prices = fetchPrices();
+
+// 2)
+$query_cross = "SELECT * FROM dafile WHERE AccNo = '$account' ORDER BY ItemCode ASC";
+$result_cross = $DB_odbc->query($query_cross);
+
+$TotalFloating = 0;
+
+while ($row = $DB_odbc->fetch_array($result_cross))
+{
+$row[ItemCode] = trim($row[ItemCode]);
+$row[FLCOMM] = - $row[FLCOMM]; 
+if (trim($row[LiqStatus])=="")
+{
+if (trim($row[BuyDate]) != "")
+{
+$row[CurrentPrice] = number_format($prices[$row[ItemCode]][sell],$row[Format],".","");    
+$row[Floating] = ($row[CurrentPrice] - $row[BuyPrice]) * $row[Unit] * $row[LotSize];    
+if (preg_match("/^USD\/.+/",$row[ItemCode])) { $row[Floating] = $row[Floating] / $row[CurrentPrice];  }
+//tradelog("trader-660");
+if (substr($row[ItemCode],0,7)=="USDJPY2" || substr($row[ItemCode],0,7)=="USDCHF2" || substr($row[ItemCode],0,2)=="UJ")
+					{
+						$row[Floating] = $row[Floating] / $row[CurrentPrice];
+					}
+if (substr($row[ItemCode],0,7)=="EUR/GBP")
+{
+//tradelog("tempstatement Sell New-".$row[ItemCode]);
+global $DB_quote;
+$query = "SELECT quote.last FROM $DB_quote->db.quote WHERE quote.symbol = 'GBP A0-FX'";
+$result = $DB_quote->query($query);
+$row_quote = mysql_fetch_array($result);
+$lastclosing = $row_quote[last];
+unset($row_quote);    
+//tradelog("tempstatement Sell New-".$row[ItemCode].";".$lastclosing); 
+include("includes/globals.php");
+$row[Floating] = $row[Floating] * $lastclosing;	
+//tradelog("Temp Statement2=".$row[Floating]);
+} 	
+if (substr($row[ItemCode],0,7)=="EUR/CHF")
+{
+//tradelog("tempstatement Sell New-".$row[ItemCode]);
+global $DB_quote;
+$query = "SELECT quote.last FROM $DB_quote->db.quote WHERE quote.symbol = 'CHF A0-FX'";
+$result = $DB_quote->query($query);
+$row_quote = mysql_fetch_array($result);
+$lastclosing = $row_quote[last];
+unset($row_quote);    
+//tradelog("tempstatement Sell New-".$row[ItemCode].";".$lastclosing); 
+include("includes/globals.php");
+$row[Floating] = $row[Floating] / $lastclosing;	
+//tradelog("Temp Statement2=".$row[Floating]);
+}   
+if (substr($row[ItemCode],0,7)=="EUR/JPY" || substr($row[ItemCode],0,7)=="EURJPY2")
+{
+//tradelog("tempstatement Sell New-".$row[ItemCode]);
+global $DB_quote;
+$query = "SELECT quote.last FROM $DB_quote->db.quote WHERE quote.symbol = 'JPY A0-FX'";
+$result = $DB_quote->query($query);
+$row_quote = mysql_fetch_array($result);
+$lastclosing = $row_quote[last];
+unset($row_quote);    
+//tradelog("tempstatement Sell New-".$row[ItemCode].";".$lastclosing); 
+include("includes/globals.php");
+$row[Floating] = $row[Floating] / $lastclosing;	
+//tradelog("Temp Statement2=".$row[Floating]);
+}        
+if (substr($row[ItemCode],0,7)=="GBP/JPY")
+{
+//tradelog("tempstatement Sell New-".$row[ItemCode]);
+global $DB_quote;
+$query = "SELECT quote.last FROM $DB_quote->db.quote WHERE quote.symbol = 'JPY A0-FX'";
+$result = $DB_quote->query($query);
+$row_quote = mysql_fetch_array($result);
+$lastclosing = $row_quote[last];
+unset($row_quote);    
+//tradelog("tempstatement Sell New-".$row[ItemCode].";".$lastclosing); 
+include("includes/globals.php");
+$row[Floating] = $row[Floating] / $lastclosing;	
+//tradelog("Temp Statement2=".$row[Floating]);
+}   
+
+$TotalFloating += $row[Floating] + $row[FLCOMM];
+
+$newlimit[$row[ItemCode]] += $row[Unit]; // absolute hedging quantity of open positions for a counter.     
+}
+else
+{
+$row[CurrentPrice] = number_format($prices[$row[ItemCode]][buy],$row[Format],".","");
+$row[Floating] = ($row[SellPrice] - $row[CurrentPrice]) * $row[Unit] * $row[LotSize];
+if (preg_match("/^USD\/.+/",$row[ItemCode])) { $row[Floating] = $row[Floating] / $row[CurrentPrice];  }
+if (substr($row[ItemCode],0,7)=="USDJPY2" || substr($row[ItemCode],0,7)=="USDCHF2" || substr($row[ItemCode],0,2)=="UJ" )
+					{
+						$row[Floating] = $row[Floating] / $row[CurrentPrice];
+					}
+if (substr($row[ItemCode],0,7)=="EUR/GBP")
+{
+//tradelog("tempstatement Sell New-".$row[ItemCode]);
+global $DB_quote;
+$query = "SELECT quote.last FROM $DB_quote->db.quote WHERE quote.symbol = 'GBP A0-FX'";
+$result = $DB_quote->query($query);
+$row_quote = mysql_fetch_array($result);
+$lastclosing = $row_quote[last];
+unset($row_quote);    
+//tradelog("tempstatement Sell New-".$row[ItemCode].";".$lastclosing); 
+include("includes/globals.php");
+$row[Floating] = $row[Floating] * $lastclosing;	
+//tradelog("Temp Statement2=".$row[Floating]);
+}  
+if (substr($row[ItemCode],0,7)=="EUR/CHF")
+{
+//tradelog("tempstatement Sell New-".$row[ItemCode]);
+global $DB_quote;
+$query = "SELECT quote.last FROM $DB_quote->db.quote WHERE quote.symbol = 'CHF A0-FX'";
+$result = $DB_quote->query($query);
+$row_quote = mysql_fetch_array($result);
+$lastclosing = $row_quote[last];
+unset($row_quote);    
+//tradelog("tempstatement Sell New-".$row[ItemCode].";".$lastclosing); 
+include("includes/globals.php");
+$row[Floating] = $row[Floating] / $lastclosing;	
+//tradelog("Temp Statement2=".$row[Floating]);
+} 
+if (substr($row[ItemCode],0,7)=="EUR/JPY" || substr($row[ItemCode],0,7)=="EURJPY2")
+{
+//tradelog("tempstatement Sell New-".$row[ItemCode]);
+global $DB_quote;
+$query = "SELECT quote.last FROM $DB_quote->db.quote WHERE quote.symbol = 'JPY A0-FX'";
+$result = $DB_quote->query($query);
+$row_quote = mysql_fetch_array($result);
+$lastclosing = $row_quote[last];
+unset($row_quote);    
+//tradelog("tempstatement Sell New-".$row[ItemCode].";".$lastclosing); 
+include("includes/globals.php");
+$row[Floating] = $row[Floating] / $lastclosing;	
+//tradelog("Temp Statement2=".$row[Floating]);
+}        
+if (substr($row[ItemCode],0,7)=="GBP/JPY")
+{
+//tradelog("tempstatement Sell New-".$row[ItemCode]);
+global $DB_quote;
+$query = "SELECT quote.last FROM $DB_quote->db.quote WHERE quote.symbol = 'JPY A0-FX'";
+$result = $DB_quote->query($query);
+$row_quote = mysql_fetch_array($result);
+$lastclosing = $row_quote[last];
+unset($row_quote);    
+//tradelog("tempstatement Sell New-".$row[ItemCode].";".$lastclosing); 
+include("includes/globals.php");
+$row[Floating] = $row[Floating] / $lastclosing;	
+//tradelog("Temp Statement2=".$row[Floating]);
+}   
+
+$TotalFloating += $row[Floating] + $row[FLCOMM];
+
+$newlimit[$row[ItemCode]] -= $row[Unit]; // absolute hedging quantity of open positions for a counter.   
+}
+}
+}
+
+// $NEWLIMIT
+// If a client owns 3 EUR (BUY) and 1 EUR (SELL) position. He has an effective/absolute 
+// quantity of remaining 2 (SELL) to be considered a hedge.
+
+// $HEDGEATTEMPT : If user is attempting to hedge an existing position and has sufficient quantity.
+
+if ($newlimit[$counter]!=0)
+{
+	echo "Newlimit:<br>";
+
+	switch($action)
+	{	
+		case "buy":
+			if (($quantity + $newlimit[$counter]) <= 0) // Check that user is attempting to hedge does not exceed his available hedgable quantity
+			{
+				$hedgeattempt = 1;
+			}  
+		break;
+
+		case "sell":
+			if (($newlimit[$counter] - $quantity) >= 0) // Check that user is attempting to hedge does not exceed his available hedgable quantity
+			{
+				$hedgeattempt = 1;
+			} 
+		break;
+	}
+}
+// $NOTFULLYHEDGE : If the positions are fully hedged, bypass equity ratio check, instead check for equity
+if (count($newlimit)>0)
+{
+	while (list($key, $val) = each($newlimit))
+	{
+		if ($val != "0")
+		{
+			$notfullyhedged = 1;
+			break;
+		}
+	}
+}
+
+
+// 3)
+// Get temporary credit for this account
+// $query = "SELECT credit FROM tempcredit WHERE account = '$account'";
+// $result = mysql_query($query);
+// $row = mysql_fetch_array($result);
+// $credit = $row[credit];
+// unset($row);
+
+$query = "SELECT NewBal FROM bafile WHERE AccNo = '$account'";
+$result = $DB_odbc->query($query);
+$row = $DB_odbc->fetch_array($result);
+$row[NewBal] += $credit;
+$row[Equity] = $row[NewBal] + $TotalFloating;
+$newBalance = $row[NewBal];
+
+
+
+switch($type)
+{
+/*****************************************************************************
+* NEW                                                                        *
+*****************************************************************************/
+case "new":
+//tambahan liqonly untuk yg product expired 080610
+$query = "SELECT liqonly from counter where counterid = '$counterid'";
+$result = $DB->query($query);
+while ($row = $DB->fetch_array($result))
+{
+	$liqonly = $row[liqonly];
+}
+if($liqonly=='yes'){
+	$result_log_file = set_log_file($user->userid,'Trader','Ref(534)Product LiqOnly',$liqonly,$query);    
+	return "<font color='red'><b>Ref(535) New position doesn't allow</b></font><br>This product can only do liquid";
+}
+//end tambahan liqonly untuk yg product expired 080610
+//### User must have sufficient funds to trade
+//1) Get effective margin from bafile & Current prices
+// 1.0) Get live prices 
+// 1.1) Get all open positions
+// 1.2) Calculate $TotalFloating (TO BE DONE)
+// 1.3) Get New balance and Margin Required (TO BE DONE)
+// 1.4) Calculate Effective Margin (TO BE DONE)
+//2) ********************** "Processing positions" must not exceed the quantity (TO BE DONE)
+//2) Quantity must not be exceed margin.
+// 2.1)Processing = within margin,
+// 2.2)If less than margin required (e.g. <$1000) = reject
+// 3) If sell+order, only allow it if the queue price is higher than current price & he has no open positions
+
+//1.0)
+//$prices = fetchPrices();   
+########################################
+
+$query = "SELECT DISTINCT(symbol) AS symbol FROM counter WHERE active=1";
+$result = $DB->query($query);
+while ($row = $DB->fetch_array($result))
+{
+$symbols[] = $row[symbol];
+//tradelog("symbol=".$row[symbol]);
+}
+
+
+//global $DB_quote;
+//if ($DB_quote->close()){
+//tradeLog("hapus");
+//}
+
+// GET ALL PRICES FROM QUOTE
+$query = "SELECT symbol, last FROM `quote` WHERE symbol IN ('".implode("','",$symbols)."')";
+$result = $DB_quote->query($query);
+while ($row = $DB_quote->fetch_array($result))
+{
+$quote[$row[symbol]] = $row[last];
+//tradelog("Row=".$row[last]);
+} 
+
+
+//if (!$DB->close()){
+//tradeLog("hapus DB2");
+//$DB->connect();
+//} 
+$query = "SELECT name, symbol, spread FROM counter WHERE active = 1"; 
+// Assign buy/sell prices to counters
+$result = $DB->query($query);
+//tradelog("query=".$query);
+while ($row = $DB->fetch_array($result))
+{
+//tradelog("xyz".$quote[$row[symbol]]);
+$prices[$row[name]][sell] = $quote[$row[symbol]];
+$prices[$row[name]][buy] = $quote[$row[symbol]] + $row[spread];
+}
+
+
+
+
+#########################################
+
+$query = "SELECT Equity, MarginReq,PrevBal,NewBal FROM bafile WHERE AccNo = '$account'";
+
+$result = $DB_odbc->query($query);
+$row = $DB_odbc->fetch_array($result);
+$PrevBal=$row[PrevBal];	
+$NewBal=$row[NewBal];
+
+$row[Equity] += $credit;
+$new_equity = $row[Equity];
+$effective_margin = $newBalance+$TotalFloating-$row[MarginReq];
+
+//$margin_required = $marginday;
+$margin_required  = intval($marginday_counter[$counterid]);
+//2.1)
+//tradelog("effective_margin=".$effective_margin. " and margin_required=".$margin_required." and quantity=".$quantity." PrevBal=".$PrevBal.";NewBal=".$NewBal);
+$log_campuran = "eff=".$effective_margin.":margin_required=".$margin_required.":qty=".$quantity.":PrevBal=".$PrevBal;
+$result_log_file = set_log_file($user->userid,'Trader','effective-916',"effective",$log_campuran);
+  
+	//071018 untuk jltm	
+	$query = "SELECT * FROM dafile WHERE AccNo = '$account' and LiqStatus=''";
+	$result = $DB->query($query);
+	$bypass = "notbypass";
+	while ($row = $DB->fetch_array($result))
+	{
+		$bypass ="passmargin";
+	}	
+	if($bypass=="notbypass"){
+		$min_margin = $margin_required * 2; //minimal bisa untuk 2 lot
+		if ($type=='new' && $effective_margin < $min_margin && $quantity == '1'){					
+			$query = "SELECT countertype from user where username = '$account' ";	
+			$result = $DB->query($query);	
+			while ($row = $DB->fetch_array($result))
+			{   
+				$ctrtype=explode(",",$row['countertype']);
+			}
+			$other_minimal_margin = $margin_required;
+			//tradelog("validationtge-margin_required-587-".$margin_required);
+			$all_counter = array();		
+			for ($i_ctrtype=0; $i_ctrtype<count($ctrtype); $i_ctrtype++)
+			{
+				
+				$query = "select counterid from counter,marketindex 
+					where marketindex.exchangecode = '$ctrtype[$i_ctrtype]' 
+					and counter.indexid = marketindex.indexid ";
+				//tradelog("validationtge-query-595-".$query);			
+				$result = $DB->query($query);
+				while ($row = $DB->fetch_array($result))
+				{ 	
+					$all_counter[]= $row[counterid];
+				}
+			}
+			for ($i_all_counter=0; $i_all_counter<count($all_counter); $i_all_counter++)
+			{
+				$the_counterid = $all_counter[$i_all_counter];			
+				$query = "select counter_com.marginday from counter_com where counter like ('".$the_counterid."%') order by rolldate desc limit 0,1; ";	
+				$result = $DB->query($query);
+				while ($row = $DB->fetch_array($result))
+				{   
+					//tradelog("validationtge-marginday-608=".$the_counterid."=".$row[marginday]);	
+					if($row[marginday]<$other_minimal_margin){
+						$other_minimal_margin = $row[marginday];
+					}	
+				}							
+			}
+			if($effective_margin < ($other_minimal_margin*2)){
+			   	$result_log_file = set_log_file($user->userid,'Trader','Ref(930)Insufficient Funds',$price,$query_log);    
+			    	showError("<font color='red'><b>Ref(930)Insufficient Funds</b></font><br>You do not have sufficient funds for margin more than 2 lot.");    				
+			}
+			//tradelog("validationtge-minimal_margin-602-".$minimal_margin);		   	
+		}
+		if ($type=='new' && $quantity < $minqty){ 
+		   	$result_log_file = set_log_file($user->userid,'Trader','Ref(934) Minimum Qty',$quantity,$minqty);    
+		    	showError("<font color='red'><b>Ref(934) Minimum Qty</b></font><br>$quantity lot does not allow, minimum is $minqty lot");    	    		
+		}
+    	}   	
+
+    	//tambahan 071110
+    	$query = "SELECT client_accounts.daycall from client_accounts  where accountname = '$account';";
+	$result = $DB->query($query);
+	while ($row = $DB->fetch_array($result))
+	{
+	    $marginratio_rationnya = $row[daycall]/100;
+	}
+	
+	$query = "SELECT counter.name, marketindex.hedgeratio, marketindex.marginratio FROM counter LEFT JOIN marketindex USING (indexid)";
+	//tradelog("validationtrade-949-".$query);
+	$result = $DB->query($query);
+	while ($row = $DB->fetch_array($result))
+	{
+		//$ratios[$row[name]][hedgeratio] = intval($hedgeratio[$row[name]] * $marginratio_rationnya);
+		$ratios[$row[name]][hedgeratio] = intval($hedgeratio[$row[name]] );
+		//$ratios[$row[name]][marginratio] = intval($marginday_counter[$row[name]] * $marginratio_rationnya); 
+		$ratios[$row[name]][marginratio] = intval($marginday_counter[$row[name]]); 
+	}
+	
+	$query = "SELECT * FROM dafile WHERE AccNo = '$account' AND LiqStatus = ''";
+	$result = $DB_odbc->query($query);
+	while ($row = $DB_odbc->fetch_array($result))
+	{
+		$tempname = trim($row[ItemCode]);
+		$tempquantity = round($row[Unit]);
+		if (!empty($row[BuyOrder]))
+		{
+			$trades[$tempname][buy] += $tempquantity;
+		}
+		else
+		{
+			$trades[$tempname][sell] += $tempquantity;
+		}
+	}
+	if ($action=="buy") { $hedge_action = "buy"; } else { $hedge_action = "sell"; }
+	$trades[$counter][$hedge_action] += $quantity; 
+	if ($trades[$counter][$action] > 0) // Has opposing trades
+	{
+		$query = "SELECT Equity, MarginReq FROM bafile WHERE AccNo = '$account'";
+		$result = $DB_odbc->query($query);
+		$row = $DB_odbc->fetch_array($result);
+		$row[Equity] += $credit;
+		$effective_margin = $newBalance+$TotalFloating-$row[MarginReq];
+		$equity = $row[Equity];
+		$margin_required  = $ratios[$counterid][marginratio];
+		if (count($trades) > 0)
+		{
+			$required_margin = 0;
+			foreach ($trades AS $name => $trade)
+			{
+				$campuran = $campuran . ";" . "name=" . $name;
+				$campuran = $campuran . ";" . "required_margin=" . $required_margin;
+				$hedgevalue = $ratios[$name][hedgeratio];
+				$campuran = $campuran . ";" . "hedgevalue=" . $hedgevalue;
+				$marginvalue = $ratios[$name][marginratio];
+				$campuran = $campuran . ";" . "marginvalue-1473=" . $marginvalue;
+
+				$hedge_quantity = 0;
+				$open_quantity = 0;
+				if ($trade[buy]>$trade[sell]) // More Bought Positions
+				{
+					$hedge_quantity = $trade[sell];
+					$open_quantity = $trade[buy] - $trade[sell];
+				}
+				elseif ($trade[sell]>$trade[buy]) // More Sell Positions
+				{
+					$hedge_quantity = $trade[buy];
+					$open_quantity = $trade[sell] - $trade[buy];
+				}
+				else
+				{
+					$hedge_quantity = $trade[buy];
+				}
+				$required_margin += ($hedge_quantity * $hedgevalue) + ($open_quantity * $marginvalue);
+
+				if($hedgeattempt=='1' && $new_equity<$required_margin){
+					$querylog = "$name: required margin: $required_margin" . " ( ($hedge_quantity * $hedgevalue) + ($open_quantity * $marginvalue))";
+    				   	$result_log_file = set_log_file($user->userid,'Trader','Ref(1007) Call Margin','',$querylog);    
+		    			showError("<font color='red'><b>Ref(1007) Call Margin</b></font><br>Equity $new_equity must greater than Margin Req. $required_margin");    	    					
+    				}    				
+			}
+		}
+	}	  
+	//end tambahan 071110
+	//end 071018 untuk jltm 
+
+//effective_margin=34829.86 and margin_required=100 and quantity=1 PrevBal=61443.13  
+//if (($effective_margin >= ($margin_required * $quantity)) && (($margin_required * $quantity)<=$NewBal)) //ini belum solve kalo newbal minus
+
+$tot_floating_pending_margin_required =  $pending_float_comission_required * $quantity;
+$tot_margin_required = $margin_required * $quantity + $tot_floating_pending_margin_required;	
+$result_log_file = set_log_file($user->userid,'Trader','effective-1038',"tot_margin_required",$tot_margin_required);
+if ($effective_margin >= $tot_margin_required )
+{
+//tradelog("duration=".$duration);
+if (empty($duration)) // Immediate trade
+{
+if ($query_directdone=="yes"){
+$ta_message[message] = "<font color='red'><b>Order Processing1</b></font><br>Your order for account ($account),<br>$action ($quantity) of $counter ($price)<br>has been submitted.<br>";
+$ta_message[refreshOpenPositions] = 0;
+$ta_message[refreshTradeHistory] = 1;
+$ta_message[code] = "";
+$statusid = 3; // Processing
+}else{
+if ($language->languageid=="1" ){			
+$ta_message[message] = "<font color='red'><b>Ref(1288) Please wait 1</b></font><br>Please allow a few moments for price checking<br><marquee id='scroller' style='background:#BDBABD; width:200; height:5; border: inset 3px #3385B3' direction='right' scrollamount='5'><div style='width:100%; background:blue'></div></marquee>";
+}
+if ($language->languageid=="2" ){
+$ta_message[message] = "<font color='red'><b>Ref(1288) Please wait 1</b></font><br>&#31995;&#32479;&#27491;&#21521;&#24066;&#22330;&#25253;&#20215;<br><marquee id='scroller' style='background:#BDBABD; width:200; height:5; border: inset 3px #3385B3' direction='right' scrollamount='5'><div style='width:100%; background:blue'></div></marquee>";
+}	 
+$ta_message[refreshOpenPositions] = 0;
+$ta_message[refreshTradeHistory] = 1;
+$ta_message[code] = "";
+$statusid = 8; // Waiting Dealing to Answer      
+}	   
+}
+else // Queue Order
+{
+//tradelog("trader-02");
+if ($action_type=='oco_sell' || $action_type=='oco_buy')
+{
+$ta_message[message] = "<font color='red'><b>Ref(1100)Order Pending1</b></font><br>Your order for account ($account),<br>$action_type ($quantity) of $counter Limit($price) and Stop ($price_to)<br>has been submitted.<br><br>When the order is executed, your trade will show a 'Done' status.";
+}else{
+$ta_message[message] = "<font color='red'><b>Ref(1102)Order Pending1</b></font><br>Your order for account ($account),<br>$action ($quantity) of $counter ($price)<br>has been submitted.<br><br>When the order is executed, your trade will show a 'Done' status.";      
+}      
+$ta_message[refreshOpenPositions] = 0;
+$ta_message[refreshTradeHistory] = 1;
+$ta_message[code] = "";
+$statusid = 2; // Pending      
+}
+}
+
+//2.2
+
+elseif ($effective_margin < $tot_margin_required || ($tot_margin_required>$PrevBal)  )
+{     
+	$log_campuran = $log_campuran.":hedgeattempt=".$hedgeattempt;
+	$result_log_file = set_log_file($user->userid,'Trader','effective-911',"effective",$log_campuran);
+
+// Allow user to bypass EM check if he's attempting to hedge
+//tradelog("trader 2.2=".$margin_required.";".$quantity.";".$PrevBal);
+if ($hedgeattempt==1)
+{    
+if (empty($duration)) // Immediate trade
+{      	
+if ($query_directdone=="yes"){
+$ta_message[message] = "<font color='red'><b>Order Processing2</b></font><br>Your order for account ($account),<br>$action ($quantity) of $counter ($price)<br>has been submitted.<br>";    		
+$ta_message[refreshOpenPositions] = 0;
+$ta_message[refreshTradeHistory] = 1;
+$ta_message[code] = "";
+$statusid = 3; // Processing
+}else{
+if ($language->languageid=="1" ){
+$ta_message[message] = "<font color='red'><b>Ref(1328) Please wait 2</b></font><br>Please allow a few moments for price checking.<br><marquee id='scroller' style='background:#BDBABD; width:200; height:5; border: inset 3px #3385B3' direction='right' scrollamount='5'><div style='width:100%; background:blue'></div></marquee>";    		
+}
+if ($language->languageid=="2" ){
+$ta_message[message] = "<font color='red'><b>Ref(1328) Please wait 2</b></font><br>&#31995;&#32479;&#27491;&#21521;&#24066;&#22330;&#25253;&#20215;.<br><marquee id='scroller' style='background:#BDBABD; width:200; height:5; border: inset 3px #3385B3' direction='right' scrollamount='5'><div style='width:100%; background:blue'></div></marquee>";    		
+}	      		
+$ta_message[refreshOpenPositions] = 0;
+$ta_message[refreshTradeHistory] = 1;
+$ta_message[code] = "";
+$statusid = 8; // Waiting Dealing To Answer
+}      		
+}
+else{
+$ta_message[message] = "<font color='red'><b>Order Pending2</b></font><br>Your order for account ($account),<br>$action ($quantity) of $counter ($price)<br>has been submitted.<br><br>When the order is executed, your trade will show a 'Done' status.";      		
+$ta_message[refreshOpenPositions] = 0;
+$ta_message[refreshTradeHistory] = 1;
+$ta_message[code] = "";
+$statusid = 2; // Pending
+}    
+}  
+else{
+	$query_log = "e.m=" . $effective_margin;
+	$query_log = $query_log . ";m.req=" . $margin_required;
+	$query_log = $query_log . ";qty=" . $quantity;
+	$query_log = $query_log . ";PrevBal=" . $PrevBal;
+	$query_log = $query_log . ";action=" . $action;
+	$query_log = $query_log . ";tot_margin_required=" . $tot_margin_required;
+	$result_log_file = set_log_file($user->userid,'Trader','Ref(1123)Insufficient Funds',$price,$query_log);    
+	return "<font color='red'><b>Ref(805)Insufficient Funds</b></font><br>You do not have sufficient funds.";
+}
+
+}
+
+
+// tradelog("xxx");
+break; // End new
+
+/*****************************************************************************
+* LIQUIDATE                                                                  *
+*****************************************************************************/
+case "liquidate":
+// tradelog("xxx");
+//### Pending order units must not be greater than existing position units.
+//0) Convert liquidate_ref into "order_date" and "order_ref" type
+//1) Get total liquidation quantity (Check whether position still exists.)
+//1a) Get Close Pair Trades
+
+//2.1) Get total order units currently processing (update: done(1)/processing(3)),
+//   thus determining the remaining quantity allowed to trade
+//2.2) Get total order units currently pending (update: pending(2))
+//2.3) Get final units (done + processing + pending)
+
+//3.1) If there are 0 available quantity, then open positions may
+//     already have been liquidated completely.
+//3.2) Order units must be less than pending units
+//3.3) Order units must be less than existing (done/processing) position units
+
+//0)
+$reference = explode("_",$liquidate_ref);
+$order_date = $reference[0];
+$order_ref = $reference[1];
+$unique_ref = $order_date . "_" . $order_ref; // 20040506_48
+
+unset($reference);
+
+
+// If liquidating, check whether user's position is still available
+// Note: This is because ECU now assigns a new order reference whenever the position has changed (quantity, etc) due to
+// partial liquidation, etc.
+
+switch($action)
+{
+case "buy":
+$reftype = "SellOrder";
+$refdatetype = "SellDate";
+break;
+case "sell":
+$reftype = "BuyOrder";
+$refdatetype = "BuyDate";
+break;
+}
+
+$query = "select client_tradeorders.status from client_tradeorders 
+        where client_tradeorders.tradeid = '".$order_ref."'";
+$row = $DB->query_first($query);
+$status_open = trim($row[status]);       
+
+if ($status_open!='OPEN') 
+{
+    $result_log_file = set_log_file($user->userid,'Trader','Ref(1133)Outdated Position',$status_open,$query);
+    return "<font color=red><b>Outdated Position</b></font><br>The position you are attempting to trade does not exist; or has been liquidated already.";
+}
+
+
+//1)
+switch ($action)
+{
+case "buy":
+$query = "SELECT Unit,SellPrice AS price FROM dafile WHERE AccNo = '$account' AND SellDate='$order_date' AND SellOrder=$order_ref AND LiqStatus=''";
+// $query = "SELECT Unit,SellPrice AS price FROM dafile WHERE AccNo = '$account'";
+break;
+
+case "sell":
+$query = "SELECT Unit,BuyPrice AS price FROM dafile WHERE AccNo = '$account' AND BuyDate='$order_date' AND BuyOrder=$order_ref AND LiqStatus=''";
+//$query = "SELECT Unit,BuyPrice AS price FROM dafile WHERE AccNo = '$account'";
+break;
+}
+$result = $DB_odbc->query( $query);
+
+//echo "start".odbc_result_all($result);
+$row = $DB_odbc->fetch_array($result);
+
+$liquidate_quantity = $row[Unit];
+$liquidate_price = $row[price]; // Buy/Sell price of current open position
+
+
+//1a)####### Close Pair Trades
+//1a.1) Break down $closetrade into relevant references
+//1a.2) Use references to query MDB to get the trade details
+//1a.3) Get all pending orders for secondary trades - and deduct.
+//1a.4) Compare quantity with primary trade. Choose the lower quantity, whichever is lower (primary or secondary)
+//1a.5) With trade details, formulate the query for a opposing secondary trade
+
+if ($closetrade) // Closetrade is present
+{
+//1a.1)
+$closereference = explode("_",$closetrade);
+$close[date] = $closereference[0];
+$close[ref] = $closereference[1];
+
+unset($closereference);
+
+//1a.2) Get details of closetrade (Unit, Price, Ref)
+switch ($action)
+{
+case "buy":
+$query = "SELECT Unit,BuyPrice AS liquidate_price FROM dafile WHERE AccNo = '$account' AND BuyDate='$close[date]' AND BuyOrder=$close[ref]";
+$close[action]="sell";
+$close[price]=round(($price-$spread),$decimal);
+break;
+
+case "sell":
+$query = "SELECT Unit,SellPrice AS liquidate_price FROM dafile WHERE AccNo = '$account' AND SellDate='$close[date]' AND SellOrder=$close[ref]";
+$close[action]="buy";
+$close[price]=round(($price+$spread),$decimal);      
+break;
+}
+
+$result = $DB_odbc->query( $query);
+$row = $DB_odbc->fetch_array($result);
+
+$close[quantity] = round($row[Unit]);
+$close[liquidate_price] = $row[liquidate_price];
+
+//1a.3)
+switch ($action)
+{
+case "buy":
+$query = "SELECT
+SUM(quantity) AS pendingquantity
+FROM trade
+WHERE account = '$account'
+AND action = 'sell'
+AND type = 'liquidate'
+AND statusid = 2
+AND isorder = '1'";
+break;
+
+case "sell":
+$query = "SELECT
+SUM(quantity) AS pendingquantity
+FROM trade
+WHERE account = '$account'
+AND action = 'buy'
+AND type = 'liquidate'
+AND statusid = 2
+AND isorder = '1'";
+break;
+}
+$result = $DB->query($query);
+if ($DB->num_rows($result)>0)
+{
+$row = $DB->fetch_array($result);
+$pendingquantity = $row[pendingquantity];
+}
+
+//1a.4) 
+//if ($quantity > ($close[quantity] - $pendingquantity)) { $quantity = ($close[quantity] - $pendingquantity); }
+
+if (($close[quantity] - $pendingquantity)>0)
+{   
+if ($quantity > ($close[quantity] - $pendingquantity)) { $quantity = ($close[quantity] - $pendingquantity); }
+}
+else
+{
+    $campuran = "quantity=".$quantity.";close_qty=".$close[quantity].";pendingqty=".$pendingquantity;
+    $result_log_file = set_log_file($user->userid,'Trader','Pending Position-1159',"ClosePair",$campuran);  
+return "<font color=red><b>Pending positions exist</b></font><br>The close pair trade you are attempting already has standing orders. You need to remove them in order to continue.";
+}
+
+//1a.5)
+
+
+} // end Close Pair Trades   
+
+//2.1)
+$query = "SELECT SUM(quantity) AS processing_quantity  FROM trade WHERE account='$account' AND liquidate_ref LIKE '$unique_ref%' AND statusid = 3";
+$result = mysql_query($query);
+$row = mysql_fetch_array($result);
+$processing_quantity = $row[processing_quantity];
+
+echo "processing quantity: $processing_quantity";
+
+$permitted_quantity = $liquidate_quantity - $processing_quantity;
+
+//2.2)
+$pending_quantity = 0;
+$query = "SELECT max(quantity) AS pending_quantity  FROM trade WHERE account='$account' AND liquidate_ref LIKE '$unique_ref%' AND statusid = 2 and trade.refoco is not null";
+//tradelog("trader1243=".$query);
+$result = mysql_query($query);
+$row = mysql_fetch_array($result);
+if($_harga=="empty" || $_harga=="")
+{
+$pending_quantity = $pending_quantity + $row[pending_quantity];
+}
+
+
+
+$query = "SELECT SUM(quantity) AS pending_quantity  FROM trade WHERE account='$account' AND liquidate_ref LIKE '$unique_ref%' AND statusid = 2 and trade.refoco is null";
+//tradelog("trader1249=".$query);
+$result = mysql_query($query);
+$row = mysql_fetch_array($result);
+$isoco=0;
+if($_harga=="empty" || $_harga=="")
+{
+// 
+$pending_quantity = $pending_quantity + $row[pending_quantity];
+}
+else
+{
+if (!$isorder)
+{
+$_query = "UPDATE trade SET statusid = 0 WHERE tradeid = {$_harga}";
+$_result = mysql_query($_query); 
+
+}
+else
+{
+$isoco=1;
+//tradelog("trader1359 isoco=1".$_harga);
+}
+
+//$query = "SELECT AccNo,ItemCode,Unit,BuyOrder,BuyPrice,BuyDate,SellOrder,SellPrice,SellDate FROM dafile WHERE (LiqStatus = '') AND AccNo = '$account' ORDER BY ItemCode";
+//$pending_quantity =0;
+}
+
+//tradelog("trader-1266-liquidate_quantity=".$liquidate_quantity.";pending_quantity=".$pending_quantity);
+$permitted_pending = $liquidate_quantity - $pending_quantity;  
+$campuran = "liquidate_qty=".$liquidate_quantity.";pending_qty=".$pending_quantity;   
+//2.3)
+$final_quantity = $processing_quantity + $pending_quantity;
+$campuran = $campuran .";process_qty=".$processing_quantity; 
+//$final_quantity=0;
+$permitted_final = $liquidate_quantity - $final_quantity;
+$campuran = $campuran .";permitted_final=".$permitted_final; 
+
+//3.1)
+if ($permitted_quantity==0)
+{
+$result_log_file = set_log_file($user->userid,'Trader','Permited-1230',"AlreadyLiquidate",$campuran); 
+return "<font color='red'><b>Ref. 1174 Notice</b></font><br>This position has been liquidated. Please allow the system a few moments to update.";    
+}
+
+//3.2)
+
+if($duration=='am1' || $duration=='am2' || $duration=='am3' || $duration=='pm1' || $duration=='pm2' || $duration=='pm3'){
+	//bypass karena masalah double sudah di cek di atas
+}else{ 
+	if($quantity>$permitted_pending && ( $_harga=="empty" || $_harga=="" ) ) 
+	{ 		
+		$campuran = "quantity=".$quantity.";permitted_pending=".$permitted_pending.";harga=".$_harga; 
+		if ($_type=="liquidate" && $_duration==""){
+			$campuran = $campuran .";type=liquidate;duration="; 
+			if($query_directdone=="yes"){
+				$campuran = $campuran .";query_directdone=yes";  
+				if(	   $user->companygroup!="hodsburgh" 
+					&& $user->companygroup!="agrodana" 
+					&& $user->companygroup!="cayman" 
+					&& $user->companygroup!="danareksa" 
+				){
+					$requirement_pending = $quantity - $permitted_pending;
+					$query_select_pending = "select trade.* from trade where account='$_account' and statusid ='2' order by trade.tradeid asc";
+					$result_select_pending = $DB->query($query_select_pending);
+					$pending_tradeid = array();
+					$pending_quantity = array();
+					while ($row_select_pending = $DB->fetch_array($result_select_pending))
+					{
+						$pending_tradeid[] = $row_select_pending[tradeid];
+						$pending_quantity[] = $row_select_pending[quantity];
+					}
+					//$DB->close(); 
+					for ($i_count=0; $i_count<count($pending_tradeid); $i_count++)
+					{
+						if($requirement_pending>$pending_quantity[$i_count]){
+							$pending_hapus = $pending_quantity[$i_count];
+							$requirement_pending  = $requirement_pending - $pending_quantity[$i_count];
+						}else{
+							$pending_hapus = $requirement_pending;
+							$requirement_pending = 0;
+						}
+						$new_pending_quantity = $pending_quantity[$i_count] - $pending_hapus;
+						if($new_pending_quantity<=0){
+							$query_update_new_pending = "update trade set quantity = '0',statusid = '0' where tradeid = '$pending_tradeid[$i_count]';";
+						}else{
+							$query_update_new_pending = "update trade set quantity = '$new_pending_quantity' where tradeid = '$pending_tradeid[$i_count]';";
+						}	
+						$DB->query($query_update_new_pending); 
+					}
+					$permited_final_bypass="bypass";
+				}else{
+					$result_log_file = set_log_file($user->userid,'Trader','Permited-1283',"AlreadyPending",$campuran); 
+					return "<font color='red'><b>(1283)Notice</b></font><br>You already have 'pending' orders for this position. Please remove the pending orders before attempting an immediate liquidation." ; 
+				}
+			}else{
+				$result_log_file = set_log_file($user->userid,'Trader','Permited-1287',"AlreadyPending",$campuran); 
+				return "<font color='red'><b>(1287)Notice</b></font><br>You already have 'pending' orders for this position. Please remove the pending orders before attempting an immediate liquidation." ; 
+			}	
+		}
+		else{
+			$result_log_file = set_log_file($user->userid,'Trader','Permited-1292',"AlreadyPending",$campuran); 
+			return "<font color='red'><b>(1292)Notice</b></font><br>You already have 'pending' orders for this position. Please remove the pending orders before attempting an immediate liquidation." ; 
+		}
+	}
+}	
+
+
+//3.3)
+//tradelog("trader-liquid-bypass-1835=".$quantity.";permitted_final=".$permitted_final );
+
+if($duration=='am1' || $duration=='am2' || $duration=='am3' || $duration=='pm1' || $duration=='pm2' || $duration=='pm3'){
+if($bypass_permited_qty==0){
+$permitted_final = $quantity ;//ini dibuat sama dengan quantity agar boleh insert lagi, toh tidak akan bentrok
+}
+}
+
+if ($quantity > $permitted_final )
+{
+	//tradelog("validationtrade-1194-quantity-".$quantity.";permitted_final=".$permitted_final);
+	if($permited_final_bypass!="bypass"){
+	        $campuran = "quantity=".$quantity.";permitted_final=".$permitted_final;
+        	$result_log_file = set_log_file($user->userid,'Trader','Permited-1313',"Exceed",$campuran); 
+		return "<font color='red'><b>Ref.1837 Notice</b></font><br>You have exceeded your allowed<br>quantity for the position: <b>($counter) $liquidate_price ,$permitted_final,$quantity,$order_date,$order_ref,$liquidate_quantity,$final_quantity, $processing_quantity, $pending_quantity</b>";
+	}
+}
+
+if (!$isorder)
+{
+	if ($query_directdone=="yes"){
+		$ta_message[message] = "<font color='red'><b>Ref(1396) Order Processing3</b></font><br>Your order for account ($account),<br>$action ($quantity) of $counter ($price)<br>has been submitted.<br><br>";
+		if ($closetrade)
+		{
+			$ta_message[message] .= "<font color='red'><b>Ref(1400) Close Pair Trade</b></font><br>Your order for account ($account),<br>$close[action] ($quantity) of $counter ($close[price])<br><br>";
+		}
+		//$ta_message[message] .= $language->parse("Please allow a few moments for system update").".<br><br><marquee id='scroller' style='background:#BDBABD; width:200; height:5; border: inset 3px #3385B3' direction='right' scrollamount='5'><div style='width:100%; background:blue'></div></marquee>";
+		$ta_message[refreshOpenPositions] = 0;
+		$ta_message[refreshTradeHistory] = 1;
+		$ta_message[code] = "";
+		$statusid = 3; // Processing
+	}else{
+		if ($language->languageid=="1" ){
+			$ta_message[message] = "<font color='red'><b>Ref(1632) Please wait 3</b></font><br>Please allow a few moments for price checking<br><marquee id='scroller' style='background:#BDBABD; width:200; height:5; border: inset 3px #3385B3' direction='right' scrollamount='5'><div style='width:100%; background:blue'></div></marquee>";
+		}
+		if ($language->languageid=="2" ){
+			$ta_message[message] = "<font color='red'><b>Ref(1635) Please wait 3</b></font><br>&#31995;&#32479;&#27491;&#21521;&#24066;&#22330;&#25253;&#20215;<br><marquee id='scroller' style='background:#BDBABD; width:200; height:5; border: inset 3px #3385B3' direction='right' scrollamount='5'><div style='width:100%; background:blue'></div></marquee>";
+		}		
+		$ta_message[refreshOpenPositions] = 0;
+		$ta_message[refreshTradeHistory] = 1;
+		$ta_message[code] = "";
+		$statusid = 8; // Waiting Dealing to Answer	
+	}       
+}
+else
+{   
+	if ($action_type=='oco_sell' || $action_type=='oco_buy')
+	{	
+		$ta_message[message] = "<font color='red'><b>Ref(1412) Order Pending</b></font><br>Your order for account ($account),<br>$action_type ($quantity) of $counter Limit($price) and Stop ($price_to)<br>has been submitted.<br><br>When the order is executed, your trade will show a 'Done' status.";
+	}else{
+		$ta_message[message] = "<font color='red'><b>Ref(1464) Order Pending</b></font><br>Your order for account ($account),<br>$action ($quantity) of $counter ($price)<br>has been submitted.<br><br>When the order is executed, your trade will show a 'Done' status.";     
+	}
+	$ta_message[refreshOpenPositions] = 1;
+	$ta_message[refreshTradeHistory] = 1;
+	$ta_message[code] = "";
+	$statusid = 2; // Pending       
+}
+
+//tradelog("traedr-1458".$closetrade);
+if (!$closetrade)
+{
+//4) Check for Liquidate Equity (Added: 7th April 2005)
+//4.0) Get all Hedge Ratios for all counters
+//4.1) Has opposing trades
+//  4.1N) Bypass
+//  4.1Y) Get all positions (minus current trade position) to calculate Total Margin Required
+//     4.2Is Equity sufficient?
+//        4.2Y) Allow Trade
+//        4.2N) Disallow Trade (  return "<font color='red'><b>Insufficient Maintenance Margin</b></font><br>This account can only do a Buy/Sell Liquidation(Close Pair)."; )
+
+//4.0)
+
+$query = "SELECT client_accounts.daycall from client_accounts  where accountname = '$account';";
+$result = $DB->query($query);
+while ($row = $DB->fetch_array($result))
+{
+    $marginratio_rationnya = $row[daycall]/100;
+}
+//tradelog("validationtrade-1382-marginratio=".$marginratio);
+
+$query = "SELECT counter.name, marketindex.hedgeratio, marketindex.marginratio FROM counter LEFT JOIN marketindex USING (indexid)";
+$result = $DB->query($query);
+while ($row = $DB->fetch_array($result))
+{
+	$ratios[$row[name]][hedgeratio] = intval($hedgeratio[$row[name]] * $marginratio_rationnya);
+	$ratios[$row[name]][marginratio] = intval($marginday_counter[$row[name]] * $marginratio_rationnya); 
+	
+	//tradelog("validationtrade-1410-name=".$row[name]);
+	//tradelog("validationtrade-1412-marginratio_rationnya=".$marginratio_rationnya);	
+	
+	//tradelog("validationtrade-1411-hedgeratio=".$hedgeratio[$row[name]]);
+	//tradelog("validationtrade-1411-marginday_counter=".$marginday_counter[$row[name]]);
+	
+	//tradelog("validationtrade-1414-hedgeratio=".$ratios[$row[name]][hedgeratio]);		
+	//tradelog("validationtrade-1416-marginratio=".$ratios[$row[name]][marginratio]);
+}
+
+//4.1)
+//### Get all positions of user
+$query = "SELECT * FROM dafile WHERE AccNo = '$account' AND LiqStatus = ''";
+$result = $DB_odbc->query($query);
+while ($row = $DB_odbc->fetch_array($result))
+{
+$tempname = trim($row[ItemCode]);
+$tempquantity = round($row[Unit]);
+
+if (!empty($row[BuyOrder]))
+{
+$trades[$tempname][buy] += $tempquantity;
+}
+else
+{
+$trades[$tempname][sell] += $tempquantity;
+}
+}
+
+if ($action=="buy") { $hedge_action = "sell"; } else { $hedge_action = "buy"; }
+
+// Deduct current trades from list of positions to determine the remaining trades lefts and calculate equity
+$trades[$counter][$hedge_action] -= $quantity; 
+
+// Has Opposing trade(s)
+if ($trades[$counter][$action] > 0) // Has opposing trades
+{
+//echo "has opposing trades (".$trades[$counter][$action].")";
+
+//4.2) // Get Equity & MarginRequired Per Lot/Hedge
+$query = "SELECT Equity, MarginReq FROM bafile WHERE AccNo = '$account'";
+$result = $DB_odbc->query($query);
+$row = $DB_odbc->fetch_array($result);
+$row[Equity] += $credit;
+$effective_margin = $newBalance+$TotalFloating-$row[MarginReq];
+$equity = $row[Equity];
+
+//     $query = "SELECT IAFILE.EURSize AS margin_required FROM bafile LEFT JOIN IAFILE ON bafile.IntTable = IAFILE.IntTable WHERE bafile.AccNo = '$account'";
+//     if ($result = $DB_odbc->query($query))
+//     {
+//      $row = $DB_odbc->fetch_array($result);   
+//      
+//      $margin_required = ($row[margin_required] / 100);  // Lot size divided by 100, e.g. 100,000 = 1000 margin required
+//     }
+//     else
+//     {
+//      $margin_required = "1000";
+//     }
+
+//$margin_required = $marginday;
+$margin_required  = $ratios[$row[name]][marginratio];
+
+if (count($trades) > 0)
+{
+	$required_margin = 0; // Init
+	foreach ($trades AS $name => $trade)
+	{
+		$hedgeratio = $ratios[$name][hedgeratio];
+		$marginratio = $ratios[$name][marginratio];
+		for($z_count=0;$counter_temp[$z_count];$z_count++)
+				{			
+					if($counter_temp[$z_count][counter]==$name){
+						$margin_required = $counter_temp[$z_count][marginday];				
+					}
+				}				
+		$hedgevalue = $hedgeratio * $margin_required;
+		$marginvalue = $marginratio * $margin_required;	
+		$hedgevalue = intval($hedgeratio);
+		$marginvalue = intval($marginratio);
+		$hedge_quantity = 0;
+		$open_quantity = 0;
+		if ($trade[buy]>$trade[sell]) // More Bought Positions
+		{
+			$hedge_quantity = $trade[sell];
+			$open_quantity = $trade[buy] - $trade[sell];
+		}
+		elseif ($trade[sell]>$trade[buy]) // More Sell Positions
+		{
+			$hedge_quantity = $trade[buy];
+			$open_quantity = $trade[sell] - $trade[buy];
+		}
+		else
+		{
+			$hedge_quantity = $trade[buy];
+		}
+		if($name==$_counterid){
+			if($action=="sell" && $trade[sell]>$trade[buy] && $statusid == "2"){
+				$campuran = "Ref(F1604) Sell = ".$trade[sell].";buy=".$trade[buy].";action=".$action;
+				$result_log_file = set_log_file($user->userid,'Trader','Contigent-1604',"Contigent",$campuran); 
+				showError("<font color='red'><b>Ref(1604)Contigent Order</b></font><br>Stop/Limit order sell doesn't allow for Sell : $trade[sell] and Buy : $trade[buy] doesn't allow");
+			}
+			if($action=="buy" && $trade[sell]<$trade[buy] && $statusid == "2"){
+				$campuran = "Ref(F1610) Sell = ".$trade[sell].";buy=".$trade[buy].";action=".$action;
+				$result_log_file = set_log_file($user->userid,'Trader','Contigent-1610',"Contigent",$campuran); 
+				showError("<font color='red'><b>Ref(1610)Contigent Order</b></font><br>Stop/Limit order buy doesn't allow  for Sell : $trade[sell] and Buy : $trade[buy] doesn't allow");
+			}
+		}	
+		$required_margin += intval($hedge_quantity * $hedgevalue) + intval($open_quantity * $marginvalue);
+	}
+}  	    
+
+} // End
+$campuran = "$name: required margin: $required_margin" . " (($hedge_quantity * $hedgevalue) + ($open_quantity * $marginvalue))";
+$result_log_file = set_log_file($user->userid,'Trader','check-1612',$equity,$campuran); 
+if ($equity < $required_margin)
+{
+//echo "required margin: $required_margin" . " (($hedge_quantity * $hedgevalue) + ($open_quantity * $marginvalue))";
+//tradelog("required margin: $required_margin" . " (($hedge_quantity * $hedgevalue) + ($open_quantity * $marginvalue))");
+// if (!empty($liquidate_ref) || !empty($closetrade))
+// {
+// 
+// }else
+// {
+        $campuran = "equity=".$equity.";required_margin=".$required_margin;
+        $result_log_file = set_log_file($user->userid,'Trader','Insufficient-1478',"Insufficient",$campuran); 
+	return "<font color='red'><b>(1443) Insufficient Maintenance Margin</b></font><br>This account can only do a Buy/Sell Liquidation(Close Pair).";
+// }
+}       
+}
+break; // End liquidate
+}
+//tradelog("End Liquidity");
+
+//tambahan check OCO 060802 --> ini sudah tidak dipakai lagi karena oco ini sudah dihapus
+if ($_harga!='empty' &&  $_harga!=''){
+$there_is_refoco = 0;
+$query_check = "select trade.RefOCO from trade WHERE tradeid = $_harga";
+//tradelog("trader-query_check".$query_check);
+$result = $DB->query($query_check);
+while ($row = $DB->fetch_array($result))
+{
+$there_is_refoco = $row[RefOCO];
+}
+//tradelog("trader-there_is_refoco".$there_is_refoco);
+if ($isoco==1 && $there_is_refoco != 0){
+	$campuran = "isoco=".$isoco.";there_is_refoco=".$there_is_refoco;
+	$result_log_file = set_log_file($user->userid,'Trader','Double-OCO-1500',$campuran,$query_check); 
+	return "<font color='red'><b>Double OCO</b></font><br>You already have OCO with this Price.";  
+}
+}
+//tradelog("trader 1451-harga=".$_harga);
+//return "<font color='red'><b>test</b></font><br>test2.";  			  
+//end tambahan check OCO 060802
+
+
+if ($user->username  == $account)
+{
+$trade[userid] = $user->userid;
+$trade[tradedby] = $user->userid;
+$trade[tradedbyname] = $account;  
+}
+else
+{
+// AE Trade
+$query = "SELECT userid FROM user WHERE username = '$account'";
+$row = $DB->query_first($query);
+$trade[userid] = $row[userid];
+$trade[tradedby] = $user->userid;
+$trade[tradedbyname] = $user->username; 
+}
+//tradelog("isoco=".$isoco);
+if($isoco==null)
+{
+//tradelog("isoconull");
+$isoco = 0;
+}
+
+if ($isorder=='' || $isorder == null){
+$isorder=0;
+}
+//tradelog("trader1583-isoco=".$isoco.";duration=".$duration);
+if($isoco==0)
+{
+if ($duration=='gtn' || $duration=='gtf'){
+//tradelog("Statusid=".$statusid);
+$statusid = 2; //Pending
+}
+
+if ($duration=='gtn' || $duration=='gtf' || $duration==''){
+if ( $action_type=='oco_sell' || $action_type=='oco_buy' ){
+$trade_query = "INSERT INTO trade
+SET
+userid = '$trade[userid]',
+account = '$account',
+action = '$action',
+counterid = '$counterid',
+price = '$price',
+price_from = '$price',
+price_to = '$price_to',
+quantity = '$quantity',
+type = '$type',
+datetime = NOW(),
+liquidate_price = '$liquidate_price',
+liquidate_ref = '$liquidate_ref',             
+duration = '$duration',
+durationfrom = '$duration',
+durationto = '$duration',
+isorder = '$isorder',
+statusid = $statusid,
+isbbj = '0',
+check_price = '$check_price[$action]',
+check_high = '$day_high',
+check_low = '$day_low',
+check_datetime = '$check_datetime',
+done_datetime = NOW(),
+tradedby = '$trade[tradedby]',
+tradedbyname = '$trade[tradedbyname]',
+typeorder='$action_type'";		
+}else{		
+//tradelog("Account1=" . $account . ";duration=" . $duration . "Check DateTime=" . $check_datetime);		
+$trade_query = "INSERT INTO trade
+SET
+userid = '$trade[userid]',
+account = '$account',
+action = '$action',
+counterid = '$counterid',
+price = '$price',
+quantity = '$quantity',
+type = '$type',
+datetime = NOW(),
+liquidate_price = '$liquidate_price',
+liquidate_ref = '$liquidate_ref',             
+duration = '$duration',
+isorder = '$isorder',
+statusid = $statusid,
+isbbj = '0',
+check_price = '$check_price[$action]',
+check_high = '$day_high',
+check_low = '$day_low',
+check_datetime = '$check_datetime',
+done_datetime = NOW(),
+tradedby = '$trade[tradedby]',
+tradedbyname = '$trade[tradedbyname]',
+typeorder='{$mode_order}'";
+}	
+//tradelog("trader-trade_query=".$trade_query);		
+}
+
+if ($duration=='am1' || $duration=='am2' || $duration=='am3' || $duration=='pm1' || $duration=='pm2' || $duration=='pm3'){
+$trade_query = "INSERT INTO trade
+SET
+userid = '$trade[userid]',
+account = '$account',
+action = '$action',
+counterid = '$counterid',
+price = '$price',
+price_from = '$price',
+price_to = '$price_to',
+quantity = '$quantity',
+type = '$type',
+datetime = NOW(),
+liquidate_price = '$liquidate_price',
+liquidate_ref = '$liquidate_ref',             
+duration = '$duration',
+durationfrom = '$duration',
+durationto = '$durationto',
+isorder = '$isorder',
+statusid = $statusid,
+isbbj = '0',
+check_price = '$check_price[$action]',
+check_high = '$day_high',
+check_low = '$day_low',
+check_datetime = '$check_datetime',
+done_datetime = NOW(),
+tradedby = '$trade[tradedby]',
+tradedbyname = '$trade[tradedbyname]',
+typeorder='$action_type'";
+}
+
+//tradelog("trader-duration=".$duration);
+//060603 Multilateral Table, add 
+if ($duration=='d' || $duration=='c' 
+|| $duration=='d1' || $duration=='c1' 
+|| $duration=='d2' || $duration=='c2' 
+|| $duration=='d3' || $duration=='c3'  
+|| $duration=='d4' || $duration=='c4' 
+|| $duration=='t'){	
+if ($duration=='d' || $duration=='d1' || $duration=='d2'  || $duration=='d3'  || $duration=='d4'){
+$check_price[$action] = $price;
+}	
+$hdr_id = $account ."_". date("YmdHis") . "_". $counterid . "_". $quantity;
+$trade_query = "INSERT INTO trade_multi
+SET
+hdr_id = '$hdr_id',
+userid = '$trade[userid]',
+account = '$account',
+action = '$action',
+counterid = '$counterid',
+price = '$price',
+quantity = '1',
+quantity_order = '$quantity',
+type = '$type',
+datetime = NOW(),
+liquidate_price = '$liquidate_price',
+liquidate_ref = '$liquidate_ref',             
+duration = '$duration',
+duration_order = '$duration',
+isorder = '$isorder',
+statusid = $statusid,
+isbbj = '0',
+check_price = '$check_price[$action]',
+check_high = '$day_high',
+check_low = '$day_low',
+check_datetime = '$check_datetime',
+done_datetime = NOW(),
+tradedby = '$trade[tradedby]',
+tradedbyname = '$trade[tradedbyname]',
+typeorder='{$mode_order}'";			
+}	
+//tradelog("trader.php-isoco=0;-trade_query=".$trade_query);	
+}
+
+if($isoco==1)
+{
+
+if ($duration=='gtn' || $duration=='gtf'){
+$statusid = 2; //Pending
+}
+
+if ($duration=='gtn' || $duration=='gtf' || $duration==''){
+//tradelog("Account2=" . $account . ";duration=" . $duration . "Check DateTime=" . $check_datetime);
+$trade_query = "INSERT INTO trade
+SET
+userid = '$trade[userid]',
+account = '$account',
+action = '$action',
+counterid = '$counterid',
+price = '$price',
+quantity = '$quantity',
+type = '$type',
+datetime = NOW(),
+liquidate_price = '$liquidate_price',
+liquidate_ref = '$liquidate_ref',             
+duration = '$duration',
+isorder = '$isorder',
+statusid = $statusid,
+isbbj = '0',
+check_price = '$check_price[$action]',
+check_high = '$day_high',
+check_low = '$day_low',
+check_datetime = '$check_datetime',
+done_datetime = NOW(),
+RefOCO ={$_harga},
+tradedby = '$trade[tradedby]',
+tradedbyname = '$trade[tradedbyname]',
+typeorder='{$mode_order}'";
+}	
+
+//tambahan Future 060617 add 
+if ($duration=='am1' || $duration=='am2' || $duration=='am3' || $duration=='pm1' || $duration=='pm2' || $duration=='pm3'){
+$trade_query = "INSERT INTO trade
+SET
+userid = '$trade[userid]',
+account = '$account',
+action = '$action',
+counterid = '$counterid',
+price = '$price',
+price_from = '$price',
+price_to = '$price_to',
+quantity = '$quantity',
+type = '$type',
+datetime = NOW(),
+liquidate_price = '$liquidate_price',
+liquidate_ref = '$liquidate_ref',             
+duration = '$duration',
+durationfrom = '$duration',
+durationto = '$durationto',
+isorder = '$isorder',
+statusid = $statusid,
+isbbj = '0',
+check_price = '$check_price[$action]',
+check_high = '$day_high',
+check_low = '$day_low',
+check_datetime = '$check_datetime',
+done_datetime = NOW(),
+tradedby = '$trade[tradedby]',
+RefOCO ={$_harga},
+tradedbyname = '$trade[tradedbyname]',
+typeorder='$action_type'";
+}
+
+//060603 Multilateral Table
+if ($duration=='d' || $duration=='c' 
+|| $duration=='d1' || $duration=='c1' 
+|| $duration=='d2' || $duration=='c2' 
+|| $duration=='d3' || $duration=='c3'  
+|| $duration=='d4' || $duration=='c4' 
+|| $duration=='t'){	
+if ($duration=='d' || $duration=='d1' || $duration=='d2'  || $duration=='d3'  || $duration=='d4'){
+$check_price[$action] = $price;
+}	
+$hdr_id = $account ."_". date("YmdHis") . "_". $counterid . "_". $quantity;
+$trade_query = "INSERT INTO trade_multi
+SET
+hdr_id = '$hdr_id',
+userid = '$trade[userid]',
+account = '$account',
+action = '$action',
+counterid = '$counterid',
+price = '$price',
+quantity = '1',
+quantity_order = '$quantity',
+type = '$type',
+datetime = NOW(),
+liquidate_price = '$liquidate_price',
+liquidate_ref = '$liquidate_ref',             
+duration = '$duration',
+duration_order = '$duration',
+isorder = '$isorder',
+statusid = $statusid,
+isbbj = '0',
+check_price = '$check_price[$action]',
+check_high = '$day_high',
+check_low = '$day_low',
+check_datetime = '$check_datetime',
+done_datetime = NOW(),
+tradedby = '$trade[tradedby]',
+RefOCO ={$_harga},
+tradedbyname = '$trade[tradedbyname]',
+typeorder='{$mode_order}'";			
+}	
+//tradelog("trader.php-isoco=1;-trade_query=".$trade_query);	
+}
+$log_trade_query= $trade_query;              
+
+
+if ($closetrade)
+{   
+
+if ($duration=='gtn' || $duration=='gtf'){
+$statusid = 2; //Pending			
+}
+
+if ($duration=='gtn' || $duration=='gtf' || $duration==''){
+$closetrade_query = "INSERT INTO trade
+SET
+userid = '$trade[userid]',
+account = '$account',
+action = '$close[action]',
+counterid = '$counterid',
+price = '$close[price]',
+quantity = '$quantity',
+type = '$type',
+datetime = NOW(),
+isbbj = '0',
+liquidate_price = '$close[liquidate_price]',
+liquidate_ref = '$closetrade"."_"."$close[quantity]',             
+duration = '$duration',
+isorder = '$isorder',
+statusid = $statusid,
+check_price = '$check_price[$action]',
+check_high = '$day_high',
+check_low = '$day_low',
+check_datetime = '$check_datetime',
+done_datetime = NOW(),
+tradedbyname = '$trade[tradedbyname]',
+tradedby = '$trade[tradedby]'";  
+}	
+//tradelog("trader.php-closetrade;-closetrade_query=".$closetrade_query);                            	
+}
+$log_closetrade_query= $closetrade_query;
+
+
+///###############CEK if another transaction already done add By 060209####################//
+
+if ($liquidate_price<>'0.0000' || $liquidate_price<>'' || $liquidate_ref<>''){
+	$query2 = "select tradeid from trade where account ='$account' and liquidate_price = '$liquidate_price' and liquidate_ref ='$liquidate_ref' and statusid=1 and type='liquidate'";
+	//tradeLog("trader-query2-1752-".$query2);
+	$query2 = $DB->query($query2); 	
+	$chek_liquid="no_check";		
+	if(mysql_num_rows($query2)>0){
+		$ref=mysql_fetch_array($query2);
+		$opentradeid = $ref['tradeid'];		
+		$txt_message = "Insert by Customer Fail because trade id =" . $opentradeid . " already done to liquid";
+		$result_log_file = set_log_file($user->userid,'ClientFail','insert_order',$opentradeid,$txt_message);
+		$chek_liquid="please_check";
+	}	
+	if($chek_liquid=="please_check"){
+		if($action=='buy'){
+			$action_open = "sell";
+		}else{
+			$action_open = "buy";
+		}
+		$query_get_open_tradeid = "select * from trade where account='$account' and statusid='1' 
+			and type='new' and counterid='$counterid' 
+			and trade.price = '$liquidate_price' 
+			and trade.action = '$action_open'  
+			and trade.rollover = LEFT('$liquidate_ref',8); ";			
+		//tradeLog("trader-open_tradeid-1772-".$query_get_open_tradeid);	
+		$result = mysql_query($query_get_open_tradeid);
+		$row = mysql_fetch_array($result);
+		$open_tradeid = $row[tradeid];	
+		//tradeLog("trader-open_tradeid-1776-".$open_tradeid);					
+		//$update_account = $SETTINGS_Update_EACCT . "?update_again=".$open_tradeid;
+		//tradeLog("validationtrade-1795-".$update_account);	
+		readfile($update_account);		
+		return "<font color='red'><b>Ref. 2440 Notice</b></font><br>You already liquid this position. Please let our system refresh the open position to liquid."; 							
+	}
+}	
+
+//lockingid==1 means locking yes, 2 means cannot lock
+if ($user->lockingid==2 && $type=="new") {
+	if ($newlimit[$counter]<0 && $action=="buy"){  // mean buy new
+	        $campuran = "locking=2;type=new;newlimit=".$newlimit[$counter].";action=buy";
+	        $result_log_file = set_log_file($user->userid,'Trader','Locking-1868',"Buy",$campuran); 
+		return "<font color='red'><b>Ref. 1868 Notice</b></font><br>You cannot Buy for Locking this counter."; 
+	}
+	if ($newlimit[$counter]>0 && $action=="sell"){
+	        $campuran = "locking=2;type=new;newlimit=".$newlimit[$counter].";action=sell";
+	        $result_log_file = set_log_file($user->userid,'Trader','Locking-1874',"Sell",$campuran); 		
+	        return "<font color='red'><b>Ref. 1875 Notice</b></font><br>You cannot Sell for Locking this counter.";  
+	}  			
+}
+
+//tambahan untuk New STOP 20060816
+if ($action_type=='buy' && empty($liquidate_ref) && $price > $check_price[$action] )
+{
+	//if hedgeattempt bukan 1 maka artinya tidak hedging
+	if($hedgeattempt != 1){
+		if ($duration=='gtn' || $duration=='gtf'){
+		        $campuran = "$quantity=".$quantity.";not allow";
+            		$result_log_file = set_log_file($user->userid,'Trader','StopNew-1886',"Stop Buy",$campuran);
+			return "<font color='red'><b>Ref(1886) Order price with qty ". $quantity ." Stop Buy New Doesn't Allow</b></font><br>Your price must be lower than running Price. Please try again.";
+		}
+	}	
+}
+if ($action_type=='sell' && empty($liquidate_ref) && $price < $check_price[$action] )
+{
+	//if hedgeattempt bukan 1 maka artinya tidak hedging
+	if($hedgeattempt != 1){
+		if ($duration=='gtn' || $duration=='gtf'){
+			$campuran = "$quantity=".$quantity.";not allow";
+            		$result_log_file = set_log_file($user->userid,'Trader','StopNew-1898',"Stop sell",$campuran);
+			return "<font color='red'><b>Ref(1898) Order price with qty ". $quantity ." Stop Sell New Doesn't Allow</b></font><br>Your price must be higher than running Price. Please try again.";
+		}
+	}	
+}			
+//End tambahan untuk New STOP 20060816
+
+$result_log_file = set_log_file($user->userid,'Trader','Trade_query',"line-1903",$trade_query); 
+/*****************************************************************************
+* INSERT TRADES                                                               *
+*****************************************************************************/
+if ($duration=='gtn' || $duration=='gtf' || $duration==''){ 			 
+	if ($result = $DB->query($trade_query))
+	{
+		$tradeid = mysql_insert_id();
+		if($statusid == '3' || $statusid == '2'){
+			$ta_message[message] .= "<font color='red'><br><b>Tradeid is</b></font><br>$tradeid<br><br>";
+		}
+		if($statusid == '3'){
+			$ta_message[message] .= "Please check on the Transaction History<br><font color='red'>at Left Below on the screen.</font><br>to see Process already <font color='red'>'Done'</font>. To erase this message, Please Refresh by Click <font color='red'>F5</font><br>";
+		}
+		if($isoco==1)
+		{
+			$_query = "UPDATE trade SET RefOCO = {$tradeid } WHERE tradeid = {$_harga}";
+			$_result = mysql_query($_query); 
+		} 
+		$result_log_file = set_log_file($user->userid,'Trader','insert_order',$tradeid,$log_trade_query);
+		if ($result_log_file!='1'){
+			tradeLog("TradeID5: Error at " . $log_trade_query); 	  
+		}		   	
+		if ($closetrade_query)
+		{
+			if (!$result = $DB->query($closetrade_query))
+			{
+				$tradeid = mysql_insert_id();				
+				$result_log_file = set_log_file($user->userid,'Trader','close_order',$tradeid,$log_closetrade_query);		    
+				return "<font color='red'><b>Fatal Error</b></font><br>The System is currently unavailable.<br>Please try again."; 			
+			}else{
+				$tradeid = mysql_insert_id();
+				if($statusid == '3' || $statusid == '2'){
+					$ta_message[message] .= "<font color='red'><b>Close Tradeid is</b></font><br>$tradeid<br><br>";
+					//tradelog_validation("validationtrade.php-1811-ta_message=".$ta_message[message]);			
+				}
+			}
+		}			      	
+		//showMessage($ta_message[message],$ta_message[refreshOpenPositions],$ta_message[refreshTradeHistory],$ta_message[code]); 
+		return $ta_message;
+	}
+	else
+	{
+		echo mysql_error() . " " . $trade_query;
+		return "<font color='red'><b>Fatal Error</b></font><br>The System is currently unavailable.<br>Please try again.";
+	}
+}	
+
+if ($duration=='am1' || $duration=='am2' || $duration=='am3' || $duration=='pm1' || $duration=='pm2' || $duration=='pm3'){ 			 
+if ($result = $DB->query($trade_query))
+{
+$tradeid = mysql_insert_id();
+if($isoco==1)
+{
+$_query = "UPDATE trade SET RefOCO = {$tradeid } WHERE tradeid = {$_harga}";
+$_result = mysql_query($_query); 
+
+} 
+$result_log_file = set_log_file($user->userid,'Trader','insert_order',$tradeid,$log_trade_query);
+if ($result_log_file!='1'){
+tradeLog("TradeID5: Error at " . $log_trade_query); 	  
+}		   	
+if ($closetrade_query)
+{
+if (!$result = $DB->query($closetrade_query))
+{
+$tradeid = mysql_insert_id();
+$result_log_file = set_log_file($user->userid,'Trader','close_order',$tradeid,$log_closetrade_query);		    
+return "<font color='red'><b>Fatal Error</b></font><br>The System is currently unavailable.<br>Please try again."; 			
+}
+}			      	
+//showMessage($ta_message[message],$ta_message[refreshOpenPositions],$ta_message[refreshTradeHistory],$ta_message[code]); 
+return $ta_message;
+}
+else
+{
+echo mysql_error() . " " . $trade_query;
+return "<font color='red'><b>Fatal Error</b></font><br>The System is currently unavailable.<br>Please try again.";
+}
+}	   
+
+if ($duration=='d' 
+|| $duration=='d1' || $duration=='c1' 
+|| $duration=='d2' || $duration=='c2' 
+|| $duration=='d3' || $duration=='c3'  
+|| $duration=='d4' || $duration=='c4'    
+|| $duration=='t'){
+for ($i_multi=0; $i_multi<$quantity; $i_multi++)
+{ 
+if ($result = $DB->query($trade_query))
+{
+$tradeid = mysql_insert_id();
+if($isoco==1)
+{
+$_query = "UPDATE trade_multi SET RefOCO = {$tradeid } WHERE tradeid = {$_harga}";
+$_result = mysql_query($_query); 			
+} 
+$result_log_file = set_log_file($user->userid,'Trader','insert_order',$tradeid,$log_trade_query);
+if ($result_log_file!='1'){
+tradeLog("TradeID7: Error at " . $log_trade_query); 	  
+}		   	
+if ($closetrade_query)
+{
+if (!$result = $DB->query($closetrade_query))
+{
+$tradeid = mysql_insert_id();
+$result_log_file = set_log_file($user->userid,'Trader','close_order',$tradeid,$log_closetrade_query);		    
+return "<font color='red'><b>Fatal Error</b></font><br>The System is currently unavailable.<br>Please try again."; 			
+}
+}			      	
+//showMessage($ta_message[message],$ta_message[refreshOpenPositions],$ta_message[refreshTradeHistory],$ta_message[code]); 
+return $ta_message;
+}
+else
+{
+echo mysql_error() . " " . $trade_query;
+return "<font color='red'><b>Fatal Error</b></font><br>The System is currently unavailable.<br>Please try again.";
+}
+}
+}
+
+
+$func++;
+}
+
+function tradelog_validation($msg)
+{
+	$fp = fopen("trader.log","a");
+	$logdate = date("Y-m-d H:i:s => ");
+	$msg = preg_replace("/\s+/"," ",$msg);
+	fwrite($fp,$logdate . $msg . "\n");
+	fclose($fp);
+	return;
+}
+
 ?>
-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
-jePkJwx0XIG8gT2ofRym5Ym=

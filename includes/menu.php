@@ -1,67 +1,80 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?php
+
+include("$_SERVER[DOCUMENT_ROOT]/classes/Menu.class.php");
+
+
+
+$menu = new Menu();
+$menu->setMouseOver("closeSub(previous_menu)");
+
+$menu->addButton($language->parse("Temp Statement"),"tempstatement.php","updateTooltip('Check your temporary account status')","resetTooltip()");
+$menu->addButton($language->parse("Temp Daily Statement"),"daily_statement.php","updateTooltip('Check your daily statement')","resetTooltip()");
+if(	   $user->companygroup!="hodsburgh" 
+	&& $user->companygroup!="agrodana" 
+	&& $user->companygroup!="cayman" 
+	&& $user->companygroup!="danareksa" 
+){
+	$menu->addButton($language->parse("History_Transaction"),"history_statement.php","updateTooltip('Check your history temporary account status')","resetTooltip()");
+}
+	$query = "select user.countertype from user where user.userid='$user->userid' and countertype like ('%ORI%')";
+	$addcounter = "no_add";
+	$result = mysql_query($query) OR DIE (mysql_error() . " $query");
+	while ($row = mysql_fetch_array($result))
+	{   
+	 $addcounter = "yes_add";
+	}
+	if ($addcounter=="yes_add")
+	{
+		$menu->addButton($language->parse("counter_duration"),"markettime.php","updateTooltip('Market Time')","resetTooltip()");
+	}
+//if($user->groupid!=2 && $user->groupid!=4 ){
+	$menu->addButton($language->parse("Category"),"user_category.php","updateTooltip('Click here to select category')","resetTooltip()");
+//}
+//$menu->addButton($language->parse("Chart Currency"),"chart.php","updateTooltip('View Charts')","resetTooltip()");
+//$menu->addButton($language->parse("Chart Stock"),"chart_stockcharts2.php","updateTooltip('View Charts')","resetTooltip()");
+//$menu->addButton($language->parse("Graph")." Forex/Index","http://bbj.stg9.com/index.php","updateTooltip('Charts')","resetTooltip()");
+//$menu->addButton($language->parse("Graph")." TGE","http://graphics.stg9.com/tge.php","updateTooltip('Charts')","resetTooltip()");
+$menu->addButton("Chart Demo Bid","http://demochart.stg9.com/demo/graphics/bid.php","updateTooltip('Chart Demo Bid')","resetTooltip()");
+$menu->addButton("Chart Demo Ask","http://demochart.stg9.com/demo/graphics/ask.php","updateTooltip('Chart Demo Ask')","resetTooltip()");
+$menu->addButton("Chart Demo Last","http://demochart.stg9.com/demo/graphics/last.php","updateTooltip('Chart Demo Last')","resetTooltip()");
+$menu->addButton($language->parse("utility"),"user.php?mode=changepassword","updateTooltip('Click here to change password')","resetTooltip()");
+$menu->addButton($language->parse("Help"),"help.php","updateTooltip('Need help using Profx? Click here')","resetTooltip()");
+//$menu->addButton($language->parse("LiveChat"),"livechat.php","updateTooltip('LiveChat Click here')","resetTooltip()");
+//$menu->addButton($language->parse("Payment"),"payment.php","updateTooltip('Need help using Acemach? Click here')","resetTooltip()");
+$menu->addButton($language->parse("log_out"),"logout.php","updateTooltip('Logout of Online System')","resetTooltip()","top");
+
+$template->assign("logo",$template->fetch("menu.htm"));
+$template->assign("user",$user);
+$template->assign("menu",$menu);
+
+/*****************************************************************************
+* GET ANNOUNCEMENT                                                           *
+*****************************************************************************/
+$query = "SELECT message FROM announcement WHERE announcementid = '1'";
+$result = mysql_query($query);
+$row = mysql_fetch_array($result);
+$message = $row[message];
+$template->assign("message",$message);
+ 
+//$template->assign("menu_html",$template->fetch("menu_blank.htm"));
+ 
+$query = " select userview.hdr,userview.detail,userview.logo 
+	from userview,user  
+	where userview.viewtype = user.viewtype 
+	and user.userid= '$user->userid'";		
+//tradelog("menu-53=".$query);
+$result = $DB->query($query) OR DIE ("User details not found or not created yet"); 
+while ($row = $DB->fetch_array($result))
+{
+	$viewtype_hdr = $row[hdr];
+	//$viewtype_dtl = $row[detail];
+	$viewtype_logo = $row[logo];
+}
+//tradelog("main=viewtype_dtl".$viewtype_dtl); 
+
+mysql_free_result($result);
+$template->assign("viewtype_logo",$viewtype_logo);	
+$template->assign("menu_html",$template->fetch($viewtype_hdr)); 
+
+
 ?>
-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
-w68zQ7+Nr94AnAsHtp4T

@@ -1,144 +1,389 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?php
+
+/* * ****************************************************************************
+ * User.class.php                                                          
+ *                                                                             
+ * @description                                                                
+ * Description goes here                                                       
+ *                                                                                                                  
+ *
+ * **************************************************************************** */
+
+function UsertradeLog($msg) {
+    $fp = fopen("trader.log", "a");
+    $logdate = date("Y-m-d H:i:s => ");
+    $msg = preg_replace("/\s+/", " ", $msg);
+    fwrite($fp, $logdate . $msg . "\n");
+    fclose($fp);
+    return;
+}
+
+class User {
+    /*     * **************************************************************************
+     * ATTRIBUTES                                                                *
+     * ************************************************************************** */
+
+    var $userid;
+    var $username;
+    var $password; // In MD5 Format
+    var $groupid;
+    var $group_description;
+    var $credit;
+    var $lastlogin;
+    var $lastactivity;
+    var $countertype; // Array
+    var $countertype_user; // Array
+    var $tradingtype; // AccNo / AeCode //BranchCode //SelectBranch
+    var $isadmin;
+    var $issupervisor;
+    var $ismanager;
+    var $isamanger;
+    var $lockingid;
+    var $companygroup;
+    var $viewtype;
+    var $userfield_aecode;
+    var $userfield_branch;
+    var $userfield_group;
+    var $aename;
+    var $aenametengah;
+    var $aenameakhir;
+    var $html;
+
+    /*     * **************************************************************************
+     * CONSTRUCTOR                                                               *
+     * ************************************************************************** */
+
+    function User($userid = "") {
+        if (!empty($userid)) {
+            $this->userid = $userid;
+        }
+    }
+
+    /*     * **************************************************************************
+     * METHODS                                                                   *
+     * ************************************************************************** */
+
+    function setAeName($aename) {
+        $this->aename = $aename;
+    }
+
+    function getAeName() {
+        return $this->aename;
+    }
+
+    function setAeNameTengah($aenametengah) {
+        $this->aenametengah = $aenametengah;
+    }
+
+    function getAeNameTengah() {
+        return $this->aenametengah;
+    }
+
+    function setAeNameAkhir($aenameakhir) {
+        $this->aenameakhir = $aenameakhir;
+    }
+
+    function getAeNameAkhir() {
+        return $this->aenameakhir;
+    }
+
+    function setUserid($userid) {
+        $this->userid = $userid;
+    }
+
+    function getUserid() {
+        return $this->userid;
+    }
+
+    function setUsername($username) {
+        $this->username = $username;
+    }
+
+    function getUsername() {
+        return $this->username;
+    }
+
+    function setPassword($password) {
+        $this->password = $password;
+    }
+
+    function getPassword() {
+        return $this->password;
+    }
+
+    function setGroupid($groupid) {
+        $this->groupid = $groupid;
+    }
+
+    function getGroupid() {
+        return $this->groupid;
+    }
+
+    function setUserfield_aecode($userfield_aecode) {
+        $this->userfield_aecode = $userfield_aecode;
+    }
+
+    function getUserfield_aecode() {
+        return $this->userfield_aecode;
+    }
+
+    function setUserfield_branch($userfield_branch) {
+        $this->userfield_branch = $userfield_branch;
+    }
+
+    function getUserfield_branch() {
+        return $this->userfield_branch;
+    }
+
+    function setUserfield_group($userfield_group) {
+        $this->userfield_group = $userfield_group;
+    }
+
+    function getUserfield_group() {
+        return $this->userfield_group;
+    }
+
+    function setGroup_description($group_description) {
+        $this->group_description = $group_description;
+    }
+
+    function getGroup_description() {
+        return $this->group_description;
+    }
+
+    function setCredit($credit) {
+        $this->credit = $credit;
+    }
+
+    function getCredit() {
+        return $this->credit;
+    }
+
+    function setLockingid($lockingid) {
+        $this->lockingid = $lockingid;
+    }
+
+    function getLockingid() {
+        return $this->lockingid;
+    }
+
+    function setCompanygroup($companygroup) {
+        $this->companygroup = $companygroup;
+    }
+
+    function getCompanygroup() {
+        return $this->companygroup;
+    }
+
+    function setViewtype($viewtype) {
+        $this->viewtype = $viewtype;
+    }
+
+    function getViewtype() {
+        return $this->viewtype;
+    }
+
+    function setCounterType_User($countertype_user) {
+        $this->countertype_user = $countertype_user;
+    }
+
+    function getCounterType_User() {
+        return $this->countertype_user;
+    }
+
+    function setCounterType($countertype) {
+        $this->countertype = $countertype;
+    }
+
+    function getCounterType() {
+        return $this->countertype;
+    }
+
+    function fetch() { // Fetch user from database
+        if (empty($this->userid) && empty($this->username)) {
+            echo "User.class.php: userid and username are both empty";
+        }
+        if (!empty($this->userid)) {
+            $where = " userid = '$this->userid' ";
+        } elseif (!empty($this->username)) {
+            $where = " username = '$this->username' ";
+        }
+        $query = "";
+
+
+        global $DB;
+        $query = "SELECT 
+                user.*, group.isadmin, group.issupervisor, group.ismanager, 
+                group.description AS group_description
+                FROM USER,`group`  
+                WHERE  user.groupid = group.groupid     
+                and 
+                $where";
+        //echo "$query"; 
+        $rows = $DB->execresultset($query);
+        $adadata = "no";
+        //UsertradeLog("User.class.php-216:" . $query);
+        foreach ($rows as $row) {
+            $adadata = "yes";
+            //UsertradeLog("User.class.php-219-UserId:" . $row[userid]);
+            $this->userid = $row['userid'];
+            $this->username = $row['username'];
+            $this->password = $row['password'];
+            $this->groupid = $row['groupid'];
+            $this->lastlogin = $row['lastlogin'];
+            $this->lastactivity = $row['lastactivity'];
+            $this->group_description = $row['group_description'];
+            $this->companygroup = $row['companygroup'];
+
+            if ($row['groupid'] == '3') {
+                $query2 = "SELECT client_aecode.name,client_aecode.nametengah,
+                client_aecode.nameakhir,
+                user.*, group.isadmin, group.issupervisor, group.ismanager, 
+                group.description AS group_description
+                FROM USER,client_aecode,`group`  
+                WHERE user.username = client_aecode.aecode 
+                AND user.groupid = group.groupid     
+                and 
+                $where";
+                $rows2 = $DB->execresultset($query2);
+                $adadata = "no";
+                //UsertradeLog("User.class.php-250:" . $query2);
+                foreach ($rows2 as $row2) {
+                    $this->aename = $row2['name'];
+                    $this->aenametengah = $row2['nametengah'];
+                    $this->aenameakhir = $row2['nameakhir'];
+                }
+            }//if ($row['groupid'] == '3') {
+
+            if (!empty($row['countertype'])) {
+                $countertypes = explode(",", $row['countertype']);
+            } else {
+                $countertypes = "";
+            }
+            $this->countertype = $countertypes;
+
+            if (!empty($row['countertype_user']) || $row['countertype_user'] != null) {
+                $countertypes_user = explode(",", $row['countertype_user']);
+            } else {
+                $countertypes_user = $countertypes;
+            }
+            $this->countertype_user = $countertypes_user;
+
+            switch ($this->groupid) {
+                case "1":
+                    $this->tradingtype = "AccNo";
+                    break;
+                case "3":
+                    $this->tradingtype = "AeCode";
+                    break;
+                case "11":
+                    $this->tradingtype = "Group";
+                    break;
+                case "12":
+                    $this->tradingtype = "GroupSelect";
+                    break;
+            }
+
+            $query3 = "SELECT fieldname, fieldvalue FROM userfield WHERE userid = '$this->userid'";
+            $rows3 = $DB->execresultset($query3);
+            //UsertradeLog("User.class.php-288:" . $query3);
+            foreach ($rows3 as $row3) {
+                if ($row[fieldname] == 'aecode') {
+                    $this->userfield_aecode = $row['fieldvalue'];
+                }
+                if ($row['fieldname'] == 'branch') {
+                    $this->userfield_branch = $row['fieldvalue'];
+                }
+                if ($row['fieldname'] == 'group') {
+                    $this->userfield_group = $row['fieldvalue'];
+                }
+            }//foreach ($rows3 as $row3) {
+
+            return true;
+        }//foreach ($rows as $row) {
+        if ($adadata == "no") {
+            return false;
+            exit;
+        }
+    }
+
+//function fetch() {
+
+    function resetLastActivity() {
+        $query = "UPDATE user SET lastactivity = (NOW()-15) WHERE userid = '$this->userid'";
+        global $DB;
+        $DB->execonly($query);
+    }
+
+    function updateLastActivity() {
+        $query = "UPDATE user SET lastactivity = NOW() WHERE userid = '$this->userid'";
+        global $DB;
+        $DB->execonly($query);
+    }
+
+    function updateLastLogin() {
+        $query = "UPDATE user SET lastlogin = NOW(),fromip = '$_SERVER[REMOTE_ADDR]',frommachine = '$_SERVER[HTTP_REFERER]' WHERE userid = '$this->userid'";
+        global $DB;
+        $DB->execonly($query);
+    }
+
+    function isActive() { // Checks whether user is still active to prevent multiple logins
+        $query = "SELECT (NOW()-lastactivity) as lastactivitylapse FROM user WHERE userid = '$this->userid'";
+        global $DB;
+        $rows = $DB->execresultset($query);
+        $adadata = "no";
+        foreach ($rows as $row) {
+            $adadata = "yes";
+            if ($row['lastactivitylapse'] < 15) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    function isExpired() { // Checks whether user is expired
+        $query = "SELECT * FROM user WHERE userid = '$this->userid' and login_end < NOW()";
+        global $DB;
+        $rows = $DB->execresultset($query);
+        $adadata = "no";
+        foreach ($rows as $row) {
+            $adadata = "yes";
+        }
+        if ($adadata == "no") {
+            return false;
+            exit;
+        } else {
+            return true;
+        }
+    }
+
+    function checkPassword($password = "") { // [+fetch()]
+        global $DB;
+        if (empty($this->userid)) {
+            die("User.class.php: Userid is empty");
+        }
+        if (empty($password)) {
+            $password = $this->password;
+        }
+
+        $query = "SELECT userid FROM user WHERE password = '$password' AND userid = '$this->userid'";
+        $rows = $DB->execresultset($query);
+        $adadata = "no";
+        foreach ($rows as $row) {
+            $adadata = "yes";
+            return true;
+        }
+        //UsertradeLog("User.class.php-361:" . $query.";AdaData:".$adadata);
+        if ($adadata == "no") {
+            return false;
+            exit;
+        }
+    }
+
+    /*     * **************************************************************************
+     * END OF CLASS                                                              *
+     * ************************************************************************** */
+}
+
 ?>
-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
-n8Qbfwlh0Mnme90x9se=

@@ -1,338 +1,953 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?php
+/*
+*  Module written/ported by Xavier Noguer <xnoguer@rezebra.com>
+*
+*  The majority of this is _NOT_ my code.  I simply ported it from the
+*  PERL Spreadsheet::WriteExcel module.
+*
+*  The author of the Spreadsheet::WriteExcel module is John McNamara 
+*  <jmcnamara@cpan.org>
+*
+*  I _DO_ maintain this code, and John McNamara has nothing to do with the
+*  porting of this code to PHP.  Any questions directly related to this
+*  class library should be directed to me.
+*
+*  License Information:
+*
+*    Spreadsheet::WriteExcel:  A library for generating Excel Spreadsheets
+*    Copyright (C) 2002 Xavier Noguer xnoguer@rezebra.com
+*
+*    This library is free software; you can redistribute it and/or
+*    modify it under the terms of the GNU Lesser General Public
+*    License as published by the Free Software Foundation; either
+*    version 2.1 of the License, or (at your option) any later version.
+*
+*    This library is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+*    Lesser General Public License for more details.
+*
+*    You should have received a copy of the GNU Lesser General Public
+*    License along with this library; if not, write to the Free Software
+*    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+require_once('Format.php');
+require_once('OLEwriter.php');
+require_once('BIFFwriter.php');
+
+/**
+* Class for generating Excel Spreadsheets
+*
+* @author Xavier Noguer <xnoguer@rezebra.com>
+* @package Spreadsheet_WriteExcel
+*/
+
+class Workbook extends BIFFwriter
+{
+    /**
+    * Class constructor
+    *
+    * @param string filename for storing the workbook. "-" for writing to stdout.
+    */
+    function Workbook($filename)
+    {
+        $this->BIFFwriter(); // It needs to call its parent's constructor explicitly
+    
+        $this->_filename         = $filename;
+        $this->parser            = new Parser($this->_byte_order);
+        $this->_1904             = 0;
+        $this->activesheet       = 0;
+        $this->firstsheet        = 0;
+        $this->selected          = 0;
+        $this->xf_index          = 16; // 15 style XF's and 1 cell XF.
+        $this->_fileclosed       = 0;
+        $this->_biffsize         = 0;
+        $this->sheetname         = "Sheet";
+        $this->tmp_format        = new Format();
+        $this->worksheets        = array();
+        $this->sheetnames        = array();
+        $this->formats           = array();
+        $this->palette           = array();
+    
+        // Add the default format for hyperlinks
+        $this->url_format =& $this->add_format(array('color' => 'blue', 'underline' => 1));
+    
+        // Check for a filename
+        //if ($this->_filename == '') {
+        //    die('Filename required by Spreadsheet::WriteExcel->new()');
+        //}
+    
+        # Warn if tmpfiles can't be used.
+        //$this->tmpfile_warning();
+        $this->_set_palette_xl97();
+    }
+    
+    /**
+    * Calls finalization methods and explicitly close the OLEwriter file
+    * handle.
+    */
+    function close()
+    {
+        if ($this->_fileclosed) { // Prevent close() from being called twice.
+            return;
+        }
+        $this->store_workbook();
+        $this->_fileclosed = 1;
+    }
+    
+    
+    /**
+    * An accessor for the _worksheets[] array
+    * Returns an array of the worksheet objects in a workbook
+    *
+    * @return array
+    */
+    function sheets()
+    {
+        return($this->worksheets());
+    }
+    
+    /**
+    * An accessor for the _worksheets[] array.
+    *
+    * @return array
+    */
+    function worksheets()
+    {
+        return($this->worksheets);
+    }
+    
+    /**
+    * Add a new worksheet to the Excel workbook.
+    * TODO: Add accessor for $this->{_sheetname} for international Excel versions.
+    *
+    * @access public
+    * @param string $name the optional name of the worksheet
+    * @return &object reference to a worksheet object
+    */
+    function &add_worksheet($name = '')
+    {
+        $index     = count($this->worksheets);
+        $sheetname = $this->sheetname;
+
+        if($name == '') {
+            $name = $sheetname.($index+1); 
+        }
+    
+        // Check that sheetname is <= 31 chars (Excel limit).
+        if(strlen($name) > 31) {
+            die("Sheetname $name must be <= 31 chars");
+        }
+    
+        // Check that the worksheet name doesn't already exist: a fatal Excel error.
+        for($i=0; $i < count($this->worksheets); $i++)
+        {
+            if($name == $this->worksheets[$i]->get_name()) {
+                die("Worksheet '$name' already exists");
+            }
+        }
+    
+        $worksheet = new Worksheet($name,$index,$this->activesheet,
+                                   $this->firstsheet,$this->url_format,
+                                   $this->parser);
+        $this->worksheets[$index] = &$worksheet;      // Store ref for iterator
+        $this->sheetnames[$index] = $name;            // Store EXTERNSHEET names
+        //$this->parser->set_ext_sheet($name,$index); // Store names in Formula.php
+        return($worksheet);
+    }
+    
+    /**
+    * DEPRECATED!! Use add_worksheet instead
+    *
+    * @access public
+    * @deprecated Use add_worksheet instead
+    * @param string $name the optional name of the worksheet
+    * @return &object reference to a worksheet object
+    */
+    function &addworksheet($name = '')
+    {
+        return($this->add_worksheet($name));
+    }
+    
+    /**
+    * Add a new format to the Excel workbook. This adds an XF record and
+    * a FONT record. Also, pass any properties to the Format constructor.
+    *
+    * @access public
+    * @param array $properties array with properties for initializing the format (see Format.php)
+    * @return &object reference to an XF format
+    */
+    function &add_format($properties = array())
+    {
+        $format = new Format($this->xf_index,$properties);
+        $this->xf_index += 1;
+        $this->formats[] = &$format;
+        return($format);
+    }
+    
+    /**
+    * DEPRECATED!! Use add_format instead
+    *
+    * @access public
+    * @deprecated Use add_format instead
+    * @param array $properties array with properties for initializing the format (see Format.php)
+    * @return &object reference to an XF format
+    */
+    function &addformat($properties = array())
+    {
+         return($this->add_format($properties));
+    }
+    
+    
+    /**
+    * Change the RGB components of the elements in the colour palette.
+    *
+    * @access public
+    * @param integer $index colour index
+    * @param integer $red   red RGB value [0-255]
+    * @param integer $green green RGB value [0-255]
+    * @param integer $blue  blue RGB value [0-255]
+    * @return integer The palette index for the custom color
+    */
+    function set_custom_color($index,$red,$green,$blue)
+    {
+        // Match a HTML #xxyyzz style parameter
+        /*if (defined $_[1] and $_[1] =~ /^#(\w\w)(\w\w)(\w\w)/ ) {
+            @_ = ($_[0], hex $1, hex $2, hex $3);
+        }*/
+    
+        // Check that the colour index is the right range
+        if ($index < 8 or $index > 64) {
+            die("Color index $index outside range: 8 <= index <= 64");
+        }
+    
+        // Check that the colour components are in the right range
+        if ( ($red   < 0 or $red   > 255) ||
+             ($green < 0 or $green > 255) ||
+             ($blue  < 0 or $blue  > 255) )  
+        {
+            die("Color component outside range: 0 <= color <= 255");
+        }
+
+        $index -= 8; // Adjust colour index (wingless dragonfly)
+        
+        // Set the RGB value
+        $this->palette[$index] = array($red, $green, $blue, 0);
+        return($index + 8);
+    }
+    
+    /**
+    * Sets the colour palette to the Excel 97+ default.
+    */
+    function _set_palette_xl97()
+    {
+        $this->palette = array(
+                           array(0x00, 0x00, 0x00, 0x00),   // 8
+                           array(0xff, 0xff, 0xff, 0x00),   // 9
+                           array(0xff, 0x00, 0x00, 0x00),   // 10
+                           array(0x00, 0xff, 0x00, 0x00),   // 11
+                           array(0x00, 0x00, 0xff, 0x00),   // 12
+                           array(0xff, 0xff, 0x00, 0x00),   // 13
+                           array(0xff, 0x00, 0xff, 0x00),   // 14
+                           array(0x00, 0xff, 0xff, 0x00),   // 15
+                           array(0x80, 0x00, 0x00, 0x00),   // 16
+                           array(0x00, 0x80, 0x00, 0x00),   // 17
+                           array(0x00, 0x00, 0x80, 0x00),   // 18
+                           array(0x80, 0x80, 0x00, 0x00),   // 19
+                           array(0x80, 0x00, 0x80, 0x00),   // 20
+                           array(0x00, 0x80, 0x80, 0x00),   // 21
+                           array(0xc0, 0xc0, 0xc0, 0x00),   // 22
+                           array(0x80, 0x80, 0x80, 0x00),   // 23
+                           array(0x99, 0x99, 0xff, 0x00),   // 24
+                           array(0x99, 0x33, 0x66, 0x00),   // 25
+                           array(0xff, 0xff, 0xcc, 0x00),   // 26
+                           array(0xcc, 0xff, 0xff, 0x00),   // 27
+                           array(0x66, 0x00, 0x66, 0x00),   // 28
+                           array(0xff, 0x80, 0x80, 0x00),   // 29
+                           array(0x00, 0x66, 0xcc, 0x00),   // 30
+                           array(0xcc, 0xcc, 0xff, 0x00),   // 31
+                           array(0x00, 0x00, 0x80, 0x00),   // 32
+                           array(0xff, 0x00, 0xff, 0x00),   // 33
+                           array(0xff, 0xff, 0x00, 0x00),   // 34
+                           array(0x00, 0xff, 0xff, 0x00),   // 35
+                           array(0x80, 0x00, 0x80, 0x00),   // 36
+                           array(0x80, 0x00, 0x00, 0x00),   // 37
+                           array(0x00, 0x80, 0x80, 0x00),   // 38
+                           array(0x00, 0x00, 0xff, 0x00),   // 39
+                           array(0x00, 0xcc, 0xff, 0x00),   // 40
+                           array(0xcc, 0xff, 0xff, 0x00),   // 41
+                           array(0xcc, 0xff, 0xcc, 0x00),   // 42
+                           array(0xff, 0xff, 0x99, 0x00),   // 43
+                           array(0x99, 0xcc, 0xff, 0x00),   // 44
+                           array(0xff, 0x99, 0xcc, 0x00),   // 45
+                           array(0xcc, 0x99, 0xff, 0x00),   // 46
+                           array(0xff, 0xcc, 0x99, 0x00),   // 47
+                           array(0x33, 0x66, 0xff, 0x00),   // 48
+                           array(0x33, 0xcc, 0xcc, 0x00),   // 49
+                           array(0x99, 0xcc, 0x00, 0x00),   // 50
+                           array(0xff, 0xcc, 0x00, 0x00),   // 51
+                           array(0xff, 0x99, 0x00, 0x00),   // 52
+                           array(0xff, 0x66, 0x00, 0x00),   // 53
+                           array(0x66, 0x66, 0x99, 0x00),   // 54
+                           array(0x96, 0x96, 0x96, 0x00),   // 55
+                           array(0x00, 0x33, 0x66, 0x00),   // 56
+                           array(0x33, 0x99, 0x66, 0x00),   // 57
+                           array(0x00, 0x33, 0x00, 0x00),   // 58
+                           array(0x33, 0x33, 0x00, 0x00),   // 59
+                           array(0x99, 0x33, 0x00, 0x00),   // 60
+                           array(0x99, 0x33, 0x66, 0x00),   // 61
+                           array(0x33, 0x33, 0x99, 0x00),   // 62
+                           array(0x33, 0x33, 0x33, 0x00),   // 63
+                         );
+    }
+    
+    
+    ###############################################################################
+    #
+    # _tmpfile_warning()
+    #
+    # Check that tmp files can be created for use in Worksheet.pm. A CGI, mod_perl
+    # or IIS might not have permission to create tmp files. The test is here rather
+    # than in Worksheet.pm so that only one warning is given.
+    #
+    /*sub _tmpfile_warning {
+    
+        my $fh = IO::File->new_tmpfile();
+    
+        if ((not defined $fh) && ($^W)) {
+            carp("Unable to create tmp files via IO::File->new_tmpfile(). " .
+                 "Storing data in memory")
+    }
+    }*/
+    
+    /**
+    * Assemble worksheets into a workbook and send the BIFF data to an OLE
+    * storage.
+    */
+    function store_workbook()
+    {
+        // Ensure that at least one worksheet has been selected.
+        if ($this->activesheet == 0) {
+            $this->worksheets[0]->selected = 1;
+        }
+    
+        // Calculate the number of selected worksheet tabs and call the finalization
+        // methods for each worksheet
+        for($i=0; $i < count($this->worksheets); $i++)
+        {
+            if($this->worksheets[$i]->selected)
+              $this->selected++;
+            $this->worksheets[$i]->close($this->sheetnames);
+        }
+    
+        // Add Workbook globals
+        $this->_store_bof(0x0005);
+        $this->_store_externs();    // For print area and repeat rows
+        $this->_store_names();      // For print area and repeat rows
+        $this->_store_window1();
+        $this->_store_1904();
+        $this->_store_all_fonts();
+        $this->_store_all_num_formats();
+        $this->_store_all_xfs();
+        $this->_store_all_styles();
+        $this->_store_palette();
+        $this->_calc_sheet_offsets();
+    
+        // Add BOUNDSHEET records
+        for($i=0; $i < count($this->worksheets); $i++) {
+            $this->_store_boundsheet($this->worksheets[$i]->name,$this->worksheets[$i]->offset);
+        }
+    
+        // End Workbook globals
+        $this->_store_eof();
+
+        // Store the workbook in an OLE container
+        $this->_store_OLE_file();
+    }
+    
+    /**
+    * Store the workbook in an OLE container if the total size of the workbook data
+    * is less than ~ 7MB.
+    */
+    function _store_OLE_file()
+    {
+        $OLE  = new OLEwriter($this->_filename);
+        // Write Worksheet data if data <~ 7MB
+        if ($OLE->set_size($this->_biffsize))
+        {
+            $OLE->write_header();
+            $OLE->write($this->_data);
+            foreach($this->worksheets as $sheet) 
+            {
+                while ($tmp = $sheet->get_data()) {
+                    $OLE->write($tmp);
+                }
+            }
+        }
+        $OLE->close();
+    }
+    
+    /**
+    * Calculate offsets for Worksheet BOF records.
+    */
+    function _calc_sheet_offsets()
+    {
+        $BOF     = 11;
+        $EOF     = 4;
+        $offset  = $this->_datasize;
+        for($i=0; $i < count($this->worksheets); $i++) {
+            $offset += $BOF + strlen($this->worksheets[$i]->name);
+        }
+        $offset += $EOF;
+        for($i=0; $i < count($this->worksheets); $i++) {
+            $this->worksheets[$i]->offset = $offset;
+            $offset += $this->worksheets[$i]->_datasize;
+        }
+        $this->_biffsize = $offset;
+    }
+    
+    /**
+    * Store the Excel FONT records.
+    */
+    function _store_all_fonts()
+    {
+        // tmp_format is added by new(). We use this to write the default XF's
+        $format = $this->tmp_format;
+        $font   = $format->get_font();
+    
+        // Note: Fonts are 0-indexed. According to the SDK there is no index 4,
+        // so the following fonts are 0, 1, 2, 3, 5
+        //
+        for($i=1; $i <= 5; $i++){
+            $this->_append($font);
+        }
+    
+        // Iterate through the XF objects and write a FONT record if it isn't the
+        // same as the default FONT and if it hasn't already been used.
+        //
+        $fonts = array();
+        $index = 6;                  // The first user defined FONT
+    
+        $key = $format->get_font_key(); // The default font from _tmp_format
+        $fonts[$key] = 0;               // Index of the default font
+    
+        for($i=0; $i < count($this->formats); $i++) {
+            $key = $this->formats[$i]->get_font_key();
+            if (isset($fonts[$key])) {
+                // FONT has already been used
+                $this->formats[$i]->font_index = $fonts[$key];
+            }
+            else {
+                // Add a new FONT record
+                $fonts[$key]        = $index;
+                $this->formats[$i]->font_index = $index;
+                $index++;
+                $font = $this->formats[$i]->get_font();
+                $this->_append($font);
+            }
+        }
+    }
+    
+    /**
+    * Store user defined numerical formats i.e. FORMAT records
+    */
+    function _store_all_num_formats()
+    {
+        // Leaning num_format syndrome
+        $hash_num_formats = array();
+        $num_formats      = array();
+        $index = 164;
+    
+        // Iterate through the XF objects and write a FORMAT record if it isn't a
+        // built-in format type and if the FORMAT string hasn't already been used.
+        //
+        for($i=0; $i < count($this->formats); $i++)
+        {
+            $num_format = $this->formats[$i]->_num_format;
+    
+            // Check if $num_format is an index to a built-in format.
+            // Also check for a string of zeros, which is a valid format string
+            // but would evaluate to zero.
+            //
+            if (!preg_match("/^0+\d/",$num_format))
+            {
+                if (preg_match("/^\d+$/",$num_format)) { // built-in format
+                    continue;
+                }
+            }
+    
+            if (isset($hash_num_formats[$num_format])) {
+                // FORMAT has already been used
+                $this->formats[$i]->_num_format = $hash_num_formats[$num_format];
+            }
+            else
+            {
+                // Add a new FORMAT
+                $hash_num_formats[$num_format]  = $index;
+                $this->formats[$i]->_num_format = $index;
+                array_push($num_formats,$num_format);
+                $index++;
+            }
+        }
+    
+        // Write the new FORMAT records starting from 0xA4
+        $index = 164;
+        foreach ($num_formats as $num_format)
+        {
+            $this->_store_num_format($num_format,$index);
+            $index++;
+        }
+    }
+    
+    /**
+    * Write all XF records.
+    */
+    function _store_all_xfs()
+    {
+        // tmp_format is added by the constructor. We use this to write the default XF's
+        // The default font index is 0
+        //
+        $format = $this->tmp_format;
+        for ($i=0; $i <= 14; $i++)
+        {
+            $xf = $format->get_xf('style'); // Style XF
+            $this->_append($xf);
+        }
+    
+        $xf = $format->get_xf('cell');      // Cell XF
+        $this->_append($xf);
+    
+        // User defined XFs
+        for($i=0; $i < count($this->formats); $i++)
+        {
+            $xf = $this->formats[$i]->get_xf('cell');
+            $this->_append($xf);
+        }
+    }
+    
+    /**
+    * Write all STYLE records.
+    */
+    function _store_all_styles()
+    {
+        $this->_store_style();
+    }
+    
+    /**
+    * Write the EXTERNCOUNT and EXTERNSHEET records. These are used as indexes for
+    * the NAME records.
+    */
+    function _store_externs()
+    {
+        // Create EXTERNCOUNT with number of worksheets
+        $this->_store_externcount(count($this->worksheets));
+    
+        // Create EXTERNSHEET for each worksheet
+        foreach ($this->sheetnames as $sheetname) {
+            $this->_store_externsheet($sheetname);
+        }
+    }
+    
+    /**
+    * Write the NAME record to define the print area and the repeat rows and cols.
+    */
+    function _store_names()
+    {
+        // Create the print area NAME records
+        foreach ($this->worksheets as $worksheet)
+        {
+            // Write a Name record if the print area has been defined
+            if (isset($worksheet->_print_rowmin))
+            {
+                $this->store_name_short(
+                    $worksheet->index,
+                    0x06, // NAME type
+                    $worksheet->_print_rowmin,
+                    $worksheet->_print_rowmax,
+                    $worksheet->_print_colmin,
+                    $worksheet->_print_colmax
+                    );
+            }
+        }
+    
+        // Create the print title NAME records
+        foreach ($this->worksheets as $worksheet)
+        {
+            $rowmin = $worksheet->_title_rowmin;
+            $rowmax = $worksheet->_title_rowmax;
+            $colmin = $worksheet->_title_colmin;
+            $colmax = $worksheet->_title_colmax;
+    
+            // Determine if row + col, row, col or nothing has been defined
+            // and write the appropriate record
+            //
+            if (isset($rowmin) && isset($colmin))
+            {
+                // Row and column titles have been defined.
+                // Row title has been defined.
+                $this->store_name_long(
+                    $worksheet->index,
+                    0x07, // NAME type
+                    $rowmin,
+                    $rowmax,
+                    $colmin,
+                    $colmax
+                    );
+            }
+            elseif (isset($rowmin))
+            {
+                // Row title has been defined.
+                $this->store_name_short(
+                    $worksheet->index,
+                    0x07, // NAME type
+                    $rowmin,
+                    $rowmax,
+                    0x00,
+                    0xff
+                    );
+            }
+            elseif (isset($colmin))
+            {
+                // Column title has been defined.
+                $this->store_name_short(
+                    $worksheet->index,
+                    0x07, // NAME type
+                    0x0000,
+                    0x3fff,
+                    $colmin,
+                    $colmax
+                    );
+            }
+            else {
+                // Print title hasn't been defined.
+            }
+        }
+    }
+    
+
+    
+    
+    /******************************************************************************
+    *
+    * BIFF RECORDS
+    *
+    */
+    
+    /**
+    * Write Excel BIFF WINDOW1 record.
+    */
+    function _store_window1()
+    {
+        $record    = 0x003D;                 // Record identifier
+        $length    = 0x0012;                 // Number of bytes to follow
+    
+        $xWn       = 0x0000;                 // Horizontal position of window
+        $yWn       = 0x0000;                 // Vertical position of window
+        $dxWn      = 0x25BC;                 // Width of window
+        $dyWn      = 0x1572;                 // Height of window
+    
+        $grbit     = 0x0038;                 // Option flags
+        $ctabsel   = $this->selected;        // Number of workbook tabs selected
+        $wTabRatio = 0x0258;                 // Tab to scrollbar ratio
+    
+        $itabFirst = $this->firstsheet;   // 1st displayed worksheet
+        $itabCur   = $this->activesheet;  // Active worksheet
+    
+        $header    = pack("vv",        $record, $length);
+        $data      = pack("vvvvvvvvv", $xWn, $yWn, $dxWn, $dyWn,
+                                       $grbit,
+                                       $itabCur, $itabFirst,
+                                       $ctabsel, $wTabRatio);
+        $this->_append($header.$data);
+    }
+    
+    /**
+    * Writes Excel BIFF BOUNDSHEET record.
+    *
+    * @param string  $sheetname Worksheet name
+    * @param integer $offset    Location of worksheet BOF
+    */
+    function _store_boundsheet($sheetname,$offset)
+    {
+        $record    = 0x0085;                    // Record identifier
+        $length    = 0x07 + strlen($sheetname); // Number of bytes to follow
+    
+        $grbit     = 0x0000;                    // Sheet identifier
+        $cch       = strlen($sheetname);        // Length of sheet name
+    
+        $header    = pack("vv",  $record, $length);
+        $data      = pack("VvC", $offset, $grbit, $cch);
+        $this->_append($header.$data.$sheetname);
+    }
+    
+    /**
+    * Write Excel BIFF STYLE records.
+    */
+    function _store_style()
+    {
+        $record    = 0x0293;   // Record identifier
+        $length    = 0x0004;   // Bytes to follow
+                               
+        $ixfe      = 0x8000;   // Index to style XF
+        $BuiltIn   = 0x00;     // Built-in style
+        $iLevel    = 0xff;     // Outline style level
+    
+        $header    = pack("vv",  $record, $length);
+        $data      = pack("vCC", $ixfe, $BuiltIn, $iLevel);
+        $this->_append($header.$data);
+    }
+    
+    
+    /**
+    * Writes Excel FORMAT record for non "built-in" numerical formats.
+    *
+    * @param string  $format Custom format string
+    * @param integer $ifmt   Format index code
+    */
+    function _store_num_format($format,$ifmt)
+    {
+        $record    = 0x041E;                      // Record identifier
+        $length    = 0x03 + strlen($format);      // Number of bytes to follow
+    
+        $cch       = strlen($format);             // Length of format string
+    
+        $header    = pack("vv", $record, $length);
+        $data      = pack("vC", $ifmt, $cch);
+        $this->_append($header.$data.$format);
+    }
+    
+    /**
+    * Write Excel 1904 record to indicate the date system in use.
+    */
+    function _store_1904()
+    {
+        $record    = 0x0022;         // Record identifier
+        $length    = 0x0002;         // Bytes to follow
+
+        $f1904     = $this->_1904;   // Flag for 1904 date system
+    
+        $header    = pack("vv", $record, $length);
+        $data      = pack("v", $f1904);
+        $this->_append($header.$data);
+    }
+    
+    
+    /**
+    * Write BIFF record EXTERNCOUNT to indicate the number of external sheet
+    * references in the workbook.
+    *
+    * Excel only stores references to external sheets that are used in NAME.
+    * The workbook NAME record is required to define the print area and the repeat
+    * rows and columns.
+    *
+    * A similar method is used in Worksheet.php for a slightly different purpose.
+    *
+    * @param integer $cxals Number of external references
+    */
+    function _store_externcount($cxals)
+    {
+        $record   = 0x0016;          // Record identifier
+        $length   = 0x0002;          // Number of bytes to follow
+    
+        $header   = pack("vv", $record, $length);
+        $data     = pack("v",  $cxals);
+        $this->_append($header.$data);
+    }
+    
+    
+    /**
+    * Writes the Excel BIFF EXTERNSHEET record. These references are used by
+    * formulas. NAME record is required to define the print area and the repeat
+    * rows and columns.
+    *
+    * A similar method is used in Worksheet.php for a slightly different purpose.
+    *
+    * @param string $sheetname Worksheet name
+    */
+    function _store_externsheet($sheetname)
+    {
+        $record      = 0x0017;                     // Record identifier
+        $length      = 0x02 + strlen($sheetname);  // Number of bytes to follow
+                                                   
+        $cch         = strlen($sheetname);         // Length of sheet name
+        $rgch        = 0x03;                       // Filename encoding
+    
+        $header      = pack("vv",  $record, $length);
+        $data        = pack("CC", $cch, $rgch);
+        $this->_append($header.$data.$sheetname);
+    }
+    
+    
+    /**
+    * Store the NAME record in the short format that is used for storing the print
+    * area, repeat rows only and repeat columns only.
+    *
+    * @param integer $index  Sheet index
+    * @param integer $type   Built-in name type
+    * @param integer $rowmin Start row
+    * @param integer $rowmax End row
+    * @param integer $colmin Start colum
+    * @param integer $colmax End column
+    */
+    function store_name_short($index,$type,$rowmin,$rowmax,$colmin,$colmax)
+    {
+        $record          = 0x0018;       // Record identifier
+        $length          = 0x0024;       // Number of bytes to follow
+    
+        $grbit           = 0x0020;       // Option flags
+        $chKey           = 0x00;         // Keyboard shortcut
+        $cch             = 0x01;         // Length of text name
+        $cce             = 0x0015;       // Length of text definition
+        $ixals           = $index + 1;   // Sheet index
+        $itab            = $ixals;       // Equal to ixals
+        $cchCustMenu     = 0x00;         // Length of cust menu text
+        $cchDescription  = 0x00;         // Length of description text
+        $cchHelptopic    = 0x00;         // Length of help topic text
+        $cchStatustext   = 0x00;         // Length of status bar text
+        $rgch            = $type;        // Built-in name type
+    
+        $unknown03       = 0x3b;
+        $unknown04       = 0xffff-$index;
+        $unknown05       = 0x0000;
+        $unknown06       = 0x0000;
+        $unknown07       = 0x1087;
+        $unknown08       = 0x8005;
+    
+        $header             = pack("vv", $record, $length);
+        $data               = pack("v", $grbit);
+        $data              .= pack("C", $chKey);
+        $data              .= pack("C", $cch);
+        $data              .= pack("v", $cce);
+        $data              .= pack("v", $ixals);
+        $data              .= pack("v", $itab);
+        $data              .= pack("C", $cchCustMenu);
+        $data              .= pack("C", $cchDescription);
+        $data              .= pack("C", $cchHelptopic);
+        $data              .= pack("C", $cchStatustext);
+        $data              .= pack("C", $rgch);
+        $data              .= pack("C", $unknown03);
+        $data              .= pack("v", $unknown04);
+        $data              .= pack("v", $unknown05);
+        $data              .= pack("v", $unknown06);
+        $data              .= pack("v", $unknown07);
+        $data              .= pack("v", $unknown08);
+        $data              .= pack("v", $index);
+        $data              .= pack("v", $index);
+        $data              .= pack("v", $rowmin);
+        $data              .= pack("v", $rowmax);
+        $data              .= pack("C", $colmin);
+        $data              .= pack("C", $colmax);
+        $this->_append($header.$data);
+    }
+    
+    
+    /**
+    * Store the NAME record in the long format that is used for storing the repeat
+    * rows and columns when both are specified. This share a lot of code with
+    * _store_name_short() but we use a separate method to keep the code clean.
+    * Code abstraction for reuse can be carried too far, and I should know. ;-)
+    *
+    * @param integer $index Sheet index
+    * @param integer $type  Built-in name type
+    * @param integer $rowmin Start row
+    * @param integer $rowmax End row
+    * @param integer $colmin Start colum
+    * @param integer $colmax End column
+    */
+    function store_name_long($index,$type,$rowmin,$rowmax,$colmin,$colmax)
+    {
+        $record          = 0x0018;       // Record identifier
+        $length          = 0x003d;       // Number of bytes to follow
+        $grbit           = 0x0020;       // Option flags
+        $chKey           = 0x00;         // Keyboard shortcut
+        $cch             = 0x01;         // Length of text name
+        $cce             = 0x002e;       // Length of text definition
+        $ixals           = $index + 1;   // Sheet index
+        $itab            = $ixals;       // Equal to ixals
+        $cchCustMenu     = 0x00;         // Length of cust menu text
+        $cchDescription  = 0x00;         // Length of description text
+        $cchHelptopic    = 0x00;         // Length of help topic text
+        $cchStatustext   = 0x00;         // Length of status bar text
+        $rgch            = $type;        // Built-in name type
+    
+        $unknown01       = 0x29;
+        $unknown02       = 0x002b;
+        $unknown03       = 0x3b;
+        $unknown04       = 0xffff-$index;
+        $unknown05       = 0x0000;
+        $unknown06       = 0x0000;
+        $unknown07       = 0x1087;
+        $unknown08       = 0x8008;
+    
+        $header             = pack("vv",  $record, $length);
+        $data               = pack("v", $grbit);
+        $data              .= pack("C", $chKey);
+        $data              .= pack("C", $cch);
+        $data              .= pack("v", $cce);
+        $data              .= pack("v", $ixals);
+        $data              .= pack("v", $itab);
+        $data              .= pack("C", $cchCustMenu);
+        $data              .= pack("C", $cchDescription);
+        $data              .= pack("C", $cchHelptopic);
+        $data              .= pack("C", $cchStatustext);
+        $data              .= pack("C", $rgch);
+        $data              .= pack("C", $unknown01);
+        $data              .= pack("v", $unknown02);
+        // Column definition
+        $data              .= pack("C", $unknown03);
+        $data              .= pack("v", $unknown04);
+        $data              .= pack("v", $unknown05);
+        $data              .= pack("v", $unknown06);
+        $data              .= pack("v", $unknown07);
+        $data              .= pack("v", $unknown08);
+        $data              .= pack("v", $index);
+        $data              .= pack("v", $index);
+        $data              .= pack("v", 0x0000);
+        $data              .= pack("v", 0x3fff);
+        $data              .= pack("C", $colmin);
+        $data              .= pack("C", $colmax);
+        // Row definition
+        $data              .= pack("C", $unknown03);
+        $data              .= pack("v", $unknown04);
+        $data              .= pack("v", $unknown05);
+        $data              .= pack("v", $unknown06);
+        $data              .= pack("v", $unknown07);
+        $data              .= pack("v", $unknown08);
+        $data              .= pack("v", $index);
+        $data              .= pack("v", $index);
+        $data              .= pack("v", $rowmin);
+        $data              .= pack("v", $rowmax);
+        $data              .= pack("C", 0x00);
+        $data              .= pack("C", 0xff);
+        // End of data
+        $data              .= pack("C", 0x10);
+        $this->_append($header.$data);
+    }
+    
+    
+    /**
+    * Stores the PALETTE biff record.
+    */
+    function _store_palette()
+    {
+        $aref            = $this->palette;
+    
+        $record          = 0x0092;                 // Record identifier
+        $length          = 2 + 4 * count($aref);   // Number of bytes to follow
+        $ccv             =         count($aref);   // Number of RGB values to follow
+        $data = '';                                // The RGB data
+    
+        // Pack the RGB data
+        foreach($aref as $color)
+        {
+            foreach($color as $byte) {
+                $data .= pack("C",$byte);
+            }
+        }
+    
+        $header = pack("vvv",  $record, $length, $ccv);
+        $this->_append($header.$data);
+    }
+}
 ?>
-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

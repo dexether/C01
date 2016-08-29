@@ -1,60 +1,209 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?php
+/*
+*  Module written/ported by Xavier Noguer <xnoguer@rezebra.com>
+*
+*  The majority of this is _NOT_ my code.  I simply ported it from the
+*  PERL Spreadsheet::WriteExcel module.
+*
+*  The author of the Spreadsheet::WriteExcel module is John McNamara 
+*  <jmcnamara@cpan.org>
+*
+*  I _DO_ maintain this code, and John McNamara has nothing to do with the
+*  porting of this code to PHP.  Any questions directly related to this
+*  class library should be directed to me.
+*
+*  License Information:
+*
+*    Spreadsheet::WriteExcel:  A library for generating Excel Spreadsheets
+*    Copyright (C) 2002 Xavier Noguer xnoguer@rezebra.com
+*
+*    This library is free software; you can redistribute it and/or
+*    modify it under the terms of the GNU Lesser General Public
+*    License as published by the Free Software Foundation; either
+*    version 2.1 of the License, or (at your option) any later version.
+*
+*    This library is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+*    Lesser General Public License for more details.
+*
+*    You should have received a copy of the GNU Lesser General Public
+*    License along with this library; if not, write to the Free Software
+*    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+/**
+* Class for writing Excel BIFF records.
+* 
+* From "MICROSOFT EXCEL BINARY FILE FORMAT" by Mark O'Brien (Microsoft Corporation):
+*
+* BIFF (BInary File Format) is the file format in which Excel documents are 
+* saved on disk.  A BIFF file is a complete description of an Excel document.
+* BIFF files consist of sequences of variable-length records. There are many 
+* different types of BIFF records.  For example, one record type describes a 
+* formula entered into a cell; one describes the size and location of a 
+* window into a document; another describes a picture format.
+*
+* @author Xavier Noguer <xnoguer@rezebra.com>
+* @package Spreadsheet_WriteExcel
+*/
+
+class BIFFWriter
+{
+    var $_BIFF_version = 0x0500;
+
+/**
+* Constructor
+*
+* @access public
+*/
+    function BIFFwriter()
+    {
+        // The byte order of this architecture. 0 => little endian, 1 => big endian
+        $this->_byte_order = '';
+        // The string containing the data of the BIFF stream
+        $this->_data       = '';
+        // Should be the same as strlen($this->_data)
+        $this->_datasize   = 0;
+        // The maximun length for a BIFF record. See _add_continue()
+        $this->_limit      = 2080;   
+        // Set the byte order
+        $this->_set_byte_order();
+    }
+
+/**
+* Determine the byte order and store it as class data to avoid
+* recalculating it for each call to new().
+*
+* @access private
+*/
+    function _set_byte_order()
+    {
+        if ($this->_byte_order == '')
+        {
+            // Check if "pack" gives the required IEEE 64bit float
+            $teststr = pack("d", 1.2345);
+            $number  = pack("C8", 0x8D, 0x97, 0x6E, 0x12, 0x83, 0xC0, 0xF3, 0x3F);
+            if ($number == $teststr) {
+                $byte_order = 0;    // Little Endian
+            }
+            elseif ($number == strrev($teststr)){
+                $byte_order = 1;    // Big Endian
+            }
+            else {
+                // Give up. I'll fix this in a later version.
+                die("Required floating point format not supported ".
+                    "on this platform. See the portability section ".
+                    "of the documentation."
+                   );
+            }
+        }
+        $this->_byte_order = $byte_order;
+    }
+
+/**
+* General storage function
+*
+* @param string $data binary data to prepend
+* @access private
+*/
+    function _prepend($data)
+    {
+        if (strlen($data) > $this->_limit) {
+            $data = $this->_add_continue($data);
+        }
+        $this->_data      = $data.$this->_data;
+        $this->_datasize += strlen($data);
+    }
+
+/**
+* General storage function
+*
+* @param string $data binary data to append
+* @access private
+*/
+    function _append($data)
+    {
+        if (strlen($data) > $this->_limit) {
+            $data = $this->_add_continue($data);
+        }
+        $this->_data      = $this->_data.$data;
+        $this->_datasize += strlen($data);
+    }
+
+/**
+* Writes Excel BOF record to indicate the beginning of a stream or
+* sub-stream in the BIFF file.
+*
+* @param  integer $type type of BIFF file to write: 0x0005 Workbook, 0x0010 Worksheet.
+* @access private
+*/
+    function _store_bof($type)
+    {
+        $record  = 0x0809;        // Record identifier
+        $length  = 0x0008;        // Number of bytes to follow
+        $version = $this->_BIFF_version;
+   
+        // According to the SDK $build and $year should be set to zero.
+        // However, this throws a warning in Excel 5. So, use these
+        // magic numbers.
+        $build   = 0x096C;
+        $year    = 0x07C9;
+   
+        $header  = pack("vv",   $record, $length);
+        $data    = pack("vvvv", $version, $type, $build, $year);
+        $this->_prepend($header.$data);
+    }
+
+/**
+* Writes Excel EOF record to indicate the end of a BIFF stream.
+*
+* @access private
+*/
+    function _store_eof() 
+    {
+        $record    = 0x000A;   // Record identifier
+        $length    = 0x0000;   // Number of bytes to follow
+        $header    = pack("vv", $record, $length);
+        $this->_append($header);
+    }
+
+/**
+* Excel limits the size of BIFF records. In Excel 5 the limit is 2084 bytes. In
+* Excel 97 the limit is 8228 bytes. Records that are longer than these limits
+* must be split up into CONTINUE blocks.
+*
+* This function takes a long BIFF record and inserts CONTINUE records as
+* necessary.
+*
+* @param  string  $data The original binary data to be written
+* @return string        A very convenient string of continue blocks
+* @access private
+*/
+    function _add_continue($data)
+    {
+        $limit      = $this->_limit;
+        $record     = 0x003C;         // Record identifier
+ 
+        // The first 2080/8224 bytes remain intact. However, we have to change
+        // the length field of the record.
+        $tmp = substr($data, 0, 2).pack("v", $limit-4).substr($data, 4, $limit - 4);
+        
+        $header = pack("vv", $record, $limit);  // Headers for continue records
+ 
+        // Retrieve chunks of 2080/8224 bytes +4 for the header.
+        for($i = $limit; $i < strlen($data) - $limit; $i += $limit)
+        {
+            $tmp .= $header;
+            $tmp .= substr($data, $i, $limit);
+        }
+
+        // Retrieve the last chunk of data
+        $header  = pack("vv", $record, strlen($data) - $i);
+        $tmp    .= $header;
+        $tmp    .= substr($data,$i,strlen($data) - $i);
+ 
+        return($tmp);
+    }
+}
 ?>
-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
-mRU6+bh8

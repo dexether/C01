@@ -1,19 +1,20 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-29 07:47:04
-         compiled from "/root/project/cabinet-stable/web2/templates/home_03/home_03.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:137216979557c386087713f2_59834645%%*/
+/*%%SmartyHeaderCode:146081516957c39fdf224b16_32773453%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    'ec477e170e3b9659960552a36a53bcb8a161b12c' => 
+    'a6c069188a4822bf9d834098aeb2a15712cf51d8' => 
     array (
-      0 => '/root/project/cabinet-stable/web2/templates/home_03/home_03.htm',
+      0 => '/home/theprogrammer/project/cabinet-stable/web2/templates/home_03/home_03.htm',
       1 => 1472441354,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '137216979557c386087713f2_59834645',
+  'nocache_hash' => '146081516957c39fdf224b16_32773453',
+  'tpl_function' => 
+  array (
+  ),
   'variables' => 
   array (
     'status' => 0,
@@ -25,13 +26,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57c38608792d97_90683196',
-),false);
+  'unifunc' => 'content_57c39fdf24e785_38876668',
+  'cache_lifetime' => 120,
+),true);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57c38608792d97_90683196')) {
-function content_57c38608792d97_90683196 ($_smarty_tpl) {
-
-$_smarty_tpl->properties['nocache_hash'] = '137216979557c386087713f2_59834645';
+if ($_valid && !is_callable('content_57c39fdf24e785_38876668')) {
+function content_57c39fdf24e785_38876668 ($_smarty_tpl) {
 ?>
 <link href="assets/libs/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
 <div class="content" id="main_content">
@@ -55,18 +55,7 @@ $_smarty_tpl->properties['nocache_hash'] = '137216979557c386087713f2_59834645';
   margin-bottom: 1px
 }*/
    </style>
-   <?php if ($_smarty_tpl->tpl_vars['status']->value == '0') {?>
-   <br/>
-   <div class="alert alert-danger">
-      <strong>
-         NOTE:
-      </strong>
-      <p class="text-justify">
-         You haven't confirmed your email, please check your e-mail now and click the activation link has been sent
-      </p>
-   </div>
-   <?php }?>
-   <div class="carousel slide" data-ride="carousel" id="carousel-example">
+      <div class="carousel slide" data-ride="carousel" id="carousel-example">
       <ol class="carousel-indicators">
          <li class="active" data-slide-to="0" data-target="#carousel-example">
          </li>
@@ -107,8 +96,7 @@ $_smarty_tpl->properties['nocache_hash'] = '137216979557c386087713f2_59834645';
             <!-- Start info box -->
             <div class="row top-summary">
                <button class="btn btn-primary btn-lg btn-block" type="button">
-                  Welcome to <?php echo $_smarty_tpl->tpl_vars['companys']->value['programname'];?>
-
+                  Welcome to AgendaFX
                   <p class="text-muted">
                      Solution for Financial Risk and Reward
                   </p>
@@ -130,10 +118,8 @@ $_smarty_tpl->properties['nocache_hash'] = '137216979557c386087713f2_59834645';
                                     </b>
                                  </p>
                                  <h3>
-                                    <span class="animate-number" data-duration="3000" data-value="<?php echo number_format($_smarty_tpl->tpl_vars['ewallet']->value['total'],2);?>
-">
-                                       <?php echo number_format($_smarty_tpl->tpl_vars['ewallet']->value['total'],2);?>
-
+                                    <span class="animate-number" data-duration="3000" data-value="0.00">
+                                       0.00
                                     </span>
                                  </h3>
                                  <div class="clearfix">
@@ -169,10 +155,8 @@ $_smarty_tpl->properties['nocache_hash'] = '137216979557c386087713f2_59834645';
                                     </b>
                                  </p>
                                  <h2>
-                                    <span class="animate-number" data-duration="3000" data-value="<?php echo number_format($_smarty_tpl->tpl_vars['bonus']->value['bonus'],2);?>
-">
-                                       <?php echo number_format($_smarty_tpl->tpl_vars['bonus']->value['bonus'],2);?>
-
+                                    <span class="animate-number" data-duration="3000" data-value="0.00">
+                                       0.00
                                     </span>
                                  </h2>
                                  <div class="clearfix">
@@ -208,10 +192,8 @@ $_smarty_tpl->properties['nocache_hash'] = '137216979557c386087713f2_59834645';
                                     </b>
                                  </p>
                                  <h2>
-                                    <span class="animate-number" data-duration="3000" data-value="<?php echo $_smarty_tpl->tpl_vars['account']->value['account'];?>
-">
-                                       <?php echo $_smarty_tpl->tpl_vars['account']->value['account'];?>
-
+                                    <span class="animate-number" data-duration="3000" data-value="0">
+                                       0
                                     </span>
                                  </h2>
                                  <div class="clearfix">
@@ -247,10 +229,8 @@ $_smarty_tpl->properties['nocache_hash'] = '137216979557c386087713f2_59834645';
                                     </b>
                                  </p>
                                  <h2>
-                                    <span class="animate-number" data-duration="3000" data-value="<?php echo number_format($_smarty_tpl->tpl_vars['goldsaving']->value['total'],2);?>
-">
-                                       <?php echo number_format($_smarty_tpl->tpl_vars['goldsaving']->value['total'],2);?>
-
+                                    <span class="animate-number" data-duration="3000" data-value="0.00">
+                                       0.00
                                     </span>
                                  </h2>
                                  <div class="clearfix">
@@ -279,153 +259,81 @@ $_smarty_tpl->properties['nocache_hash'] = '137216979557c386087713f2_59834645';
          </div>
       </div>
    </div>
-   <?php echo '<script'; ?>
- src="assets/libs/d3/d3.v3.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/rickshaw/rickshaw.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/raphael/raphael-min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/morrischart/morris.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/jquery-knob/jquery.knob.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-1.2.2.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-us-aea-en.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/jquery-clock/clock.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/jquery-easypiechart/jquery.easypiechart.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/jquery-weather/jquery.simpleWeather-2.6.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/bootstrap-xeditable/js/bootstrap-editable.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/libs/bootstrap-calendar/js/bic_calendar.min.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/js/apps/calculator.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/js/apps/todo.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/js/apps/notes.js">
-   <?php echo '</script'; ?>
->
-   <?php echo '<script'; ?>
- src="assets/js/pages/index.js">
-   <?php echo '</script'; ?>
->
+   <script src="assets/libs/d3/d3.v3.js">
+   </script>
+   <script src="assets/libs/rickshaw/rickshaw.min.js">
+   </script>
+   <script src="assets/libs/raphael/raphael-min.js">
+   </script>
+   <script src="assets/libs/morrischart/morris.min.js">
+   </script>
+   <script src="assets/libs/jquery-knob/jquery.knob.js">
+   </script>
+   <script src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-1.2.2.min.js">
+   </script>
+   <script src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-us-aea-en.js">
+   </script>
+   <script src="assets/libs/jquery-clock/clock.js">
+   </script>
+   <script src="assets/libs/jquery-easypiechart/jquery.easypiechart.min.js">
+   </script>
+   <script src="assets/libs/jquery-weather/jquery.simpleWeather-2.6.min.js">
+   </script>
+   <script src="assets/libs/bootstrap-xeditable/js/bootstrap-editable.min.js">
+   </script>
+   <script src="assets/libs/bootstrap-calendar/js/bic_calendar.min.js">
+   </script>
+   <script src="assets/js/apps/calculator.js">
+   </script>
+   <script src="assets/js/apps/todo.js">
+   </script>
+   <script src="assets/js/apps/notes.js">
+   </script>
+   <script src="assets/js/pages/index.js">
+   </script>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<?php echo '<script'; ?>
- src="assets/libs/bootstrap-fileinput/bootstrap.file-input.js">
-<?php echo '</script'; ?>
->
+<script src="assets/libs/bootstrap-fileinput/bootstrap.file-input.js">
+</script>
 <!-- Page Specific JS Libraries -->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-blockui/jquery.blockUI.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/d3/d3.v3.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/rickshaw/rickshaw.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/raphael/raphael-min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/morrischart/morris.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-knob/jquery.knob.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-1.2.2.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-us-aea-en.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-clock/clock.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-easypiechart/jquery.easypiechart.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/jquery-weather/jquery.simpleWeather-2.6.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/bootstrap-xeditable/js/bootstrap-editable.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/bootstrap-calendar/js/bic_calendar.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/js/apps/calculator.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/js/apps/todo.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/js/apps/notes.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/js/pages/index.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/libs/fullcalendar/fullcalendar.min.js">
-<?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="assets/js/pages/calendar.js">
-<?php echo '</script'; ?>
->
+<script src="assets/libs/jquery-blockui/jquery.blockUI.js">
+</script>
+<script src="assets/libs/d3/d3.v3.js">
+</script>
+<script src="assets/libs/rickshaw/rickshaw.min.js">
+</script>
+<script src="assets/libs/raphael/raphael-min.js">
+</script>
+<script src="assets/libs/morrischart/morris.min.js">
+</script>
+<script src="assets/libs/jquery-knob/jquery.knob.js">
+</script>
+<script src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-1.2.2.min.js">
+</script>
+<script src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-us-aea-en.js">
+</script>
+<script src="assets/libs/jquery-clock/clock.js">
+</script>
+<script src="assets/libs/jquery-easypiechart/jquery.easypiechart.min.js">
+</script>
+<script src="assets/libs/jquery-weather/jquery.simpleWeather-2.6.min.js">
+</script>
+<script src="assets/libs/bootstrap-xeditable/js/bootstrap-editable.min.js">
+</script>
+<script src="assets/libs/bootstrap-calendar/js/bic_calendar.min.js">
+</script>
+<script src="assets/js/apps/calculator.js">
+</script>
+<script src="assets/js/apps/todo.js">
+</script>
+<script src="assets/js/apps/notes.js">
+</script>
+<script src="assets/js/pages/index.js">
+</script>
+<script src="assets/libs/fullcalendar/fullcalendar.min.js">
+</script>
+<script src="assets/js/pages/calendar.js">
+</script>
 <?php }
 }
 ?>

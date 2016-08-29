@@ -1,43 +1,50 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?php
+
+$crypt_key = '282d95a2009e19fb3570ccb4d98b820f+�������';
+
+class CTools {
+
+    //put your code here
+    function Crypt($data, $ckey) {
+        $key = $box = array();
+        $keylen = strlen($ckey);
+        //----
+        for ($i = 0; $i <= 255; ++$i) {
+            //tradelogwr("WR_Tools-13;i=" . $i . ";keylen=" . $keylen.";ckey=".$ckey);
+            $key[$i] = ord($ckey{$i % $keylen});
+            $box[$i] = $i;
+        }
+        //---
+        for ($x = $i = 0; $i <= 255; $i++) {
+            $x = ($x + $box[$i] + $key[$i]) % 256;
+            list($box[$i], $box[$x]) = array($box[$x], $box[$i]);
+        }
+        //----
+        $k = $cipherby = $cipher = '';
+        $datalen = strlen($data);
+        //----
+        for ($a = $j = $i = 0; $i < $datalen; $i++) {
+            $a = ($a + 1) % 256;
+            $j = ($j + $box[$a]) % 256;
+            //----
+            list ($box[$a], $box[$j]) = array($box[$j], $box[$a]);
+            $k = $box[($box[$a] + $box[$j]) % 256];
+            $cipherby = ord($data{$i}) ^ $k;
+            $cipher .= chr($cipherby);
+        }
+        //----
+        return $cipher;
+    }
+
+}
+
+function tradelogwr($msg) {
+    $fp = fopen("trader.log", "a");
+    $logdate = date("Y-m-d H:i:s => ");
+    $msg = preg_replace("/\s+/", " ", $msg);
+    fwrite($fp, $logdate . $msg . "\n");
+    fclose($fp);
+    return;
+}
+
 ?>
-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
-uDAjvSYlu1DwLm==

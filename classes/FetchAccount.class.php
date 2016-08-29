@@ -18,10 +18,10 @@ class theOtherFetchAccounts {
         if ($user->groupid == '9') {
             if ($cabang_admin == 'semua') {
                 $query = "SELECT mt4_users.`LOGIN` AS account FROM " . $mysql_meta . ".mt4_users ORDER BY LOGIN ASC;";
-                //$this->tradeLogFetchAccount("AccountList-21=".$user->groupid.";".$query);
+                //$this->tradeLogFetchAccount("FetchAccount.class-21=".$user->groupid.";".$query);
                 $rows = $DB->execresultset($query);
                 foreach ($rows as $row) {
-                    //$this->tradeLogFetchAccount("AccountList-24=".$row[account]);
+                    //$this->tradeLogFetchAccount("FetchAccount.class-24=".$row[account]);
                     $accounts[] = $row['account'];
                 }
             } else {
@@ -33,29 +33,29 @@ class theOtherFetchAccounts {
                     AND client_group.branchid = client_branch.branchid 
                     AND client_branch.branch = '$cabang_admin' 
                     ORDER BY client_accounts.accountname desc";
-                //$this->tradeLogFetchAccount("AccountList-36=".$user->groupid.";".$query);
+                //$this->tradeLogFetchAccount("FetchAccount.class-36=".$user->groupid.";".$query);
                 $rows = $DB->execresultset($query);
                 foreach ($rows as $row) {
-                    //$this->tradeLogFetchAccount("AccountList-69=".$row[account]);
+                    //$this->tradeLogFetchAccount("FetchAccount.class-69=".$row[account]);
                     $accounts[] = $row['account'];
                 }
             }//admin
         } else {            
             if ($user->tradingtype == 'AccNo') {
                 $query = "SELECT trim(AccNo) AS account FROM bafile WHERE " . $user->tradingtype . "='$username' ORDER BY AccNo desc";
-                //$this->tradeLogFetchAccount("AccountList-66=".$user->groupid.";".$query);
+                //$this->tradeLogFetchAccount("FetchAccount.class-66=".$user->groupid.";".$query);
                 $rows = $DB->execresultset($query);
                 foreach ($rows as $row) {
-                    //$this->tradeLogFetchAccount("AccountList-69=".$row[account]);
+                    //$this->tradeLogFetchAccount("FetchAccount.class-69=".$row[account]);
                     $accounts[] = $row['account'];
                 }
             }
             if ($user->groupid == '2') {
                 $query = "SELECT trim(AccNo) AS account FROM bafile WHERE AccNo='$username' ORDER BY AccNo desc";
-                //$this->tradeLogFetchAccount("AccountList-66=".$user->groupid.";".$query);
+                //$this->tradeLogFetchAccount("FetchAccount.class-66=".$user->groupid.";".$query);
                 $rows = $DB->execresultset($query);
                 foreach ($rows as $row) {
-                    //$this->tradeLogFetchAccount("AccountList-69=".$row[account]);
+                    //$this->tradeLogFetchAccount("FetchAccount.class-69=".$row[account]);
                     $accounts[] = $row['account'];
                 }
             }
@@ -66,28 +66,28 @@ class theOtherFetchAccounts {
                 AND client_accounts.aecodeid = client_aecode.aecodeid 
                 AND client_aecode.aecode = '" . $username . "' 
                 ORDER BY client_accounts.accountid desc";
-                $this->tradeLogFetchAccount("AccountList-66=".$user->groupid.";".$query);
+                //$this->tradeLogFetchAccount("FetchAccount.class-66=".$user->groupid.";".$query);
                 $rows = $DB->execresultset($query);
                 foreach ($rows as $row) {
-                    //$this->tradeLogFetchAccount("AccountList-69=".$row['account']);
+                    //$this->tradeLogFetchAccount("FetchAccount.class-69=".$row[account]);
                     $accounts[] = $row['account'];
                 }
             }
             if ($user->groupid == '4' || $user->groupid == '5') {
                 $query = "SELECT trim(AccNo) AS account FROM bafile WHERE bafile.AeCode='$user->userfield_aecode' ORDER BY AccNo desc";
-                //$this->tradeLogFetchAccount("AccountList-66=".$user->groupid.";".$query);
+                //$this->tradeLogFetchAccount("FetchAccount.class-66=".$user->groupid.";".$query);
                 $rows = $DB->execresultset($query);
                 foreach ($rows as $row) {
-                    //$this->tradeLogFetchAccount("AccountList-69=".$row[account]);
+                    //$this->tradeLogFetchAccount("FetchAccount.class-69=".$row[account]);
                     $accounts[] = $row['account'];
                 }
             }
             if ($user->tradingtype == 'Group') {
                 $query = "SELECT trim(AccNo) AS account FROM bafile WHERE bafile." . $user->tradingtype . "='$user->userfield_group' ORDER BY AccNo desc";
-                //$this->tradeLogFetchAccount("AccountList-66=".$user->groupid.";".$query);
+                //$this->tradeLogFetchAccount("FetchAccount.class-66=".$user->groupid.";".$query);
                 $rows = $DB->execresultset($query);
                 foreach ($rows as $row) {
-                    //$this->tradeLogFetchAccount("AccountList-69=".$row[account]);
+                    //$this->tradeLogFetchAccount("FetchAccount.class-69=".$row[account]);
                     $accounts[] = $row['account'];
                 }
             }
@@ -98,7 +98,7 @@ class theOtherFetchAccounts {
         if ($accounts[0] == '') {
             $accounts[0] = 'dummy';
         }
-        //tradeLogFetchAccount("AccountList-100-Account[0]=".$accounts[0]);
+        //tradeLogFetchAccount("FetchAccount.class-100-Account[0]=".$accounts[0]);
         return $accounts;
     }
 
@@ -154,17 +154,17 @@ class theOtherFetchAccounts {
                 $query = "SELECT trim(AccNo) AS account FROM bafile WHERE bafile." . $user->tradingtype . "='$user->userfield_group' ORDER BY AccNo desc";
             }
         }
-        //$this->tradeLogFetchAccount("AccountList-66=".$user->groupid.";".$query);
+        //$this->tradeLogFetchAccount("FetchAccount.class-66=".$user->groupid.";".$query);
         $result = $DB_odbc->query($query);
         while ($row = $DB_odbc->fetch_array($result)) {
-            //$this->tradeLogFetchAccount("AccountList-69=".$row[account]);
+            //$this->tradeLogFetchAccount("FetchAccount.class-69=".$row[account]);
             $accounts[] = $row[account];
         }
 
         if ($accounts[0] == '') {
             $accounts[0] = 'dummy';
         }
-        //tradeLogFetchAccount("AccountList-100-Account[0]=".$accounts[0]);
+        //tradeLogFetchAccount("FetchAccount.class-100-Account[0]=".$accounts[0]);
         return $accounts;
     }
 

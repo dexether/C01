@@ -1,128 +1,187 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?php
+
+date_default_timezone_set("Asia/Bangkok");
+include_once("$_SERVER[DOCUMENT_ROOT]/_settings/config.php");
+include("$_SERVER[DOCUMENT_ROOT]/classes/DB.class.php");
+include_once("$_SERVER[DOCUMENT_ROOT]/classes/User.class.php");
+include("$_SERVER[DOCUMENT_ROOT]/classes/Themes.class.php");
+require("$_SERVER[DOCUMENT_ROOT]/smarty/SmartyBC.class.php");
+
+$DB = new DB();
+$config = getConfig();
+
+$template = new SmartyBC;
+$template->debugging = false;
+$template->caching = true;
+$template->cache_lifetime = 120;
+$template->clear_all_cache();
+//$template->php_handling = Smarty::PHP_PASSTHRU;
+$template->assign("config", $config);
+
+// Start session
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+
+global $skip_authentication;
+if ($skip_authentication != 1) { // Require login
+    if (isset($_SESSION['user'])) {
+        $user = $_SESSION['user'];
+        if (!$user->checkPassword()) {
+            header("Location: /login.php"); // Password does not match DB password / Password could have changed.
+        } else {
+            
+        }
+    } else {
+        echo "<SCRIPT language='Javascript1.2'>\n";
+        //echo "if (confirm('Ref.11. Your Session expired.Please Click Logout or Refresh?')) { top.location.reload(true); }\n";
+        echo "window.location=logout.php";
+        echo "</SCRIPT>";
+        //header("Location: /index.html"); // User is not logged in (Session variable "user" is not set)
+    }
+    //tradeLog2("Function-42:".$user->groupid);
+} else {
+    //tradeLog2("Function-43:".$user->groupid);
+}
+
+function error_message($msg, $url = '') {
+    if (empty($url))
+        echo"<SCRIPT>alert(\"$msg\");history.go(-1) </script>";
+    else
+        echo"<SCRIPT>alert(\"$msg\");self.location.href='$url'</script>";
+}
+
+/* * ***************************************************************************
+ * FUNCTIONS                                                                  *
+ * *************************************************************************** */
+
+function display_message($message, $title, $url) {
+    global $template;
+    if (!isset($problem)) {
+        $problem = '';
+    }
+    $template->assign("problem", $problem);
+    $template->assign("message", $message);
+    $template->assign("title", $title);
+    $template->assign("url", $url);
+    $template->display("messagebox.htm");
+    exit;
+}
+
+function display_error($message, $title = "Error", $url = "") {
+    //tradeLog2("Function-70:" . $title . ";" . $message);
+    global $template;
+    $template->assign("error", 1);
+    display_message($message, $title, $url);
+    //header('Location:error.php?title='.$title.'&message='.$message);
+}
+
+function display_logout($message, $title = "Error", $url = "") {
+    global $template;
+    $template->assign("error", 1);
+    //display_message($message, $title, $url);
+    header('Location:error.php?title=' . $title . '&message=' . $message);
+}
+
+function check_permission($groupid) {
+    if (is_array($groupid)) {
+        if (!in_array($_SESSION[user]->groupid, $groupid)) {
+            echo "Session Expired, please login again\n<br>";
+            echo "<a href=index.html>Click Here to go to the main Page</a>";
+            exit;
+        }
+    } else {
+        if ($_SESSION[user]->groupid != $groupid) {
+            echo "Permission denied. You do not have the rights to access this page.";
+            exit;
+        }
+    }
+}
+
+function getConfig() {
+    global $DB;
+    $query = "SELECT * FROM config";
+    $rows = $DB->execresultset($query);
+    foreach ($rows as $row) {
+        $config[$row["name"]] = $row["value"];
+        //tradeLog2("Function-83:".$row["value"]);
+    }
+    return $config;
+}
+
+function set_log_file($userid, $log_window, $log_procees, $log_transact_id, $log_desc) {
+    $log_desc2 = str_replace("'", "%270", $log_desc);
+    $from_ip = "Remote Address=" . $_SERVER[REMOTE_ADDR] . " and Browser=" . $_SERVER[HTTP_USER_AGENT] . " and on web=" . $_SERVER[HTTP_REFERER];
+    $query = "INSERT INTO logfile
+              SET
+              username = '$userid',window = '$log_window',process = '$log_procees',transaction_id = '$log_transact_id',transaction_desc = '$log_desc2',date = NOW(),from_ip='$from_ip';";
+    //tradelog("tradelog fuction " . $query);
+    $DB->query($query);
+    return 1;
+}
+
+function set_log_file_new($userid, $log_window, $log_procees, $log_transact_id, $thequery, $account, $keterangan) {
+    $thequery = str_replace("'", "%270", $thequery);
+    $from_ip = "Remote Address=" . $_SERVER[REMOTE_ADDR] . " and Browser=" . $_SERVER[HTTP_USER_AGENT] . " and on web=" . $_SERVER[HTTP_REFERER];
+    $query = "INSERT INTO logfile
+              SET
+              username = '$userid',account='$account',window = '$log_window',process = '$log_procees',transaction_id = '$log_transact_id',thequery='$thequery',transaction_desc = '$keterangan',date = NOW(),from_ip='$from_ip';";
+    $DB->query($query);
+    return 1;
+}
+
+function set_log_meta($account, $keterangan) {
+    $keterangan = str_replace("'", "\'", $keterangan);
+    $query = "INSERT INTO logclient
+              SET
+              TIMESTAMP = NOW(),ACCNO='$account',COMMENT = '$keterangan'";
+    $DB->execonly($query);
+    return 1;
+}
+
+function set_log_server($account, $keterangan) {
+    global $DB;
+    $keterangan = str_replace("'", "\'", $keterangan);
+    $from_ip = "\n" . "Remote Address=" . $_SERVER['REMOTE_ADDR'] . "\n" . "Browser=" . $_SERVER['HTTP_USER_AGENT'] . "\n" . " On web=" . $_SERVER['HTTP_REFERER'];
+    $keterangan = $keterangan . $from_ip;
+    $query = "INSERT INTO logserver
+              SET
+              TIMESTAMP = NOW(),ACCNO='$account',COMMENT = '$keterangan'";
+    $DB->execonly($query);
+    return 1;
+}
+
+function tradeLog2($msg) {
+    $fp = fopen("trader.log", "a");
+    $logdate = date("Y-m-d H:i:s => ");
+    $msg = preg_replace("/\s+/", " ", $msg);
+    fwrite($fp, $logdate . $msg . "\n");
+    fclose($fp);
+    return;
+}
+
+function anti_injection($sql) {
+    $sql = preg_replace(my_Sql_regcase("/(from|select|insert|delete|where|drop table|show tables|#|\*|--|\\\\)\'/"), "", $sql);
+    $sql = trim($sql);
+    $sql = strip_tags($sql);
+    $sql = addslashes($sql);
+    return $sql;
+}
+
+function my_Sql_regcase($str) {
+
+    $res = "";
+
+    $chars = str_split($str);
+    foreach ($chars as $char) {
+        if (preg_match("/[A-Za-z]/", $char))
+            $res .= "[" . mb_strtoupper($char, 'UTF-8') . mb_strtolower($char, 'UTF-8') . "]";
+        else
+            $res .= $char;
+    }
+
+    return $res;
+}
+
 ?>
-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

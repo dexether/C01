@@ -1,55 +1,136 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?php
+
+include_once("$_SERVER[DOCUMENT_ROOT]/classes/User.class.php");
+
+/******************************************************************************
+* Manager.class.php                                                          
+*                                                                             
+* @description                                                                
+* Description goes here                                                       
+*                                                                                                                  
+*
+******************************************************************************/
+
+class Manager extends User
+{
+ /****************************************************************************
+ * ATTRIBUTES                                                                *
+ ****************************************************************************/
+ var $branches; // Matrix of branches/accounts belonging to manager, e.g. $branches[branchid][accountid];
+ var $accounts; // Matrix of accounts belonging to manager, e.g. $accounts[]
+  
+ /****************************************************************************
+ * CONSTRUCTOR                                                               *
+ ****************************************************************************/
+ function Manager($userid="")
+ {
+  if (!empty($userid))
+  {
+   $this->userid = $userid;
+  }
+ }
+ 
+ /****************************************************************************
+ * METHODS                                                                   *
+ ****************************************************************************/
+ function setBranches($branches) { $this->branches = $branches; }
+ function getBranches() { return $this->branches; } 
+
+ function setBrancheGroups($branchgroups) { $this->branchgroups = $branchgroups; }
+ function getBrancheGroups() { return $this->branchgroups; } 
+  
+ function setAccounts($accounts) { $this->accounts = $accounts; }
+ function getAccounts() { return $this->accounts; } 
+
+ function fetchBrancheGroups($DB_odbc)
+ {
+ 	$query = "SELECT * FROM branchgroups WHERE userid = '$this->userid';";
+ 	//tradelog("Manager.class.php-45-".$query); 
+ 	$result = mysql_query($query) OR DIE(mysql_error());
+ 
+  if (mysql_num_rows($result)>0)
+  {
+ 	 while ($row = mysql_fetch_array($result))
+ 	 {
+  		$branchgroups[] = $row[branchgroupsid];
+  		//tradelog("Manager.class.php-53-".$row[branchgroupsid]); 
+ 	 }
+
+   for ($i=0; $i<count($branchgroups); $i++)
+   {
+   	$branchgroups_select[] = "bafile.group = '$branchgroups[$i]'"; 
+   }
+   $branchgroups_select = implode(" OR ", $branchgroups_select);
+  
+   $query = "SELECT trim(bafile.group) AS branchgroupsid, trim(AccNo) AS account
+             from bafile
+             WHERE
+             $branchgroups_select
+             ORDER BY AccNo ASC"; 
+   //tradelog("Manager.class.php-66=".$query);               
+   $result = $DB_odbc->query($query) OR DIE(odbc_error());
+   while ($row = $DB_odbc->fetch_array($result))
+   {
+    $this->branchgroups[$row[branchgroupsid]][] = $row[account];
+    $this->accounts[] = $row[account];
+   }
+   
+   return TRUE;
+  }
+  else // Manager has not been assigned any group yet.
+  {
+  	return FALSE;
+  }
+ }
+ 
+  
+ function fetchBranches($DB_odbc)
+ {
+ 	$query = "SELECT * FROM branch WHERE userid = '$this->userid';";
+ 	$result = mysql_query($query) OR DIE(mysql_error());
+ 
+  if (mysql_num_rows($result)>0)
+  {
+ 	 while ($row = mysql_fetch_array($result))
+ 	 {
+  		$branches[] = $row[branchid];
+ 	 }
+
+   for ($i=0; $i<count($branches); $i++)
+   {
+   	$branches_select[] = "Branch = '$branches[$i]'"; 
+   }
+   $branches_select = implode(" OR ", $branches_select);
+  
+   $query = "SELECT trim(Branch) AS branchid, trim(AccNo) AS account
+             from bafile
+             WHERE
+             $branches_select
+             ORDER BY AccNo";
+   //tradelog($query);          
+   $result = $DB_odbc->query($query) OR DIE(odbc_error());
+   while ($row = $DB_odbc->fetch_array($result))
+   {
+    $this->branches[$row[branchid]][] = $row[account];
+    $this->accounts[] = $row[account];
+   }
+   
+   return TRUE;
+  }
+  else // Manager has not been assigned any branches yet.
+  {
+  	return FALSE;
+  }
+ }
+ 
+
+ 
+ 
+ /****************************************************************************
+ * END OF CLASS                                                              *
+ ****************************************************************************/
+}
+
+
+
 ?>
-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

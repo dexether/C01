@@ -1,871 +1,2836 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?php
+/*
+*  Module written/ported by Xavier Noguer <xnoguer@rezebra.com>
+*
+*  The majority of this is _NOT_ my code.  I simply ported it from the
+*  PERL Spreadsheet::WriteExcel module.
+*
+*  The author of the Spreadsheet::WriteExcel module is John McNamara 
+*  <jmcnamara@cpan.org>
+*
+*  I _DO_ maintain this code, and John McNamara has nothing to do with the
+*  porting of this code to PHP.  Any questions directly related to this
+*  class library should be directed to me.
+*
+*  License Information:
+*
+*    Spreadsheet::WriteExcel:  A library for generating Excel Spreadsheets
+*    Copyright (C) 2002 Xavier Noguer xnoguer@rezebra.com
+*
+*    This library is free software; you can redistribute it and/or
+*    modify it under the terms of the GNU Lesser General Public
+*    License as published by the Free Software Foundation; either
+*    version 2.1 of the License, or (at your option) any later version.
+*
+*    This library is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+*    Lesser General Public License for more details.
+*
+*    You should have received a copy of the GNU Lesser General Public
+*    License along with this library; if not, write to the Free Software
+*    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+require_once('Parser.php');
+require_once('BIFFwriter.php');
+
+/**
+* Class for generating Excel Spreadsheets
+*
+* @author Xavier Noguer <xnoguer@rezebra.com>
+* @package Spreadsheet_WriteExcel
+*/
+
+class Worksheet extends BIFFwriter
+{
+
+    /**
+    * Constructor
+    *
+    * @param string  $name         The name of the new worksheet
+    * @param integer $index        The index of the new worksheet
+    * @param mixed   &$activesheet The current activesheet of the workbook we belong to
+    * @param mixed   &$firstsheet  The first worksheet in the workbook we belong to 
+    * @param mixed   &$url_format  The default format for hyperlinks
+    * @param mixed   &$parser      The formula parser created for the Workbook
+    */
+    function Worksheet($name,$index,&$activesheet,&$firstsheet,&$url_format,&$parser)
+    {
+        $this->BIFFwriter();     // It needs to call its parent's constructor explicitly
+        $rowmax                = 65536; // 16384 in Excel 5
+        $colmax                = 256;
+        $strmax                = 255;
+    
+        $this->name            = $name;
+        $this->index           = $index;
+        $this->activesheet     = &$activesheet;
+        $this->firstsheet      = &$firstsheet;
+        $this->_url_format     = $url_format;
+        $this->_parser         = &$parser;
+    
+        $this->ext_sheets      = array();
+        $this->_using_tmpfile  = 1;
+        $this->_filehandle     = "";
+        $this->fileclosed      = 0;
+        $this->offset          = 0;
+        $this->xls_rowmax      = $rowmax;
+        $this->xls_colmax      = $colmax;
+        $this->xls_strmax      = $strmax;
+        $this->dim_rowmin      = $rowmax +1;
+        $this->dim_rowmax      = 0;
+        $this->dim_colmin      = $colmax +1;
+        $this->dim_colmax      = 0;
+        $this->colinfo         = array();
+        $this->_selection      = array(0,0,0,0);
+        $this->_panes          = array();
+        $this->_active_pane    = 3;
+        $this->_frozen         = 0;
+        $this->selected        = 0;
+    
+        $this->_paper_size      = 0x0;
+        $this->_orientation     = 0x1;
+        $this->_header          = '';
+        $this->_footer          = '';
+        $this->_hcenter         = 0;
+        $this->_vcenter         = 0;
+        $this->_margin_head     = 0.50;
+        $this->_margin_foot     = 0.50;
+        $this->_margin_left     = 0.75;
+        $this->_margin_right    = 0.75;
+        $this->_margin_top      = 1.00;
+        $this->_margin_bottom   = 1.00;
+    
+        $this->_title_rowmin    = NULL;
+        $this->_title_rowmax    = NULL;
+        $this->_title_colmin    = NULL;
+        $this->_title_colmax    = NULL;
+        $this->_print_rowmin    = NULL;
+        $this->_print_rowmax    = NULL;
+        $this->_print_colmin    = NULL;
+        $this->_print_colmax    = NULL;
+    
+        $this->_print_gridlines = 1;
+        $this->_print_headers   = 0;
+    
+        $this->_fit_page        = 0;
+        $this->_fit_width       = 0;
+        $this->_fit_height      = 0;
+    
+        $this->_hbreaks         = array();
+        $this->_vbreaks         = array();
+    
+        $this->_protect         = 0;
+        $this->_password        = NULL;
+    
+        $this->col_sizes        = array();
+        $this->row_sizes        = array();
+    
+        $this->_zoom            = 100;
+        $this->_print_scale     = 100;
+    
+        $this->_initialize();
+    }
+    
+    /**
+    * Open a tmp file to store the majority of the Worksheet data. If this fails,
+    * for example due to write permissions, store the data in memory. This can be
+    * slow for large files.
+    */
+    function _initialize()
+    {
+        // Open tmp file for storing Worksheet data
+        $fh = tmpfile();
+        if ( $fh) {
+            // Store filehandle
+            $this->_filehandle = $fh;
+        }
+        else {
+            // If tmpfile() fails store data in memory
+            $this->_using_tmpfile = 0;
+        }
+    }
+    
+    /**
+    * Add data to the beginning of the workbook (note the reverse order)
+    * and to the end of the workbook.
+    *
+    * @access public 
+    * @see Workbook::store_workbook()
+    * @param array $sheetnames The array of sheetnames from the Workbook this 
+    *                          worksheet belongs to
+    */
+    function close($sheetnames)
+    {
+        $num_sheets = count($sheetnames);
+
+        /***********************************************
+        * Prepend in reverse order!!
+        */
+    
+        // Prepend the sheet dimensions
+        $this->_store_dimensions();
+    
+        // Prepend the sheet password
+        $this->_store_password();
+    
+        // Prepend the sheet protection
+        $this->_store_protect();
+    
+        // Prepend the page setup
+        $this->_store_setup();
+    
+        // Prepend the bottom margin
+        $this->_store_margin_bottom();
+    
+        // Prepend the top margin
+        $this->_store_margin_top();
+    
+        // Prepend the right margin
+        $this->_store_margin_right();
+    
+        // Prepend the left margin
+        $this->_store_margin_left();
+    
+        // Prepend the page vertical centering
+        $this->store_vcenter();
+    
+        // Prepend the page horizontal centering
+        $this->store_hcenter();
+    
+        // Prepend the page footer
+        $this->store_footer();
+    
+        // Prepend the page header
+        $this->store_header();
+    
+        // Prepend the vertical page breaks
+        $this->_store_vbreak();
+    
+        // Prepend the horizontal page breaks
+        $this->_store_hbreak();
+    
+        // Prepend WSBOOL
+        $this->_store_wsbool();
+    
+        // Prepend GRIDSET
+        $this->_store_gridset();
+    
+        // Prepend PRINTGRIDLINES
+        $this->_store_print_gridlines();
+    
+        // Prepend PRINTHEADERS
+        $this->_store_print_headers();
+    
+        // Prepend EXTERNSHEET references
+        for ($i = $num_sheets; $i > 0; $i--) {
+            $sheetname = $sheetnames[$i-1];
+            $this->_store_externsheet($sheetname);
+        }
+    
+        // Prepend the EXTERNCOUNT of external references.
+        $this->_store_externcount($num_sheets);
+    
+        // Prepend the COLINFO records if they exist
+        if (!empty($this->colinfo)){
+            for($i=0; $i < count($this->colinfo); $i++)
+            {
+                $this->_store_colinfo($this->colinfo[$i]);
+            }
+            $this->_store_defcol();
+        }
+    
+        // Prepend the BOF record
+        $this->_store_bof(0x0010);
+    
+        /*
+        * End of prepend. Read upwards from here.
+        ***********************************************/
+    
+        // Append
+        $this->_store_window2();
+        $this->_store_zoom();
+        if(!empty($this->_panes))
+          $this->_store_panes($this->_panes);
+        $this->_store_selection($this->_selection);
+        $this->_store_eof();
+    }
+    
+    /**
+    * Retrieve the worksheet name. This is usefull when creating worksheets
+    * without a name.
+    *
+    * @access public
+    * @return string The worksheet's name
+    */
+    function get_name()
+    {
+        return($this->name);
+    }
+    
+    /**
+    * Retrieves data from memory in one chunk, or from disk in $buffer
+    * sized chunks.
+    *
+    * @return string The data
+    */
+    function get_data()
+    {
+        $buffer = 4096;
+    
+        // Return data stored in memory
+        if (isset($this->_data)) {
+            $tmp   = $this->_data;
+            unset($this->_data);
+            $fh    = $this->_filehandle;
+            if ($this->_using_tmpfile) {
+                fseek($fh, 0);
+            }
+            return($tmp);
+        }
+        // Return data stored on disk
+        if ($this->_using_tmpfile) {
+            if ($tmp = fread($this->_filehandle, $buffer)) {
+                return($tmp);
+            }
+        }
+    
+        // No data to return
+        return('');
+    }
+    
+    /**
+    * Set this worksheet as a selected worksheet, i.e. the worksheet has its tab
+    * highlighted.
+    *
+    * @access public
+    */
+    function select()
+    {
+        $this->selected = 1;
+    }
+    
+    /**
+    * Set this worksheet as the active worksheet, i.e. the worksheet that is
+    * displayed when the workbook is opened. Also set it as selected.
+    *
+    * @access public
+    */
+    function activate()
+    {
+        $this->selected = 1;
+        $this->activesheet =& $this->index;
+    }
+    
+    /**
+    * Set this worksheet as the first visible sheet. This is necessary
+    * when there are a large number of worksheets and the activated
+    * worksheet is not visible on the screen.
+    *
+    * @access public
+    */
+    function set_first_sheet()
+    {
+        $this->firstsheet = $this->index;
+    }
+    
+    /**
+    * Set the worksheet protection flag to prevent accidental modification and to
+    * hide formulas if the locked and hidden format properties have been set.
+    *
+    * @access public
+    * @param string $password The password to use for protecting the sheet.
+    */
+    function protect($password)
+    {
+        $this->_protect   = 1;
+        $this->_password  = $this->_encode_password($password);
+    }
+    
+    /**
+    * Set the width of a single column or a range of columns.
+    *
+    * @access public
+    * @see _store_colinfo()
+    * @param integer $firstcol first column on the range
+    * @param integer $lastcol  last column on the range
+    * @param integer $width    width to set
+    * @param mixed   $format   The optional XF format to apply to the columns
+    * @param integer $hidden   The optional hidden atribute
+    */
+    function set_column($firstcol, $lastcol, $width, $format = 0, $hidden = 0)
+    {
+        $this->colinfo[] = array($firstcol, $lastcol, $width, $format, $hidden);
+
+        // Set width to zero if column is hidden
+        $width = ($hidden) ? 0 : $width;
+    
+        for($col = $firstcol; $col <= $lastcol; $col++) {
+            $this->col_sizes[$col] = $width;
+        }
+    }
+    
+    /**
+    * Set which cell or cells are selected in a worksheet
+    *
+    * @access public
+    * @param integer $first_row    first row in the selected quadrant
+    * @param integer $first_column first column in the selected quadrant
+    * @param integer $last_row     last row in the selected quadrant
+    * @param integer $last_column  last column in the selected quadrant
+    * @see _store_selection()
+    */
+    function set_selection($first_row,$first_column,$last_row,$last_column)
+    {
+        $this->_selection = array($first_row,$first_column,$last_row,$last_column);
+    }
+    
+    /**
+    * Set panes and mark them as frozen.
+    *
+    * @access public
+    * @param array $panes This is the only parameter received and is composed of the following:
+    *                     0 => Vertical split position,
+    *                     1 => Horizontal split position
+    *                     2 => Top row visible
+    *                     3 => Leftmost column visible
+    *                     4 => Active pane
+    */
+    function freeze_panes($panes)
+    {
+        $this->_frozen = 1;
+        $this->_panes  = $panes;
+    }
+    
+    /**
+    * Set panes and mark them as unfrozen.
+    *
+    * @access public
+    * @param array $panes This is the only parameter received and is composed of the following:
+    *                     0 => Vertical split position,
+    *                     1 => Horizontal split position
+    *                     2 => Top row visible
+    *                     3 => Leftmost column visible
+    *                     4 => Active pane
+    */
+    function thaw_panes($panes)
+    {
+        $this->_frozen = 0;
+        $this->_panes  = $panes;
+    }
+    
+    /**
+    * Set the page orientation as portrait.
+    *
+    * @access public
+    */
+    function set_portrait()
+    {
+        $this->_orientation = 1;
+    }
+    
+    /**
+    * Set the page orientation as landscape.
+    *
+    * @access public
+    */
+    function set_landscape()
+    {
+        $this->_orientation = 0;
+    }
+    
+    /**
+    * Set the paper type. Ex. 1 = US Letter, 9 = A4
+    *
+    * @access public
+    * @param integer $size The type of paper size to use
+    */
+    function set_paper($size = 0)
+    {
+        $this->_paper_size = $size;
+    }
+    
+    
+    /**
+    * Set the page header caption and optional margin.
+    *
+    * @access public
+    * @param string $string The header text
+    * @param float  $margin optional head margin in inches.
+    */
+    function set_header($string,$margin = 0.50)
+    {
+        if (strlen($string) >= 255) {
+            //carp 'Header string must be less than 255 characters';
+            return;
+        }
+        $this->_header      = $string;
+        $this->_margin_head = $margin;
+    }
+    
+    /**
+    * Set the page footer caption and optional margin.
+    *
+    * @access public
+    * @param string $string The footer text
+    * @param float  $margin optional foot margin in inches.
+    */
+    function set_footer($string,$margin = 0.50)
+    {
+        if (strlen($string) >= 255) {
+            //carp 'Footer string must be less than 255 characters';
+            return;
+        }
+        $this->_footer      = $string;
+        $this->_margin_foot = $margin;
+    }
+    
+    /**
+    * Center the page horinzontally.
+    *
+    * @access public
+    * @param integer $center the optional value for centering. Defaults to 1 (center).
+    */
+    function center_horizontally($center = 1)
+    {
+        $this->_hcenter = $center;
+    }
+    
+    /**
+    * Center the page horinzontally.
+    *
+    * @access public
+    * @param integer $center the optional value for centering. Defaults to 1 (center).
+    */
+    function center_vertically($center = 1)
+    {
+        $this->_vcenter = $center;
+    }
+    
+    /**
+    * Set all the page margins to the same value in inches.
+    *
+    * @access public
+    * @param float $margin The margin to set in inches
+    */
+    function set_margins($margin)
+    {
+        $this->set_margin_left($margin);
+        $this->set_margin_right($margin);
+        $this->set_margin_top($margin);
+        $this->set_margin_bottom($margin);
+    }
+    
+    /**
+    * Set the left and right margins to the same value in inches.
+    *
+    * @access public
+    * @param float $margin The margin to set in inches
+    */
+    function set_margins_LR($margin)
+    {
+        $this->set_margin_left($margin);
+        $this->set_margin_right($margin);
+    }
+    
+    /**
+    * Set the top and bottom margins to the same value in inches.
+    *
+    * @access public
+    * @param float $margin The margin to set in inches
+    */
+    function set_margins_TB($margin)
+    {
+        $this->set_margin_top($margin);
+        $this->set_margin_bottom($margin);
+    }
+    
+    /**
+    * Set the left margin in inches.
+    *
+    * @access public
+    * @param float $margin The margin to set in inches
+    */
+    function set_margin_left($margin = 0.75)
+    {
+        $this->_margin_left = $margin;
+    }
+    
+    /**
+    * Set the right margin in inches.
+    *
+    * @access public
+    * @param float $margin The margin to set in inches
+    */
+    function set_margin_right($margin = 0.75)
+    {
+        $this->_margin_right = $margin;
+    }
+    
+    /**
+    * Set the top margin in inches.
+    *
+    * @access public
+    * @param float $margin The margin to set in inches
+    */
+    function set_margin_top($margin = 1.00)
+    {
+        $this->_margin_top = $margin;
+    }
+    
+    /**
+    * Set the bottom margin in inches.
+    *
+    * @access public
+    * @param float $margin The margin to set in inches
+    */
+    function set_margin_bottom($margin = 1.00)
+    {
+        $this->_margin_bottom = $margin;
+    }
+    
+    /**
+    * Set the rows to repeat at the top of each printed page. See also the
+    * _store_name_xxxx() methods in Workbook.php
+    *
+    * @access public
+    * @param integer $first_row First row to repeat
+    * @param integer $last_row  Last row to repeat. Optional.
+    */
+    function repeat_rows($first_row, $last_row = NULL)
+    {
+        $this->_title_rowmin  = $first_row;
+        if(isset($last_row)) { //Second row is optional
+            $this->_title_rowmax  = $last_row;
+        }
+        else {
+            $this->_title_rowmax  = $first_row;
+        }
+    }
+    
+    /**
+    * Set the columns to repeat at the left hand side of each printed page.
+    * See also the _store_names() methods in Workbook.php
+    *
+    * @access public
+    * @param integer $first_col First column to repeat
+    * @param integer $last_col  Last column to repeat. Optional.
+    */
+    function repeat_columns($first_col, $last_col = NULL)
+    {
+        $this->_title_colmin  = $first_col;
+        if(isset($last_col)) { // Second col is optional
+            $this->_title_colmax  = $last_col;
+        }
+        else {
+            $this->_title_colmax  = $first_col;
+        }
+    }
+    
+    /**
+    * Set the area of each worksheet that will be printed.
+    *
+    * @access public
+    * @see Workbook::_store_names()
+    * @param integer $first_row First row of the area to print
+    * @param integer $first_col First column of the area to print
+    * @param integer $last_row  Last row of the area to print
+    * @param integer $last_col  Last column of the area to print
+    */
+    function print_area($first_row, $first_col, $last_row, $last_col)
+    {
+        $this->_print_rowmin  = $first_row;
+        $this->_print_colmin  = $first_col;
+        $this->_print_rowmax  = $last_row;
+        $this->_print_colmax  = $last_col;
+    }
+    
+    
+    /**
+    * Set the option to hide gridlines on the printed page. 
+    *
+    * @access public
+    * @see _store_print_gridlines(), _store_gridset()
+    */
+    function hide_gridlines()
+    {
+        $this->_print_gridlines = 0;
+    }
+    
+    /**
+    * Set the option to print the row and column headers on the printed page.
+    * See also the _store_print_headers() method below.
+    *
+    * @access public
+    * @see _store_print_headers()
+    * @param integer $print Whether to print the headers or not. Defaults to 1 (print).
+    */
+    function print_row_col_headers($print = 1)
+    {
+        $this->_print_headers = $print;
+    }
+    
+    /**
+    * Store the vertical and horizontal number of pages that will define the
+    * maximum area printed. It doesn't seem to work with OpenOffice.
+    *
+    * @access public
+    * @param  integer $width  Maximun width of printed area in pages
+    * @param  integer $heigth Maximun heigth of printed area in pages
+    * @see set_print_scale()
+    */
+    function fit_to_pages($width, $height)
+    {
+        $this->_fit_page      = 1;
+        $this->_fit_width     = $width;
+        $this->_fit_height    = $height;
+    }
+    
+    /**
+    * Store the horizontal page breaks on a worksheet (for printing).
+    * The breaks represent the row after which the break is inserted.
+    *
+    * @access public
+    * @param array $breaks Array containing the horizontal page breaks
+    */
+    function set_h_pagebreaks($breaks)
+    {
+        foreach($breaks as $break) {
+            array_push($this->_hbreaks,$break);
+        }
+    }
+    
+    /**
+    * Store the vertical page breaks on a worksheet (for printing).
+    * The breaks represent the column after which the break is inserted.
+    *
+    * @access public
+    * @param array $breaks Array containing the vertical page breaks
+    */
+    function set_v_pagebreaks($breaks)
+    {
+        foreach($breaks as $break) {
+            array_push($this->_vbreaks,$break);
+        }
+    }
+    
+    
+    /**
+    * Set the worksheet zoom factor.
+    *
+    * @access public
+    * @param integer $scale The zoom factor
+    */
+    function set_zoom($scale = 100)
+    {
+        // Confine the scale to Excel's range
+        if ($scale < 10 or $scale > 400) {
+            //carp "Zoom factor $scale outside range: 10 <= zoom <= 400";
+            $scale = 100;
+        }
+    
+        $this->_zoom = floor($scale);
+    }
+    
+    /**
+    * Set the scale factor for the printed page. 
+    * It turns off the "fit to page" option
+    *
+    * @access public
+    * @param integer $scale The optional scale factor. Defaults to 100
+    */
+    function set_print_scale($scale = 100)
+    {
+        // Confine the scale to Excel's range
+        if ($scale < 10 or $scale > 400)
+        {
+            // REPLACE THIS FOR A WARNING
+            die("Print scale $scale outside range: 10 <= zoom <= 400");
+            $scale = 100;
+        }
+    
+        // Turn off "fit to page" option
+        $this->_fit_page    = 0;
+    
+        $this->_print_scale = floor($scale);
+    }
+    
+    /**
+    * Map to the appropriate write method acording to the token recieved.
+    *
+    * @access public
+    * @param integer $row    The row of the cell we are writing to
+    * @param integer $col    The column of the cell we are writing to
+    * @param mixed   $token  What we are writing
+    * @param mixed   $format The optional format to apply to the cell
+    */
+    function write($row, $col, $token, $format = 0)
+    {
+        // Check for a cell reference in A1 notation and substitute row and column
+        /*if ($_[0] =~ /^\D/) {
+            @_ = $this->_substitute_cellref(@_);
+    }*/
+    
+        /*
+        # Match an array ref.
+        if (ref $token eq "ARRAY") {
+            return $this->write_row(@_);
+    }*/
+    
+        // Match number
+        if (preg_match("/^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/",$token)) {
+            return $this->write_number($row,$col,$token,$format);
+        }
+        // Match http or ftp URL
+        elseif (preg_match("/^[fh]tt?p:\/\//",$token)) {
+            return $this->write_url($row, $col, $token, $format);
+        }
+        // Match mailto:
+        elseif (preg_match("/^mailto:/",$token)) {
+            return $this->write_url($row, $col, $token, $format);
+        }
+        // Match internal or external sheet link
+        elseif (preg_match("/^(?:in|ex)ternal:/",$token)) {
+            return $this->write_url($row, $col, $token, $format);
+        }
+        // Match formula
+        elseif (preg_match("/^=/",$token)) {
+            return $this->write_formula($row, $col, $token, $format);
+        }
+        // Match formula
+        elseif (preg_match("/^@/",$token)) {
+            return $this->write_formula($row, $col, $token, $format);
+        }
+        // Match blank
+        elseif ($token == '') {
+            return $this->write_blank($row,$col,$format);
+        }
+        // Default: match string
+        else {
+            return $this->write_string($row,$col,$token,$format);
+        }
+    }
+ 
+    /**
+    * Returns an index to the XF record in the workbook
+    *
+    * @param mixed $format The optional XF format
+    * @return integer The XF record index
+    */
+    function _XF(&$format)
+    {
+        if($format != 0)
+        {
+            return($format->get_xf_index());
+        }
+        else
+        {
+            return(0x0F);
+        }
+    }
+    
+    
+    /******************************************************************************
+    *******************************************************************************
+    *
+    * Internal methods
+    */
+    
+    
+    /**
+    * Store Worksheet data in memory using the parent's class append() or to a
+    * temporary file, the default.
+    *
+    * @param string $data The binary data to append
+    */
+    function _append($data)
+    {
+        if ($this->_using_tmpfile)
+        {
+            // Add CONTINUE records if necessary
+            if (strlen($data) > $this->_limit) {
+                $data = $this->_add_continue($data);
+            }
+            fwrite($this->_filehandle,$data);
+            $this->_datasize += strlen($data);
+        }
+        else {
+            parent::_append($data);
+        }
+    }
+    
+    /**
+    * Substitute an Excel cell reference in A1 notation for  zero based row and
+    * column values in an argument list.
+    *
+    * Ex: ("A4", "Hello") is converted to (3, 0, "Hello").
+    *
+    * @param string $cell The cell reference. Or range of cells.
+    * @return array
+    */
+    function _substitute_cellref($cell)
+    {
+        $cell = strtoupper($cell);
+    
+        // Convert a column range: 'A:A' or 'B:G'
+        if (preg_match("/([A-I]?[A-Z]):([A-I]?[A-Z])/",$cell,$match)) {
+            list($no_use, $col1) =  $this->_cell_to_rowcol($match[1] .'1'); // Add a dummy row
+            list($no_use, $col2) =  $this->_cell_to_rowcol($match[2] .'1'); // Add a dummy row
+            return(array($col1, $col2));
+        }
+    
+        // Convert a cell range: 'A1:B7'
+        if (preg_match("/\$?([A-I]?[A-Z]\$?\d+):\$?([A-I]?[A-Z]\$?\d+)/",$cell,$match)) {
+            list($row1, $col1) =  $this->_cell_to_rowcol($match[1]);
+            list($row2, $col2) =  $this->_cell_to_rowcol($match[2]);
+            return(array($row1, $col1, $row2, $col2));
+        }
+    
+        // Convert a cell reference: 'A1' or 'AD2000'
+        if (preg_match("/\$?([A-I]?[A-Z]\$?\d+)/",$cell)) {
+            list($row1, $col1) =  $this->_cell_to_rowcol($match[1]);
+            return(array($row1, $col1));
+        }
+    
+        die("Unknown cell reference $cell ");
+    }
+    
+    /**
+    * Convert an Excel cell reference in A1 notation to a zero based row and column
+    * reference; converts C1 to (0, 2).
+    *
+    * @param string $cell The cell reference.
+    * @return array containing (row, column)
+    */
+    function _cell_to_rowcol($cell)
+    {
+        preg_match("/\$?([A-I]?[A-Z])\$?(\d+)/",$cell,$match);
+        $col     = $match[1];
+        $row     = $match[2];
+    
+        // Convert base26 column string to number
+        $chars = split('', $col);
+        $expn  = 0;
+        $col   = 0;
+    
+        while ($chars) {
+            $char = array_pop($chars);        // LS char first
+            $col += (ord($char) -ord('A') +1) * pow(26,$expn);
+            $expn++;
+        }
+    
+        // Convert 1-index to zero-index
+        $row--;
+        $col--;
+    
+        return(array($row, $col));
+    }
+    
+    /**
+    * Based on the algorithm provided by Daniel Rentz of OpenOffice.
+    *
+    * @param string $plaintext The password to be encoded in plaintext.
+    * @return string The encoded password
+    */
+    function _encode_password($plaintext)
+    {
+        $password = 0x0000;
+        $i        = 1;       // char position
+ 
+        // split the plain text password in its component characters
+        $chars = preg_split('//', $plaintext, -1, PREG_SPLIT_NO_EMPTY);
+        foreach($chars as $char)
+        {
+            $value     = ord($char) << $i;   // shifted ASCII value 
+            $bit_16    = $value & 0x8000;    // the bit 16
+            $bit_16  >>= 15;                 // 0x0000 or 0x0001
+            //$bit_17    = $value & 0x00010000;
+            //$bit_17  >>= 15;
+            $value    &= 0x7fff;             // first 15 bits
+            $password ^= ($value | $bit_16);
+            //$password ^= ($value | $bit_16 | $bit_17);
+            $i++;
+        }
+    
+        $password ^= strlen($plaintext);
+        $password ^= 0xCE4B;
+
+        return($password);
+    }
+    
+    /******************************************************************************
+    *******************************************************************************
+    *
+    * BIFF RECORDS
+    */
+    
+    
+    /**
+    * Write a double to the specified row and column (zero indexed).
+    * An integer can be written as a double. Excel will display an
+    * integer. $format is optional.
+    *
+    * Returns  0 : normal termination
+    *         -2 : row or column out of range
+    *
+    * @access public
+    * @param integer $row    Zero indexed row
+    * @param integer $col    Zero indexed column
+    * @param float   $num    The number to write
+    * @param mixed   $format The optional XF format
+    */
+    function write_number($row, $col, $num, $format = 0)
+    {
+        $record    = 0x0203;                 // Record identifier
+        $length    = 0x000E;                 // Number of bytes to follow
+        $xf        = $this->_XF($format);    // The cell format
+    
+        // Check that row and col are valid and store max and min values
+        if ($row >= $this->xls_rowmax)
+        {
+            return(-2);
+        }
+        if ($col >= $this->xls_colmax)
+        {
+            return(-2);
+        }
+        if ($row <  $this->dim_rowmin) 
+        {
+            $this->dim_rowmin = $row;
+        }
+        if ($row >  $this->dim_rowmax) 
+        {
+            $this->dim_rowmax = $row;
+        }
+        if ($col <  $this->dim_colmin) 
+        {
+            $this->dim_colmin = $col;
+        }
+        if ($col >  $this->dim_colmax) 
+        {
+            $this->dim_colmax = $col;
+        }
+    
+        $header    = pack("vv",  $record, $length);
+        $data      = pack("vvv", $row, $col, $xf);
+        $xl_double = pack("d",   $num);
+        if ($this->_byte_order) // if it's Big Endian
+        {
+            $xl_double = strrev($xl_double);
+        }
+    
+        $this->_append($header.$data.$xl_double);
+        return(0);
+    }
+    
+    /**
+    * Write a string to the specified row and column (zero indexed).
+    * NOTE: there is an Excel 5 defined limit of 255 characters.
+    * $format is optional.
+    * Returns  0 : normal termination
+    *         -1 : insufficient number of arguments
+    *         -2 : row or column out of range
+    *         -3 : long string truncated to 255 chars
+    *
+    * @access public
+    * @param integer $row    Zero indexed row
+    * @param integer $col    Zero indexed column
+    * @param string  $str    The string to write
+    * @param mixed   $format The XF format for the cell
+    */
+    function write_string($row, $col, $str, $format = 0)
+    {
+        $strlen    = strlen($str);
+        $record    = 0x0204;                   // Record identifier
+        $length    = 0x0008 + $strlen;         // Bytes to follow
+        $xf        = $this->_XF($format);      // The cell format
+        
+        $str_error = 0;
+    
+        // Check that row and col are valid and store max and min values
+        if ($row >= $this->xls_rowmax) 
+        {
+            return(-2);
+        }
+        if ($col >= $this->xls_colmax) 
+        {
+            return(-2);
+        }
+        if ($row <  $this->dim_rowmin) 
+        {
+            $this->dim_rowmin = $row;
+        }
+        if ($row >  $this->dim_rowmax) 
+        {
+            $this->dim_rowmax = $row;
+        }
+        if ($col <  $this->dim_colmin) 
+        {
+            $this->dim_colmin = $col;
+        }
+        if ($col >  $this->dim_colmax) 
+        {
+            $this->dim_colmax = $col;
+        }
+    
+        if ($strlen > $this->xls_strmax)  // LABEL must be < 255 chars
+        {
+            $str       = substr($str, 0, $this->xls_strmax);
+            $length    = 0x0008 + $this->xls_strmax;
+            $strlen    = $this->xls_strmax;
+            $str_error = -3;
+        }
+    
+        $header    = pack("vv",   $record, $length);
+        $data      = pack("vvvv", $row, $col, $xf, $strlen);
+        $this->_append($header.$data.$str);
+        return($str_error);
+    }
+ 
+    /**
+    * Writes a note associated with the cell given by the row and column.
+    * NOTE records don't have a length limit.
+    *
+    * @access public
+    * @param integer $row    Zero indexed row
+    * @param integer $col    Zero indexed column
+    * @param string  $note   The note to write
+    */
+    function write_note($row, $col, $note)
+    {
+        $note_length    = strlen($note);
+        $record         = 0x001C;                // Record identifier
+        $max_length     = 2048;                  // Maximun length for a NOTE record
+        //$length      = 0x0006 + $note_length;    // Bytes to follow
+
+        // Check that row and col are valid and store max and min values
+        if ($row >= $this->xls_rowmax) 
+        {
+            return(-2);
+        }
+        if ($col >= $this->xls_colmax) 
+        {
+            return(-2);
+        }
+        if ($row <  $this->dim_rowmin) 
+        {
+            $this->dim_rowmin = $row;
+        }
+        if ($row >  $this->dim_rowmax) 
+        {
+            $this->dim_rowmax = $row;
+        }
+        if ($col <  $this->dim_colmin) 
+        {
+            $this->dim_colmin = $col;
+        }
+        if ($col >  $this->dim_colmax) 
+        {
+            $this->dim_colmax = $col;
+        }
+ 
+        // Length for this record is no more than 2048 + 6
+        $length    = 0x0006 + min($note_length, 2048);
+        $header    = pack("vv",   $record, $length);
+        $data      = pack("vvv", $row, $col, $note_length);
+        $this->_append($header.$data.substr($note, 0, 2048));
+
+        for($i = $max_length; $i < $note_length; $i += $max_length)
+        {
+            $chunk  = substr($note, $i, $max_length);
+            $length = 0x0006 + strlen($chunk);
+            $header = pack("vv",   $record, $length);
+            $data   = pack("vvv", -1, 0, strlen($chunk));
+            $this->_append($header.$data.$chunk);
+        }
+        return(0);
+    }
+ 
+    /**
+    * Write a blank cell to the specified row and column (zero indexed).
+    * A blank cell is used to specify formatting without adding a string
+    * or a number.
+    *
+    * A blank cell without a format serves no purpose. Therefore, we don't write
+    * a BLANK record unless a format is specified. This is mainly an optimisation
+    * for the write_row() and write_col() methods.
+    *
+    * Returns  0 : normal termination (including no format)
+    *         -1 : insufficient number of arguments
+    *         -2 : row or column out of range
+    *
+    * @access public
+    * @param integer $row    Zero indexed row
+    * @param integer $col    Zero indexed column
+    * @param mixed   $format The XF format
+    */
+    function write_blank($row, $col, $format = 0)
+    {
+        // Don't write a blank cell unless it has a format
+        if ($format == 0)
+        {
+            return(0);
+        }
+    
+        $record    = 0x0201;                 // Record identifier
+        $length    = 0x0006;                 // Number of bytes to follow
+        $xf        = $this->_XF($format);    // The cell format
+    
+        // Check that row and col are valid and store max and min values
+        if ($row >= $this->xls_rowmax) 
+        {
+            return(-2);
+        }
+        if ($col >= $this->xls_colmax) 
+        {
+            return(-2);
+        }
+        if ($row <  $this->dim_rowmin) 
+        {
+            $this->dim_rowmin = $row;
+        }
+        if ($row >  $this->dim_rowmax) 
+        {
+            $this->dim_rowmax = $row;
+        }
+        if ($col <  $this->dim_colmin) 
+        {
+            $this->dim_colmin = $col;
+        }
+        if ($col >  $this->dim_colmax) 
+        {
+            $this->dim_colmax = $col;
+        }
+    
+        $header    = pack("vv",  $record, $length);
+        $data      = pack("vvv", $row, $col, $xf);
+        $this->_append($header.$data);
+        return 0;
+    }
+ 
+    /**
+    * Write a formula to the specified row and column (zero indexed).
+    * The textual representation of the formula is passed to the parser in
+    * Parser.php which returns a packed binary string.
+    *
+    * Returns  0 : normal termination
+    *         -2 : row or column out of range
+    *
+    * @access public
+    * @param integer $row     Zero indexed row
+    * @param integer $col     Zero indexed column
+    * @param string  $formula The formula text string
+    * @param mixed   $format  The optional XF format
+    */
+    function write_formula($row, $col, $formula, $format = 0)
+    {
+        $record    = 0x0006;     // Record identifier
+    
+        // Excel normally stores the last calculated value of the formula in $num.
+        // Clearly we are not in a position to calculate this a priori. Instead
+        // we set $num to zero and set the option flags in $grbit to ensure
+        // automatic calculation of the formula when the file is opened.
+        //
+        $xf        = $this->_XF($format); // The cell format
+        $num       = 0x00;                // Current value of formula
+        $grbit     = 0x03;                // Option flags
+        $chn       = 0x0000;              // Must be zero
+    
+    
+        // Check that row and col are valid and store max and min values
+        if ($row >= $this->xls_rowmax)
+        {
+            return(-2);
+        }
+        if ($col >= $this->xls_colmax)
+        {
+            return(-2);
+        }
+        if ($row <  $this->dim_rowmin) 
+        {
+            $this->dim_rowmin = $row;
+        }
+        if ($row >  $this->dim_rowmax) 
+        {
+            $this->dim_rowmax = $row;
+        }
+        if ($col <  $this->dim_colmin) 
+        {
+            $this->dim_colmin = $col;
+        }
+        if ($col >  $this->dim_colmax) 
+        {
+            $this->dim_colmax = $col;
+        }
+    
+        // Strip the '=' or '@' sign at the beginning of the formula string
+        if (ereg("^=",$formula)) {
+            $formula = preg_replace("/(^=)/","",$formula);
+        }
+        elseif(ereg("^@",$formula)) {
+            $formula = preg_replace("/(^@)/","",$formula);
+        }
+        else {
+            die("Unrecognised character for formula");
+        }
+    
+        // Parse the formula using the parser in Parser.php
+        //$tree      = new Parser($this->_byte_order);
+        $this->_parser->parse($formula);
+        //$tree->parse($formula);
+        $formula = $this->_parser->to_reverse_polish();
+    
+        $formlen    = strlen($formula);    // Length of the binary string
+        $length     = 0x16 + $formlen;     // Length of the record data
+    
+        $header    = pack("vv",      $record, $length);
+        $data      = pack("vvvdvVv", $row, $col, $xf, $num,
+                                     $grbit, $chn, $formlen);
+    
+        $this->_append($header.$data.$formula);
+        return 0;
+    }
+    
+    /**
+    * Write a hyperlink. This is comprised of two elements: the visible label and
+    * the invisible link. The visible label is the same as the link unless an
+    * alternative string is specified. The label is written using the
+    * write_string() method. Therefore the 255 characters string limit applies.
+    * $string and $format are optional and their order is interchangeable.
+    *
+    * The hyperlink can be to a http, ftp, mail, internal sheet, or external
+    * directory url.
+    *
+    * Returns  0 : normal termination
+    *         -1 : insufficient number of arguments
+    *         -2 : row or column out of range
+    *         -3 : long string truncated to 255 chars
+    *
+    * @access public
+    * @param integer $row    Row
+    * @param integer $col    Column
+    * @param string  $url    URL string
+    * @param string  $string Alternative label
+    * @param mixed   $format The cell format
+    */
+    function write_url($row, $col, $url, $string = '', $format = 0)
+    {
+        // Add start row and col to arg list
+        return($this->_write_url_range($row, $col, $row, $col, $url, $string, $format));
+    }
+    
+    /**
+    * This is the more general form of write_url(). It allows a hyperlink to be
+    * written to a range of cells. This function also decides the type of hyperlink
+    * to be written. These are either, Web (http, ftp, mailto), Internal
+    * (Sheet1!A1) or external ('c:\temp\foo.xls#Sheet1!A1').
+    *
+    * See also write_url() above for a general description and return values.
+    *
+    * @param integer $row1   Start row
+    * @param integer $col1   Start column
+    * @param integer $row2   End row
+    * @param integer $col2   End column
+    * @param string  $url    URL string
+    * @param string  $string Alternative label
+    * @param mixed   $format The cell format
+    */
+    
+    function _write_url_range($row1, $col1, $row2, $col2, $url, $string = '', $format = 0)
+    {
+        // Check for internal/external sheet links or default to web link
+        if (preg_match('[^internal:]', $url)) {
+            return($this->_write_url_internal($row1, $col1, $row2, $col2, $url, $string, $format));
+        }
+        if (preg_match('[^external:]', $url)) {
+            return($this->_write_url_external($row1, $col1, $row2, $col2, $url, $string, $format));
+        }
+        return($this->_write_url_web($row1, $col1, $row2, $col2, $url, $string, $format));
+    }
+    
+    
+    /**
+    * Used to write http, ftp and mailto hyperlinks.
+    * The link type ($options) is 0x03 is the same as absolute dir ref without
+    * sheet. However it is differentiated by the $unknown2 data stream.
+    *
+    * @see write_url()
+    * @param integer $row1   Start row
+    * @param integer $col1   Start column
+    * @param integer $row2   End row
+    * @param integer $col2   End column
+    * @param string  $url    URL string
+    * @param string  $str    Alternative label
+    * @param mixed   $format The cell format
+    */
+    function _write_url_web($row1, $col1, $row2, $col2, $url, $str, $format = 0)
+    {
+        $record      = 0x01B8;                       // Record identifier
+        $length      = 0x00000;                      // Bytes to follow
+    
+        if($format == 0) {
+            $format = $this->_url_format;
+        }
+    
+        // Write the visible label using the write_string() method.
+        if($str == '') {
+            $str = $url;
+        }
+        $str_error = $this->write_string($row1, $col1, $str, $format);
+        if ($str_error == -2) {
+            return($str_error);
+        }
+    
+        // Pack the undocumented parts of the hyperlink stream
+        $unknown1    = pack("H*", "D0C9EA79F9BACE118C8200AA004BA90B02000000");
+        $unknown2    = pack("H*", "E0C9EA79F9BACE118C8200AA004BA90B");
+    
+        // Pack the option flags
+        $options     = pack("V", 0x03);
+    
+        // Convert URL to a null terminated wchar string
+        $url         = join("\0", preg_split("''", $url, -1, PREG_SPLIT_NO_EMPTY));
+        $url         = $url . "\0\0\0";
+    
+        // Pack the length of the URL
+        $url_len     = pack("V", strlen($url));
+    
+        // Calculate the data length
+        $length      = 0x34 + strlen($url);
+    
+        // Pack the header data
+        $header      = pack("vv",   $record, $length);
+        $data        = pack("vvvv", $row1, $row2, $col1, $col2);
+    
+        // Write the packed data
+        $this->_append( $header. $data.
+                        $unknown1. $options.
+                        $unknown2. $url_len. $url);
+        return($str_error);
+    }
+    
+    /**
+    * Used to write internal reference hyperlinks such as "Sheet1!A1".
+    *
+    * @see write_url()
+    * @param integer $row1   Start row
+    * @param integer $col1   Start column
+    * @param integer $row2   End row
+    * @param integer $col2   End column
+    * @param string  $url    URL string
+    * @param string  $str    Alternative label
+    * @param mixed   $format The cell format
+    */
+    function _write_url_internal($row1, $col1, $row2, $col2, $url, $str, $format = 0)
+    {
+        $record      = 0x01B8;                       // Record identifier
+        $length      = 0x00000;                      // Bytes to follow
+    
+        if ($format == 0) {
+            $format = $this->_url_format;
+        }
+    
+        // Strip URL type
+        $url = preg_replace('s[^internal:]', '', $url);
+    
+        // Write the visible label
+        if($str == '') {
+            $str = $url;
+        }
+        $str_error = $this->write_string($row1, $col1, $str, $format);
+        if ($str_error == -2) {
+            return($str_error);
+        }
+    
+        // Pack the undocumented parts of the hyperlink stream
+        $unknown1    = pack("H*", "D0C9EA79F9BACE118C8200AA004BA90B02000000");
+    
+        // Pack the option flags
+        $options     = pack("V", 0x08);
+    
+        // Convert the URL type and to a null terminated wchar string
+        $url         = join("\0", preg_split("''", $url, -1, PREG_SPLIT_NO_EMPTY));
+        $url         = $url . "\0\0\0";
+    
+        // Pack the length of the URL as chars (not wchars)
+        $url_len     = pack("V", floor(strlen($url)/2));
+    
+        // Calculate the data length
+        $length      = 0x24 + strlen($url);
+    
+        // Pack the header data
+        $header      = pack("vv",   $record, $length);
+        $data        = pack("vvvv", $row1, $row2, $col1, $col2);
+    
+        // Write the packed data
+        $this->_append($header. $data.
+                       $unknown1. $options.
+                       $url_len. $url);
+        return($str_error);
+    }
+    
+
+    /**
+    * Write links to external directory names such as 'c:\foo.xls',
+    * c:\foo.xls#Sheet1!A1', '../../foo.xls'. and '../../foo.xls#Sheet1!A1'.
+    *
+    * Note: Excel writes some relative links with the $dir_long string. We ignore
+    * these cases for the sake of simpler code.
+    *
+    * @see write_url()
+    * @param integer $row1   Start row
+    * @param integer $col1   Start column
+    * @param integer $row2   End row
+    * @param integer $col2   End column
+    * @param string  $url    URL string
+    * @param string  $str    Alternative label
+    * @param mixed   $format The cell format
+    */
+    function _write_url_external($row1, $col1, $row2, $col2, $url, $str, $format = 0)
+    {
+        // Network drives are different. We will handle them separately
+        // MS/Novell network drives and shares start with \\
+        if (preg_match('[^external:\\\\]', $url)) {
+            return($this->_write_url_external_net($row1, $col1, $row2, $col2, $url, $str, $format));
+        }
+    
+        $record      = 0x01B8;                       // Record identifier
+        $length      = 0x00000;                      // Bytes to follow
+    
+        if ($format == 0) {
+            $format = $this->_url_format;
+        }
+    
+        // Strip URL type and change Unix dir separator to Dos style (if needed)
+        //
+        $url = preg_replace('[^external:]', '', $url);
+        $url = preg_replace('[/]', "\\", $url);
+    
+        // Write the visible label
+        if ($str == '') {
+            $str = preg_replace('[\#]', ' - ', $url);
+        }
+        $str_error = $this->write_string($row1, $col1, $str, $format);
+        if ($str_error == -2) {
+            return($str_error);
+        }
+    
+        // Determine if the link is relative or absolute:
+        //   relative if link contains no dir separator, "somefile.xls"
+        //   relative if link starts with up-dir, "..\..\somefile.xls"
+        //   otherwise, absolute
+        
+        $absolute    = 0x02; // Bit mask
+        if (!preg_match('[\\]', $url)) {
+            $absolute    = 0x00;
+        }
+        if (preg_match('[^\.\.\\]', $url)) {
+            $absolute    = 0x00;
+        }
+    
+        // Determine if the link contains a sheet reference and change some of the
+        // parameters accordingly.
+        // Split the dir name and sheet name (if it exists)
+        list($dir_long , $sheet) = split('/\#/', $url);
+        $link_type               = 0x01 | $absolute;
+    
+        if (isset($sheet)) {
+            $link_type |= 0x08;
+            $sheet_len  = pack("V", strlen($sheet) + 0x01);
+            $sheet      = join("\0", split('', $sheet));
+            $sheet     .= "\0\0\0";
+        }
+        else {
+            $sheet_len   = '';
+            $sheet       = '';
+        }
+    
+        // Pack the link type
+        $link_type   = pack("V", $link_type);
+    
+        // Calculate the up-level dir count e.g.. (..\..\..\ == 3)
+        $up_count    = preg_match_all("/\.\.\\/", $dir_long, $useless);
+        $up_count    = pack("v", $up_count);
+    
+        // Store the short dos dir name (null terminated)
+        $dir_short   = preg_replace('/\.\.\\/', '', $dir_long) . "\0";
+    
+        // Store the long dir name as a wchar string (non-null terminated)
+        $dir_long       = join("\0", split('', $dir_long));
+        $dir_long       = $dir_long . "\0";
+    
+        // Pack the lengths of the dir strings
+        $dir_short_len = pack("V", strlen($dir_short)      );
+        $dir_long_len  = pack("V", strlen($dir_long)       );
+        $stream_len    = pack("V", strlen($dir_long) + 0x06);
+    
+        // Pack the undocumented parts of the hyperlink stream
+        $unknown1 = pack("H*",'D0C9EA79F9BACE118C8200AA004BA90B02000000'       );
+        $unknown2 = pack("H*",'0303000000000000C000000000000046'               );
+        $unknown3 = pack("H*",'FFFFADDE000000000000000000000000000000000000000');
+        $unknown4 = pack("v",  0x03                                            );
+    
+        // Pack the main data stream
+        $data        = pack("vvvv", $row1, $row2, $col1, $col2) .
+                          $unknown1     .
+                          $link_type    .
+                          $unknown2     .
+                          $up_count     .
+                          $dir_short_len.
+                          $dir_short    .
+                          $unknown3     .
+                          $stream_len   .
+                          $dir_long_len .
+                          $unknown4     .
+                          $dir_long     .
+                          $sheet_len    .
+                          $sheet        ;
+    
+        // Pack the header data
+        $length   = strlen($data);
+        $header   = pack("vv", $record, $length);
+    
+        // Write the packed data
+        $this->_append($header. $data);
+        return($str_error);
+    }
+    
+    
+    /*
+    ###############################################################################
+    #
+    # write_url_xxx($row1, $col1, $row2, $col2, $url, $string, $format)
+    #
+    # Write links to external MS/Novell network drives and shares such as
+    # '//NETWORK/share/foo.xls' and '//NETWORK/share/foo.xls#Sheet1!A1'.
+    #
+    # See also write_url() above for a general description and return values.
+    #
+    sub _write_url_external_net {
+    
+        my $this    = shift;
+    
+        my $record      = 0x01B8;                       # Record identifier
+        my $length      = 0x00000;                      # Bytes to follow
+    
+        my $row1        = $_[0];                        # Start row
+        my $col1        = $_[1];                        # Start column
+        my $row2        = $_[2];                        # End row
+        my $col2        = $_[3];                        # End column
+        my $url         = $_[4];                        # URL string
+        my $str         = $_[5];                        # Alternative label
+        my $xf          = $_[6] || $this->{_url_format};# The cell format
+    
+    
+        # Strip URL type and change Unix dir separator to Dos style (if needed)
+        #
+        $url            =~ s[^external:][];
+        $url            =~ s[/][\\]g;
+    
+    
+        # Write the visible label
+        ($str = $url)   =~ s[\#][ - ] unless defined $str;
+        my $str_error   = $this->write_string($row1, $col1, $str, $xf);
+        return $str_error if $str_error == -2;
+    
+    
+        # Determine if the link contains a sheet reference and change some of the
+        # parameters accordingly.
+        # Split the dir name and sheet name (if it exists)
+        #
+        my ($dir_long , $sheet) = split /\#/, $url;
+        my $link_type           = 0x0103; # Always absolute
+        my $sheet_len;
+    
+        if (defined $sheet) {
+            $link_type |= 0x08;
+            $sheet_len  = pack("V", length($sheet) + 0x01);
+            $sheet      = join("\0", split('', $sheet));
+            $sheet     .= "\0\0\0";
+    }
+        else {
+            $sheet_len   = '';
+            $sheet       = '';
+    }
+    
+        # Pack the link type
+        $link_type      = pack("V", $link_type);
+    
+    
+        # Make the string null terminated
+        $dir_long       = $dir_long . "\0";
+    
+    
+        # Pack the lengths of the dir string
+        my $dir_long_len  = pack("V", length $dir_long);
+    
+    
+        # Store the long dir name as a wchar string (non-null terminated)
+        $dir_long       = join("\0", split('', $dir_long));
+        $dir_long       = $dir_long . "\0";
+    
+    
+        # Pack the undocumented part of the hyperlink stream
+        my $unknown1    = pack("H*",'D0C9EA79F9BACE118C8200AA004BA90B02000000');
+    
+    
+        # Pack the main data stream
+        my $data        = pack("vvvv", $row1, $row2, $col1, $col2) .
+                          $unknown1     .
+                          $link_type    .
+                          $dir_long_len .
+                          $dir_long     .
+                          $sheet_len    .
+                          $sheet        ;
+    
+    
+        # Pack the header data
+        $length         = length $data;
+        my $header      = pack("vv",   $record, $length);
+    
+    
+        # Write the packed data
+        $this->_append( $header, $data);
+    
+        return $str_error;
+}*/
+    
+    /**
+    * This method is used to set the height and XF format for a row.
+    * Writes the  BIFF record ROW.
+    *
+    * @access public
+    * @param integer $row    The row to set
+    * @param integer $height Height we are giving to the row. 
+    *                        Use NULL to set XF without setting height
+    * @param mixed   $format XF format we are giving to the row
+    */
+    function set_row($row, $height, $format = 0)
+    {
+        $record      = 0x0208;               // Record identifier
+        $length      = 0x0010;               // Number of bytes to follow
+    
+        $colMic      = 0x0000;               // First defined column
+        $colMac      = 0x0000;               // Last defined column
+        $irwMac      = 0x0000;               // Used by Excel to optimise loading
+        $reserved    = 0x0000;               // Reserved
+        $grbit       = 0x01C0;               // Option flags. (monkey) see $1 do
+        $ixfe        = $this->_XF($format); // XF index
+    
+        // Use set_row($row, NULL, $XF) to set XF without setting height
+        if ($height != NULL) {
+            $miyRw = $height * 20;  // row height
+        }
+        else {
+            $miyRw = 0xff;          // default row height is 256
+        }
+    
+        $header   = pack("vv",       $record, $length);
+        $data     = pack("vvvvvvvv", $row, $colMic, $colMac, $miyRw,
+                                     $irwMac,$reserved, $grbit, $ixfe);
+        $this->_append($header.$data);
+    }
+    
+    /**
+    * Writes Excel DIMENSIONS to define the area in which there is data.
+    */
+    function _store_dimensions()
+    {
+        $record    = 0x0000;               // Record identifier
+        $length    = 0x000A;               // Number of bytes to follow
+        $row_min   = $this->dim_rowmin;    // First row
+        $row_max   = $this->dim_rowmax;    // Last row plus 1
+        $col_min   = $this->dim_colmin;    // First column
+        $col_max   = $this->dim_colmax;    // Last column plus 1
+        $reserved  = 0x0000;               // Reserved by Excel
+    
+        $header    = pack("vv",    $record, $length);
+        $data      = pack("vvvvv", $row_min, $row_max,
+                                   $col_min, $col_max, $reserved);
+        $this->_prepend($header.$data);
+    }
+    
+    /**
+    * Write BIFF record Window2.
+    */
+    function _store_window2()
+    {
+        $record         = 0x023E;     // Record identifier
+        $length         = 0x000A;     // Number of bytes to follow
+    
+        $grbit          = 0x00B6;     // Option flags
+        $rwTop          = 0x0000;     // Top row visible in window
+        $colLeft        = 0x0000;     // Leftmost column visible in window
+        $rgbHdr         = 0x00000000; // Row/column heading and gridline color
+    
+        // The options flags that comprise $grbit
+        $fDspFmla       = 0;                     // 0 - bit
+        $fDspGrid       = 1;                     // 1
+        $fDspRwCol      = 1;                     // 2
+        $fFrozen        = $this->_frozen;        // 3
+        $fDspZeros      = 1;                     // 4
+        $fDefaultHdr    = 1;                     // 5
+        $fArabic        = 0;                     // 6
+        $fDspGuts       = 1;                     // 7
+        $fFrozenNoSplit = 0;                     // 0 - bit
+        $fSelected      = $this->selected;       // 1
+        $fPaged         = 1;                     // 2
+    
+        $grbit             = $fDspFmla;
+        $grbit            |= $fDspGrid       << 1;
+        $grbit            |= $fDspRwCol      << 2;
+        $grbit            |= $fFrozen        << 3;
+        $grbit            |= $fDspZeros      << 4;
+        $grbit            |= $fDefaultHdr    << 5;
+        $grbit            |= $fArabic        << 6;
+        $grbit            |= $fDspGuts       << 7;
+        $grbit            |= $fFrozenNoSplit << 8;
+        $grbit            |= $fSelected      << 9;
+        $grbit            |= $fPaged         << 10;
+    
+        $header  = pack("vv",   $record, $length);
+        $data    = pack("vvvV", $grbit, $rwTop, $colLeft, $rgbHdr);
+        $this->_append($header.$data);
+    }
+    
+    /**
+    * Write BIFF record DEFCOLWIDTH if COLINFO records are in use.
+    */
+    function _store_defcol()
+    {
+        $record   = 0x0055;      // Record identifier
+        $length   = 0x0002;      // Number of bytes to follow
+        $colwidth = 0x0008;      // Default column width
+    
+        $header   = pack("vv", $record, $length);
+        $data     = pack("v",  $colwidth);
+        $this->_prepend($header.$data);
+    }
+    
+    /**
+    * Write BIFF record COLINFO to define column widths
+    *
+    * Note: The SDK says the record length is 0x0B but Excel writes a 0x0C
+    * length record.
+    *
+    * @param array $col_array This is the only parameter received and is composed of the following:
+    *                0 => First formatted column,
+    *                1 => Last formatted column,
+    *                2 => Col width (8.43 is Excel default),
+    *                3 => The optional XF format of the column,
+    *                4 => Option flags.
+    */
+    function _store_colinfo($col_array)
+    {
+        if(isset($col_array[0])) {
+            $colFirst = $col_array[0];
+        }
+        if(isset($col_array[1])) {
+            $colLast = $col_array[1];
+        }
+        if(isset($col_array[2])) {
+            $coldx = $col_array[2];
+        }
+        else {
+            $coldx = 8.43;
+        }
+        if(isset($col_array[3])) {
+            $format = $col_array[3];
+        }
+        else {
+            $format = 0;
+        }
+        if(isset($col_array[4])) {
+            $grbit = $col_array[4];
+        }
+        else {
+            $grbit = 0;
+        }
+        $record   = 0x007D;          // Record identifier
+        $length   = 0x000B;          // Number of bytes to follow
+    
+        $coldx   += 0.72;            // Fudge. Excel subtracts 0.72 !?
+        $coldx   *= 256;             // Convert to units of 1/256 of a char
+    
+        $ixfe     = $this->_XF($format);
+        $reserved = 0x00;            // Reserved
+    
+        $header   = pack("vv",     $record, $length);
+        $data     = pack("vvvvvC", $colFirst, $colLast, $coldx,
+                                   $ixfe, $grbit, $reserved);
+        $this->_prepend($header.$data);
+    }
+    
+    /**
+    * Write BIFF record SELECTION.
+    *
+    * @param array $array array containing ($rwFirst,$colFirst,$rwLast,$colLast)
+    * @see set_selection()
+    */
+    function _store_selection($array)
+    {
+        list($rwFirst,$colFirst,$rwLast,$colLast) = $array;
+        $record   = 0x001D;                  // Record identifier
+        $length   = 0x000F;                  // Number of bytes to follow
+    
+        $pnn      = $this->_active_pane;     // Pane position
+        $rwAct    = $rwFirst;                // Active row
+        $colAct   = $colFirst;               // Active column
+        $irefAct  = 0;                       // Active cell ref
+        $cref     = 1;                       // Number of refs
+    
+        if (!isset($rwLast)) {
+            $rwLast   = $rwFirst;       // Last  row in reference
+        }
+        if (!isset($colLast)) {
+            $colLast  = $colFirst;      // Last  col in reference
+        }
+    
+        // Swap last row/col for first row/col as necessary
+        if ($rwFirst > $rwLast)
+        {
+            list($rwFirst, $rwLast) = array($rwLast, $rwFirst);
+        }
+    
+        if ($colFirst > $colLast)
+        {
+            list($colFirst, $colLast) = array($colLast, $colFirst);
+        }
+    
+        $header   = pack("vv",         $record, $length);
+        $data     = pack("CvvvvvvCC",  $pnn, $rwAct, $colAct,
+                                       $irefAct, $cref,
+                                       $rwFirst, $rwLast,
+                                       $colFirst, $colLast);
+        $this->_append($header.$data);
+    }
+    
+    
+    /**
+    * Write BIFF record EXTERNCOUNT to indicate the number of external sheet
+    * references in a worksheet.
+    *
+    * Excel only stores references to external sheets that are used in formulas.
+    * For simplicity we store references to all the sheets in the workbook
+    * regardless of whether they are used or not. This reduces the overall
+    * complexity and eliminates the need for a two way dialogue between the formula
+    * parser the worksheet objects.
+    *
+    * @param integer $count The number of external sheet references in this worksheet
+    */
+    function _store_externcount($count)
+    {
+        $record   = 0x0016;          // Record identifier
+        $length   = 0x0002;          // Number of bytes to follow
+    
+        $header   = pack("vv", $record, $length);
+        $data     = pack("v",  $count);
+        $this->_prepend($header.$data);
+    }
+    
+    /**
+    * Writes the Excel BIFF EXTERNSHEET record. These references are used by
+    * formulas. A formula references a sheet name via an index. Since we store a
+    * reference to all of the external worksheets the EXTERNSHEET index is the same
+    * as the worksheet index.
+    *
+    * @param string $sheetname The name of a external worksheet
+    */
+    function _store_externsheet($sheetname)
+    {
+        $record    = 0x0017;         // Record identifier
+    
+        // References to the current sheet are encoded differently to references to
+        // external sheets.
+        //
+        if ($this->name == $sheetname) {
+            $sheetname = '';
+            $length    = 0x02;  // The following 2 bytes
+            $cch       = 1;     // The following byte
+            $rgch      = 0x02;  // Self reference
+        }
+        else {
+            $length    = 0x02 + strlen($sheetname);
+            $cch       = strlen($sheetname);
+            $rgch      = 0x03;  // Reference to a sheet in the current workbook
+        }
+    
+        $header     = pack("vv",  $record, $length);
+        $data       = pack("CC", $cch, $rgch);
+        $this->_prepend($header.$data.$sheetname);
+    }
+    
+    /**
+    * Writes the Excel BIFF PANE record.
+    * The panes can either be frozen or thawed (unfrozen).
+    * Frozen panes are specified in terms of an integer number of rows and columns.
+    * Thawed panes are specified in terms of Excel's units for rows and columns.
+    *
+    * @param array $panes This is the only parameter received and is composed of the following:
+    *                     0 => Vertical split position,
+    *                     1 => Horizontal split position
+    *                     2 => Top row visible
+    *                     3 => Leftmost column visible
+    *                     4 => Active pane
+    */
+    function _store_panes($panes)
+    {
+        $y       = $panes[0];
+        $x       = $panes[1];
+        $rwTop   = $panes[2];
+        $colLeft = $panes[3];
+        if(count($panes) > 4) { // if Active pane was received
+            $pnnAct = $panes[4];
+        }
+        else {
+            $pnnAct = NULL;
+        }
+        $record  = 0x0041;       // Record identifier
+        $length  = 0x000A;       // Number of bytes to follow
+    
+        // Code specific to frozen or thawed panes.
+        if ($this->_frozen) {
+            // Set default values for $rwTop and $colLeft
+            if(!isset($rwTop)) {
+                $rwTop   = $y;
+            }
+            if(!isset($colLeft)) {
+                $colLeft = $x;
+            }
+        }
+        else {
+            // Set default values for $rwTop and $colLeft
+            if(!isset($rwTop)) {
+                $rwTop   = 0;
+            }
+            if(!isset($colLeft)) {
+                $colLeft = 0;
+            }
+    
+            // Convert Excel's row and column units to the internal units.
+            // The default row height is 12.75
+            // The default column width is 8.43
+            // The following slope and intersection values were interpolated.
+            //
+            $y = 20*$y      + 255;
+            $x = 113.879*$x + 390;
+        }
+    
+    
+        // Determine which pane should be active. There is also the undocumented
+        // option to override this should it be necessary: may be removed later.
+        //
+        if (!isset($pnnAct))
+        {
+            if ($x != 0 and $y != 0)
+                $pnnAct = 0; // Bottom right
+            if ($x != 0 and $y == 0)
+                $pnnAct = 1; // Top right
+            if ($x == 0 and $y != 0)
+                $pnnAct = 2; // Bottom left
+            if ($x == 0 and $y == 0)
+                $pnnAct = 3; // Top left
+        }
+    
+        $this->_active_pane = $pnnAct; // Used in _store_selection
+    
+        $header     = pack("vv",    $record, $length);
+        $data       = pack("vvvvv", $x, $y, $rwTop, $colLeft, $pnnAct);
+        $this->_append($header.$data);
+    }
+    
+    /**
+    * Store the page setup SETUP BIFF record.
+    */
+    function _store_setup()
+    {
+        $record       = 0x00A1;                  // Record identifier
+        $length       = 0x0022;                  // Number of bytes to follow
+    
+        $iPaperSize   = $this->_paper_size;    // Paper size
+        $iScale       = $this->_print_scale;   // Print scaling factor
+        $iPageStart   = 0x01;                 // Starting page number
+        $iFitWidth    = $this->_fit_width;    // Fit to number of pages wide
+        $iFitHeight   = $this->_fit_height;   // Fit to number of pages high
+        $grbit        = 0x00;                 // Option flags
+        $iRes         = 0x0258;               // Print resolution
+        $iVRes        = 0x0258;               // Vertical print resolution
+        $numHdr       = $this->_margin_head;  // Header Margin
+        $numFtr       = $this->_margin_foot;   // Footer Margin
+        $iCopies      = 0x01;                 // Number of copies
+    
+        $fLeftToRight = 0x0;                     // Print over then down
+        $fLandscape   = $this->_orientation;     // Page orientation
+        $fNoPls       = 0x0;                     // Setup not read from printer
+        $fNoColor     = 0x0;                     // Print black and white
+        $fDraft       = 0x0;                     // Print draft quality
+        $fNotes       = 0x0;                     // Print notes
+        $fNoOrient    = 0x0;                     // Orientation not set
+        $fUsePage     = 0x0;                     // Use custom starting page
+    
+        $grbit           = $fLeftToRight;
+        $grbit          |= $fLandscape    << 1;
+        $grbit          |= $fNoPls        << 2;
+        $grbit          |= $fNoColor      << 3;
+        $grbit          |= $fDraft        << 4;
+        $grbit          |= $fNotes        << 5;
+        $grbit          |= $fNoOrient     << 6;
+        $grbit          |= $fUsePage      << 7;
+    
+        $numHdr = pack("d", $numHdr);
+        $numFtr = pack("d", $numFtr);
+        if ($this->_byte_order) // if it's Big Endian
+        {
+            $numHdr = strrev($numHdr);
+            $numFtr = strrev($numFtr);
+        }
+    
+        $header = pack("vv", $record, $length);
+        $data1  = pack("vvvvvvvv", $iPaperSize,
+                                   $iScale,
+                                   $iPageStart,
+                                   $iFitWidth,
+                                   $iFitHeight,
+                                   $grbit,
+                                   $iRes,
+                                   $iVRes);
+        $data2  = $numHdr .$numFtr;
+        $data3  = pack("v", $iCopies);
+        $this->_prepend($header.$data1.$data2.$data3);
+    }
+    
+    /**
+    * Store the header caption BIFF record.
+    */
+    function store_header()
+    {
+        $record  = 0x0014;               // Record identifier
+    
+        $str     = $this->_header;        // header string
+        $cch     = strlen($str);         // Length of header string
+        $length  = 1 + $cch;             // Bytes to follow
+    
+        $header    = pack("vv",  $record, $length);
+        $data      = pack("C",   $cch);
+    
+        $this->_append($header.$data.$str);
+    }
+    
+    /**
+    * Store the footer caption BIFF record.
+    */
+    function store_footer()
+    {
+        $record  = 0x0015;               // Record identifier
+    
+        $str     = $this->_footer;       // Footer string
+        $cch     = strlen($str);         // Length of footer string
+        $length  = 1 + $cch;             // Bytes to follow
+    
+        $header    = pack("vv",  $record, $length);
+        $data      = pack("C",   $cch);
+    
+        $this->_append($header.$data.$str);
+    }
+    
+    /**
+    * Store the horizontal centering HCENTER BIFF record.
+    */
+    function store_hcenter()
+    {
+        $record   = 0x0083;              // Record identifier
+        $length   = 0x0002;              // Bytes to follow
+    
+        $fHCenter = $this->_hcenter;      // Horizontal centering
+    
+        $header    = pack("vv",  $record, $length);
+        $data      = pack("v",   $fHCenter);
+    
+        $this->_append($header.$data);
+    }
+    
+    /**
+    * Store the vertical centering VCENTER BIFF record.
+    */
+    function store_vcenter()
+    {
+        $record   = 0x0084;              // Record identifier
+        $length   = 0x0002;              // Bytes to follow
+    
+        $fVCenter = $this->_vcenter;      // Horizontal centering
+    
+        $header    = pack("vv", $record, $length);
+        $data      = pack("v", $fVCenter);
+        $this->_append($header.$data);
+    }
+    
+    /**
+    * Store the LEFTMARGIN BIFF record.
+    */
+    function _store_margin_left()
+    {
+        $record  = 0x0026;                   // Record identifier
+        $length  = 0x0008;                   // Bytes to follow
+    
+        $margin  = $this->_margin_left;       // Margin in inches
+    
+        $header    = pack("vv",  $record, $length);
+        $data      = pack("d",   $margin);
+        if ($this->_byte_order) // if it's Big Endian
+        { 
+            $data = strrev($data);
+        }
+    
+        $this->_append($header.$data);
+    }
+    
+    /**
+    * Store the RIGHTMARGIN BIFF record.
+    */
+    function _store_margin_right()
+    {
+        $record  = 0x0027;                   // Record identifier
+        $length  = 0x0008;                   // Bytes to follow
+    
+        $margin  = $this->_margin_right;      // Margin in inches
+    
+        $header    = pack("vv",  $record, $length);
+        $data      = pack("d",   $margin);
+        if ($this->_byte_order) // if it's Big Endian
+        { 
+            $data = strrev($data);
+        }
+    
+        $this->_append($header.$data);
+    }
+    
+    /**
+    * Store the TOPMARGIN BIFF record.
+    */
+    function _store_margin_top()
+    {
+        $record  = 0x0028;                   // Record identifier
+        $length  = 0x0008;                   // Bytes to follow
+    
+        $margin  = $this->_margin_top;        // Margin in inches
+    
+        $header    = pack("vv",  $record, $length);
+        $data      = pack("d",   $margin);
+        if ($this->_byte_order) // if it's Big Endian
+        { 
+            $data = strrev($data);
+        }
+    
+        $this->_append($header.$data);
+    }
+    
+    /**
+    * Store the BOTTOMMARGIN BIFF record.
+    */
+    function _store_margin_bottom()
+    {
+        $record  = 0x0029;                   // Record identifier
+        $length  = 0x0008;                   // Bytes to follow
+    
+        $margin  = $this->_margin_bottom;     // Margin in inches
+    
+        $header    = pack("vv",  $record, $length);
+        $data      = pack("d",   $margin);
+        if ($this->_byte_order) // if it's Big Endian
+        { 
+            $data = strrev($data);
+        }
+    
+        $this->_append($header.$data);
+    }
+
+    /**
+    * This is an Excel97/2000 method. It is required to perform more complicated
+    * merging than the normal set_align('merge'). It merges the area given by 
+    * its arguments.
+    *
+    * @access public
+    * @param integer $first_row First row of the area to merge
+    * @param integer $first_col First column of the area to merge
+    * @param integer $last_row  Last row of the area to merge
+    * @param integer $last_col  Last column of the area to merge
+    */
+    function merge_cells($first_row, $first_col, $last_row, $last_col)
+    {
+        $record  = 0x00E5;                   // Record identifier
+        $length  = 0x000A;                   // Bytes to follow
+        $cref     = 1;                       // Number of refs
+
+        // Swap last row/col for first row/col as necessary
+        if ($first_row > $last_row) {
+            list($first_row, $last_row) = array($last_row, $first_row);
+        }
+    
+        if ($first_col > $last_col) {
+            list($first_col, $last_col) = array($last_col, $first_col);
+        }
+    
+        $header   = pack("vv",    $record, $length);
+        $data     = pack("vvvvv", $cref, $first_row, $last_row,
+                                  $first_col, $last_col);
+    
+        $this->_append($header.$data);
+    }
+    
+    /**
+    * Write the PRINTHEADERS BIFF record.
+    */
+    function _store_print_headers()
+    {
+        $record      = 0x002a;                   // Record identifier
+        $length      = 0x0002;                   // Bytes to follow
+    
+        $fPrintRwCol = $this->_print_headers;     // Boolean flag
+    
+        $header      = pack("vv", $record, $length);
+        $data        = pack("v", $fPrintRwCol);
+        $this->_prepend($header.$data);
+    }
+    
+    /**
+    * Write the PRINTGRIDLINES BIFF record. Must be used in conjunction with the
+    * GRIDSET record.
+    */
+    function _store_print_gridlines()
+    {
+        $record      = 0x002b;                    // Record identifier
+        $length      = 0x0002;                    // Bytes to follow
+    
+        $fPrintGrid  = $this->_print_gridlines;    // Boolean flag
+    
+        $header      = pack("vv", $record, $length);
+        $data        = pack("v", $fPrintGrid);
+        $this->_prepend($header.$data);
+    }
+    
+    /**
+    * Write the GRIDSET BIFF record. Must be used in conjunction with the
+    * PRINTGRIDLINES record.
+    */
+    function _store_gridset()
+    {
+        $record      = 0x0082;                        // Record identifier
+        $length      = 0x0002;                        // Bytes to follow
+    
+        $fGridSet    = !($this->_print_gridlines);     // Boolean flag
+    
+        $header      = pack("vv",  $record, $length);
+        $data        = pack("v",   $fGridSet);
+        $this->_prepend($header.$data);
+    }
+    
+    /**
+    * Write the WSBOOL BIFF record, mainly for fit-to-page. Used in conjunction
+    * with the SETUP record.
+    */
+    function _store_wsbool()
+    {
+        $record      = 0x0081;   // Record identifier
+        $length      = 0x0002;   // Bytes to follow
+    
+        // The only option that is of interest is the flag for fit to page. So we
+        // set all the options in one go.
+        //
+        if ($this->_fit_page) {
+            $grbit = 0x05c1;
+        }
+        else {
+            $grbit = 0x04c1;
+        }
+    
+        $header      = pack("vv", $record, $length);
+        $data        = pack("v",  $grbit);
+        $this->_prepend($header.$data);
+    }
+    
+    
+    /**
+    * Write the HORIZONTALPAGEBREAKS BIFF record.
+    */
+    function _store_hbreak()
+    {
+        // Return if the user hasn't specified pagebreaks
+        if(empty($this->_hbreaks)) {
+            return;
+        }
+    
+        // Sort and filter array of page breaks
+        $breaks = $this->_hbreaks;
+        sort($breaks,SORT_NUMERIC);
+        if($breaks[0] == 0) { // don't use first break if it's 0
+            array_shift($breaks);
+        }
+    
+        $record  = 0x001b;               // Record identifier
+        $cbrk    = count($breaks);       // Number of page breaks
+        $length  = ($cbrk + 1) * 2;      // Bytes to follow
+    
+        $header  = pack("vv", $record, $length);
+        $data    = pack("v",  $cbrk);
+    
+        // Append each page break
+        foreach($breaks as $break) {
+            $data .= pack("v", $break);
+        }
+    
+        $this->_prepend($header.$data);
+    }
+    
+    
+    /**
+    * Write the VERTICALPAGEBREAKS BIFF record.
+    */
+    function _store_vbreak()
+    {
+        // Return if the user hasn't specified pagebreaks
+        if(empty($this->_vbreaks)) {
+            return;
+        }
+    
+        // 1000 vertical pagebreaks appears to be an internal Excel 5 limit.
+        // It is slightly higher in Excel 97/200, approx. 1026
+        $breaks = array_slice($this->_vbreaks,0,1000);
+    
+        // Sort and filter array of page breaks
+        sort($breaks,SORT_NUMERIC);
+        if($breaks[0] == 0) { // don't use first break if it's 0
+            array_shift($breaks);
+        }
+    
+        $record  = 0x001a;               // Record identifier
+        $cbrk    = count($breaks);       // Number of page breaks
+        $length  = ($cbrk + 1) * 2;      // Bytes to follow
+    
+        $header  = pack("vv",  $record, $length);
+        $data    = pack("v",   $cbrk);
+    
+        // Append each page break
+        foreach ($breaks as $break) {
+            $data .= pack("v", $break);
+        }
+    
+        $this->_prepend($header.$data);
+    }
+    
+    /**
+    * Set the Biff PROTECT record to indicate that the worksheet is protected.
+    */
+    function _store_protect()
+    {
+        // Exit unless sheet protection has been specified
+        if($this->_protect == 0) {
+            return;
+        }
+    
+        $record      = 0x0012;             // Record identifier
+        $length      = 0x0002;             // Bytes to follow
+    
+        $fLock       = $this->_protect;    // Worksheet is protected
+    
+        $header      = pack("vv", $record, $length);
+        $data        = pack("v",  $fLock);
+    
+        $this->_prepend($header.$data);
+    }
+    
+    /**
+    * Write the worksheet PASSWORD record.
+    */
+    function _store_password()
+    {
+        // Exit unless sheet protection and password have been specified
+        if(($this->_protect == 0) or (!isset($this->_password))) {
+            return;
+        }
+    
+        $record      = 0x0013;               // Record identifier
+        $length      = 0x0002;               // Bytes to follow
+    
+        $wPassword   = $this->_password;     // Encoded password
+    
+        $header      = pack("vv", $record, $length);
+        $data        = pack("v",  $wPassword);
+    
+        $this->_prepend($header.$data);
+    }
+    
+    /**
+    * Insert a 24bit bitmap image in a worksheet. The main record required is
+    * IMDATA but it must be proceeded by a OBJ record to define its position.
+    *
+    * @access public
+    * @param integer $row     The row we are going to insert the bitmap into
+    * @param integer $col     The column we are going to insert the bitmap into
+    * @param string  $bitmap  The bitmap filename
+    * @param integer $x       The horizontal position (offset) of the image inside the cell.
+    * @param integer $y       The vertical position (offset) of the image inside the cell.
+    * @param integer $scale_x The horizontal scale
+    * @param integer $scale_y The vertical scale
+    */
+    function insert_bitmap($row, $col, $bitmap, $x = 0, $y = 0, $scale_x = 1, $scale_y = 1)
+    {
+        list($width, $height, $size, $data) = $this->_process_bitmap($bitmap);
+    
+        // Scale the frame of the image.
+        $width  *= $scale_x;
+        $height *= $scale_y;
+    
+        // Calculate the vertices of the image and write the OBJ record
+        $this->_position_image($col, $row, $x, $y, $width, $height);
+    
+        // Write the IMDATA record to store the bitmap data
+        $record      = 0x007f;
+        $length      = 8 + $size;
+        $cf          = 0x09;
+        $env         = 0x01;
+        $lcb         = $size;
+    
+        $header      = pack("vvvvV", $record, $length, $cf, $env, $lcb);
+        $this->_append($header.$data);
+    }
+    
+    /**
+    * Calculate the vertices that define the position of the image as required by
+    * the OBJ record.
+    *
+    *         +------------+------------+
+    *         |     A      |      B     |
+    *   +-----+------------+------------+
+    *   |     |(x1,y1)     |            |
+    *   |  1  |(A1)._______|______      |
+    *   |     |    |              |     |
+    *   |     |    |              |     |
+    *   +-----+----|    BITMAP    |-----+
+    *   |     |    |              |     |
+    *   |  2  |    |______________.     |
+    *   |     |            |        (B2)|
+    *   |     |            |     (x2,y2)|
+    *   +---- +------------+------------+
+    *
+    * Example of a bitmap that covers some of the area from cell A1 to cell B2.
+    *
+    * Based on the width and height of the bitmap we need to calculate 8 vars:
+    *     $col_start, $row_start, $col_end, $row_end, $x1, $y1, $x2, $y2.
+    * The width and height of the cells are also variable and have to be taken into
+    * account.
+    * The values of $col_start and $row_start are passed in from the calling
+    * function. The values of $col_end and $row_end are calculated by subtracting
+    * the width and height of the bitmap from the width and height of the
+    * underlying cells.
+    * The vertices are expressed as a percentage of the underlying cell width as
+    * follows (rhs values are in pixels):
+    *
+    *       x1 = X / W *1024
+    *       y1 = Y / H *256
+    *       x2 = (X-1) / W *1024
+    *       y2 = (Y-1) / H *256
+    *
+    *       Where:  X is distance from the left side of the underlying cell
+    *               Y is distance from the top of the underlying cell
+    *               W is the width of the cell
+    *               H is the height of the cell
+    *
+    * @note  the SDK incorrectly states that the height should be expressed as a
+    *        percentage of 1024.
+    * @param integer $col_start Col containing upper left corner of object
+    * @param integer $row_start Row containing top left corner of object
+    * @param integer $x1        Distance to left side of object
+    * @param integer $y1        Distance to top of object
+    * @param integer $width     Width of image frame
+    * @param integer $height    Height of image frame
+    */
+    function _position_image($col_start, $row_start, $x1, $y1, $width, $height)
+    {
+        // Initialise end cell to the same as the start cell
+        $col_end    = $col_start;  // Col containing lower right corner of object
+        $row_end    = $row_start;  // Row containing bottom right corner of object
+    
+        // Zero the specified offset if greater than the cell dimensions
+        if ($x1 >= $this->size_col($col_start))
+        {
+            $x1 = 0;
+        }
+        if ($y1 >= $this->size_row($row_start))
+        {
+            $y1 = 0;
+        }
+    
+        $width      = $width  + $x1 -1;
+        $height     = $height + $y1 -1;
+    
+        // Subtract the underlying cell widths to find the end cell of the image
+        while ($width >= $this->size_col($col_end)) {
+            $width -= $this->size_col($col_end);
+            $col_end++;
+        }
+    
+        // Subtract the underlying cell heights to find the end cell of the image
+        while ($height >= $this->size_row($row_end)) {
+            $height -= $this->size_row($row_end);
+            $row_end++;
+        }
+    
+        // Bitmap isn't allowed to start or finish in a hidden cell, i.e. a cell
+        // with zero eight or width.
+        //
+        if ($this->size_col($col_start) == 0)
+            return;
+        if ($this->size_col($col_end)   == 0)
+            return;
+        if ($this->size_row($row_start) == 0)
+            return;
+        if ($this->size_row($row_end)   == 0)
+            return;
+    
+        // Convert the pixel values to the percentage value expected by Excel
+        $x1 = $x1     / $this->size_col($col_start)   * 1024;
+        $y1 = $y1     / $this->size_row($row_start)   *  256;
+        $x2 = $width  / $this->size_col($col_end)     * 1024; // Distance to right side of object
+        $y2 = $height / $this->size_row($row_end)     *  256; // Distance to bottom of object
+    
+        $this->_store_obj_picture( $col_start, $x1,
+                                  $row_start, $y1,
+                                  $col_end, $x2,
+                                  $row_end, $y2
+                                );
+    }
+    
+    /**
+    * Convert the width of a cell from user's units to pixels. By interpolation
+    * the relationship is: y = 7x +5. If the width hasn't been set by the user we
+    * use the default value. If the col is hidden we use a value of zero.
+    *
+    * @param integer  $col The column 
+    * @return integer The width in pixels
+    */
+    function size_col($col)
+    {
+        // Look up the cell value to see if it has been changed
+        if (isset($this->col_sizes[$col])) {
+            if ($this->col_sizes[$col] == 0) {
+                return(0);
+            }
+            else {
+                return(floor(7 * $this->col_sizes[$col] + 5));
+            }
+        }
+        else {
+            return(64);
+        }
+    }
+    
+    /**
+    * Convert the height of a cell from user's units to pixels. By interpolation
+    * the relationship is: y = 4/3x. If the height hasn't been set by the user we
+    * use the default value. If the row is hidden we use a value of zero. (Not
+    * possible to hide row yet).
+    *
+    * @param integer $row The row
+    * @return integer The width in pixels
+    */
+    function size_row($row)
+    {
+        // Look up the cell value to see if it has been changed
+        if (isset($this->row_sizes[$row])) {
+            if ($this->row_sizes[$row] == 0) {
+                return(0);
+            }
+            else {
+                return(floor(4/3 * $this->row_sizes[$row]));
+            }
+        }
+        else {
+            return(17);
+        }
+    }
+    
+    /**
+    * Store the OBJ record that precedes an IMDATA record. This could be generalise
+    * to support other Excel objects.
+    *
+    * @param integer $colL Column containing upper left corner of object
+    * @param integer $dxL  Distance from left side of cell
+    * @param integer $rwT  Row containing top left corner of object
+    * @param integer $dyT  Distance from top of cell
+    * @param integer $colR Column containing lower right corner of object
+    * @param integer $dxR  Distance from right of cell
+    * @param integer $rwB  Row containing bottom right corner of object
+    * @param integer $dyB  Distance from bottom of cell
+    */
+    function _store_obj_picture($colL,$dxL,$rwT,$dyT,$colR,$dxR,$rwB,$dyB)
+    {
+        $record      = 0x005d;   // Record identifier
+        $length      = 0x003c;   // Bytes to follow
+    
+        $cObj        = 0x0001;   // Count of objects in file (set to 1)
+        $OT          = 0x0008;   // Object type. 8 = Picture
+        $id          = 0x0001;   // Object ID
+        $grbit       = 0x0614;   // Option flags
+    
+        $cbMacro     = 0x0000;   // Length of FMLA structure
+        $Reserved1   = 0x0000;   // Reserved
+        $Reserved2   = 0x0000;   // Reserved
+    
+        $icvBack     = 0x09;     // Background colour
+        $icvFore     = 0x09;     // Foreground colour
+        $fls         = 0x00;     // Fill pattern
+        $fAuto       = 0x00;     // Automatic fill
+        $icv         = 0x08;     // Line colour
+        $lns         = 0xff;     // Line style
+        $lnw         = 0x01;     // Line weight
+        $fAutoB      = 0x00;     // Automatic border
+        $frs         = 0x0000;   // Frame style
+        $cf          = 0x0009;   // Image format, 9 = bitmap
+        $Reserved3   = 0x0000;   // Reserved
+        $cbPictFmla  = 0x0000;   // Length of FMLA structure
+        $Reserved4   = 0x0000;   // Reserved
+        $grbit2      = 0x0001;   // Option flags
+        $Reserved5   = 0x0000;   // Reserved
+    
+    
+        $header      = pack("vv", $record, $length);
+        $data        = pack("V", $cObj);
+        $data       .= pack("v", $OT);
+        $data       .= pack("v", $id);
+        $data       .= pack("v", $grbit);
+        $data       .= pack("v", $colL);
+        $data       .= pack("v", $dxL);
+        $data       .= pack("v", $rwT);
+        $data       .= pack("v", $dyT);
+        $data       .= pack("v", $colR);
+        $data       .= pack("v", $dxR);
+        $data       .= pack("v", $rwB);
+        $data       .= pack("v", $dyB);
+        $data       .= pack("v", $cbMacro);
+        $data       .= pack("V", $Reserved1);
+        $data       .= pack("v", $Reserved2);
+        $data       .= pack("C", $icvBack);
+        $data       .= pack("C", $icvFore);
+        $data       .= pack("C", $fls);
+        $data       .= pack("C", $fAuto);
+        $data       .= pack("C", $icv);
+        $data       .= pack("C", $lns);
+        $data       .= pack("C", $lnw);
+        $data       .= pack("C", $fAutoB);
+        $data       .= pack("v", $frs);
+        $data       .= pack("V", $cf);
+        $data       .= pack("v", $Reserved3);
+        $data       .= pack("v", $cbPictFmla);
+        $data       .= pack("v", $Reserved4);
+        $data       .= pack("v", $grbit2);
+        $data       .= pack("V", $Reserved5);
+    
+        $this->_append($header.$data);
+    }
+    
+    /**
+    * Convert a 24 bit bitmap into the modified internal format used by Windows.
+    * This is described in BITMAPCOREHEADER and BITMAPCOREINFO structures in the
+    * MSDN library.
+    *
+    * @param string $bitmap The bitmap to process
+    * @return array Array with data and properties of the bitmap
+    */
+    function _process_bitmap($bitmap)
+    {
+        // Open file.
+        $bmp_fd = fopen($bitmap,"rb");
+        if (!$bmp_fd) {
+            die("Couldn't import $bitmap");
+        }
+            
+        // Slurp the file into a string.
+        $data = fread($bmp_fd, filesize($bitmap));
+    
+        // Check that the file is big enough to be a bitmap.
+        if (strlen($data) <= 0x36) {
+            die("$bitmap doesn't contain enough data.\n");
+        }
+    
+        // The first 2 bytes are used to identify the bitmap.
+        $identity = unpack("A2", $data);
+        if ($identity[''] != "BM") {
+            die("$bitmap doesn't appear to be a valid bitmap image.\n");
+        }
+    
+        // Remove bitmap data: ID.
+        $data = substr($data, 2);
+    
+        // Read and remove the bitmap size. This is more reliable than reading
+        // the data size at offset 0x22.
+        //
+        $size_array   = unpack("V", substr($data, 0, 4));
+        $size   = $size_array[''];
+        $data   = substr($data, 4);
+        $size  -= 0x36; // Subtract size of bitmap header.
+        $size  += 0x0C; // Add size of BIFF header.
+    
+        // Remove bitmap data: reserved, offset, header length.
+        $data = substr($data, 12);
+    
+        // Read and remove the bitmap width and height. Verify the sizes.
+        $width_and_height = unpack("V2", substr($data, 0, 8));
+        $width  = $width_and_height[1];
+        $height = $width_and_height[2];
+        $data   = substr($data, 8);
+        if ($width > 0xFFFF) { 
+            die("$bitmap: largest image width supported is 65k.\n");
+        }
+        if ($height > 0xFFFF) { 
+            die("$bitmap: largest image height supported is 65k.\n");
+        }
+    
+        // Read and remove the bitmap planes and bpp data. Verify them.
+        $planes_and_bitcount = unpack("v2", substr($data, 0, 4));
+        $data = substr($data, 4);
+        if ($planes_and_bitcount[2] != 24) { // Bitcount
+            die("$bitmap isn't a 24bit true color bitmap.\n");
+        }
+        if ($planes_and_bitcount[1] != 1) {
+            die("$bitmap: only 1 plane supported in bitmap image.\n");
+        }
+    
+        // Read and remove the bitmap compression. Verify compression.
+        $compression = unpack("V", substr($data, 0, 4));
+        $data = substr($data, 4);
+      
+        //$compression = 0;
+        if ($compression[""] != 0) {
+            die("$bitmap: compression not supported in bitmap image.\n");
+        }
+    
+        // Remove bitmap data: data size, hres, vres, colours, imp. colours.
+        $data = substr($data, 20);
+    
+        // Add the BITMAPCOREHEADER data
+        $header  = pack("Vvvvv", 0x000c, $width, $height, 0x01, 0x18);
+        $data    = $header . $data;
+    
+        return (array($width, $height, $size, $data));
+    }
+    
+    /**
+    * Store the window zoom factor. This should be a reduced fraction but for
+    * simplicity we will store all fractions with a numerator of 100.
+    */
+    function _store_zoom()
+    {
+        // If scale is 100 we don't need to write a record
+        if ($this->_zoom == 100) {
+            return;
+        }
+    
+        $record      = 0x00A0;               // Record identifier
+        $length      = 0x0004;               // Bytes to follow
+    
+        $header      = pack("vv", $record, $length);
+        $data        = pack("vv", $this->_zoom, 100);
+        $this->_append($header.$data);
+    }
+}
 ?>
-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

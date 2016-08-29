@@ -1,37 +1,80 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?php
+
+/******************************************************************************
+* Menu.class.php                                                          
+*                                                                             
+* @description                                                                
+* Description goes here                                                       
+*                                                                                                                 
+*
+******************************************************************************/
+
+class Menu
+{
+ /****************************************************************************
+ * ATTRIBUTES                                                                *
+ ****************************************************************************/
+ var $buttons; // Array of buttons
+ var $mouseOver;
+ var $mouseOut;
+ 
+ var $name;
+  
+ var $html;
+  
+ /****************************************************************************
+ * CONSTRUCTOR                                                               *
+ ****************************************************************************/
+ function Menu($name="")
+ {
+  if (!empty($name))
+  {
+   $this->name = $name;
+  }
+ }
+ 
+ /****************************************************************************
+ * METHODS                                                                   *
+ ****************************************************************************/
+ function setName($name) { $this->name = $name; }
+ function getName() { return $this->name; }
+
+ function setTarget($target) { $this->target = $target; }
+ function getTarget() { return $this->target; }
+
+ function setMouseOver($mouseOver) { $this->mouseOver = $mouseOver; }
+ function getMouseOver() { return $this->mouseOver; }
+
+ function setMouseOut($mouseOut) { $this->mouseOut = $mouseOut; }
+ function getMouseOut() { return $this->mouseOut; }
+
+ function setButtons($buttons) { $this->buttons = $buttons; }
+ function getButtons() { return $this->buttons; }
+
+ function addButton($text, $url, $mouseOver="", $mouseOut="", $target="")
+ {
+  $button[text] = $text;
+  $button[url] = $url;
+  if (!empty($this->name)) { $button[name] = $this->name; }  
+  if (!empty($target)) { $button[target] = $target; }
+  
+  if (!empty($mouseOver)) { $button[mouseOver] = $mouseOver; } else { $button[mouseOver] = $this->mouseOver; }
+  if (!empty($mouseOut)) { $button[mouseOut] = $mouseOut; } else { $button[mouseOut] = $this->mouseOut; }
+  $this->buttons[] = $button;
+ }
+ 
+ function getHTML() // Formats data to be output as HTML
+ {
+  return $this->html;
+ }
+ 
+ function display() // Displays output for this class
+ { echo $this->getHTML(); }
+ 
+ 
+ /****************************************************************************
+ * END OF CLASS                                                              *
+ ****************************************************************************/
+}
+
 ?>
-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

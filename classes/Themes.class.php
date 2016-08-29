@@ -1,29 +1,82 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?php
+
+/******************************************************************************
+* Themes.class.php                                                          
+*                                                                             
+* @description                                                                
+* Localization support for acemach
+*                                                                             
+* @author: Albert (gohsupport@acemach.com)                                       
+*
+******************************************************************************/
+
+class Themes
+{
+ /****************************************************************************
+ * ATTRIBUTES                                                                *
+ ****************************************************************************/
+ var $Themesid; // unique ID
+
+  
+ /****************************************************************************
+ * CONSTRUCTOR                                                               *
+ ****************************************************************************/
+ function Themes($Themesid)
+ {
+  if (!empty($Themesid))
+  {
+   $this->Themesid = $Themesid;
+  }
+ }
+ 
+ /****************************************************************************
+ * METHODS                                                                   *
+ ****************************************************************************/
+ function setThemesid($Themesid) { $this->Themesid = $Themesid; }
+ function getThemesid() { return $this->Themesid; }
+
+ function fetch()
+ {
+ 
+  $query = "SELECT
+            themes.themesname,
+            themes.value
+            FROM themes
+            WHERE themes.Themesid = '$this->Themesid'";
+          
+  $result = mysql_query($query);
+
+  while ($row=mysql_fetch_array($result))
+  {
+   $this->phrase[$row[themesname]] = $row[value];  
+  }
+  if (count($this->phrase)==0)
+  {
+   echo "Themes is empty ($this->Themesid)";
+  }
+ }
+
+ function display($phrase) // Displays output for this class
+ {
+  echo $this->parse($phrase);
+ }
+
+function parse($phrase)
+{
+ if (array_key_exists($phrase,$this->phrase))
+ {
+  return $this->phrase[$phrase];
+ }
+ else
+ {
+  return "(".$phrase.")";
+ }
+}
+
+ 
+ /****************************************************************************
+ * END OF CLASS                                                              *
+ ****************************************************************************/
+}
+
 ?>
-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

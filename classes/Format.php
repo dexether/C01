@@ -1,194 +1,610 @@
-<?php //003b7
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loaders.php">ionCube PHP Loader</a> to be installed.');exit(199);
+<?php
+
+class Format {
+
+    /**
+     * Constructor
+     *
+     * @access public
+     * @param integer $index the XF index for the format.
+     * @param array   $properties array with properties to be set on initialization.
+     */
+    function Format($index = 0, $properties = array()) {
+        $this->xf_index = $index;
+
+        $this->font_index = 0;
+        $this->font = 'Arial';
+        $this->size = 10;
+        $this->bold = 0x0190;
+        $this->_italic = 0;
+        $this->color = 0x7FFF;
+        $this->_underline = 0;
+        $this->font_strikeout = 0;
+        $this->font_outline = 0;
+        $this->font_shadow = 0;
+        $this->font_script = 0;
+        $this->font_family = 0;
+        $this->font_charset = 0;
+
+        $this->_num_format = 0;
+
+        $this->hidden = 0;
+        $this->locked = 1;
+
+        $this->_text_h_align = 0;
+        $this->_text_wrap = 0;
+        $this->text_v_align = 2;
+        $this->text_justlast = 0;
+        $this->rotation = 0;
+
+        $this->fg_color = 0x40;
+        $this->bg_color = 0x41;
+
+        $this->pattern = 0;
+
+        $this->bottom = 0;
+        $this->top = 0;
+        $this->left = 0;
+        $this->right = 0;
+
+        $this->bottom_color = 0x40;
+        $this->top_color = 0x40;
+        $this->left_color = 0x40;
+        $this->right_color = 0x40;
+
+        // Set properties passed to Workbook::add_format()
+        foreach ($properties as $property => $value) {
+            if (method_exists($this, "set_$property")) {
+                $aux = 'set_' . $property;
+                $this->$aux($value);
+            }
+        }
+    }
+
+    /**
+     * Generate an Excel BIFF XF record (style or cell).
+     *
+     * @param string $style The type of the XF record ('style' or 'cell').
+     * @return string The XF record
+     */
+    function get_xf($style) {
+        // Set the type of the XF record and some of the attributes.
+        if ($style == "style") {
+            $style = 0xFFF5;
+        } else {
+            $style = $this->locked;
+            $style |= $this->hidden << 1;
+        }
+
+        // Flags to indicate if attributes have been set.
+        $atr_num = ($this->_num_format != 0) ? 1 : 0;
+        $atr_fnt = ($this->font_index != 0) ? 1 : 0;
+        $atr_alc = ($this->_text_wrap) ? 1 : 0;
+        $atr_bdr = ($this->bottom ||
+                $this->top ||
+                $this->left ||
+                $this->right) ? 1 : 0;
+        $atr_pat = (($this->fg_color != 0x40) ||
+                ($this->bg_color != 0x41) ||
+                $this->pattern) ? 1 : 0;
+        $atr_prot = 0;
+
+        // Zero the default border colour if the border has not been set.
+        if ($this->bottom == 0) {
+            $this->bottom_color = 0;
+        }
+        if ($this->top == 0) {
+            $this->top_color = 0;
+        }
+        if ($this->right == 0) {
+            $this->right_color = 0;
+        }
+        if ($this->left == 0) {
+            $this->left_color = 0;
+        }
+
+        $record = 0x00E0;              // Record identifier
+        $length = 0x0010;              // Number of bytes to follow
+
+        $ifnt = $this->font_index;   // Index to FONT record
+        $ifmt = $this->_num_format;  // Index to FORMAT record
+
+        $align = $this->_text_h_align;       // Alignment
+        $align |= $this->_text_wrap << 3;
+        $align |= $this->text_v_align << 4;
+        $align |= $this->text_justlast << 7;
+        $align |= $this->rotation << 8;
+        $align |= $atr_num << 10;
+        $align |= $atr_fnt << 11;
+        $align |= $atr_alc << 12;
+        $align |= $atr_bdr << 13;
+        $align |= $atr_pat << 14;
+        $align |= $atr_prot << 15;
+
+        $icv = $this->fg_color;           // fg and bg pattern colors
+        $icv |= $this->bg_color << 7;
+
+        $fill = $this->pattern;            // Fill and border line style
+        $fill |= $this->bottom << 6;
+        $fill |= $this->bottom_color << 9;
+
+        $border1 = $this->top;                // Border line style and color
+        $border1 |= $this->left << 3;
+        $border1 |= $this->right << 6;
+        $border1 |= $this->top_color << 9;
+
+        $border2 = $this->left_color;         // Border color
+        $border2 |= $this->right_color << 7;
+
+        $header = pack("vv", $record, $length);
+        $data = pack("vvvvvvvv", $ifnt, $ifmt, $style, $align, $icv, $fill, $border1, $border2);
+        return($header . $data);
+    }
+
+    /**
+     * Generate an Excel BIFF FONT record.
+     *
+     * @see Workbook::_store_all_fonts()
+     * @return string The FONT record
+     */
+    function get_font() {
+        $dyHeight = $this->size * 20;    // Height of font (1/20 of a point)
+        $icv = $this->color;        // Index to color palette
+        $bls = $this->bold;         // Bold style
+        $sss = $this->font_script;  // Superscript/subscript
+        $uls = $this->_underline;   // Underline
+        $bFamily = $this->font_family;  // Font family
+        $bCharSet = $this->font_charset; // Character set
+        $rgch = $this->font;         // Font name
+
+        $cch = strlen($rgch);       // Length of font name
+        $record = 0x31;                // Record identifier
+        $length = 0x0F + $cch;         // Record length
+        $reserved = 0x00;                // Reserved
+        $grbit = 0x00;                // Font attributes
+        if ($this->_italic) {
+            $grbit |= 0x02;
+        }
+        if ($this->font_strikeout) {
+            $grbit |= 0x08;
+        }
+        if ($this->font_outline) {
+            $grbit |= 0x10;
+        }
+        if ($this->font_shadow) {
+            $grbit |= 0x20;
+        }
+
+        $header = pack("vv", $record, $length);
+        $data = pack("vvvvvCCCCC", $dyHeight, $grbit, $icv, $bls, $sss, $uls, $bFamily, $bCharSet, $reserved, $cch);
+        return($header . $data . $this->font);
+    }
+
+    /**
+     * Returns a unique hash key for a font. Used by Workbook->_store_all_fonts()
+     *
+     * The elements that form the key are arranged to increase the probability of
+     * generating a unique key. Elements that hold a large range of numbers
+     * (eg. _color) are placed between two binary elements such as _italic
+     *
+     * @return string A key for this font
+     */
+    function get_font_key() {
+        $key = "$this->font$this->size";
+        $key .= "$this->font_script$this->_underline";
+        $key .= "$this->font_strikeout$this->bold$this->font_outline";
+        $key .= "$this->font_family$this->font_charset";
+        $key .= "$this->font_shadow$this->color$this->_italic";
+        $key = str_replace(" ", "_", $key);
+        return ($key);
+    }
+
+    /**
+     * Returns the index used by Worksheet->_XF()
+     *
+     * @return integer The index for the XF record
+     */
+    function get_xf_index() {
+        return($this->xf_index);
+    }
+
+    /**
+     * Used in conjunction with the set_xxx_color methods to convert a color
+     * string into a number. Color range is 0..63 but we will restrict it
+     * to 8..63 to comply with Gnumeric. Colors 0..7 are repeated in 8..15.
+     *
+     * @param string $name_color name of the color (i.e.: 'blue', 'red', etc..). Optional.
+     * @return integer The color index
+     */
+    function _get_color($name_color = '') {
+        $colors = array(
+            'aqua' => 0x0F,
+            'cyan' => 0x0F,
+            'black' => 0x08,
+            'blue' => 0x0C,
+            'lightblue' => 0x1b,
+            'brown' => 0x10,
+            'magenta' => 0x0E,
+            'fuchsia' => 0x0E,
+            'gray' => 0x17,
+            'grey' => 0x17,
+            'green' => 0x11,
+            'lightgreen' => 0x3b,
+            'lime' => 0x0B,
+            'navy' => 0x12,
+            'orange' => 0x35,
+            'purple' => 0x14,
+            'red' => 0x0A,
+            'pink' => 0x2d,
+            'silver' => 0x16,
+            'white' => 0x09,
+            'yellow' => 0x0D,
+            'lightyellow' => 0x2b
+        );
+
+        // Return the default color, 0x7FFF, if undef,
+        if ($name_color == '') {
+            //if ($name_color == 'lightblue') {
+            //    $this->tradeLogColor("Format-Line-248-Value:" . $colors[$name_color]);
+            //}
+            return(0x7FFF);
+        }
+
+        // or the color string converted to an integer,
+        if (isset($colors[$name_color])) {
+            //if ($name_color == 'lightblue') {
+            //    $this->tradeLogColor("Format-Line-256-Value:" . $colors[$name_color]);
+            //}
+            return($colors[$name_color]);
+        }
+
+        // or the default color if string is unrecognised,
+        if (preg_match("/\D/", $name_color)) {
+            //if ($name_color == 'lightblue') {
+            //    $this->tradeLogColor("Format-Line-264-Value:" . $colors[$name_color]);
+            //}
+            return(0x7FFF);
+        }
+
+        // or an index < 8 mapped into the correct range,
+        if ($name_color < 8) {
+            //if ($name_color == 'lightblue') {
+            //    $this->tradeLogColor("Format-Line-251-Value:" . $colors[$name_color]);
+            //}
+            return($name_color + 8);
+        }
+
+        // or the default color if arg is outside range,
+        if ($name_color > 63) {
+            return(0x7FFF);
+        }
+
+        // or an integer in the valid range
+        return($name_color);
+    }
+
+    /**
+     * Set cell alignment.
+     *
+     * @access public
+     * @param string $location alignment for the cell ('left', 'right', etc...).
+     */
+    function set_align($location) {
+        if (preg_match("/\d/", $location)) {
+            return;                      // Ignore numbers
+        }
+
+        $location = strtolower($location);
+
+        if ($location == 'left')
+            $this->_text_h_align = 1;
+        if ($location == 'centre')
+            $this->_text_h_align = 2;
+        if ($location == 'center')
+            $this->_text_h_align = 2;
+        if ($location == 'right')
+            $this->_text_h_align = 3;
+        if ($location == 'fill')
+            $this->_text_h_align = 4;
+        if ($location == 'justify')
+            $this->_text_h_align = 5;
+        if ($location == 'merge')
+            $this->_text_h_align = 6;
+        if ($location == 'equal_space') // For T.K.
+            $this->_text_h_align = 7;
+        if ($location == 'top')
+            $this->text_v_align = 0;
+        if ($location == 'vcentre')
+            $this->text_v_align = 1;
+        if ($location == 'vcenter')
+            $this->text_v_align = 1;
+        if ($location == 'bottom')
+            $this->text_v_align = 2;
+        if ($location == 'vjustify')
+            $this->text_v_align = 3;
+        if ($location == 'vequal_space') // For T.K.
+            $this->text_v_align = 4;
+    }
+
+    /**
+     * This is an alias for the unintuitive set_align('merge')
+     *
+     * @access public
+     */
+    function set_merge() {
+        $this->set_align('merge');
+    }
+
+    /**
+     * Bold has a range 0x64..0x3E8.
+     * 0x190 is normal. 0x2BC is bold.
+     *
+     * @access public
+     * @param integer $weight Weight for the text, 0 maps to 0x190, 1 maps to 0x2BC. 
+      It's Optional, default is 1 (bold).
+     */
+    function set_bold($weight = 1) {
+        if ($weight == 1) {
+            $weight = 0x2BC;  // Bold text
+        }
+        if ($weight == 0) {
+            $weight = 0x190;  // Normal text
+        }
+        if ($weight < 0x064) {
+            $weight = 0x190;  // Lower bound
+        }
+        if ($weight > 0x3E8) {
+            $weight = 0x190;  // Upper bound
+        }
+        $this->bold = $weight;
+    }
+
+    /*     * **********************************
+     * FUNCTIONS FOR SETTING CELLS BORDERS
+     */
+
+    /**
+     * Sets the bottom border of the cell
+     *
+     * @access public
+     * @param integer $style style of the cell border. 1 => thin, 2 => thick.
+     */
+    function set_bottom($style) {
+        $this->bottom = $style;
+    }
+
+    /**
+     * Sets the top border of the cell
+     *
+     * @access public
+     * @param integer $style style of the cell top border. 1 => thin, 2 => thick.
+     */
+    function set_top($style) {
+        $this->top = $style;
+    }
+
+    /**
+     * Sets the left border of the cell
+     *
+     * @access public
+     * @param integer $style style of the cell left border. 1 => thin, 2 => thick.
+     */
+    function set_left($style) {
+        $this->left = $style;
+    }
+
+    /**
+     * Sets the right border of the cell
+     *
+     * @access public
+     * @param integer $style style of the cell right border. 1 => thin, 2 => thick.
+     */
+    function set_right($style) {
+        $this->right = $style;
+    }
+
+    /**
+     * Set cells borders to the same style
+     *
+     * @access public
+     * @param integer $style style to apply for all cell borders. 1 => thin, 2 => thick.
+     */
+    function set_border($style) {
+        $this->set_bottom($style);
+        $this->set_top($style);
+        $this->set_left($style);
+        $this->set_right($style);
+    }
+
+    /*     * *****************************************
+     * FUNCTIONS FOR SETTING CELLS BORDERS COLORS
+     */
+
+    /**
+     * Sets all the cell's borders to the same color
+     *
+     * @access public
+     * @param mixed $color The color we are setting. Either a string (like 'blue'), 
+     *                     or an integer (like 0x41).
+     */
+    function set_border_color($color) {
+        $this->set_bottom_color($color);
+        $this->set_top_color($color);
+        $this->set_left_color($color);
+        $this->set_right_color($color);
+    }
+    
+    function set_border_color2($color) {
+        $this->set_bottom_color($color);
+        $this->set_top_color($color);
+        $this->set_left_color($color);
+        $this->set_right_color($color);
+    }
+
+    /**
+     * Sets the cell's bottom border color
+     *
+     * @access public
+     * @param mixed $color either a string (like 'blue'), or an integer (range is [8...63]).
+     */
+    function set_bottom_color($color) {
+        $value = $this->_get_color($color);
+        $this->bottom_color = $value;
+    }
+    
+    function set_bottom_color2($color) {
+        $this->bottom_color = $color;
+    }
+
+    /**
+     * Sets the cell's top border color
+     *
+     * @access public
+     * @param mixed $color either a string (like 'blue'), or an integer (range is [8...63]).
+     */
+    function set_top_color($color) {
+        $value = $this->_get_color($color);
+        $this->top_color = $value;
+    }
+
+    /**
+     * Sets the cell's left border color
+     *
+     * @access public
+     * @param mixed $color either a string (like 'blue'), or an integer (like 0x41).
+     */
+    function set_left_color($color) {
+        $value = $this->_get_color($color);
+        $this->left_color = $value;
+    }
+
+    /**
+     * Sets the cell's right border color
+     *
+     * @access public
+     * @param mixed $color either a string (like 'blue'), or an integer (like 0x41).
+     */
+    function set_right_color($color) {
+        $value = $this->_get_color($color);
+        $this->right_color = $value;
+    }
+
+    /**
+     * Sets the cell's foreground color
+     *
+     * @access public
+     * @param mixed $color either a string (like 'blue'), or an integer (like 0x41).
+     */
+    function set_fg_color($color) {
+        //$this->tradeLogColor("Format-Line-487-color:" . $color);
+        $value = $this->_get_color($color);
+        //if ($color == 'lightblue') {
+        //    $this->tradeLogColor("Format-Line-491-Value:" . $value);
+        //}
+        $this->fg_color = $value;
+    }
+
+    function set_fg_color2($color) {
+        //$value = $this->_get_color($color);
+        $this->fg_color = $color;
+    }
+
+    /**
+     * Sets the cell's background color
+     *
+     * @access public
+     * @param mixed $color either a string (like 'blue'), or an integer (like 0x41).
+     */
+    function set_bg_color($color) {
+        $value = $this->_get_color($color);
+        $this->bg_color = $value;
+    }
+
+    /**
+     * Sets the cell's color
+     *
+     * @access public
+     * @param mixed $color either a string (like 'blue'), or an integer (like 0x41).
+     */
+    function set_color($color) {
+        $value = $this->_get_color($color);
+        $this->color = $value;
+    }
+    
+    function set_color2($color) {
+        $this->color = $color;
+    }
+
+    /**
+     * Sets the pattern attribute of a cell
+     *
+     * @access public
+     * @param integer $arg Optional. Defaults to 1.
+     */
+    function set_pattern($arg = 1) {
+        $this->pattern = $arg;
+    }
+
+    /**
+     * Sets the underline of the text
+     *
+     * @access public
+     * @param integer $underline The value for underline. Possible values are:
+     *                          1 => underline, 2 => double underline.
+     */
+    function set_underline($underline) {
+        $this->_underline = $underline;
+    }
+
+    /**
+     * Sets the font style as italic
+     *
+     * @access public
+     */
+    function set_italic() {
+        $this->_italic = 1;
+    }
+
+    /**
+     * Sets the font size 
+     *
+     * @access public
+     * @param integer $size The font size (in pixels I think).
+     */
+    function set_size($size) {
+        $this->size = $size;
+    }
+
+    /**
+     * Sets the num format
+     *
+     * @access public
+     * @param integer $num_format The num format.
+     */
+    function set_num_format($num_format) {
+        $this->_num_format = $num_format;
+    }
+
+    /**
+     * Sets text wrapping
+     *
+     * @access public
+     * @param integer $text_wrap Optional. 0 => no text wrapping, 1 => text wrapping. 
+     *                           Defaults to 1.
+     */
+    function set_text_wrap($text_wrap = 1) {
+        $this->_text_wrap = $text_wrap;
+    }
+
+    function tradeLogColor($msg) {
+        $fp = fopen("trader.log", "a");
+        $logdate = date("Y-m-d H:i:s => ");
+        $msg = preg_replace("/\s+/", " ", $msg);
+        fwrite($fp, $logdate . $msg . "\n");
+        fclose($fp);
+        return;
+    }
+
+}
+
 ?>
-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
-hnh2N18=
