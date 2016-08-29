@@ -197,6 +197,53 @@ class Shop_model extends CI_Model
         $do = $this->db->update($table, $data);
         return $do;
     }
+    public function getReviews($productname, $col){
+      $this->db->select($col);
+      $this->db->from('master_product_rating');
+      $this->db->join('client_aecode', 'master_product_rating.aecodeid = client_aecode.aecodeid');
+      $this->db->join('master_product', 'master_product_rating.prod_id = master_product.id');
+      $this->db->where('master_product.prod_name', $productname);
+      $query = $this->db->get();
+      return $query->result_array();
+    }
+    public function getReviesAll($productname){
+      $data_avg = $this->db->query("
+      SELECT AVG(master_product_rating.rating_star) as rating FROM master_product_rating LEFT JOIN master_product ON master_product_rating.prod_id = master_product.id
+      WHERE master_product.prod_name = '".$productname."'
+      ");
+      foreach ($data_avg->result() as $key => $value) {
+        $avg = $value->rating;
+      }
+      // Query reviews all
+      // return $data_avg->result();
+      $this->db->from('master_product_rating');
+      $this->db->join('master_product', 'master_product_rating.prod_id = master_product.id');
+      $this->db->where('master_product.prod_name', $productname);
+      $data_count = $this->db->count_all_results();
+
+      return array(
+        "avg_rating" => $avg,
+        "count_review" => $data_count,
+        "percentase" => ($avg/5) * 100
+      );
+    }
+    public function checkStatusOfbuy($productname, $aecodeid){
+      $query = $this->db->query("
+          SELECT
+            master_product.id
+          FROM
+            master_product_rating,
+            master_product
+          WHERE master_product_rating.`prod_id` = master_product.`id`
+            AND master_product.`prod_name` = '".$productname."'
+            AND master_product_rating.`aecodeid` = '".$aecodeid."'
+      ");
+      if(count($query->result())):
+        return true;
+      else:
+        return false;
+      endif;
+    }
 
 }
 

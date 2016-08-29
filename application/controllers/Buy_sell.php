@@ -16,6 +16,7 @@ class Buy_sell extends CI_Controller
         // $this->load->library('session');
         $this->load->library('nativesession');
         $this->load->library('format');
+        $this->load->library('encrypt');
         if (!$this->nativesession->getObject('username')) {
             # code...
             redirect(base_url() . "web2/index.php?redirect=" . urlencode(current_url()));
@@ -461,6 +462,26 @@ class Buy_sell extends CI_Controller
             ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))
             ->_display();
             exit;
+    }
+    public function setReviewsByUser(){
+      $get_aecodeid = $this->basicmodel->getData('client_aecode', 'aecodeid', $where = array('aecode' => $this->nativesession->getObject('username')));
+      foreach ($get_aecodeid as $key => $value) {
+          # code...
+          @$aecodeid = $value['aecodeid'];
+      }
+      $data = array(
+        'prod_id' => $this->encrypt->decode($this->input->post('productIdentification')),
+        'aecodeid' => $aecodeid,
+        'rating_star' => $this->input->post('star'),
+        'rating_subject' => $this->input->post('subject'),
+        'rating_comm' => $this->input->post('komentar'),
+      );
+      $do = $this->basicmodel->insertData('master_product_rating', $data);
+      if($do):
+        redirect($this->nativesession->get('previous_url'),'refresh');
+      else:
+        show_404();
+      endif;
     }
 }
 

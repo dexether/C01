@@ -1,3 +1,43 @@
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><?php echo $data['title']['prod_alias'] ?> review</h4>
+      </div>
+      <div class="modal-body">
+
+        <?php
+        echo form_open('Buy_sell/setReviewsByUser', array('name' => 'modalForm'));
+        ?>
+        <input type="hidden" name="star"/>
+        <?php echo form_hidden('productIdentification', $this->encrypt->encode($data['title']['id'])) ?>
+ <div class="form-group">
+   <label for="email">Judul reviews</label>
+   <input type="text" class="form-control" name="subject" required>
+ </div>
+ <div class="form-group">
+   <label for="pwd">Komentar</label>
+   <?php echo form_textarea(array('class' => 'form-control', 'name' => 'komentar', 'required' => 'true')); ?>
+ </div>
+ <div class="form-group">
+   <label for="pwd">Pilih bintang</label>
+    <div class="my-rating-clicked" data-rating="0"></div>
+ </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Review</button>
+      </div>
+      <?php echo form_close() ?>
+    </div>
+  </div>
+</div>
 <div class="container">
             <header class="page-header">
                 <!-- <ol class="breadcrumb page-breadcrumb">
@@ -34,66 +74,18 @@
                                <img src="<?php echo base_url($value->image_location) ?>" alt="Image Alternative text" title="Image Title" />
                            </a>
                         </li>
-                        <?php                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                } ?>
-                       <!-- <li>
-                           <a href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: 'img/500x500.png', largeimage: 'img/800x800.png'}">
-                               <img src="img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                           </a>
-                       </li>
-                       <li>
-                           <a href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: 'img/500x500.png', largeimage: 'img/800x800.png'}">
-                               <img src="img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                           </a>
-                       </li> -->
+                        <?php } ?>
+
                    </ul>
-               <!-- </div> -->
-                    <!-- <div class="product-page-product-wrap jqzoom-stage jqzoom-stage-lg">
-                        <div class="clearfix">
-                            <a href="<?php echo base_url().$data['title']['prod_images']; ?>" id="jqzoom" data-rel="gal-1">
-                                <img src="<?php echo base_url().$data['title']['prod_images']; ?>" alt="Image Alternative text" title="Image Title" />
-                            </a>
-                        </div>
-                    </div>
-                    <ul class="jqzoom-list">
-                        <?php
-                        foreach ($images as $key => $value) {
-                        # code...
-                        ?>
-                        <li>
-                            <a class="zoomThumbActive" href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: '<?php echo base_url($value->image_location) ?>', largeimage: '<?php echo base_url($value->image_location) ?>'}">
-                                <img src="<?php echo base_url($value->image_location) ?>" alt="Image Alternative text" title="Image Title" />
-                            </a>
-                        </li>
-                        <?php                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 } ?>
-                    </ul> -->
+
                 </div>
                 <div class="col-md-6">
                     <div class="_box-highlight">
                         <ul class="product-page-product-rating">
-                            <?php
-                            for ($i=0; $i < $data['title']['prod_star']; $i++) {
-                                # code...
-                                echo '<li class="rated"><i class="fa fa-star"></i></li>';
-                            }
-                            if ($i <= '5') {
-                                for ($i2=0; $i2 < 5-$i; $i2++) {
-                                    # code...
-                                    echo '<li><i class="fa fa-star"></i></li>';
-                                }
-                            }
-
-                            ?>
-
-                            <!-- <li class="rated"><i class="fa fa-star"></i>
-                            </li>
-                            <li class="rated"><i class="fa fa-star"></i>
-                            </li>
-                            <li class="rated"><i class="fa fa-star"></i>
-                            </li>
-                            <li><i class="fa fa-star"></i>
-                            </li> -->
+                            <!-- avg_rating -->
+                            <div class="my-rating" data-rating="<?php echo $reviews['count']['avg_rating'] ?>"></div>
                         </ul>
-                        <!-- <p class="product-page-product-rating-sign"><a href="#">238 customer reviews</a> -->
+                        <p class="product-page-product-rating-sign"><a href="#"><?php echo $reviews['count']['count_review'] ?> customer reviews</a>
                         </p>
                         <h1><?php echo $data['title']['prod_alias'] ?></h1>
                         <p class="product-page-price">
@@ -101,6 +93,7 @@
                         <?php echo "Rp. ". number_format($data['title']['final_price']); ?>
                         </p>
                         <!-- <p class="text-muted text-sm">Free Shipping</p> -->
+                        <div class="gap-small"></div>
                         <p class="product-page-desc-lg"><?php echo $data['title']['prod_desc'] ?></p>
                         <!-- <ul class="product-page-option-list">
                             <li class="clearfix">
@@ -144,9 +137,9 @@
                     <li class="active"><a href="#tab-1" data-toggle="tab">Description</a>
                     </li>
                     <!-- <li><a href="#tab-2" data-toggle="tab">Additional Information</a>
-                    </li>
-                    <li><a href="#tab-3" data-toggle="tab">Rating and Reviews</a>
                     </li> -->
+                    <li><a href="#tab-3" data-toggle="tab">Rating and Reviews</a>
+                    </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="tab-1">
@@ -155,7 +148,7 @@
                             etiam</p>
                         <p>Aliquam posuere duis a fringilla enim dictum tortor accumsan litora</p> -->
                     </div>
-                   <!--  <div class="tab-pane fade" id="tab-2">
+                    <!-- <div class="tab-pane fade" id="tab-2">
                         <table class="table">
                             <tbody>
                                 <tr>
@@ -176,143 +169,65 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div> -->
                     <div class="tab-pane fade" id="tab-3">
                         <div class="row">
                             <div class="col-md-8">
+                                <?php
+                                foreach ($reviews['reviews'] as $key => $value) {
+                                ?>
                                 <article class="product-review">
                                     <div class="product-review-author">
-                                        <img class="product-review-author-img" src="<?php echo base_url() ?>/assets/img/70x70.png" alt="Image Alternative text" title="Image Title" />
+                                        <img class="product-review-author-img" src="<?php echo base_url($value['foto']) ?>" />
                                     </div>
                                     <div class="product-review-content-full">
-                                        <h5 class="product-review-title">Terrific Buy!</h5>
-                                        <ul class="product-page-product-rating">
-                                            <li class="rated"><i class="fa fa-star"></i>
-                                            </li>
-                                            <li class="rated"><i class="fa fa-star"></i>
-                                            </li>
-                                            <li class="rated"><i class="fa fa-star"></i>
-                                            </li>
-                                            <li class="rated"><i class="fa fa-star"></i>
-                                            </li>
-                                            <li class="rated"><i class="fa fa-star"></i>
-                                            </li>
-                                        </ul>
-                                        <p class="product-review-meta">by Alison Mackenzie on 08/14/2015</p>
-                                        <p class="product-review-body">Aliquam nam gravida hendrerit primis class egestas primis porta egestas non eleifend risus turpis commodo nisi felis nullam risus aliquam curae fusce elit est ornare</p>
-                                        <p class="text-success"><strong><i class="fa fa-check"></i> I would recommend this to a friend!</strong>
+                                        <h5 class="product-review-title"><?php echo $value['rating_subject'] ?></h5>
+                                        <div class="my-rating" data-rating="<?php echo $value['rating_star'] ?>"></div>
+                                        <p class="product-review-meta"><?php echo $value['name']." pada ". $value['timestamp'] ?></p>
+                                        <p class="product-review-body"><?php echo $value['rating_comm'] ?></p>
+                                        <!-- <p class="text-success"><strong><i class="fa fa-check"></i> I would recommend this to a friend!</strong> -->
                                         </p>
-                                        <ul class="list-inline product-review-actions">
-                                            <li><a href="#"><i class="fa fa-flag"></i> Flag this review</a>
-                                            </li>
-                                            <li><a href="#"><i class="fa fa-comment"></i> Comment review</a>
-                                            </li>
-                                        </ul>
+
                                     </div>
                                 </article>
-                                <article class="product-review">
-                                    <div class="product-review-author">
-                                        <img class="product-review-author-img" src="<?php echo base_url() ?>/assets/img/70x70.png" alt="Image Alternative text" title="Image Title" />
-                                    </div>
-                                    <div class="product-review-content-full">
-                                        <h5 class="product-review-title">Too Big. Unusable.</h5>
-                                        <ul class="product-page-product-rating">
-                                            <li class="rated"><i class="fa fa-star"></i>
-                                            </li>
-                                            <li class="rated"><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                        </ul>
-                                        <p class="product-review-meta">by Keith Churchill on 08/14/2015</p>
-                                        <p class="product-review-body">Lacus molestie aptent elementum nascetur a blandit aenean fusce eleifend hendrerit ac fringilla vehicula eget odio orci hac mauris tincidunt tellus</p>
-                                        <p class="text-danger"><strong><i class="fa fa-close"></i> No, I would not recommend this to a friend.</strong>
-                                        </p>
-                                        <ul class="list-inline product-review-actions">
-                                            <li><a href="#"><i class="fa fa-flag"></i> Flag this review</a>
-                                            </li>
-                                            <li><a href="#"><i class="fa fa-comment"></i> Comment review</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </article>
-                                <article class="product-review">
-                                    <div class="product-review-author">
-                                        <img class="product-review-author-img" src="<?php echo base_url() ?>/assets/img/70x70.png" alt="Image Alternative text" title="Image Title" />
-                                    </div>
-                                    <div class="product-review-content-full">
-                                        <h5 class="product-review-title">Worth it</h5>
-                                        <ul class="product-page-product-rating">
-                                            <li class="rated"><i class="fa fa-star"></i>
-                                            </li>
-                                            <li class="rated"><i class="fa fa-star"></i>
-                                            </li>
-                                            <li class="rated"><i class="fa fa-star"></i>
-                                            </li>
-                                            <li class="rated"><i class="fa fa-star"></i>
-                                            </li>
-                                            <li class="rated"><i class="fa fa-star"></i>
-                                            </li>
-                                        </ul>
-                                        <p class="product-review-meta">by Alison Mackenzie on 08/14/2015</p>
-                                        <p class="product-review-body">Imperdiet maecenas suspendisse diam lorem nisi quis elit augue mus interdum porttitor ante</p>
-                                        <p class="text-success"><strong><i class="fa fa-check"></i> I would recommend this to a friend!</strong>
-                                        </p>
-                                        <ul class="list-inline product-review-actions">
-                                            <li><a href="#"><i class="fa fa-flag"></i> Flag this review</a>
-                                            </li>
-                                            <li><a href="#"><i class="fa fa-comment"></i> Comment review</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </article>
+                                <?php } ?>
                             </div>
                             <div class="col-md-4">
                                 <h3 class="product-tab-rating-title">Overall Customer Rating:</h3>
                                 <ul class="product-page-product-rating product-rating-big">
-                                    <li class="rated"><i class="fa fa-star"></i>
-                                    </li>
-                                    <li class="rated"><i class="fa fa-star"></i>
-                                    </li>
-                                    <li class="rated"><i class="fa fa-star"></i>
-                                    </li>
-                                    <li class="rated"><i class="fa fa-star"></i>
-                                    </li>
-                                    <li class="rated"><i class="fa fa-star"></i>
-                                    </li>
-                                    <li class="count">4.9</li>
-                                </ul><small>238 customer reviews</small>
-                                <p><strong>98%</strong> of reviewers would recommend this product</p><a class="btn btn-primary" href="#">Write a Review</a>
+                                    <div class="my-rating" data-rating="<?php echo $reviews['count']['avg_rating'] ?>"></div>
+                                    <li class="count"><?php echo $reviews['count']['avg_rating'] ?></li>
+                                </ul><small><?php echo $reviews['count']['count_review'] ?> customer reviews</small>
+                                <p><strong><?php echo $reviews['count']['percentase'] ?>%</strong> of reviewers would recommend this product</p>
+                                <?php if($this->nativesession->getObject('username') && ($check == false)): ?>
+                                <a class="btn btn-primary" id="modalButtonShow" href="#">Write a Review</a>
+                              <?php endif; ?>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p class="category-pagination-sign">238 customer reviews found. Showing 1 - 5</p>
-                            </div>
-                            <div class="col-md-6">
-                                <nav>
-                                    <ul class="pagination category-pagination pull-right">
-                                        <li class="active"><a href="#">1</a>
-                                        </li>
-                                        <li><a href="#">2</a>
-                                        </li>
-                                        <li><a href="#">3</a>
-                                        </li>
-                                        <li><a href="#">4</a>
-                                        </li>
-                                        <li><a href="#">5</a>
-                                        </li>
-                                        <li class="last"><a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div> -->
+                            <!-- <div class="row">
+                                <div class="col-md-6">
+                                    <p class="category-pagination-sign"><?php echo $reviews['count']['count_review'] ?> customer reviews found. Showing 1 - 5</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <nav>
+                                        <ul class="pagination category-pagination pull-right">
+                                            <li class="active"><a href="#">1</a>
+                                            </li>
+                                            <li><a href="#">2</a>
+                                            </li>
+                                            <li><a href="#">3</a>
+                                            </li>
+                                            <li><a href="#">4</a>
+                                            </li>
+                                            <li><a href="#">5</a>
+                                            </li>
+                                            <li class="last"><a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div> -->
+                    </div>
                 </div>
             </div>
             <div class="gap"></div>
@@ -677,3 +592,21 @@
                 </div>
             </div> -->
         </div>
+        <script type="text/javascript">
+        	$(document).ready(function($) {
+            $('#modalButtonShow').click(function(event) {
+              /* Act on the event */
+              $('#myModal').modal('toggle');
+            });
+        		$(".my-rating").starRating({
+        			starSize: 20,
+              readOnly: true
+        		});
+            $(".my-rating-clicked").starRating({
+        			starSize: 20,
+              callback: function(currentRating, $el){
+                $('input[name=star]').val(currentRating);
+              }
+        		});
+        	});
+        </script>

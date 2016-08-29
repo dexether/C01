@@ -26,10 +26,13 @@ class Store extends CI_Controller
         parent::__construct();
         $this->lang->load('message_lang', 'indonesia');
         $this->load->model('Shop_model', 'basicmodel');
+
         date_default_timezone_set('Asia/Jakarta');
         // $this->load->library('session');
+        $this->load->library('encrypt');
         $this->load->library('nativesession');
         $this->load->library('format');
+        $this->load->helper('form');
         $this->users = $this->nativesession->get('user');
 
         // $this->load->helper('error');
@@ -46,7 +49,7 @@ class Store extends CI_Controller
         $where = array(
             array('col' => 'master_product.is_active', 'val' => true)
         );
-        $datas = $this->basicmodel->getDataPromo('promo_alias, prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product_promo', $on, $where);
+        $datas = $this->basicmodel->getDataPromo('prod_star, promo_alias, prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product_promo', $on, $where);
         $datas2 = array();
         foreach ($datas as $key => $value) {
             # code...
@@ -77,7 +80,7 @@ class Store extends CI_Controller
         $where = array(
             array('col' => 'master_product.is_active', 'val' => true)
         );
-        $datas = $this->basicmodel->getDataPromoOrder('promo_alias, prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where, 'master_product.timestamp', 'DESC');
+        $datas = $this->basicmodel->getDataPromoOrder('prod_star, promo_alias, prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where, 'master_product.timestamp', 'DESC');
         $datas2 = array();
         foreach ($datas as $key => $value) {
             # code...
@@ -147,7 +150,7 @@ class Store extends CI_Controller
         $where = array(
             array('col' => 'master_product.prod_name', 'val' => $type),
         );
-        $datas = $this->basicmodel->getDataPromo('prod_desc, prod_desc_long, prod_star,prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where);
+        $datas = $this->basicmodel->getDataPromo('master_product.id, prod_desc, prod_desc_long, prod_star,prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where);
 
         foreach ($datas as $key => $value) {
             # code...
@@ -177,10 +180,34 @@ class Store extends CI_Controller
         foreach ($datas2 as $key => $value) {
             $data['title'] = $value;
         }
-        // var_dump($data);
+
+        // Get user reviews
+        $data_reviews = $this->basicmodel->getReviews($type, 'rating_star, foto, name, rating_subject, rating_comm, master_product_rating.timestamp');
+
+        $data_count = $this->basicmodel->getReviesAll($type);
+        // echo $this->db->last_query();
+        $data_reviews = array(
+          'reviews' => $data_reviews,
+          'count' => $data_count
+        );
+        // Set session current url
+        $this->nativesession->set('previous_url', current_url());
+        $get_aecodeid = $this->basicmodel->getData('client_aecode', 'aecodeid', $where = array('aecode' => $this->nativesession->getObject('username')));
+        $aecodeid = null;
+        foreach ($get_aecodeid as $key => $value) {
+            # code...
+            @$aecodeid = $value['aecodeid'];
+        }
+        // Check users if already reviewed
+        $data_check = $this->basicmodel->checkStatusOfbuy($type, $aecodeid);
+        // echo "<pre>";
+        // print_r($data_reviews);
+        // echo "</pre>";
+        // var_dump($data_check);
+        // echo $this->db->last_query();
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
-            "body"   => $this->load->view('mall/product', array('data' => $data, 'images' => $image_data), true),
+            "body"   => $this->load->view('mall/product', array('check' => $data_check, 'data' => $data, 'images' => $image_data, 'reviews' => $data_reviews), true),
             "slider" => "",
         );
         $this->load->view('mall/index', $part);

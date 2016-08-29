@@ -24,7 +24,7 @@
 					</div>
             <a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
             <div class="product-caption">
-                <div class="my-rating" data-rating="4.5"></div>
+                <div class="my-rating" data-rating="<?php echo $value['prod_star']; ?>"></div>
                 <h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
                     <div class="product-caption-price">
                     	<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
@@ -195,7 +195,7 @@
 					</div>
             <a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
             <div class="product-caption">
-                <div class="my-rating" data-rating="4.5"></div>
+                <div class="my-rating" data-rating="<?php echo $value['prod_star']; ?>"></div>
                 <h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
                     <div class="product-caption-price">
                     	<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
@@ -258,7 +258,7 @@
 					</div>
             <a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
             <div class="product-caption">
-                <div class="my-rating" data-rating="4.5"></div>
+                <div class="my-rating" data-rating="<?php echo $value['prod_star']; ?>"></div>
                 <h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
                     <div class="product-caption-price">
                     	<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
@@ -318,7 +318,7 @@
 					</div>
             <a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
             <div class="product-caption">
-                <div class="my-rating" data-rating="4.5"></div>
+                <div class="my-rating" data-rating="<?php echo $value['prod_star']; ?>"></div>
                 <h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
                     <div class="product-caption-price">
                     	<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
@@ -375,7 +375,7 @@
 					</div>
             <a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
             <div class="product-caption">
-                <div class="my-rating" data-rating="4.5"></div>
+                <div class="my-rating" data-rating="<?php echo $value['prod_star']; ?>"></div>
                 <h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
                     <div class="product-caption-price">
                     	<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
