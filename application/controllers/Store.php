@@ -231,4 +231,22 @@ class Store extends CI_Controller
         );
         $this->load->view('mall/index', $part);
     }
+    public function howToSellProduct()
+    {
+        $part = array(
+            "header" => $this->load->view('mall/mainheader', array(), true),
+            "body"   => $this->load->view('mall/howToSell', array(), true),
+            "slider" => "",
+        );
+        $this->load->view('mall/index', $part);
+    }
+    public function howToBuyProduct()
+    {
+        $part = array(
+            "header" => $this->load->view('mall/mainheader', array(), true),
+            "body"   => $this->load->view('mall/howToBuy', array(), true),
+            "slider" => "",
+        );
+        $this->load->view('mall/index', $part);
+    }
 }

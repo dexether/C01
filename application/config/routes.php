@@ -88,3 +88,7 @@ $route['product/success/(:any)'] = 'Uploader/successCreatePage/$1';
 /* Payment */
 $route['payment/transactions'] = 'Buy_sell/userPaymentTransaction';
 /* END Payment */
+
+// how to sell
+$route['help/how-to-sell'] = 'Store/howToSellProduct';
+$route['help/how-to-buy'] = 'Store/howToBuyProduct';

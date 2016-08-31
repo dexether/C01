@@ -13,8 +13,11 @@
                     </li>
                     <li><a href="mailto:<?php echo $this->config->item('support_email') ?>?subject=Tanya AgendaFX"><?php echo $this->lang->line('header_menu_faq'); ?></a>
                     </li>
-                    <li><a href="#"><?php echo $this->lang->line('header_menu_help'); ?></a>
+                    <li><a href="<?php echo base_url('help/how-to-sell') ?>">Cara jual</a>
                     </li>
+                    <li><a href="<?php echo base_url('help/how-to-buy') ?>">Cara belanja</a>
+                    </li>
+
                 </ul>
             </div>
         </div>
