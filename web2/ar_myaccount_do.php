@@ -33,13 +33,13 @@ foreach($result as $rows) {
 if ($postmode == "show") {
     $query = "SELECT group_play, description FROM mlm_bonus_settings";
     $result1 = $DB->execresultset($query);
-    $query = "SELECT 
+    $query = "SELECT
     mlm.`ACCNO`,
     mlm_bonus_settings.`group_play`,
-    mlm_bonus_settings.`description` 
+    mlm_bonus_settings.`description`
     FROM
     mlm,
-    mlm_bonus_settings 
+    mlm_bonus_settings
     WHERE mlm.`group_play` = mlm_bonus_settings.`group_play`
     AND mlm.ACCNO = '$accountname'";
     $result = $DB->execresultset($query);
@@ -52,7 +52,7 @@ if ($postmode == "show") {
         <p class="text-justify">
             <strong>NOTE : </strong>if you upgrade your club package, you will pay the Club Package FREE as you choose, after you submit. You must Confirm your payment in <strong>Apex Regent -> Payment Center -> Payment Confirmation</strong> Menu and admin will conrim your payment. If you don't confirm your payment we will suspend your accout 5 day from request as you send.
         </p>
-        
+
     </div>
     <form class="form-horizontal" id="ajax-form" method="post" >
       <div class="form-group">
@@ -125,7 +125,7 @@ function sendEmail($to, $subject, $body, $module) {
     email_subject = '$subject',
     email_body = '$body',
     timesend = '1970-01-31 00:00:00',
-    module = '$module'    
+    module = '$module'
     ";
     $DB->execonly($query);
 }
@@ -139,13 +139,13 @@ function trdeLog($msg) {
 }
 function getIdentitas($account) {
     global $DB;
-    $query = "SELECT 
+    $query = "SELECT
     client_accounts.`accountname`,
     client_aecode.`email`,
-    client_aecode.`name` 
+    client_aecode.`name`
     FROM
     client_accounts,
-    client_aecode 
+    client_aecode
     WHERE client_accounts.`accountname` = '$account'
     AND client_aecode.`aecodeid` = client_accounts.`aecodeid`";
     $result = $DB->execresultset($query);
