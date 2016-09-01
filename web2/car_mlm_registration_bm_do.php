@@ -61,12 +61,31 @@ if (isset($_GET['marem'])) {
 $template->assign("marem", $marem);
  // var_dump($marem);
  
+$logmeta = '';
+if (isset($_GET['logmeta'])) {
+    $logmeta = $_GET['logmeta'];
+}
+$template->assign("logmeta", $logmeta);
+ // var_dump($logmeta);
+ 
 $branch = '';
 if (isset($_GET['branch'])) {
     $branch = $_GET['branch'];
 }
 $template->assign("branch", $branch);
 // var_dump($branch);
+
+$query = "SELECT 
+			  * 
+			FROM
+			  usercompany 
+			WHERE usercompany.`Id` = '3' ";
+$result = $DB->execresultset($query);
+$years = date('Y', time());
+foreach($result as $rows) {
+    $companys = $rows;
+    $companys['year'] = $years;
+}
 
 if ($_GET['postmode']) {
     $postmode = $_GET['postmode'];
@@ -92,7 +111,7 @@ if ($_GET['postmode']) {
         if ($adaae != 'adaae' && $email != 'admin@si.co.id') {
             echo 3;
         } else {
-            if ($email == 'admin@si.co.id') {
+            if ($email == 'admin@gmail.com') {
                 $upline = 'COMPANY';
             } else {
                $query = "SELECT 
@@ -106,7 +125,7 @@ if ($_GET['postmode']) {
 						WHERE client_aecode.aecodeid = client_accounts.`aecodeid` 
 						  AND mlm.ACCNO = client_accounts.accountname 
 						  AND client_aecode.email = '$email' 
-						ORDER BY mlm.datetime ASC ";
+						ORDER BY mlm.datetime ASC LIMIT 1 ";
 					   
 						 $rows = $DB->execresultset($query);
 						$bm="";
@@ -164,12 +183,14 @@ if ($_GET['postmode']) {
                     mt4dt = 'nometa',
                     ACCNO='$accountnamebaru',
                     Upline = '$bm',
+                    group_branch = '$logmeta',
 					branch = '$branch',
                     datetime = NOW(),
                     companyconfirm = '0',
                     payment = '0',
-                    group_play = '$rupiah',
-                    updateby = '$user->username'     
+                    group_play = 'Car',
+                    updateby = '$user->username',     
+                    mt4login = '$logmeta'     
                         ";
             //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
             $DB->execonly($query);
@@ -182,18 +203,18 @@ if ($_GET['postmode']) {
                 $DB->execonly($query);
 
             $timenya = date('Y-m-d H:i', strtotime('-1 hour'));
-            $subject = "New Account $accountnamebaru has been created";
+            $subject = "New Account : $accountnamebaru has been created";
             $body = "Time: " . $timenya . "<br> <br>";
             $body = $body . "Dear  $usernya[name] $usernya[nametengah] $usernya[nameakhir],<br>";
             $body = $body . " <br>";
             $body = $body . "Your New Account has been created <br>";
             $body = $body . " <br>";
             $body = $body . "Thank you," . "<br>";
-            $body = $body . "<br><strong>Cabinet Management System</strong>" . "<br>";
-            $body = $body . " HotLine : +62-21-2954-3737<br>";
-            $body = $body . " Fax : +62-21-2954-3777 <br>";
-            $body = $body . " Email : admin@si.co.id <br>";
-            $body = $body . " http://cabinet.si.co.id <br>";
+            $body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+            // $body = $body . " HotLine : +62-21-2954-3737<br>";
+            // $body = $body . " Fax : +62-21-2954-3777 <br>";
+            $body = $body . " Email : ".$companys['email']." <br>";
+            $body = $body . " ".$companys['companyurl']." <br>";
 
             $query = "insert into email set
                     timeupdate = '$timenya',

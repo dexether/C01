@@ -51,23 +51,27 @@ $documentdatas = array();
 foreach ($result as $key => $value) {
     $documentdatas = $value;
 }
-if (!empty($datas)) {
+
+if (!empty($datas) && (!empty($_FILES))) {
     if (!empty($file)) {
+
         if (is_uploaded_file($file['tmp_name'])) {
+
             $file['name'] = $datas['aecodeid'] . "_" . $type . "_" . $date . ".jpg";
             $sourcePath   = $file['tmp_name'];
             $targetPath   = "images/data/document/" . $file['name'];
             if (move_uploaded_file($sourcePath, $targetPath)) {
             }
         }
-    }
-    if (!(count($documentdatas) > 0)) {
-        $query = "INSERT INTO client_document SET aecodeid = '$datas[aecodeid]', type = '$type' , source = '$targetPath' , comment = '$comment'";
-        $DB->execonly($query);
-    } else {
-        $update = "UPDATE client_document SET source = '$targetPath' , comment = '$comment' WHERE id = '$documentdatas[id]' ";
-        $DB->execonly($update);
-    }
+      if (!(count($documentdatas) > 0)) {
+          $query = "INSERT INTO client_document SET aecodeid = '$datas[aecodeid]', type = '$type' , source = '$targetPath' , comment = '$comment'";
+          $DB->execonly($query);
+      } else {
+          $update = "UPDATE client_document SET source = '$targetPath' , comment = '$comment' WHERE id = '$documentdatas[id]' ";
+          $DB->execonly($update);
+      }
+
+  }
 }
 $response['title'] = 'Success ..';
 $response['msg'] = 'Your data has been success uploaded, thanks you';

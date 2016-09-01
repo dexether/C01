@@ -101,51 +101,84 @@ if ($user->groupid == '3') {
 }
 
 $query	  = "SELECT 
-			  branch_manager.`email` 
+			  branch_manager.`email`, 
+			  branch_manager.`branch` 
 			FROM
 			  branch_manager WHERE branch_manager.`email`='$user->username'
 			ORDER BY email ASC  ";
 		$rows = $DB->execresultset($query);
 		$special="";
+		$specialbranch="";
 		foreach ($rows as $row) {
 		$special= $row['email'];
+		$specialbranch= $row['branch'];
 		}
 		$template->assign("special", $special);
+		$template->assign("specialbranch", $specialbranch);
 		// var_dump($special);
+		// var_dump($specialbranch);
 		
 		 
 $query	  = "SELECT 
-			  secretaris.`email` 
+			  secretaris.`email`, 
+			  secretaris.`branch` 
 			FROM
 			  secretaris WHERE secretaris.`email`='$user->username'
 			ORDER BY email ASC  ";
 		$rows = $DB->execresultset($query);
 		$special1="";
+		$specialbranch1="";
 		foreach ($rows as $row) {
 		$special1= $row['email'];
+		$specialbranch1= $row['branch'];
 		}
 		$template->assign("special1", $special1);
+		$template->assign("specialbranch1", $specialbranch1);
 		// var_dump($special1);
-
-$ceks = array();
-$query	  = "SELECT * FROM car  ORDER BY car_id ASC";
+		// var_dump($specialbranch1);
+if ($user->groupid == '9'){
+	$ceks = array();
+$query	  = "SELECT 
+  * 
+FROM
+  car 
+WHERE car.enabled <> 'no'
+ORDER BY car_id ASC ";
 $rows = $DB->execresultset($query);
 foreach ($rows as $row) {
 $ceks[] = $row;
 }
 $template->assign("ceks", $ceks);
 // var_dump($ceks);
-
-$cari = "";
-if(isset($_GET['accno'])){
-    $cari = $_GET['accno'];
+}else {
+	$ceks = array();
+$query	  = "SELECT 
+  * 
+FROM
+  car 
+WHERE branch IN ('$specialbranch','$specialbranch1')
+AND car.enabled <> 'no'
+ORDER BY car_id ASC ";
+$rows = $DB->execresultset($query);
+foreach ($rows as $row) {
+$ceks[] = $row;
 }
-$template->assign("cari", $cari);
-// var_dump ($cari);
+$template->assign("ceks", $ceks);
+// var_dump($ceks);
+}
+
+
+$action = "";
+if(isset($_GET['lihat'])){
+    $action = $_GET['lihat'];
+}
+$template->assign("action", $action);
+// var_dump ($action);
 
 
 
 $statements=""; 
+$statements0=""; 
 $statements1=""; 
 $statements2=""; 
 $statements3=""; 
@@ -154,15 +187,17 @@ $query	  = "SELECT
   * 
 FROM
   car 
-WHERE name_car ='$cari'";
+WHERE car_id ='$action'";
 $rows = $DB->execresultset($query);
 foreach ($rows as $row) {
 $statements = $row['desc_car'];
+$statements0 = $row['name_car'];
 $statements1 = $row['enabled'];
 $statements2 = $row['car_id'];
 $statements3 = $row['capacity'];
 }
 $template->assign("statements", $statements);
+$template->assign("statements0", $statements0);
 $template->assign("statements1", $statements1);
 $template->assign("statements2", $statements2);
 $template->assign("statements3", $statements3);

@@ -1,0 +1,28 @@
+				<div class="widget">
+					<div class="widget-header transparent">
+						<h2><strong>Change</strong> Meta Upline Or <input type="button" class="btn btn-success" name="Add" value="Add"
+											onClick="Uplinechange_2.addmeta('{$metanya}');"></h2>
+					</div>
+					<div class="widget-content padding">
+								<table class="table table-striped table-bordered " cellspacing="0" style="font-family:calibri; center; font-size:100%;">
+									<thead>
+										<tr>
+											<th class="text-center">Name</th>
+											<th class="text-center">Email</th>
+											<th class="text-center">Account Meta Login</th>
+											<th class="text-center">Action</th>
+										</tr>
+									</thead>                            
+									<tbody class="text-center">
+										{foreach from=$accmeta key=accmeta item=i}
+										<tr>
+											<td>{$i.name}</td>
+											<td>{$i.email}</td>                                     
+											<td>{$i.group_play}</td>                                     
+											<td><a  class="btn btn-info" name="lihat" onClick="Uplinechange_2.view('{$i.ACCNO}');">Edit / Delete</a></td>                                     
+										</tr>		
+										{/foreach}   				
+									</tbody>
+								</table>
+						</div>
+				</div>

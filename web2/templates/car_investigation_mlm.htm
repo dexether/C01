@@ -1,0 +1,149 @@
+<!-- Extra CSS Libraries Start -->
+<link href="assets/libs/jquery-notifyjs/styles/metro/notify-metro.css" rel="stylesheet" type="text/css" />
+<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+<div id="main_content" class="content">
+	<div class="page-heading">
+		<h1 style="font-family:calibri;font-size:300%;"><i class="icon-th-list"></i>&nbsp;&nbsp;Contact Admin form</h1> <br>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 portlets">
+			<div class="widget">
+				<div class="widget-header transparent">
+					<h2><strong>Your Detail of the Issue</strong></h2>
+					<div class="additional-btn">
+						<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+						<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+						<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+					</div>
+				</div>
+				<div class="widget-content padding">
+					<div class="alert alert-danger">
+						* Use this form to notify Admin about any suggestions or complaints
+					</div>
+					{if $groupid==3}
+					<form role="form" id="contactForm">
+						<legend>Contact Information</legend>
+						<div class="form-group col-sm-12">
+							<label for="WithdrawalMethod" class="col-sm-2 control-label">Your Name :</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="name2" id="name2" value="{$clientinfo.name}" readonly>
+							</div>
+						</div>
+						<div class="form-group col-sm-12">
+							<label for="WithdrawalMethod" class="col-sm-2 control-label-left">Your Email :</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="email" id="email" value="{$clientinfo.email}" readonly>
+							</div>
+						</div>
+						<div class="form-group col-sm-12">
+							<label for="WithdrawalMethod" class="col-sm-2 control-label-left">Account : </label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="accno" id="accno" value="{$accnobymlm}" readonly>
+								<input type="hidden" class="form-control" name="bm" id="bm" value="{$bmnya}" readonly>
+							</div>
+						</div>
+						
+						<!-- <div class="form-group col-sm-12">
+											<label for="WithdrawalMethod" class="col-sm-2 control-label-left">Account Number :</label>
+											<div class="col-sm-4">
+																<input type="text" class="form-control" name="accno" id="accno">
+											</div>
+						</div> -->
+						<legend>Investigation Information</legend>
+						<div class="form-group col-sm-12">
+							<label for="WithdrawalMethod" class="col-sm-2 control-label-left">Subject :</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="subject" id="subject">
+							</div>
+						</div>
+						<div class="form-group col-sm-12">
+							<label for="WithdrawalMethod" class="col-sm-2 control-label-left">Type of issue :</label>
+							<div class="col-sm-4">
+								<select class="form-control" name="types" id="types">
+									<option value="">-- Select Type --</option>
+									<option value="Question">Question</option>
+									<option value="Complaint">Complaint</option>
+									<option value="Suggestion">Suggestion</option>
+									
+								</select>
+							</div>
+						</div>
+						<!-- <div class="form-group col-sm-12">
+										<label for="WithdrawalMethod" class="col-sm-2 control-label-left">Investigation Date :</label>
+										<div class="col-sm-2">
+														<input type="text" class="form-control datepicker-input" data-mask="9999-99-99" placeholder="yyyy-mm-dd" name="date" id="date" value="">&nbsp;
+												<input type="text" class="form-control datepicker-input" data-mask="99:99:99" placeholder="00:00:00 Am" name="time" id="time">
+									</div>
+						</div> -->
+						<div class="form-group col-sm-12">
+							<label for="WithdrawalMethod" class="col-sm-2 control-label-left">Detail of the Issue :</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" name="detail" id="detail" style="height: 140px; resize: none;"></textarea>
+							</div>
+						</div>
+						<div class="form-group col-sm-12">
+							<div class="col-sm-offset-2 col-sm-10">
+								
+								<input type="button" class="btn btn-success" value="Send this issue"
+								onClick="trade_investigation.mlm(name2.value, email.value, accno.value, bm.value, subject.value, types.value,  detail.value);">
+							</div>
+						</div>
+						<div id="myModal" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Thank for Your Detail of the Issue</h4>
+									</div>
+									<div class="modal-body">
+										<p>We will process your report as quickly as possible and we will contact you via email, received outside of working hours will be processed the next working day.</p>
+									</div>
+									<div class="modal-footer">
+										<input type="button" class="btn btn-success" value="Dashboard" onclick="trade_investigation.hal2();">
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					{else}
+					<div class="alert alert-danger">
+						* Admin can not create Investigation yet
+					</div>
+					{/if}
+				</div>
+			</div>
+		</div>
+					{if $user->groupid == '3'}
+					<div class="col-md-12 portlets">
+                        <div class="widget">
+                            <div class="widget-header ">
+                                <h2>User Manual Contact Admin</h2>
+                                <div class="additional-btn">
+                                    <!--<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a> -->
+                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                    <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content padding">
+                            <div class="alert alert-info">
+                               Use this form to notify Admin about any suggestions or complaints.
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+					{/if}
+		
+	</div>
+</div>
+{literal}
+
+<script src="custom/js/car_investigation_mlm.js" type="text/javascript"></script>
+<script>
+	jQuery(document).ready(function() {
+	trade_investigation.init();
+	});
+</script>
+{/literal}
+<script src="assets/libs/jquery-notifyjs/notify.min.js"></script>
+<script src="assets/libs/jquery-notifyjs/styles/metro/notify-metro.js"></script>
+<script src="custom/js/noty_general.js"></script>

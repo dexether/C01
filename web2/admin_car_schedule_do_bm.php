@@ -59,6 +59,20 @@ if (isset($_GET['email'])) {
 $template->assign("mail", $mail);
 // var_dump($mail);
 
+$query = "SELECT 
+		  client_aecode.`name` 
+		FROM
+		  client_aecode 
+		WHERE client_aecode.`aecode` = '$mail' ";
+   
+     $rows = $DB->execresultset($query);
+	$marketing="";
+	 foreach ($rows as $row) {
+         $marketing = $row['name'];
+    }
+    $template->assign("marketing", $marketing);
+	// var_dump($marketing);
+
 $cari = "";
 if(isset($_GET['accno'])){
     $cari = $_GET['accno'];
@@ -149,11 +163,23 @@ $status = "$Approv $Cancel";
 $template->assign("status", $status);	
 // var_dump ($status);
 
+$query = "SELECT 
+			  * 
+			FROM
+			  usercompany 
+			WHERE usercompany.`Id` = '3' ";
+$result = $DB->execresultset($query);
+$years = date('Y', time());
+foreach($result as $rows) {
+    $companys = $rows;
+    $companys['year'] = $years;
+}
+
 if ($meta1 == ""){
 	echo 1;
-}else if ($offer == ""){
-	echo 2;
-}
+}//else if ($offer == ""){
+	// echo 2;
+// }
 	else {
 
 			// ke email
@@ -161,16 +187,18 @@ if ($meta1 == ""){
 			$timenya = date('Y-m-d H:i', strtotime('-1 hour'));
 			$subject = "Confirmation Add New SCHEDULE";
 			$body = "Time: " . $timenya . "<br> <br>";
-			$body = $body . "Dear marketing<br>";
-			$body = $body . "$cari is id schedule <br>";
-			$body = $body . "Please confirm approve or cancel for SCHEDULE<br>";
+			$body = $body . "Dear $marketing<br>";
+			$body = $body . "$status your schedule <br>";
+			$body = $body . "$meta1 your car <br>";
+			$body = $body . "$offer Car Available<br>";
+			// $body = $body . "Please confirm approve or cancel for SCHEDULE<br>";
 			$body = $body . " <br>";
 			$body = $body . "Thank you," . "<br>";
-			$body = $body . "<br><strong>Cabinet Management System</strong>" . "<br>";
-			$body = $body . " HotLine : +62-21-2954-3737<br>";
-			$body = $body . " Fax : +62-21-2954-3777 <br>";
-			$body = $body . " Email : admin@si.co.id <br>";
-			$body = $body . " http://cabinet.si.co.id <br>";
+			$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+            // $body = $body . " HotLine : +62-21-2954-3737<br>";
+            // $body = $body . " Fax : +62-21-2954-3777 <br>";
+            $body = $body . " Email : ".$companys['email']." <br>";
+            $body = $body . " ".$companys['companyurl']." <br>";
 
 			$query = "insert into email set
 			timeupdate = NOW(),

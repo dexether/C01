@@ -75,6 +75,14 @@ $tgl = '';
 if (isset($_GET['tgl'])) {
 	$tgl = $_GET['tgl'];
 }
+$pecah = explode("-",$tgl);
+$hasil1 = $pecah[1];
+$hasil2 = $pecah[2];
+$hasil = $hasil1.$hasil2;
+  // var_dump($hasil);
+$waktucheck1 = date('md');
+  // var_dump($waktucheck1);
+
  // var_dump($tgl);
 $Away = '';
 if (isset($_GET['Away'])) {
@@ -85,33 +93,33 @@ if (isset($_GET['Away'])) {
 // var_dump($datetime);
 // var_dump ($nama, $Destination, $Meet, $Away);
 $mailup="";
-$query = "SELECT mlm.`updateby` FROM mlm WHERE mlm.`ACCNO`='$upline' ORDER BY ACCNO LIMIT 1";
+$query = "SELECT client_accounts.`email`FROM client_accounts WHERE client_accounts.`accountname`='$upline'";
 $rows = $DB->execresultset($query);
 foreach ($rows as $row) {
-	$mailup = $row['updateby'];
+	$mailup = $row['email'];
 }
 $template->assign("mailup", $mailup);
-// var_dump($mailup);	
+// var_dump($mailup);
 
 $query = "SELECT 
-			  mlm.`branch` 
-			FROM
-			  mlm 
-			WHERE mlm.`ACCNO` = '$nama'";
+		  marketing.`group_city` 
+		FROM
+		  marketing 
+		WHERE marketing.`email`='$email' ";
      $rows = $DB->execresultset($query);
-	$view="";
+	$view=array();
 	 foreach ($rows as $row) {
-         $view = $row['branch'];
+         $view = $row['group_city'];
     }
     $template->assign("view", $view);
 	// var_dump($view);
 	
 	//BM
 	$query = "SELECT 
-			  branch_manager.`email` 
+			  branch_manager.`email`
 			FROM
 			  branch_manager 
-			WHERE branch_manager.`branch` = '$view' ";
+			WHERE branch_manager.`group_branch` ='$view' ";
      $rows = $DB->execresultset($query);
 	$bm="";
 	 foreach ($rows as $row) {
@@ -125,7 +133,7 @@ $query = "SELECT
 			  secretaris.`email` 
 			FROM
 			  secretaris 
-			WHERE secretaris.`branch` = '$view'";
+			WHERE secretaris.`group_branch` = '$view'";
      $rows = $DB->execresultset($query);
 	$secretaris="";
 	 foreach ($rows as $row) {
@@ -134,6 +142,18 @@ $query = "SELECT
     $template->assign("secretaris", $secretaris);
 	// var_dump($secretaris);
 
+$query = "SELECT 
+			  * 
+			FROM
+			  usercompany 
+			WHERE usercompany.`Id` = '3' ";
+$result = $DB->execresultset($query);
+$years = date('Y', time());
+foreach($result as $rows) {
+    $companys = $rows;
+    $companys['year'] = $years;
+}	
+	
 if ($upline == ""){
 	echo 1;
 }else if ($nama == ""){
@@ -146,12 +166,8 @@ if ($upline == ""){
 	echo 5;
 }else if ($Away == ""){
 	echo 6;
-}
-else if ($tgl == ""){
-	echo 7;
-}
-else {
-
+}else if ($hasil>=$waktucheck1){
+	
 		// ke email
 	$timenya = date('Y-m-d H:i', strtotime('-1 hour'));
 	$subject = $nama . " Add New SCHEDULE";
@@ -161,11 +177,11 @@ else {
 	$body = $body . "Please make a schedule to borrow a car for $nama<br>";
 	$body = $body . " <br>";
 	$body = $body . "Thank you," . "<br>";
-	$body = $body . "<br><strong>Cabinet Management System</strong>" . "<br>";
-	$body = $body . " HotLine : +62-21-2954-3737<br>";
-	$body = $body . " Fax : +62-21-2954-3777 <br>";
-	$body = $body . " Email : admin@si.co.id <br>";
-	$body = $body . " http://cabinet.si.co.id <br>";
+	$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+ // $body = $body . " HotLine : +62-21-2954-3737<br>";
+ // $body = $body . " Fax : +62-21-2954-3777 <br>";
+    $body = $body . " Email : ".$companys['email']." <br>";
+    $body = $body . " ".$companys['companyurl']." <br>";
 // forsecretaris
 	$query = "insert into email set
 	timeupdate = NOW(),
@@ -186,7 +202,7 @@ else {
 	";
 	$DB->execonly($query);
 	
-// forupline	
+/*forupline	
 	$query = "insert into email set
 	timeupdate = NOW(),
 	email_to = '$mailup',
@@ -195,7 +211,7 @@ else {
 	timesend = '1970-01-31 00:00:00'    
 	";
 	$DB->execonly($query);
-			// var_dump($query);
+			 var_dump($query);*/
 	
 			// ke tabel schedule
 	$query = "INSERT INTO SCHEDULE SET   
@@ -211,6 +227,11 @@ else {
 	// var_dump($query);
 	
 	echo 0;
+	
+	
+}else {
+
+	echo 7;
 }
 
 

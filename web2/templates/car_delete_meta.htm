@@ -1,0 +1,43 @@
+				<div class="widget">
+					<div class="widget-content padding">
+						<div id="horizontal-form">
+							<form class="form-horizontal" role="form" id="formnya">
+								<div class="form-group">
+                              
+                                <div class="col-md-4">
+                                     <label for="tradingplatform" class="col-sm-4 control-label">Name</label>
+								</div>
+								<div class="col-md-4">
+									 <label for="tradingplatform" class="col-sm-4 control-label">Email</label>
+								</div>
+								<div class="col-md-4">
+									 <label for="tradingplatform" class="col-sm-4 control-label">Meta Login</label>
+                                </div>
+                                
+                            </div>
+							<div class="form-group">
+							 {foreach from=$accmeta key=accmeta item=i}
+                               
+                                <div class="col-md-4">
+                                     <input class="form-control" name="nama[]" type="text" value="{$i.name}">
+                                </div>
+								<div class="col-md-4">
+                                     <input class="form-control" name="email[]" value="{$i.email}" type="text">
+                                </div>
+								<div class="col-md-4">
+                                     <input class="form-control" name="logacc[]" value="{$i.group_play}" type="text">
+                                     <input class="form-control" name="accnya[]" value="{$i.ACCNO}" type="hidden">
+                                </div>
+							{/foreach}
+                            </div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label"></label>
+										<div class="col-sm-4">
+											<input type="button" class="btn btn-danger" name="Delete" value="Delete"
+											onClick="delete_js.meta();">
+										</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>

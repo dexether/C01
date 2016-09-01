@@ -51,7 +51,7 @@ $template->assign('status', $status);
 
 
 // Withdrawal
-$query = "SELECT 
+$query = "SELECT
 SUM(mlm_ewallet.`balance`) AS total
 FROM
 client_accounts,
@@ -66,14 +66,14 @@ foreach($result as $rows){
         $rows['total'] = 0;
         $wallettotal = $rows;
     }else{
-        $wallettotal = $rows;    
+        $wallettotal = $rows;
     }
-    
+
 }
 $template->assign("ewallet", $wallettotal);
 
 // Gold Saving
-$query = "SELECT 
+$query = "SELECT
 SUM(mlm_goldsaving.`balance`) AS total
 FROM
 client_accounts,
@@ -88,13 +88,13 @@ foreach($result as $rows){
         $rows['total'] = 0;
         $goldsaving = $rows;
     }else{
-        $goldsaving = $rows;    
+        $goldsaving = $rows;
     }
-    
+
 }
 $template->assign("goldsaving", $goldsaving);
 
-$query = "SELECT 
+$query = "SELECT
 SUM(mlm_bonus_logs.`amount`) AS bonus
 FROM
 client_accounts,
@@ -110,18 +110,18 @@ foreach($result as $rows){
         $rows['bonus'] = 0;
         $bonus = $rows;
     }else{
-        $bonus = $rows;    
-    }   
+        $bonus = $rows;
+    }
 }
 $template->assign("bonus", $bonus);
 
 // Account
-$query = "SELECT 
-COUNT(client_accounts.`accountid`) AS account 
+$query = "SELECT
+COUNT(client_accounts.`accountid`) AS account
 FROM
 client_accounts,
-client_aecode 
-WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid` 
+client_aecode
+WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
 AND client_aecode.`aecode` = '$user->username'";
 $result = $DB->execresultset($query);
 foreach($result as $rows){
@@ -132,22 +132,22 @@ foreach($result as $rows){
         $jmlaccount = $rows;
     }
 
-    
+
 }
 $template->assign("account", $jmlaccount);
 
 // Downline
-/*$query = "SELECT 
+/*$query = "SELECT
 COUNT(mlm.`ACCNO`) AS downline
 FROM
-mlm 
-WHERE mlm.`Upline` IN 
-(SELECT 
-    client_accounts.`accountname` 
+mlm
+WHERE mlm.`Upline` IN
+(SELECT
+    client_accounts.`accountname`
     FROM
     client_accounts,
-    client_aecode 
-    WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid` 
+    client_aecode
+    WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
     AND client_aecode.`aecode` = '$user->username')
     AND mlm.`ACCNO` <> 'COMPANY'
     AND mlm.`ACCNO` NOT LIKE '9999%'";
@@ -162,7 +162,7 @@ WHERE mlm.`Upline` IN
     }
 
     $template->assign("downline", $downline);*/
-	
+
 	//TODO List
     $query = "SELECT todo_list.`finished`, todo.`type`,todo.`link`,todo.`description`
 	FROM
@@ -172,32 +172,22 @@ WHERE mlm.`Upline` IN
     $template->assign('todo', $result);
 
 
-    // Feed
-    $rss = new DOMDocument();
-    $rss->load('http://rss.detik.com/index.php/finance');
-    $feed = array();
-    foreach ($rss->getElementsByTagName('item') as $node) {
-        $item = array ( 
-            'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,
-            'desc' => $node->getElementsByTagName('description')->item(0)->nodeValue,
-            'link' => $node->getElementsByTagName('link')->item(0)->nodeValue,
-            'date' => $node->getElementsByTagName('pubDate')->item(0)->nodeValue,
-            );
-        array_push($feed, $item);
-    }
+    // // Feed
+    // $rss = new DOMDocument();
+    // $rss->load('http://rss.detik.com/index.php/finance');
+    // $feed = array();
+    // foreach ($rss->getElementsByTagName('item') as $node) {
+    //     $item = array (
+    //         'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,
+    //         'desc' => $node->getElementsByTagName('description')->item(0)->nodeValue,
+    //         'link' => $node->getElementsByTagName('link')->item(0)->nodeValue,
+    //         'date' => $node->getElementsByTagName('pubDate')->item(0)->nodeValue,
+    //         );
+    //     array_push($feed, $item);
+    // }
     // var_dump($feed);
-    $limit = 5;
-    for($x=0;$x<$limit;$x++) {
-        $title = str_replace(' & ', ' &amp; ', $feed[$x]['title']);
-        $link = $feed[$x]['link'];
-        $description = $feed[$x]['desc'];
-        $date = date('l F d, Y', strtotime($feed[$x]['date']));
-        $news[$x]['line0'] = '<p><strong><a href="'.$link.'" target="_blank" title="'.$title.'">'.$title.'</a></strong><br />';
-        $news[$x]['line1'] = '<small><em>Posted on '.$date.'</em></small></p>';
-        $news[$x]['line2'] = '<p>'.$description.'</p>';
-    }
 
-    $template->assign('news', $news);
+    
     $template->display("home_03/home_03.htm");
 
     function myfilter($input_var_outer, $param) {

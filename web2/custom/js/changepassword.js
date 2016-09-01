@@ -24,12 +24,14 @@ var ChangePassword = function () {
                     data: data,
                     type: 'POST',
                     success: function (response) {
-                        //alert("27:"+response);
+                        // console.log(response);
+						//alert("27:"+response);
                         var res = response.substring(0, 1);
                         //alert("29:"+res);
                         if (res == '0') {//success
                             //alert("30:Success");
                             notifyerror('success', 'top right','Success','Update Password Success');
+							setTimeout('history.go(0);', 4000);
                         } else  {//Fail
                             //alert("34:Fail");
                             notifyerror('error', 'top right','Error','Old Password is not Match');

@@ -112,7 +112,7 @@ $query = "SELECT
 if ($user->groupid == '9'){
 	$ceks = array();
 	$query	  = "SELECT 
-				  * 
+				SCHEDULE.* 
 				FROM
 				  SCHEDULE,
 				  mlm 
@@ -127,7 +127,7 @@ if ($user->groupid == '9'){
 }else {
 	 $ceks = array();
 	$query	  = "SELECT 
-				  * 
+				  SCHEDULE.* 
 				FROM
 				  SCHEDULE,
 				  mlm 
@@ -148,7 +148,8 @@ $meta = "SELECT
   car.name_car 
 FROM
   car 
-WHERE enabled = 'yes' 
+WHERE enabled = 'yes'
+AND branch IN ('$bm','OK')   
 ORDER BY car.car_id ASC ";
 $meta_query = $DB->execresultset($meta);
 $template->assign("meta_array", $meta_query);
@@ -226,7 +227,7 @@ if($tampil == "no"){
 			WHERE schedule_id = '$cari' ";
 $rows = $DB->execresultset($query);
 if(count($rows) > 0){
-	$template->display("admin_car_schedule.htm");
+	$template->display("admin_car_schedule_bm.htm");
 	}else{
 	echo "0";
 	}

@@ -77,6 +77,10 @@
                                <th>Account</th>
                                <th>Car Id</th>
                                <th>Status</th>
+							  {if $user->username == $specialbm || $user->groupid == '9' || $user->username == $specialsec}
+							    <th>Destination</th>
+							   <th data-sortable="false">Delete</th>
+							   {/if}
                                </tr>
                            </thead>
                            <tfoot>
@@ -86,6 +90,10 @@
                                <th>Account</th>
                                <th>Car Id</th>
                                <th>Status</th>
+							   {if $user->username == $specialbm || $user->groupid == '9' || $user->username == $specialsec}
+							   <th>Destination</th>
+							   <th data-sortable="false">Delete</th>
+							   {/if}
                            </tr>
                        </tfoot>
                        <tbody>
@@ -96,6 +104,12 @@
                                <td>{$i.nameaccount}</td>
                                <td>{$i.car_id}</td>
                                <td>{$i.status}</td>
+							   {if $user->username == $specialbm || $user->groupid == '9' || $user->username == $specialsec}
+							    <td>{$i.destination}</td>
+							   <td>
+							   <input type="button" class="btn btn-danger" value="Delete" onclick="VIEW_schedules.delet('{$i.schedule_id}');">
+							   </td>
+								{/if}
                            </tr>
                            {/foreach} 
                        </tbody>
@@ -127,7 +141,7 @@
 					<div class="col-md-12 portlets">
                         <div class="widget">
                             <div class="widget-header ">
-                                <h2>View Schedule</h2>
+                                <h2>User manual View Schedule</h2>
                                 <div class="additional-btn">
                                     <!--<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a> -->
                                     <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>

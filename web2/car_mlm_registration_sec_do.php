@@ -59,6 +59,13 @@ if (isset($_GET['email'])) {
 $template->assign("mail", $mail);
 // var_dump($mail);
 
+$logmeta = "";
+if (isset($_GET['logmeta'])) {
+	$logmeta = $_GET['logmeta'];
+}
+$template->assign("logmeta", $logmeta);
+// var_dump($logmeta);
+
 $branch = "";
 if (isset($_GET['branch'])) {
 	$branch = $_GET['branch'];
@@ -89,13 +96,25 @@ $query = "SELECT
 		  branch_manager.`email` 
 		FROM
 		  branch_manager 
-		WHERE branch_manager.`branch` ='$branch'";
+		WHERE branch_manager.`group_branch` ='$branch'";
 $rows = $DB->execresultset($query);
 foreach ($rows as $row) {
 $mailbm = $row['email'];
 }
 $template->assign("mailbm", $mailbm);
  // var_dump($mailbm);
+ 
+$query = "SELECT 
+			  * 
+			FROM
+			  usercompany 
+			WHERE usercompany.`Id` = '3' ";
+$result = $DB->execresultset($query);
+$years = date('Y', time());
+foreach($result as $rows) {
+    $companys = $rows;
+    $companys['year'] = $years;
+}
  
 if ($mail == ""){
 	echo 1;
@@ -114,11 +133,11 @@ if ($mail == ""){
 			$body = $body . "Please confirm approve or cancel for created account<br>";
 			$body = $body . " <br>";
 			$body = $body . "Thank you," . "<br>";
-			$body = $body . "<br><strong>Cabinet Management System</strong>" . "<br>";
-			$body = $body . " HotLine : +62-21-2954-3737<br>";
-			$body = $body . " Fax : +62-21-2954-3777 <br>";
-			$body = $body . " Email : admin@si.co.id <br>";
-			$body = $body . " http://cabinet.si.co.id <br>";
+			$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+            // $body = $body . " HotLine : +62-21-2954-3737<br>";
+            // $body = $body . " Fax : +62-21-2954-3777 <br>";
+            $body = $body . " Email : ".$companys['email']." <br>";
+            $body = $body . " ".$companys['companyurl']." <br>";
 			
 			$query = "insert into email set
 			timeupdate = NOW(),
@@ -134,7 +153,8 @@ if ($mail == ""){
 					  marketing 
 					SET
 					  upline = '$mail',
-					  city = '$branch',
+					   Log_meta = '$logmeta',
+					  group_city = '$branch',
 					  creat_account = '$status' 
 					WHERE email = '$marem' ";
                 //tradelog("BackProcess-85-Success:" . $query);

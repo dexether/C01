@@ -27,7 +27,7 @@ function get_menu($data, $parent = 0) {
 			}
 			// var_dump($conditition);
 			$html .= '<a href="'.$v['url'].'" '.$conditition.' class="'.$v['class'].'"  id="'.$cek.'"><i class="'.$v['img'].'"></i>'.$v['title'].''.$v['span_img'].'</a>';
-			
+
 			if ($child) {
 				$i--;
 				$html .= $child;
@@ -62,18 +62,18 @@ foreach ($rows as $row) {
 	}else{
 		$data[$row['parent_id']][] = $row;
 	}
-	
+
 }
-// var_dump($data); 
+
 $menu = get_menu($data);
 $template->assign("menu", $menu);
  // var_dump($menu);
 // echo htmlspecialchars($menu);
 
-$query = "SELECT 
-client_accounts.`email` 
+$query = "SELECT
+client_accounts.`email`
 FROM
-client_accounts 
+client_accounts
 WHERE client_accounts.`email`  = '$user->username' ";
 
 $rows = $DB->execresultset($query);
@@ -84,10 +84,10 @@ foreach ($rows as $row) {
 $template->assign("clientaecode", $clientaecode);
 // var_dump($clientaecode);
 
-$query = "SELECT 
-secretaris.`email` 
+$query = "SELECT
+secretaris.`email`
 FROM
-secretaris 
+secretaris
 WHERE secretaris.`email` ='$user->username' ";
 
 $rows = $DB->execresultset($query);
@@ -98,10 +98,10 @@ foreach ($rows as $row) {
 $template->assign("secretaris", $secretaris);
 	// var_dump($secretaris);
 
-$query = "SELECT 
-branch_manager.`email` 
+$query = "SELECT
+branch_manager.`email`
 FROM
-branch_manager 
+branch_manager
 WHERE branch_manager.`email` ='$user->username' ";
 
 $rows = $DB->execresultset($query);
@@ -112,10 +112,10 @@ foreach ($rows as $row) {
 $template->assign("bm", $bm);
 	// var_dump($bm);
 
-$query = "SELECT 
-marketing.`email` 
+$query = "SELECT
+marketing.`email`
 FROM
-marketing 
+marketing
 WHERE marketing.`email` ='$user->username' ";
 
 $rows = $DB->execresultset($query);
@@ -131,7 +131,7 @@ $query = "SELECT * FROM client_aecode WHERE aecode = '$user->username'";
 $rows = $DB->execresultset($query);
 $allpersonaldata = array('foto' => '');
 foreach ($rows as $key => $row) {
-    $allpersonaldata = $row;    
+    $allpersonaldata = $row;
 }
 $template->assign('alldatas', $allpersonaldata);
 
@@ -176,7 +176,7 @@ function listFolderFiles2b($dir2, $file_display) {
 					$urlnya2 = "<img src='data:image/jpeg;base64, $imgData' alt='$user->username' align='middle' style='width:100%;height:100%;'  />";
 				}
 			}
-        }//foreach ($ffs as $ff) { 
+        }//foreach ($ffs as $ff) {
     }//if (is_dir($dir2)) {
     //tradeLogTop("TopSide-45-Urlnya:" . $urlnya2);
     	return $urlnya2;

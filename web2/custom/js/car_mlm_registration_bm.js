@@ -12,7 +12,7 @@ var car_MLM_Registration_JS = function() {
             var data = {
                 shownya: b
             };
-			console.log(b);
+			// console.log(b);
              $.ajax({
                 url: url,
                 data: data,
@@ -23,18 +23,18 @@ var car_MLM_Registration_JS = function() {
 			 });
         },
 		
-		mm_new_level2: function(selectId, email, marem, branch) {
-            var url = 'car_mlm_registration_bm_do.php?postmode=createnewlevel2&rupiah=' + selectId + "&email=" + email + "&marem=" + marem + "&branch=" + branch;
+		mm_new_level2: function(selectId, email, marem, logmeta, branch) {
+            var url = 'car_mlm_registration_bm_do.php?postmode=createnewlevel2&rupiah=' + selectId + "&email=" + email + "&marem=" + marem + "&logmeta=" + logmeta + "&branch=" + branch;
             //alert("Line-11-URL:"+url);
             var data = '&ajax_validation=1';
-			// console.log(selectId, email, marem, branch); 
+			// console.log(selectId, email, marem, logmeta, branch); 
             $.ajax({
                 url: url,
                 data: data,
                 type: 'POST',
                 success: function(response) {
                      // alert("18:" + response);
-					  console.log(response); 
+					   // console.log(response); 
 					// $("#main_content").html(response);
                     var res = response.substring(0, 1);
                      // alert("20:" + res);

@@ -1,17 +1,17 @@
 <div id="confirm" class="content">
-    <link href="assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
-    <link href="assets/libs/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
-    <!-- <link href="assets/libs/jquery-icheck/skins/all.css" rel="stylesheet" /> -->
+	<!-- <link href="assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" /> -->
+	<link href="assets/libs/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	<!-- <link href="assets/libs/jquery-icheck/skins/all.css" rel="stylesheet" /> -->
 
-    <link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="custom/datatable2/media/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="custom/datatable2/resources/syntax/shCore.css">
+	<link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="custom/datatable2/media/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="custom/datatable2/resources/syntax/shCore.css">
 
-    <script type="text/javascript" language="javascript" src="custom/datatable2/media/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" language="javascript" src="custom/datatable2/resources/syntax/shCore.js"></script>
-    <script type="text/javascript" language="javascript" src="custom/datatable2/resources/demo.js"></script>
+	<script type="text/javascript" language="javascript" src="custom/datatable2/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="custom/datatable2/resources/syntax/shCore.js"></script>
+	<script type="text/javascript" language="javascript" src="custom/datatable2/resources/demo.js"></script>
 
     <div class="row">
         <div class="col-md-12">
@@ -39,17 +39,15 @@
                 </div>
                 <div class="widget-content padding">
                     <div id="horizontal-form">
-
-                        <div class="alert alert-info nomargin">
-                            * Please use your marketing activity here
-                            <br> * So that you know how much your prospect
-                        </div>
-                        <br>
-
-                        <div class="col-xs-4">
-                            <div class="widget">
-                                <div class="widget-header ">
-                                    <h4>List Cars<h4>
+					
+						  <div class="alert alert-info nomargin">
+							* Please log all your marketing activities
+						  </div>
+						  <br>
+                        
+							<div class="col-xs-4">
+					<div class="widget">
+                <div class="widget-header "><h4>Marketing Report<h4>
                     <div class="additional-btn">
                         <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
                         <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
@@ -123,7 +121,6 @@
 								<input type="button" class="btn btn-success" name="Approv" value="Submit"
 								onClick="Marketing_act.add(account.value, prodate.value, proname.value, prores.value, promail.value, protel.value, prosum.value, status.value);">
 								</div>
-								
                             </div>
                         </form>
                     </div>
@@ -149,6 +146,7 @@
 								<th>Account</th>
 								<th>Prospect Date</th>
 								<th>Prospect Name</th>
+								<th data-sortable="false">View</th>
 							</tr>
 							</thead>
 							<tfoot>
@@ -157,15 +155,23 @@
 								<th>Account</th>
 								<th>Prospect Date</th>
 								<th>Prospect Name</th>
+								<th data-sortable="false">View</th>
 							</tr>
 							</tfoot>
 							<tbody>
 							{foreach from=$ceks key=cek item=i}
 							<tr>
 								 <td>{$i.datetime}</td>
-								 <td>{$i.account}</td>
+								 <td>{$i.account} - {$i.name}</td>
 								 <td>{$i.pros_date}</td>
 								 <td>{$i.pros_name}</td>
+								 <td><a  class="btn btn-info" name="lihat" onClick="Marketing_act.view('{$i.datetime}');"
+								  data-toggle="modal" data-target="#myModal"><i class="fa  fa-check-square"></i></a>
+								  {if $user->username == $special || $user->groupid == '9'}
+								  <a  class="btn btn-info" name="edit" onClick="Marketing_act.viewedit('{$i.datetime}');"
+								  data-toggle="modal" data-target="#myModal">Remarks</i></a>
+								  {/if}
+								  </td>
 								</tr>
 							{/foreach} 	 
 							</tbody>
@@ -174,6 +180,24 @@
 					</div>
                 </div>							
             </div>
+			
+						<div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                        <h4 class="modal-title">Marketing Activity Detail</h4>
+                                    </div>
+                                    <div class="modal-body">
+											 
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+			
 		</div>
 			
 			</div>
@@ -194,7 +218,7 @@
                             </div>
                             <div class="widget-content padding">
                             <div class="alert alert-info">
-                               * This form for record your activity,your prospect name, prospect address, prospect date, prospect summary and status.
+                               * This form is for recording your activity,your prospect name, prospect address, prospect date, prospect summary and status.
                             </div>
                             </div>
                         </div>
@@ -212,7 +236,7 @@
                             </div>
                             <div class="widget-content padding">
                             <div class="alert alert-info">
-                               * This form for record your activity,your prospect name, prospect address, prospect date, prospect summary and status.
+                               * This form is for recording your activity,your prospect name, prospect address, prospect date, prospect summary and status.
 							   <br>
 							   * Secretaris and branch managers can view aktifity marketing here
                             </div>
@@ -238,9 +262,9 @@ Marketing_act.init();
 
 <script src="assets/libs/bootstrap-fileinput/bootstrap.file-input.js"></script>
 
-<script src="assets/libs/bootstrap/js/bootstrap.min.js"></script>
+<!-- <script src="assets/libs/bootstrap/js/bootstrap.min.js"></script> -->
 
-<script src="assets/libs/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>
+<!-- <script src="assets/libs/jqueryui/jquery-ui-1.10.4.custom.min.js"></script> -->
 <!-- <script src="assets/libs/pace/pace.min.js"></script> -->
 <script src="assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <!-- <script src="assets/libs/jquery-icheck/icheck.min.js"></script> -->
@@ -250,16 +274,16 @@ Marketing_act.init();
 <script src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 <script src="assets/js/pages/datatables.js"></script>
 
-<script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+<!-- <script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
 <script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
 <script src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
-<script src="assets/js/pages/datatables.js"></script>
+<script src="assets/js/pages/datatables.js"></script> -->
 
 <script src="assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
 <script src="assets/libs/bootstrap-inputmask/inputmask.js"></script>
 <!-- <script src="assets/libs/summernote/summernote.js"></script> -->
-<script src="assets/js/pages/forms.js"></script>
-<script src="assets/libs/bootstrap/js/bootstrap.min.js"></script>
+<!-- <script src="assets/js/pages/forms.js"></script> -->
+<!-- <script src="assets/libs/bootstrap/js/bootstrap.min.js"></script> -->
 <!-- <script src="custom/js/bootstrapValidator.min.js"></script> -->
 
 {literal}
@@ -269,3 +293,4 @@ $('.datenya').datepicker({
 });
 </script>
 {/literal}
+

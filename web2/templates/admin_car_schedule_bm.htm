@@ -117,7 +117,8 @@
         <div class="form-group col-sm-12">
             <label for="tradingplatform" class="col-sm-2 control-label">Car ID</label>
             <div class="col-md-4">
-                <select name="meta" class="form-control" >
+                <select name="meta" id="meta" class="form-control" 
+                onChange="AC_Schedule.shownya(meta.value);">
                   <option value="">-- Select Database --</option>
                   {foreach from=$meta_array key=myId item=i}
                   <option value="{$i.name_car}">{$i.name_car}</option>
@@ -181,11 +182,11 @@
     onClick="AC_Schedule.admin1(meta.value, downline.value, upline.value, mail.value, offer.value);">
 	</div> -->
 	<div class="col-sm-2">								
-	<input type="button" class="btn btn-success" name="Approv" value="Approve"
+	<input type="button" class="btn btn-success" name="Approv" id="Approv" value="Approve"
 	onClick="AC_Schedule.admin1(Approv.value, meta.value, downline.value, upline.value, mail.value, offer.value);">
 	</div>
 	<div class="col-sm-2">								
-	<input type="button" class="btn btn-danger" name="Cancel" value="No Car Available"
+	<input type="button" class="btn btn-danger" name="Cancel" id="Cancel" value="No Car Available"
 	onClick="AC_Schedule.admin2(Cancel.value, meta.value, downline.value, upline.value, mail.value, offer.value);">
 	</div>
 </div>
@@ -200,7 +201,7 @@
 					<div class="col-md-12 portlets">
                         <div class="widget">
                             <div class="widget-header ">
-                                <h2>Confirm Schedule Branch Manager</h2>
+                                <h2>Confirmation Schedule Branch Manager</h2>
                                 <div class="additional-btn">
                                     <!--<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a> -->
                                     <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>

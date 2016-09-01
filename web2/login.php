@@ -36,7 +36,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 if ($_POST) {
     $login_user = anti_injection($_POST['login_user']);
     $login_password = anti_injection($_POST['login_password']);
-    
+
     if (empty($login_user) && empty($login_password)) {
         set_log_server($login_user, "Incorrect Login<br>;" . $login_user . ";" . $login_password);
         $keterangan = "<b>59. You have entered a wrong account or password combination.</b><br><br>Please ensure that your details are correct and try again.<br>Failed attempts are logged for security purposes.<br>If you forget Password <a href='forgetpassword.php'>click here.</a>";
@@ -107,11 +107,11 @@ if ($_POST) {
     if ($user->groupid == 3 || $user->groupid == 9 || $user->groupid == 15) { //Client & AE
         //display_error("<b>Underconstruction</b>");
         if ($redirect == '') {
-            header("Location: mainmenu.php");    
+            header("Location: mainmenu.php");
         }else{
-            header("Location: ".$redirect);    
+            header("Location: ".$redirect);
         }
-        
+
     } else {
         display_error("<b>Sorry This username can not login here</b><br>Please ask admin");
         header("Location: login.php");

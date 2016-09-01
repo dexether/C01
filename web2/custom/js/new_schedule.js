@@ -21,14 +21,14 @@ var new_schedule1 = function() {
                 data:data,
                 type: 'POST',
                 success: function(response) {
-                        // console.log(response)
-						// $("#menu").html(response);
+                          // console.log(response)
+						 // $("#menu").html(response);
                     var res = response.substring(0, 1);
                            // alert("20:" + res);
                     if (res == '0') {//success
                            // alert("22:Success");
-                          var title = 'The new schedule successfully';
-                          var keterangan = 'Please check your e-mail reply from admin';
+                          var title = 'A new schedule has been submitted successfully';
+                          var keterangan = 'Please check your e-mail for confirmation';
                           notifysuccess_common('success', 'top right', title, keterangan);
                           setTimeout('history.go(0);', 4000);
 						  // $("#main_content").html(response);
@@ -77,7 +77,14 @@ var new_schedule1 = function() {
                     }
 					else if (res == '7') {//Access unAuthorize
                         //alert("35:Fail");
-                        var title = 'Can not create a schedule';
+                        var title = 'cant fill the schedule for yesterday';
+                        var keterangan = 'Please fill in the first Date Meeting field';
+                        notifyerror('error', 'top right', title, keterangan);
+                        setTimeout('history.go(0);', 6000);
+                    }
+                    else if (res == '<') {//Access unAuthorize
+                        //alert("35:Fail");
+                        var title = 'cant fill the schedule for yesterday';
                         var keterangan = 'Please fill in the first Date Meeting field';
                         notifyerror('error', 'top right', title, keterangan);
                         setTimeout('history.go(0);', 6000);

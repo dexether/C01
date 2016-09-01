@@ -11,7 +11,7 @@
 <!-- <link rel="stylesheet" href="custom/js/phone/intlTelInput.css"> -->
   <!-- Page Heading Start -->
   <div class="page-heading">
-    <h1><i class="icon-user-3"></i>MLM Registration
+    <h1><i class="icon-user-3"></i>Users Account Registration
     </h1>
     <h3>Here you can create a new Account</h3>
   </div>
@@ -49,7 +49,9 @@
                                    <th>Datetime</th>
                                    <th>Upline Email</th>
                                    <th>Name</th>
+                                   <th>Log Meta</th>
                                    <th>Branch Id</th>
+								   <th>Group Branch Id</th>
                                    <th>Telp</th>
                                    <th>Email</th>
                                    <th>Creat Account</th>
@@ -60,7 +62,9 @@
                                <th>Datetime</th>
                                    <th>Upline Email</th>
                                    <th>Name</th>
+								   <th>Log Meta</th>
                                    <th>Branch Id</th>
+                                   <th>Group Branch Id</th>
                                    <th>Telp</th>
                                    <th>Email</th>
                                    <th>Creat Account</th>
@@ -72,7 +76,9 @@
                                <td>{$i.datetime}</td>
                                <td>{$i.upline}</td>
                                <td>{$i.name}</td>
+                               <td>{$i.Log_meta}</td>
                                <td>{$i.city}</td>
+                               <td>{$i.group_city}</td>
                                <td>{$i.telp}</td>
                                <td>{$i.email}</td>
                                <td>{$i.creat_account}</td>
@@ -113,13 +119,19 @@
               </div>
             </div>
 			<div class="form-group">
+              <label class="col-sm-6 control-label">Group Branch</label>
+              <div class="col-sm-6">
+                <input type="email" name="logmeta" class="form-control" placeholder="Group Branch" value="{$tampil1}">
+              </div>
+            </div>
+			<div class="form-group">
               <label class="col-sm-6 control-label">Branch</label>
               <div class="col-sm-6">
-                <input type="branch" name="branch" class="form-control" placeholder="Enter Marketing Branch" value="{$tampil1}">
+                <input type="branch" name="branch" class="form-control" placeholder="Enter Branch" value="{$tampil2}">
               </div>
             </div>
 						
-            <div class="form-group">
+            <div class="form-group hidden">
               <label class="col-sm-6 control-label">Please Select the Plan</label>
               <div class="col-sm-6">
                 <select class="form-control" name="rupiah">
@@ -132,9 +144,9 @@
               <div class="col-sm-6">
                 <div class="input-group">
                   <input type="button" class="btn btn-success" id="pecah-form-btn"
-                  name="mm_new_level_child"  value="Subscribe"
+                  name="mm_new_level_child"  value="Approve"
                   onClick="getElementById('pecah-form-btn').style.display = 'none';
-                  car_MLM_Registration_JS.mm_new_level2(rupiah.value, email.value, marem.value, branch.value);" />
+                  car_MLM_Registration_JS.mm_new_level2(rupiah.value, email.value, marem.value, logmeta.value, branch.value);" />
                   </div><!-- /input-group -->
                 </div>
               </div>
@@ -142,17 +154,12 @@
           </div>
         </div>
       </div>
-     
-	  
-					
-	  
     </div>
-    </div>
-				 <div class="row">
+				<div class="row">
 					<div class="col-md-12 portlets">
                         <div class="widget">
                             <div class="widget-header ">
-                                <h2>MLM Registration Branch Manager</h2>
+                                <h2>Users Account Registration</h2>
                                 <div class="additional-btn">
                                     <!--<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a> -->
                                     <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
@@ -161,53 +168,16 @@
                             </div>
                             <div class="widget-content padding">
                             <div class="alert alert-info">
-                               this form to approve acc merketing registration.
+                               * This form to approve marketing registration.
                             </div>
                             </div>
                         </div>
                     </div>			
-                    </div>			
+                </div>	
+</div>
+						
 	
-    <!-- <script src="custom/js/phone/intlTelInput.js"></script>
-    {literal}
-    <script>
-    function onCountryChange() {
-    //alert($("#country").val());
-    }
-    $("#telephone_home").intlTelInput({
-    //allowExtensions: true,
-    //autoFormat: true,
-    //autoHideDialCode: true,
-    autoPlaceholder: true,
-    //defaultCountry: "auto",
-    //geoIpLookup: "ID",
-    nationalMode: false,
-    //numberType: "MOBILE",
-    //onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-    preferredCountries: ['id', 'my', 'sg'],
-    utilsScript: "custom/js/phone/utils.js"
-    });
-    $("#telephone_fax").intlTelInput({
-    autoPlaceholder: true,
-    nationalMode: false,
-    preferredCountries: ['id', 'my', 'sg'],
-    utilsScript: "custom/js/phone/utils.js"
-    });
-    $("#telephone_mobile").intlTelInput({
-    autoPlaceholder: true,
-    nationalMode: false,
-    preferredCountries: ['id', 'my', 'sg'],
-    utilsScript: "custom/js/phone/utils.js"
-    });
-    $("#telephone_office").intlTelInput({
-    autoPlaceholder: true,
-    nationalMode: false,
-    preferredCountries: ['id', 'my', 'sg'],
-    utilsScript: "custom/js/phone/utils.js"
-    });
-    </script>
-    {/literal}
-    <script src="custom/js/bootstrapValidator.min.js"></script> -->
+  
 	
     {literal}
     <script src="custom/js/car_mlm_registration_bm.js" type="text/javascript"></script>

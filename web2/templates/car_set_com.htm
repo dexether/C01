@@ -1,0 +1,307 @@
+<div id="main_content" class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header transparent">
+                    <h3>
+            <i class="icon-vcard">
+            </i>
+            <strong>
+			  {$clientaecode.name} Setting Commission
+            </strong>
+          </h3>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload">
+                            <i class="icon-ccw-1"></i>
+                        </a>
+                        <a href="#" class="widget-toggle">
+                            <i class="icon-down-open-2"></i>
+                        </a>
+                        <a href="#" class="widget-close">
+                            <i class="icon-cancel-3"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-content padding">
+                    <div id="horizontal-form">
+					
+						  <div class="alert alert-info nomargin">
+							* This form for setting Commission.
+						  </div>
+						  <br>
+		<div class="col-xs-12">
+					<div class="widget">
+                <div class="widget-header "><h4>Setting Commission<h4>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div> 
+                <div class="widget-content padding">
+                    <div id="horizontal-form">
+                        <form class="form-horizontal" role="form">
+							<div class="form-group">
+									<label class="col-sm-4 control-label"> Account Meta Login</label>
+									<div class="col-md-8">
+									<select name="marem" id="marem" class="form-control"
+									onChange="car_set_com_JS.shownya(marem.value);">
+												  <option value="">-- Meta Login --</option>
+												  {foreach from=$view key=view item=i}
+												  <option value="{$i.group_play}"  {if $i.group_play == $shownya} selected{/if}>{$i.group_play}</option>
+												  {/foreach}
+									</select>
+									</div>
+							</div>
+							<div class="form-group">
+                                <label for="tradingplatform" class="col-sm-4 control-label"></label>
+                                <div class="col-md-4">
+                                     <label for="tradingplatform" class="col-sm-4 control-label">Name</label>
+								</div>
+								<div class="col-md-2">
+									 <label for="tradingplatform" class="col-sm-2 control-label">Commission</label>
+								</div>
+								<div class="col-md-2">
+									 <label for="tradingplatform" class="col-sm-2 control-label">Over</label>
+                                </div>
+                                
+                            </div>
+							<div class="form-group">
+                                <label for="tradingplatform" class="col-sm-4 control-label"> </label>
+                                <div class="col-md-4">
+                                     <input class="form-control" name="nama" type="text" value="{$bm}"disabled>
+                                     <input class="form-control" name="acc1" type="hidden" value="{$bm1}"disabled>
+                                </div>
+								<div class="col-md-2">
+                                     <input class="form-control" name="comisi1" id="comisi1" value="{$bm0}" type="text" onkeyup="sum();"/>
+                                </div>
+								<div class="col-md-2">
+                                     <input class="form-control" name="over1" id="over1"  value="{$bm2}" type="text"disabled>
+                                     <input class="form-control" name="casnya1" id="casnya1"  value="{$cas}" type="hidden" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="accounttype" class="col-sm-4 control-label"> </label>
+                                <div class="col-md-4">
+                                     <input class="form-control" name="nama" type="text" value="{$mm}" disabled>
+                                     <input class="form-control" name="acc2" type="hidden" value="{$mm1}" disabled>
+                                </div>
+								<div class="col-md-2">
+                                     <input class="form-control" name="comisi2" id="comisi2" value="{$mm0}" type="text" onkeyup="sum();"/>
+                                </div>
+								<div class="col-md-2">
+                                     <input class="form-control" name="over2" id="over2" type="text"disabled>
+                                </div>
+                            </div>
+							<div class="form-group">
+                                <label for="accounttype" class="col-sm-4 control-label"> </label>
+                                <div class="col-md-4">
+                                     <input class="form-control" name="nama" type="text" value="{$spv}" disabled>
+                                     <input class="form-control" name="acc3" type="hidden" value="{$spv1}" disabled>
+                                </div>
+								<div class="col-md-2">
+                                     <input class="form-control" name="comisi3" id="comisi3" value="{$spv0}" type="text" onkeyup="sum();"/>
+                                </div>
+								<div class="col-md-2">
+                                     <input class="form-control" name="over3" id="over3" type="text"disabled>
+                                </div>
+                            </div>
+							<div class="form-group">
+                                <label for="accounttype" class="col-sm-4 control-label"> </label>
+                                <div class="col-md-4">
+                                     <input class="form-control" name="nama" type="text" value="{$ae}" disabled>
+                                     <input class="form-control" name="acc4" type="hidden" value="{$ae1}" disabled>
+                                </div>
+								<div class="col-md-2">
+                                     <input class="form-control" name="comisi4" id="comisi4" value="{$ae0}" type="text" onkeyup="sum();"/>
+                                </div>
+								<div class="col-md-2">
+                                     <input class="form-control" name="over4" id="over4" type="text"disabled>
+                                </div>
+                            </div>
+							<div class="form-group">
+                                <label for="accounttype" class="col-sm-4 control-label"> </label>
+                                <div class="col-md-4">
+                                     <input class="form-control" name="nama" type="text" value="{$aed}" disabled>
+                                     <input class="form-control" name="acc5" type="hidden" value="{$aed1}" disabled>
+                                </div>
+								<div class="col-md-2">
+                                     <input class="form-control" name="comisi5" id="comisi5" value="{$aed0}" type="text" onkeyup="sum();"/>
+                                </div>
+								<div class="col-md-2">
+                                     <input class="form-control" name="over5" id="over5" type="text"disabled>
+                                </div>
+                            </div>
+							<div class="form-group">
+                                <label for="accounttype" class="col-sm-4 control-label"> </label>
+                                <div class="col-md-4">
+                                     <input class="form-control" name="nama" type="text" value="{$aedf}" disabled>
+                                     <input class="form-control" name="acc6" type="hidden" value="{$aedf1}" disabled>
+                                </div>
+								<div class="col-md-2">
+                                     <input class="form-control" name="comisi6" id="comisi6" value="{$aedf0}" type="text" onkeyup="sum();"/>
+                                </div>
+								<div class="col-md-2">
+                                     <input class="form-control" name="over6" id="over6" type="text"disabled>
+                                </div>
+                            </div>
+							 <div class="form-group">
+                                <label for="currency" class="col-sm-4 control-label"></label>
+                                <div class="col-sm-8">	
+									<input type="button" class="btn btn-success" name="add" value="Setting"
+									onClick="car_set_com_JS.crud1(casnya1.value, acc1.value, comisi1.value, over1.value, acc2.value, comisi2.value, over2.value, acc3.value, comisi3.value, over3.value, acc4.value, comisi4.value, over4.value, acc5.value, comisi5.value, over5.value, acc6.value, comisi6.value, over6.value);">
+									</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>							
+            </div>
+		</div>	
+										<script>
+										function sum() {
+											  var com1 = document.getElementById('comisi1').value;
+													  if (!isNaN(com1)) {
+														 document.getElementById('over1').value = com1;
+													  }
+											  var com2 = document.getElementById('comisi2').value;
+													  var result2 = parseInt(com1) + parseInt(com2);
+													  if (!isNaN(result2)) {
+														 document.getElementById('over1').value = result2;
+													  }
+													  var result2a = parseInt(result2) - parseInt(com2);
+													  if (!isNaN(result2a)) {
+														 document.getElementById('over2').value = result2a;
+													  }
+											  var com3 = document.getElementById('comisi3').value;
+													  var result3 = parseInt(com1) + parseInt(com2) + parseInt(com3);
+													  if (!isNaN(result3)) {
+														 document.getElementById('over1').value = result3;
+													  }
+													  var result3a = document.getElementById('over1').value;
+													  var result3b = parseInt(result3a) - parseInt(com2);
+													  if (!isNaN(result3b)) {
+														 document.getElementById('over2').value = result3b;
+													  }
+													  var result3c = document.getElementById('over2').value;
+													  var result3d = parseInt(result3c) - parseInt(com3);
+													  if (!isNaN(result3d)) {
+														 document.getElementById('over3').value = result3d;
+													  }
+											  var com4 = document.getElementById('comisi4').value;
+													  var result4 = parseInt(com1) + parseInt(com2) + parseInt(com3) + parseInt(com4);
+													  if (!isNaN(result4)) {
+														 document.getElementById('over1').value = result4;
+													  }
+													  var result4a = document.getElementById('over1').value;
+													  var result4b = parseInt(result4a) - parseInt(com1);
+													  if (!isNaN(result4b)) {
+														 document.getElementById('over2').value = result4b;
+													  }
+													  var result4c = document.getElementById('over2').value;
+													  var result4d = parseInt(result4c) - parseInt(com2);
+													  if (!isNaN(result4d)) {
+														 document.getElementById('over3').value = result4d;
+													  }
+													  var result4e = document.getElementById('over3').value;
+													  var result4f = parseInt(result4e) - parseInt(com3);
+													  if (!isNaN(result4f)) {
+														 document.getElementById('over4').value = result4f;
+													  }
+											var com5 = document.getElementById('comisi5').value;
+													  var result5 = parseInt(com1) + parseInt(com2) + parseInt(com3) + parseInt(com4) + parseInt(com5);
+													  if (!isNaN(result5)) {
+														 document.getElementById('over1').value = result5;
+													  }
+													  var result5a = document.getElementById('over1').value;
+													  var result5b = parseInt(result5a) - parseInt(com1);
+													  if (!isNaN(result5b)) {
+														 document.getElementById('over2').value = result5b;
+													  }
+													  var result5c = document.getElementById('over2').value;
+													  var result5d = parseInt(result5c) - parseInt(com2);
+													  if (!isNaN(result5d)) {
+														 document.getElementById('over3').value = result5d;
+													  }
+													  var result5e = document.getElementById('over3').value;
+													  var result5f = parseInt(result5e) - parseInt(com3);
+													  if (!isNaN(result5f)) {
+														 document.getElementById('over4').value = result5f;
+													  }
+													  var result5g = document.getElementById('over4').value;
+													  var result5h = parseInt(result5g) - parseInt(com4);
+													  if (!isNaN(result5h)) {
+														 document.getElementById('over5').value = result5h;
+													  }
+											var com6 = document.getElementById('comisi6').value;
+													  var result6 = parseInt(com1) + parseInt(com2) + parseInt(com3) + parseInt(com4) + parseInt(com5) + parseInt(com6);
+													  if (!isNaN(result6)) {
+														 document.getElementById('over1').value = result6;
+													  }
+													  var result6a = document.getElementById('over1').value;
+													  var result6b = parseInt(result6a) - parseInt(com1);
+													  if (!isNaN(result6b)) {
+														 document.getElementById('over2').value = result6b;
+													  }
+													  var result6c = document.getElementById('over2').value;
+													  var result6d = parseInt(result6c) - parseInt(com2);
+													  if (!isNaN(result6d)) {
+														 document.getElementById('over3').value = result6d;
+													  }
+													  var result6e = document.getElementById('over3').value;
+													  var result6f = parseInt(result6e) - parseInt(com3);
+													  if (!isNaN(result6f)) {
+														 document.getElementById('over4').value = result6f;
+													  }
+													  var result6g = document.getElementById('over4').value;
+													  var result6h = parseInt(result6g) - parseInt(com4);
+													  if (!isNaN(result6h)) {
+														 document.getElementById('over5').value = result6h;
+													  }
+													  var result6i = document.getElementById('over5').value;
+													  var result6j = parseInt(result6i) - parseInt(com5);
+													  if (!isNaN(result6j)) {
+														 document.getElementById('over6').value = result6j;
+													  }
+											
+											 
+										}
+										</script>
+			</div>
+		</div>
+						
+                    </div>
+                </div>
+					
+					<div class="col-md-12 portlets">
+                        <div class="widget">
+                            <div class="widget-header ">
+                                <h2>User Manual Setting Commission</h2>
+                                <div class="additional-btn">
+                                    <!--<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a> -->
+                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                    <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content padding">
+                            <div class="alert alert-info">
+							   * Before making sure the login meta been in setting cas commission.<br>
+                               * Select the Account Meta Login for settings.<br>
+                               * The contents of the commission for the BM , MM , SPV and AE.<br>
+                               * And press the setting button when finished setting.
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+	</div>
+	
+{literal}
+<script src="custom/js/car_set_com.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {
+car_set_com_JS.init();
+});
+</script>
+{/literal}

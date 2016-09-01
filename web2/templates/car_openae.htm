@@ -1,0 +1,214 @@
+<div id="confirm" class="content">
+	<!-- <link href="assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" /> -->
+	<link href="assets/libs/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	<!-- <link href="assets/libs/jquery-icheck/skins/all.css" rel="stylesheet" /> -->
+	<link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="custom/datatable2/media/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="custom/datatable2/resources/syntax/shCore.css">
+
+	<script type="text/javascript" language="javascript" src="custom/datatable2/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="custom/datatable2/resources/syntax/shCore.js"></script>
+	<script type="text/javascript" language="javascript" src="custom/datatable2/resources/demo.js"></script>
+	<!-- <link href="assets/libs/bootstrap-timing/timingfield.css" rel="stylesheet"> -->
+	
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header transparent">
+                    <h1>
+            <i class="icon-vcard">
+            </i>
+            <strong>
+			  {$clientaecode.name}
+			  Count Commission
+            </strong>
+          </h1>
+                <div class="additional-btn">
+                        <a href="#" class="hidden reload">
+                            <i class="icon-ccw-1"></i>
+                        </a>
+                        <a href="#" class="widget-toggle">
+                            <i class="icon-down-open-2"></i>
+                        </a>
+                        <a href="#" class="widget-close">
+                            <i class="icon-cancel-3"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-content padding">
+                    <div id="horizontal-form">
+					
+						  <div class="alert alert-info nomargin">
+							* This form to calculate your commission.
+						  </div>
+		<div class="col-md-12">
+			<div class="widget"> 
+                <div class="widget-content padding">
+                    <div id="cariae">
+                        <form class="validation-reg" role="form">
+							<div class="vertical-form-group" style="text-align:right">
+								<div class="form-group">
+									<label class="col-xs-1 control-label"> Name</label>
+									<div class="col-xs-3">
+									<input type="text" class="form-control" name="name" value="{$tampil0}" disabled>
+									<input type="hidden" class="form-control" name="accno" value="{$tampil}" disabled>
+									<input type="hidden" class="form-control" name="down" value="{$accountnya}" disabled>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-xs-2 control-label"> Email</label>
+									<div class="col-xs-2">
+									<input type="text" class="form-control" name="accountmeta" value="{$tampil1}" disabled>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-xs-2 control-label"> Branch</label>
+									<div class="col-xs-2">
+									<input type="text" class="form-control" name="branch" value="{$tampil2}" disabled>
+									</div>
+								</div>
+								<br>
+								<br>
+							</div>
+                            <div class="vertical-form-group" style="text-align:right">
+								<div class="form-group">
+									<label for="tradingplatform" class="col-sm-2 control-label">Commission Date </label>
+									<div class="col-md-2">
+										 <input type="text" name="commissiondate" class="form-control col-sm-2 datenya" data-mask="9999-99-99" placeholder="yyyy-mm-dd">
+										 <!-- <input type="text" name="commissiondate" class="form-control timing" data-mask="9999-99-99" placeholder="yyyy-mm-dd"> -->
+									</div> 
+									<div class="col-md-2">
+										 <input type="text" name="commissionhour" class="form-control col-sm-2" data-mask="99-99-99" placeholder="hh-mm-ss">
+										 <!-- <input type="text" name="commissiondate" class="form-control timing" data-mask="9999-99-99" placeholder="yyyy-mm-dd"> -->
+									</div> 
+								</div>
+								<div class="form-group">
+									<label for="tradingplatform" class="col-sm-2 control-label">To Date </label>
+									<div class="col-md-2">
+										 <input type="text" name="todate" class="form-control datenya" data-mask="9999-99-99" placeholder="yyyy-mm-dd">
+									</div>
+									<div class="col-md-2">
+										 <input type="text" name="tohour" class="form-control" data-mask="99-99-99" placeholder="hh-mm-ss">
+									</div> 
+								</div>
+								<br>
+								<br>
+							</div>
+                            <div class="vertical-form-group">
+								<label for="currency" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">								
+								<input type="button" class="btn btn-warning" name="Approv" value="Count"
+								onClick="car_hitcom_bm.carimeta(down.value, accno.value, accountmeta.value, commissiondate.value, commissionhour.value, todate.value, tohour.value);">
+								</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>							
+            </div>
+		</div>
+		<div class="col-md-12">
+			<div class="widget yellow-2 left">
+                <div class="widget-header ">
+					<h2>Tabel Your COMMISSION</h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div> 
+                <div id="content1">						
+                    <!-- Tabel_meta -->
+                </div>							
+            </div>	
+		</div>
+	</div>
+</div>
+						
+                    </div>
+                </div>
+							
+					
+					<div class="col-md-12 portlets">
+                        <div class="widget">
+                            <div class="widget-header ">
+                                <h2>User Manual Count Commission</h2>
+                                <div class="additional-btn">
+                                    <!--<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a> -->
+                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                    <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content padding">
+                            <div class="alert alert-info">
+                               * Select from the Commission Date and To Date.<br>
+							   * press the button count to begin counting commission.
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+					
+            </div>
+        </div>
+   
+	{literal}
+<script src="custom/js/car_openae.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {
+car_hitcom_bm.init();
+});
+</script>
+{/literal}
+
+
+
+
+<script src="assets/libs/bootstrap-fileinput/bootstrap.file-input.js"></script>
+
+<!-- <script src="assets/libs/bootstrap/js/bootstrap.min.js"></script> -->
+
+<!-- <script src="assets/libs/jqueryui/jquery-ui-1.10.4.custom.min.js"></script> -->
+<!-- <script src="assets/libs/pace/pace.min.js"></script> -->
+<script src="assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<!-- <script src="assets/libs/bootstrap-timing/timingfield.js"></script> -->
+<!-- <script src="assets/libs/jquery-icheck/icheck.min.js"></script> -->
+
+<script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+<script src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="assets/js/pages/datatables.js"></script>
+
+<!-- <script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+<script src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="assets/js/pages/datatables.js"></script> -->
+
+<script src="assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="assets/libs/bootstrap-inputmask/inputmask.js"></script>
+<!-- <script src="assets/libs/summernote/summernote.js"></script> -->
+<!-- <script src="assets/js/pages/forms.js"></script> -->
+<!-- <script src="assets/libs/bootstrap/js/bootstrap.min.js"></script> -->
+<!-- <script src="custom/js/bootstrapValidator.min.js"></script> -->
+
+{literal}
+<script>
+$('.datenya').datepicker({
+ format: 'yyyy-mm-dd'
+});
+</script>
+{/literal}
+
+<!-- {literal}
+<script>
+$(".timing").timingfield({
+	  maxHour:        23,
+	  width:          263,
+	  hoursText:      'H',
+	  minutesText:    'M',
+	  secondsText:    'S'
+	});
+</script>
+{/literal} -->
+
+

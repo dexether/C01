@@ -1,0 +1,52 @@
+<link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+<link href="assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="custom/datatable2/media/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="custom/datatable2/resources/syntax/shCore.css">
+
+<script type="text/javascript" language="javascript" src="custom/datatable2/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript" src="custom/datatable2/resources/syntax/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="custom/datatable2/resources/demo.js"></script>
+
+<h3>Divide of reserved fund</h3>
+<form class="form-horizontal" role="form">
+	<div class="form-group">
+		<div class="form-group">
+			<label class="col-md-2 control-label"> Total reserved fund</label>
+			<div class="col-md-2">
+			<input type="text" class="form-control" name="totallot" value='{$commissiondate|number_format:2:",":"."}'>
+			</div>																										
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"> Divide 1</label>
+			<label class="col-md-1 control-label"> = 1/2</label>
+			<div class="col-md-2">
+			<input type="text" class="form-control" name="account" value='{$dev1|number_format:2:",":"."}'>
+			</div>																																																				
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"> Divide 2</label>
+			<label class="col-md-1 control-label"> = 1/4</label>
+			<div class="col-md-2">
+			<input type="text" class="form-control" name="account" value='{$dev2|number_format:2:",":"."}'>
+			</div>																																																				
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"> Divide 3</label>
+			<label class="col-md-1 control-label"> = 1/8</label>
+			<div class="col-md-2">
+			<input type="text" class="form-control" name="account" value='{$dev3|number_format:2:",":"."}'>
+			</div>																																																				
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"> Divide 4</label>
+			<label class="col-md-1 control-label"> = 1/8</label>
+			<div class="col-md-2">
+			<input type="text" class="form-control" name="account" value='{$dev4|number_format:2:",":"."}'>
+			</div>																																																				
+		</div>
+</form>																						
+<script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+<script src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="assets/js/pages/datatables.js"></script>					

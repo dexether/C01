@@ -1,0 +1,183 @@
+<div id="main_content" class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header transparent">
+                    <h1>
+            <i class="icon-vcard">
+            </i>
+            <strong>
+			  {$clientaecode.name}
+			  Delete Account
+            </strong>
+          </h1>
+                <div class="additional-btn">
+                        <a href="#" class="hidden reload">
+                            <i class="icon-ccw-1"></i>
+                        </a>
+                        <a href="#" class="widget-toggle">
+                            <i class="icon-down-open-2"></i>
+                        </a>
+                        <a href="#" class="widget-close">
+                            <i class="icon-cancel-3"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-content padding">
+                    <div id="horizontal-form">
+					
+						  <div class="alert alert-info nomargin">
+							* This form is to delete meta login and Account Cabinet
+						  </div>
+				
+						<div class="col-md-12">
+							<div class="widget"> 
+								<div class="widget-content padding">
+									<div id="cariae">
+										<form class="form-horizontal" role="form">
+											<div class="col-sm-6 portlets">
+												<div class="widget">
+													<div class="widget-header transparent">
+														<h2><strong>Delete</strong> Account Meta Login</h2>
+														<div class="additional-btn">
+															<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+															<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+															<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+														</div>
+													</div>
+													<div class="widget-content padding">						
+														<div id="horizontal-form">
+															  <div class="form-group">
+																<label for="inputEmail3" class="col-sm-3 control-label">Meta Login :</label>
+																<div class="col-sm-9">
+																	<select name="aename" class="form-control" onChange="delete_js.show(aename.value);">
+																			  <option value="">-- Select Meta Login --</option>
+																			  {foreach from=$ceks key=cek item=i}
+																			  <option value="{$i.group_play}"  {if $i.group_play == $semail} selected{/if}>{$i.group_play}</option>
+																			  {/foreach}
+																	</select>
+																</div>
+															  </div>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="col-sm-6 portlets">
+												<div class="widget">
+													<div class="widget-header transparent">
+														<h2><strong>Delete</strong> Account Cabinet</h2>
+														<div class="additional-btn">
+															<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+															<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+															<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+														</div>
+													</div>
+													<div class="widget-content padding">						
+														<div id="horizontal-form">
+															  <div class="form-group">
+																<label for="inputEmail3" class="col-sm-3 control-label">Account :</label>
+																<div class="col-sm-9">
+																	<select name="marem" class="form-control" onChange="delete_js.shownya(marem.value);">										
+																			  <option value= "">-- Select Account Cabinet --</option>
+																			  {foreach from=$namenya key=name item=i}
+																			  <option value="{$i.ACCNO}"  {if $i.ACCNO == $shownya} selected {/if}>{$i.ACCNO}</option>
+																			  {/foreach}
+																	</select>
+																</div>
+															  </div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>							
+							</div>
+						</div>
+		
+						<div class="col-md-12">
+							<div class="widget yellow-2 left">
+								<div class="widget-header ">
+									<h2>Delete Detail</h2>
+									<div class="additional-btn">
+										<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+										<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+										<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+									</div>
+								</div> 
+								<div id="content1">						
+									<!-- Tabel_meta -->
+								</div>							
+							</div>	
+						</div>
+						<div class="col-md-12" hidden>
+							<div class="widget yellow-2 left">
+								<div class="widget-header ">
+									<h2>Login Meta</h2>
+									<div class="additional-btn">
+										<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+										<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+										<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+									</div>
+								</div> 
+								<div id="content2">						
+									<!-- Tabel_meta -->
+								</div>							
+							</div>	
+						</div>
+						<div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                        <h4 class="modal-title">Setting Commission</h4>
+                                    </div>
+                                    <div class="modal-body">
+											 
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+	</div>
+</div>
+						
+                    </div>
+                </div>
+							
+					
+					<div class="col-md-12 portlets">
+                        <div class="widget">
+                            <div class="widget-header ">
+                                <h2>User Manual Delete Meta Login and Account Cabinet</h2>
+                                <div class="additional-btn">
+                                    <!--<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a> -->
+                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                    <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content padding">
+                            <div class="alert alert-info">
+                               * Please select delete Meta Login or Account Cabinet.<br>
+							   * If you select delete Meta Log then please select meta login.<br>
+							   * If you select Delete Account Cabinet then select Account Cabinet.<br>
+							   * And then press the Delete button.
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+					
+            </div>
+        </div>
+   
+	{literal}
+<script src="custom/js/car_delete.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {
+delete_js.init();
+});
+</script>
+{/literal}

@@ -59,6 +59,13 @@ if(isset($_GET['ACCNO'])){
 $template->assign("cari1", $cari1);
 // var_dump ($cari1);
 
+$branch="";
+if(isset($_GET['branch'])){
+    $branch = $_GET['branch'];
+}
+$template->assign("branch", $branch);
+// var_dump ($branch);
+
 
 $used = '';
 if (isset($_GET['use'])) {
@@ -104,7 +111,8 @@ if ($add=="add") {
 	$query = "INSERT INTO car SET name_car = '$cari',
 				enabled = '$used',
 				desc_car = '$desc',
-				capacity = '$capacity'";
+				capacity = '$capacity',
+				branch = '$branch'";
 			
 			$DB->execonly($query);
 			// var_dump($query);
@@ -123,7 +131,7 @@ if ($add=="add") {
 			$DB->execonly($query);
 			// var_dump($query);
 	
-}else if($delet=="delet"){
+}else if($delet=="delete"){
 	
 	$query = "DELETE FROM car WHERE car_id = '$cari1'";
 			

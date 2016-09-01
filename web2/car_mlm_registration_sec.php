@@ -1,5 +1,4 @@
 <?php
-
 include_once("$_SERVER[DOCUMENT_ROOT]/includes/functions.php");
 include_once("$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php");
 include_once("includes/wr_tools.php");
@@ -82,18 +81,23 @@ if ($clientaecode['afiliasi'] == '' || strpos($clientaecode['afiliasi'], '@') ==
 $template->assign("afiliasi", $afiliasi);
 
 $query = "SELECT 
-			  secretaris.`branch`
+			  secretaris.`group_branch`
 			FROM
 			  secretaris 
 			WHERE secretaris.`email` ='$user->username' ";
    
      $rows = $DB->execresultset($query);
-	$secretaris="";
+	$secretaris=array();
 	 foreach ($rows as $row) {
-         $secretaris = $row['branch'];
+         $secretaris[] = $row['group_branch'];
     }
     $template->assign("secretaris", $secretaris);
 	// var_dump($secretaris);
+	
+	$kalimat = implode("','",$secretaris);
+	// var_dump ($kalimat);
+
+
 
 if ($user->groupid == '9'){
 	$ceks = array();
@@ -114,11 +118,12 @@ if ($user->groupid == '9'){
 		$query	  = "SELECT 
 					  * 
 					FROM
-					  marketing
-					WHERE  marketing.`creat_account`= 'no'
-					AND marketing.`city` ='$secretaris'
-					ORDER BY DATETIME ASC ";
+					  marketing 
+					WHERE group_city IN ('$kalimat')
+					  AND  marketing.`creat_account` = 'no'
+					  ORDER BY DATETIME ASC ";
 		$rows = $DB->execresultset($query);
+		// var_dump($query);
 		foreach ($rows as $row) {
 		$ceks[] = $row;
 		}
@@ -143,7 +148,7 @@ $tampil1 = '' ;
 		$rows = $DB->execresultset($query);
 		foreach ($rows as $row) {
 		$tampil = $row['upline'];
-		$tampil1 = $row['city'];
+		$tampil1 = $row['group_city'];
 		}
 		$template->assign("tampil", $tampil);
 		$template->assign("tampil1", $tampil1);

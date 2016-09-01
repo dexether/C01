@@ -1,0 +1,172 @@
+<div id="main_content" class="content">
+	<div class="page-heading">
+		<h1><i class="icon-vcard"></i>ACCNO : {$dataACCNO.ACCNO}</h1>
+	</div>
+	<div class="row">
+		<div class="col-md-12 portlets">
+			<div class="widget">
+				<div class="widget-content padding">
+					<div id="horizontal-form">
+						<div class="form-group">
+							<label for="account_label_type" class="col-sm-2">Select Account:</label>
+							<div class="col-sm-10">
+							<select name="marem" id="marem" class="form-control" 
+							onChange="Treview_JS.shownya(marem.value);">
+							  <option value="">-- Select Account --</option>
+							  {foreach from=$ceks key=cek item=i}
+							  <option value="{$i.group_play}" {if $i.group_play == $shownya} selected{/if}>{$i.group_play}</option>
+							  {/foreach}
+							</select>
+							</div>
+							<br>
+						</div>
+						<div class="form-group">
+							<label for="account_label_type" class="col-sm-2">Account Type:</label>
+							<label for="account_type" class="col-sm-10">
+								{if $dataACCNO.mt4dt!=''}
+								MT4 with data source from {$dataACCNO.mt4dtalias} with Login : {$dataACCNO.mt4login}
+								{else}
+								{$dataACCNO.mt4dt}
+								{/if}
+							</label>
+						</div>
+						
+						<div class="form-group">
+							<label for="account_label_type" class="col-sm-2">Created Time:</label>
+							<label for="account_type" class="col-sm-10">
+								{$dataACCNO.datetime}
+							</label>
+						</div>
+					</div>
+					<br>
+					<legend></legend>
+					<div class="panel-group accordion-toggle" id="accordiondemo3">
+						<div class="panel panel-lightblue-2">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordiondemo3" href="#accordion7">
+									<i class="icon icon-newspaper"></i> Temporary Statement
+								</a>
+								</h4>
+							</div>
+							<div id="accordion7" class="panel-collapse collapse in">
+								<div class="panel-body">
+									{if $dataACCNO.mt4dtalias=="Un_set MT4 Database"}
+									<div class="alert alert-warning">
+										<span><strong>Warning :</strong></span>This account has not been set for database
+									</div>
+									{else}
+									<form class="form-inline" role="form">
+										<div class="form-group">
+											<input type="text" class="form-control" name="account" id="account" value="{$dataACCNO.mt4login}" readonly>
+											<input type="hidden" class="form-control" name="mt4dt" id="mt4dt" value="{$dataACCNO.mt4dt}" readonly>
+										</div>
+
+										<input type="button" class="btn btn-default" value="Go" onclick="Treview_JS.temporary_statement(account.value, mt4dt.value);">
+										<aa id="to-excel" hidden>
+											<button id="to-excel" type="button" class="btn btn-green-3" onclick="location.href = 'temporary_statement.php?account=' + account.value + '&mt4dt='+ mt4dt.value +' &excell=yes';">
+											<i class="fa fa-file-text"></i> Export to Excell
+											</button>
+										</aa>
+										
+									</form>
+									{/if}
+									<div id="temporary-statement">
+										<!-- Start Of report -->
+										
+										<!-- End Of report -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-lightblue-2">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordiondemo3" href="#accordion8">
+									<i class="icon icon-calendar"></i> Daily Statement
+								</a>
+								</h4>
+							</div>
+							<div id="accordion8" class="panel-collapse collapse">
+								<div class="panel-body">
+									{if $dataACCNO.mt4dtalias=="Un_set MT4 Database"}
+									<div class="alert alert-warning">
+										<span><strong>Warning :</strong></span>This account has not been set for database
+									</div>
+									{else}
+									<form class="form-inline" role="form">
+										
+										<div class="form-group">
+											<input type="text" class="form-control" name="account" id="account" value="{$dataACCNO.mt4login}" readonly>
+											<input type="hidden" class="form-control" name="mt4dt" id="mt4dt" value="{$dataACCNO.mt4dt}" >
+											<select class="form-control" name="datesearch" id="datesearch">
+												{foreach from=$dateall item=tanggalnya}
+												<option value="{$tanggalnya}">{$tanggalnya}</option>
+												
+												{/foreach}
+											</select>
+										</div>
+										<input type="button" class="btn btn-default" value="Go" onclick="Treview_JS.daily_statement(account.value, datesearch.value, mt4dt.value);">
+										<aa id="to-excel2" hidden>
+											<button id="to-excel" type="button" class="btn btn-green-3" onclick="location.href = 'daily_statement.php?account=' + account.value +  '&datesearch=' + datesearch.value + '&mt4dt='+ mt4dt.value +'&excell=yes';">
+											<i class="fa fa-file-text"></i> Export to Excell
+											</button>
+										</aa>
+									</form>
+									{/if}
+									<div id="daily-statement">
+										<!-- Start Of report -->
+										
+										<!-- End Of report -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-lightblue-2">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordiondemo3" href="#accordion9">
+									<i class="fa fa-money"></i> Running Price
+								</a>
+								</h4>
+							</div>
+							<div id="accordion9" class="panel-collapse collapse">
+								<div class="panel-body">
+									<dic
+									<table width="auto" class="formatHTML5" >
+										{if $dataACCNO.mt4dtalias=="Un_set MT4 Database"}
+										<div class="alert alert-warning">
+											<span><strong>Warning :</strong></span>This account has not been set for database
+										</div>
+										{else}
+										<!-- TABLE HEADER-->
+										<thead>
+											<tr>
+												<td><iframe frameborder="0" scrolling="yes" height="400" width="575" allowtransparency="true" marginwidth="0" marginheight="0" src="http://price.agrodana-futures.com/"></iframe><br /><div style="width:575"></div></td>
+											</tr>
+										</thead>
+										<!-- TABLE FOOTER-->
+										<tfoot>
+										<tr>
+											<td colspan="11"><span class="style1">Copyright &#9400 2014 CABINET MANAGEMENT SYSTEM</span></td>
+										</tr>
+										</tfoot>
+									</table>
+									{/if}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="custom/js/car_treview.js" type="text/javascript"></script>
+{literal}
+<script>
+jQuery(document).ready(function() {
+Treview_JS.init();
+});
+</script>
+{/literal}

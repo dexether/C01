@@ -82,18 +82,21 @@ if ($clientaecode['afiliasi'] == '' || strpos($clientaecode['afiliasi'], '@') ==
 $template->assign("afiliasi", $afiliasi);
 
 $query = "SELECT 
-			  branch_manager.`branch`
+			  branch_manager.`group_branch`
 			FROM
 			  branch_manager 
 			WHERE branch_manager.`email` ='$user->username' ";
    
      $rows = $DB->execresultset($query);
-	$bm="";
+	$bm=array();
 	 foreach ($rows as $row) {
-         $bm = $row['branch'];
+         $bm[] = $row['group_branch'];
     }
     $template->assign("bm", $bm);
-	// var_dump($bm);
+	 // var_dump($bm);
+	 $kalimat = implode("','",$bm);
+	 // echo $kalimat;
+	 
 
 if ($user->groupid == '9'){
 	$ceks = array();
@@ -102,7 +105,7 @@ if ($user->groupid == '9'){
 					FROM
 					  marketing 
 					WHERE marketing.`creat_account` <> 'BM Approve' 
-					ORDER BY DATETIME ASC ";
+					ORDER BY email ASC ";
 		$rows = $DB->execresultset($query);
 		foreach ($rows as $row) {
 		$ceks[] = $row;
@@ -114,16 +117,16 @@ if ($user->groupid == '9'){
 		$query	  = "SELECT 
 					  * 
 					FROM
-					  marketing
-					WHERE  marketing.`creat_account`= 'Accept'
-					AND marketing.`city` ='$bm'
-					ORDER BY DATETIME ASC ";
+					  marketing 
+					WHERE group_city IN ('$kalimat') 
+					  AND marketing.`creat_account` = 'Accept' 
+					ORDER BY email ASC ";
 		$rows = $DB->execresultset($query);
 		foreach ($rows as $row) {
 		$ceks[] = $row;
 		}
 		$template->assign("ceks", $ceks);
-		// var_dump($ceks);
+		 // var_dump($query);
 }
 
 $shownya = "";
@@ -134,21 +137,32 @@ $template->assign("shownya", $shownya);
 // var_dump($shownya);
 
 $tampil = '' ;
+$tampil0 = '' ;
 $tampil1 = '' ;
+$tampil2 = '' ;
 		$query	  = "SELECT 
-					  * 
+					  marketing.`email`,
+					  marketing.`upline`,
+					  marketing.`group_city`,
+					  marketing.`city` 
 					FROM
 					  marketing 
-					WHERE marketing.`email` = '$shownya' ";
+					WHERE marketing.`email` ='$shownya' ";
 		$rows = $DB->execresultset($query);
 		foreach ($rows as $row) {
 		$tampil = $row['upline'];
-		$tampil1 = $row['city'];
+		$tampil0 = $row['email'];
+		$tampil1 = $row['group_city'];
+		$tampil2 = $row['city'];
 		}
 		$template->assign("tampil", $tampil);
+		$template->assign("tampil0", $tampil0);
 		$template->assign("tampil1", $tampil1);
+		$template->assign("tampil2", $tampil2);
 		 // var_dump($tampil);
+		 // var_dump($tampil0);
 		 // var_dump($tampil1);
+		 // var_dump($tampil2);
 
 
 $template->display("car_mlm_registration_bm.htm");

@@ -74,6 +74,20 @@ $_SESSION['page'] = 'add_new_schedule';
 /*==============================
 =        Start Coding          =
 ==============================*/
+$query = "SELECT 
+branch_manager.`email` 
+FROM
+branch_manager 
+WHERE branch_manager.`email` ='$user->username' ";
+
+$rows = $DB->execresultset($query);
+$bm="";
+foreach ($rows as $row) {
+	$bm = $row['email'];
+}
+$template->assign("bm", $bm);
+	// var_dump($bm);
+
 if($user->username == 'admin@gmail.com'){
 		$accountmlm = 'COMPANY';
         $uplinemlm = 'COMPANY';
@@ -86,14 +100,41 @@ if($user->username == 'admin@gmail.com'){
 		$template->assign("accountmlm", $accountmlm);
 		$template->assign("uplinemlm", $uplinemlm);
 	
+}else if($bm == $user->username){
+		
+        $uplinemlm = 'COMPANY';
+		
+		$query = "SELECT 
+				  mlm.* 
+				FROM
+				  mlm,
+				  client_accounts 
+				WHERE client_accounts.`accountname` = mlm.`ACCNO`
+				AND mlm.`group_play`='Car' 
+				AND client_accounts.`email` = '$user->username'
+				ORDER BY DATETIME ASC LIMIT 1";
+					//TradeLog_MLMRegistration("MLM_Registration-84=" . $user->groupid . ";" . $query);
+					$rows = $DB->execresultset($query);
+					foreach ($rows as $row) {
+						$accountmlm = $row['ACCNO'];
+						
+    }
+    $template->assign("accountmlm", $accountmlm);
+    $template->assign("uplinemlm", $uplinemlm);
+	 
+// var_dump($accountmlm);
+// var_dump($uplinemlm);
+	
 }else{
 	$query = "SELECT 
   mlm.* 
 FROM
   mlm,
   client_accounts 
-WHERE client_accounts.`accountname` = mlm.`ACCNO` 
-AND client_accounts.`email` = '$user->username'";
+WHERE client_accounts.`accountname` = mlm.`ACCNO`
+AND mlm.`group_play`='Car' 
+AND client_accounts.`email` = '$user->username'
+ORDER BY DATETIME ASC LIMIT 1";
     //TradeLog_MLMRegistration("MLM_Registration-84=" . $user->groupid . ";" . $query);
     $rows = $DB->execresultset($query);
     foreach ($rows as $row) {
@@ -103,8 +144,8 @@ AND client_accounts.`email` = '$user->username'";
     $template->assign("accountmlm", $accountmlm);
     $template->assign("uplinemlm", $uplinemlm);
 	 
-	// var_dump($accountmlm);
-	// var_dump($uplinemlm);
+// var_dump($accountmlm);
+// var_dump($uplinemlm);
 }
 	
 	

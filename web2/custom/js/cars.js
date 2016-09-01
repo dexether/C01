@@ -12,10 +12,10 @@ var Cars_JS = function() {
             //handle_withdrawal();
         },
         
-        car: function(accountsearch) {
-           var url = 'cars.php?accno=' + accountsearch;
+        view: function(lihat) {
+           var url = 'cars.php?lihat=' + lihat;
             var data = '&ajax_validation=1';
-			// console.log(accountsearch);     
+			    // console.log(lihat);     
 			 
             
 			$.ajax({
@@ -23,16 +23,16 @@ var Cars_JS = function() {
                 data:data,
                 type: 'POST',
                 success: function(response) {
-				// console.log(response)
+                       // console.log(response)
 				$("#main_content").html(response);
-				
+				                
                 }
             });
         },
-		crud1: function(add, accountsearch, downline, used, capacity, desc) {
-           var url = 'cars_do.php?addcar=' + add + '&accno=' + accountsearch + '&ACCNO=' + downline + '&use=' + used + '&capac=' + capacity + '&des=' + desc;
+		crud1: function(add, accountsearch, downline, branch, used, capacity, desc) {
+           var url = 'cars_do.php?addcar=' + add + '&accno=' + accountsearch + '&ACCNO=' + downline + '&branch=' + branch + '&use=' + used + '&capac=' + capacity + '&des=' + desc;
             var data = '&ajax_validation=1';
-			   // console.log(add, accountsearch, downline, used, capacity, desc);     
+			   // console.log(add, accountsearch, downline, branch, used, capacity, desc);     
 			 
             
 			 $.ajax({

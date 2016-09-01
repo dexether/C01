@@ -72,28 +72,33 @@ $_SESSION['page'] = 'marketing_activity';
 /*==============================
 =        Start Coding          =
 ==============================*/
-	
+
     $query = "SELECT client_aecode.*   
 				from client_aecode 
 				where 
 				client_aecode.aecode = '$user->username'";
     $rows = $DB->execresultset($query);
+	$clientaecode="";
     foreach ($rows as $row) {
         $clientaecode = $row;
     }
     $template->assign("clientaecode", $clientaecode);
 
-	$query = "SELECT client_accounts.`accountname`
-				FROM
-				  client_accounts
-				WHERE client_accounts.`email` = '$user->username' ";
+	$query = "SELECT 
+  client_accounts.`accountname` 
+FROM
+  client_accounts,
+  mlm 
+WHERE mlm.`ACCNO`=client_accounts.`accountname`
+AND mlm.`group_play`='Car'
+AND client_accounts.`email` = '$user->username' ";
     $rows = $DB->execresultset($query);
 	$account="";
 	 foreach ($rows as $row) {
          $account = $row['accountname'];
     }
     $template->assign("account", $account);
-	// var_dump($account);
+	 // var_dump($account);
 
 if ($user->groupid == '3') {
 	
@@ -102,10 +107,11 @@ if ($user->groupid == '3') {
 			FROM
 			  mlm,client_accounts 
 			WHERE  mlm.`ACCNO` = client_accounts.`accountname`
+			AND mlm.`group_play`='Car'
 			AND client_accounts.`email` ='$user->username' ";
    
      $rows = $DB->execresultset($query);
-	$view= '';
+	$view= "";
 	 foreach ($rows as $row) {
          $view = $row['branch'];
     }
@@ -127,7 +133,7 @@ $query	  = "SELECT
 		// var_dump($special);
 		
 		 
-$query	  = "SELECT 
+/* $query	  = "SELECT 
 			  secretaris.`email` 
 			FROM
 			  secretaris WHERE secretaris.`email`='$user->username'
@@ -138,75 +144,152 @@ $query	  = "SELECT
 		$special1= $row['email'];
 		}
 		$template->assign("special1", $special1);
-		 // var_dump($special1);
-	 
-	
-		
-	
+		 // var_dump($special1); */
+ 
+/*  Cari Downline */
+$condiional = "AND client_aecode.aecode = '" . $user->username . "'";
+$condiional_header = "";
+$condiional_footer = "";
 
-	
+$query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*   
+        FROM client_aecode,client_accounts,mlm  
+        WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
+        AND client_accounts.`suspend` = '0' 
+        AND client_accounts.`accountname` = mlm.`ACCNO`
+		AND mlm.`group_play`='Car' 
+          $condiional
+        ";
+$datatress = array();
+$rows = $DB->execresultset($query);
+foreach ($rows as $row) {
+    $datatress[$row['ACCNO']] = $row;
+}
+// var_dump ($datatress);
+$longtree = $condiional_header;
+if (count($datatress) > 0) {
+    foreach ($datatress AS $ACCNO1 => $datatres) {
+		// var_dump($ACCNO1);
+        $longtree = $longtree . "'" . $ACCNO1."'";
+        $longtree = updatechild($longtree, $ACCNO1);
+        $longtree = $longtree . "";
+    }
+}
+$longtree = $longtree . $condiional_footer;
+$template->assign("longtree", $longtree);
+// var_dump($longtree);
 
+/* End Cari Downline */	
 
 if ($user->groupid == '9'){
 	$ceks = array();
 		$query	  = "SELECT 
-					  *
+					  mar_ac.* ,
+					  client_aecode.`name`
 					FROM
-					  mar_ac
+					  mar_ac,
+					  client_accounts,
+					  client_aecode
+					 WHERE client_accounts.`accountname` = mar_ac.`account`
+					 AND client_accounts.`email`= client_aecode.`aecode` 
 					ORDER BY mar_ac.`account` ASC";
 		$rows = $DB->execresultset($query);
 		foreach ($rows as $row) {
 		$ceks[] = $row;
 		}
 		$template->assign("ceks", $ceks);
+		// var_dump($query);
 		  // var_dump($ceks);
-}else if ($user->username == $special){
+} else {
 		$ceks = array();
 		$query	  = "SELECT 
-					  mar_ac.* 
-					FROM
-					  mar_ac
-					WHERE mar_ac.`branch` = '$view'";
+  mar_ac.* ,
+  client_aecode.`name`
+FROM
+  mar_ac,
+  client_accounts,
+  client_aecode
+ WHERE client_accounts.`accountname` = mar_ac.`account`
+ AND client_accounts.`email`= client_aecode.`aecode` 
+ AND mar_ac.`account` IN ($longtree)";
 		$rows = $DB->execresultset($query);
 		foreach ($rows as $row) {
-		$ceks[] = $row;
+		$ceks[]= $row;;
 		}
 		$template->assign("ceks", $ceks);
-		 // var_dump($ceks);
-}else if ($user->username == $special1){
-		$ceks = array();
-		$query	  = "SELECT 
-					  mar_ac.* 
-					FROM
-					  mar_ac
-					WHERE mar_ac.`branch` = '$view'";
-		$rows = $DB->execresultset($query);
-		foreach ($rows as $row) {
-		$ceks[] = $row;
-		}
-		$template->assign("ceks", $ceks);
-		  // var_dump($ceks);
-}else {
+		        // var_dump($query);
+		        // var_dump($ceks);
+}
+/*else if ($user->username == $special){
 	
-     $ceks = array();
+
+	
+		$ceks = array();
 		$query	  = "SELECT 
-					  mar_ac.* 
+					  mar_ac.* ,
+					  client_aecode.`name`
 					FROM
-					  mar_ac
-					WHERE mar_ac.`account` = '$account'";
+					  mar_ac,
+					  client_accounts,
+					  client_aecode
+					 WHERE client_accounts.`accountname` = mar_ac.`account`
+					 AND client_accounts.`email`= client_aecode.`aecode` 
+					 AND mar_ac.`account`='$account'";
 		$rows = $DB->execresultset($query);
 		foreach ($rows as $row) {
-		$ceks[] = $row;
+		$ceks[]= $row;;
 		}
 		$template->assign("ceks", $ceks);
-		   // var_dump($ceks);
+				// var_dump($query);
+		        // var_dump($ceks);
 	
 }
+ else if ($user->username == $special1){
+		$ceks = array();
+		$query	  = "SELECT 
+					  mar_ac.* 
+					FROM
+					  mar_ac
+					WHERE mar_ac.`branch` = '$view'";
+		$rows = $DB->execresultset($query);
+		foreach ($rows as $row) {
+		$ceks[] = $row;
+		}
+		$template->assign("ceks", $ceks);
+		   var_dump($ceks);
+} */
+
+
 /*=====  End of Coding  ======*/
-
-
-
 $template->display("marketing_activity.htm");
+
+
+function updatechild($longtree, $ACCNO2) {
+    $longtree = $longtree . "";
+    global $DB;
+    $datatress = array();
+    $query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*   
+    FROM client_aecode,client_accounts,mlm  
+    WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid` 
+    AND client_accounts.`suspend` = '0'
+    AND client_accounts.`accountname` = mlm.`ACCNO` 
+    AND mlm.Upline = '$ACCNO2' ";
+
+    $rows = $DB->execresultset($query);
+    foreach ($rows as $row) {
+        $datatress[$row['ACCNO']] = $row;
+    }
+	// var_dump($datatress);
+    if (count($datatress) > 0) {
+        foreach ($datatress AS $ACCNO1 => $datatres) {
+            $longtree = $longtree . ",'" . $ACCNO1."'";
+            $longtree = updatechild($longtree, $ACCNO1);
+            $longtree = $longtree . "";
+        }
+    }
+    $longtree = $longtree . "";
+	// var_dump($longtree);
+    return $longtree;
+}
 
 function myfilter($input_var_outer, $param) {
     global $var_to_pass;

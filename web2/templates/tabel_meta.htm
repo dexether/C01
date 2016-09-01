@@ -1,0 +1,42 @@
+
+<form class="form-horizontal" role="form" id='formnya'>
+	<div class="form-group">
+		 {foreach from=$creat key=creat item=i}
+		 <div class="col-sm-4">
+		<label class="col-sm-12 control-label">Input Login Meta {$i.name}:</label>
+		<input type="text" class="form-control" name="emailacc[]" value="{$i.emailacc}">
+		<input type="hidden" class="form-control" name="emailupline[]" value="{$i.emailupline}">
+		<input type="hidden" class="form-control" name="groupbranch[]" value="{$i.group_branch}">
+		<input type="text" class="form-control" name="branch[]" value="{$i.branch}">
+		<input type="text" class="form-control" id="accountmeta{$i.noup}" name="accountmeta[]" placeholder="Input Login Meta here" onkeyup="sum();"/>
+		<!-- <input type="text" class="form-control" name="comisi[]" placeholder="Input Commission here"> -->
+		</div>
+		{/foreach}
+							
+	</div>
+	<div class="form-group">
+		<div class="col-xs-2">								
+			<input type="button" class="btn btn-warning" name="Approv" value="Next"
+			onClick="car_hitcom_JS.creataccno();">
+		</div>
+	</div>
+</form>																							
+										<script>
+										function sum() {
+											  var com1 = document.getElementById('accountmeta0').value;
+											  if (!isNaN(com1)) {
+												 document.getElementById('accountmeta1').value = com1;
+											  } if (!isNaN(com1)) {
+												 document.getElementById('accountmeta2').value = com1;
+											  } if (!isNaN(com1)) {
+												 document.getElementById('accountmeta3').value = com1;
+											  } if (!isNaN(com1)) {
+												 document.getElementById('accountmeta4').value = com1;
+											  } if (!isNaN(com1)) {
+												 document.getElementById('accountmeta5').value = com1;
+											  }
+											  if (!/^[0-9]+$/.test(accountmeta0.value)) {
+													accountmeta0.value = accountmeta0.value.substring(0,accountmeta0.value.length-1);
+												  }
+										}
+										</script>

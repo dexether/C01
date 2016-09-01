@@ -38,22 +38,23 @@
                 </div> 
                 <div class="widget-content padding">
 					<div class="alert alert-info">
-					Form for Input , Edit and Delet table
+					Form to input, edit and delete Cars
                     </div>
                     <div id="horizontal-form">
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Car Name</label>
 									<div class="col-sm-6">
-									<input type="text" class="form-control" name="accountsearch" id="accountsearch" value="{$cari}">
-									<div class="col-sm-4" hidden>
+									<input type="text" class="form-control" name="accountsearch" id="accountsearch" value="{$statements0}">
+									<div class="col-sm-12" hidden>
 										<input type="text" class="form-control" name="downline" id="downline" value="{$statements2}">
+										<input type="text" class="form-control" name="branch" id="branch" value="{$specialbranch1}">
 									</div>
 									</div>
-									<div class="col-sm-2">								
+									<!-- <div class="col-sm-2">								
 									<input type="button" class="btn btn-success" value="Find"
 									onClick="Cars_JS.car( accountsearch.value);">
-									</div>
+									</div> -->
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Used</label>
@@ -79,12 +80,12 @@
                             <div class="form-group">
                                 <div class="col-sm-offset-3 col-sm-10">
 									<input type="button" class="btn btn-success" name="add" value="add"
-									onClick="Cars_JS.crud1(add.value, accountsearch.value, downline.value, used.value, capacity.value, desc.value);">
+									onClick="Cars_JS.crud1(add.value, accountsearch.value, downline.value, branch.value, used.value, capacity.value, desc.value);">
 									
 									<input type="button" class="btn btn-warning" name="edit" value="edit"
 									onClick="Cars_JS.crud2(edit.value, accountsearch.value, downline.value, used.value, capacity.value, desc.value);">
 									
-									<input type="button" class="btn btn-danger" name="delet" value="delet"
+									<input type="button" class="btn btn-danger" name="delet" value="delete"
 									onClick="Cars_JS.crud3(delet.value, accountsearch.value, downline.value, used.value, capacity.value, desc.value);">
 								</div>
                             </div>
@@ -112,6 +113,7 @@
 								<th>Description</th>
 								<th>Used</th>
 								<th>Passenger Capacity</th>
+								<th>Action</th>
 							</tr>
 							</thead>
 							<tfoot>
@@ -120,17 +122,19 @@
 								<th>Description</th>
 								<th>Used</th>
 								<th>Passenger Capacity</th>
+								<th>Action</th>
 							</tr>
 							</tfoot>
 							<tbody>
 							<tr>
 								{foreach from=$ceks key=cek item=i}
-								{if $i.enabled == 'yes'}
+								
 								<td>{$i.name_car}</td>
 								<td>{$i.desc_car}</td>
 								<td> {$i.enabled}  </td>
 								<td>{$i.capacity} Person</td>
-								{else}   {/if}
+								<td><a  class="btn btn-info" name="lihat" onClick="Cars_JS.view('{$i.car_id}');">Edit/Delete</a>
+								 </td>
 								</tr>
 								{/foreach} 
 							</tbody>

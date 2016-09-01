@@ -1,0 +1,95 @@
+						<form class="form-horizontal" role="form">
+							<div class="horizontal-form-group" style="text-align:right">
+								<div class="form-group"> 
+										<label class="col-sm-2 control-label"> Nama</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="namanya" Value="{$namenya1}"disabled>
+										</div>
+										<label class="col-sm-2 control-label"> Nama</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="namanya1" Value="{$namenya2}"disabled>
+										<input type="hidden" class="form-control" name="namanya2" Value="{$accountnya}">
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label"> Email</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="email" Value="{$email1}"disabled>
+										</div>
+										<label class="col-sm-2 control-label"> Email</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="email2" Value="{$email2}"disabled>
+										</div>									
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label"> Branch</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="branch" Value="{$branch1}"disabled>
+										</div>
+										<label class="col-sm-2 control-label"> Branch</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="branch2" Value="{$branch2}"disabled>
+										</div>									
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label">Group Branch</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="groupbranch" Value="{$groupbranch1}"disabled>
+										</div>
+										<label class="col-sm-2 control-label">Group Branch</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="groupbranch2" Value="{$groupbranch2}"disabled>
+										</div>									
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label"> Meta Login</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="metanya" Value="{$metanya}"disabled>
+										</div>
+										<label class="col-sm-2 control-label"> Meta Login</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="metanya2" Value="{$metanya}"disabled>
+										</div>									
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label"> Commission 1</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="comisi" id="comisi" onkeyup="sum();"/>
+										</div>
+										<label class="col-sm-2 control-label"> Commission 2</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="comisi2" id="comisi2" Value="{$comnya}" onkeyup="sum();"/>
+										</div>									
+								</div>
+							
+								<div class="form-group">
+										<div class="col-sm-6">
+										<input type="button" class="btn btn-warning" name="Approv" value="Next"
+										onClick="MetaKhusus_JS.creataccno(namanya2.value, email.value, groupbranch.value, branch.value, metanya.value, comisi.value, comisi2.value, boundary.value, boundary2.value);">
+										</div>
+										<label class="col-sm-2 control-label"> Boundary Commission</label>
+										<div class="col-sm-2">
+										<input type="text" class="form-control" name="boundary" id="boundary" disabled>
+										</div>
+										<div class="col-sm-2">
+										<input type="text" class="form-control" name="boundary2" Value="{$comnya}"disabled>
+										</div>
+								</div>
+							</div>
+                        </form>																					
+										<script>
+										function sum() {
+											  var com1 = document.getElementById('comisi').value;
+											  var com2 = document.getElementById('comisi2').value;
+											  var result2 = parseInt(com1) + parseInt(com2);
+												if (!isNaN(result2)) {
+														 document.getElementById('boundary').value = result2;
+													  }
+											  if (!/^[0-9]+$/.test(comisi.value)) {
+													comisi.value = comisi.value.substring(0,comisi.value.length-1);
+												  }
+											if (!/^[0-9]+$/.test(comisi2.value)) {
+													comisi2.value = comisi2.value.substring(0,comisi2.value.length-1);
+												  }
+										}
+										</script>

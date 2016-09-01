@@ -148,7 +148,8 @@ $meta = "SELECT
   car.name_car 
 FROM
   car 
-WHERE enabled = 'yes' 
+WHERE enabled = 'yes'
+AND branch IN ('$secretaris','OK') 
 ORDER BY car.car_id ASC ";
 $meta_query = $DB->execresultset($meta);
 $template->assign("meta_array", $meta_query);
@@ -234,6 +235,13 @@ if(count($rows) > 0){
 	else{
 		$template->display("admin_car_schedule.htm");
 		}
+
+$shownya = "";
+if (isset($_POST['shownya'])) {
+    $shownya = $_POST['shownya'];
+}
+$template->assign("shownya", $shownya);
+// var_dump($shownya);
 
 function myfilter($input_var_outer, $param) {
     global $var_to_pass;

@@ -1,0 +1,220 @@
+<div id="main_content" class="content">
+	<!-- <link href="assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" /> -->
+	<link href="assets/libs/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	<!-- <link href="assets/libs/jquery-icheck/skins/all.css" rel="stylesheet" /> -->
+	<link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="custom/datatable2/media/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="custom/datatable2/resources/syntax/shCore.css">
+
+	<script type="text/javascript" language="javascript" src="custom/datatable2/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="custom/datatable2/resources/syntax/shCore.js"></script>
+	<script type="text/javascript" language="javascript" src="custom/datatable2/resources/demo.js"></script>
+
+	
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header transparent">
+                    <h1>
+            <i class="icon-vcard">
+            </i>
+            <strong>
+			  {$clientaecode.name}
+			  
+            </strong>
+          </h1>
+                <div class="additional-btn">
+                        <a href="#" class="hidden reload">
+                            <i class="icon-ccw-1"></i>
+                        </a>
+                        <a href="#" class="widget-toggle">
+                            <i class="icon-down-open-2"></i>
+                        </a>
+                        <a href="#" class="widget-close">
+                            <i class="icon-cancel-3"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-content padding">
+                    <div id="horizontal-form">
+					
+						  <div class="alert alert-info nomargin">
+							* This form for Setting Account Special.
+						  </div>
+		<div class="col-md-12">
+			<div class="widget"> 
+                <div class="widget-content padding">
+                    <div id="cariae">
+                        <form class="form-horizontal" role="form">
+							<div class="horizontal-form-group" style="text-align:right">
+								<div class="form-group"> 
+										<label class="col-sm-2 control-label"> Select Name to Setting</label>
+										<div class="col-sm-4">
+										<select name="marem" id="marem" class="form-control"
+										onChange="MLMKhusus_JS.shownya(marem.value);">
+												  <option value="">-- Select Name --</option>
+												  {foreach from=$ceks key=cek item=i}
+												  <option value="{$i.accountname}"  {if $i.accountname == $shownya} selected{/if}>{$i.name}</option>
+												  {/foreach}
+										</select>
+										</div>
+								</div>
+								
+								<div class="form-group">
+										<label class="col-sm-2 control-label"> Email</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="email" value="{$tampil}">
+										</div>									
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label"> Upline</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="email2" value="{$tampil2}">
+										</div>									
+								</div>
+								<div class="form-group">
+										<label class="col-sm-2 control-label"> Branch</label>
+										<div class="col-sm-4">
+										<input type="text" class="form-control" name="branch" value="{$tampil1}">
+										</div>									
+								</div>
+							
+								<div class="form-group">
+										<label class="col-sm-2 control-label"></label>
+										
+									<div class="col-sm-1">								
+									<input type="button" class="btn btn-warning" name="Approv" value="Next"
+									onClick="MLMKhusus_JS.carimeta(email.value, email2.value, branch.value);">
+									</div>
+								</div>
+							</div>
+                        </form>
+                    </div>
+                </div>							
+            </div>
+		</div>
+		<div class="col-md-12">
+			<div class="widget yellow-2 left">
+                <div class="widget-header ">
+					<h2>Account Cabinet Special</h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div> 
+                <div id="content1">						
+                    <!-- Tabel_meta -->
+                </div>							
+            </div>	
+		</div>
+		<div class="col-md-12" hidden>
+			<div class="widget yellow-2 left">
+                <div class="widget-header ">
+					<h2>Login Meta</h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div> 
+                <div id="content2">						
+                    <!-- Tabel_meta -->
+                </div>							
+            </div>	
+		</div>
+<div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                        <h4 class="modal-title">Setting Commission</h4>
+                                    </div>
+                                    <div class="modal-body">
+											 
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+	</div>
+</div>
+						
+                    </div>
+                </div>
+							
+					
+					<div class="col-md-12 portlets" hidden>
+                        <div class="widget">
+                            <div class="widget-header ">
+                                <h2>User Manual Setting Login Meta</h2>
+                                <div class="additional-btn">
+                                    <!--<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a> -->
+                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                    <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content padding">
+                            <div class="alert alert-info">
+                               * Choose a name that will be the setting AE login meta.<br>
+							   * Press the button next to search upline.<br>
+							   * Enter the login meta in the " Input Meta Log in here" in BM and automatic login another meta same.<br>
+							   * Setting login meta login is only set that has not been set.
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+					
+            </div>
+        </div>
+   
+	{literal}
+<script src="custom/js/car_mlmkhusus.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {
+MLMKhusus_JS.init();
+});
+</script>
+{/literal}
+
+
+
+
+<script src="assets/libs/bootstrap-fileinput/bootstrap.file-input.js"></script>
+
+<!-- <script src="assets/libs/bootstrap/js/bootstrap.min.js"></script> -->
+
+<!-- <script src="assets/libs/jqueryui/jquery-ui-1.10.4.custom.min.js"></script> -->
+<!-- <script src="assets/libs/pace/pace.min.js"></script> -->
+<script src="assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<!-- <script src="assets/libs/jquery-icheck/icheck.min.js"></script> -->
+
+<script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+<script src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="assets/js/pages/datatables.js"></script>
+
+<!-- <script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+<script src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="assets/js/pages/datatables.js"></script> -->
+
+<script src="assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="assets/libs/bootstrap-inputmask/inputmask.js"></script>
+<!-- <script src="assets/libs/summernote/summernote.js"></script> -->
+<!-- <script src="assets/js/pages/forms.js"></script> -->
+<!-- <script src="assets/libs/bootstrap/js/bootstrap.min.js"></script> -->
+<!-- <script src="custom/js/bootstrapValidator.min.js"></script> -->
+
+{literal}
+<script>
+$('.datenya').datepicker({
+ format: 'yyyy-mm-dd'
+});
+</script>
+{/literal}
+

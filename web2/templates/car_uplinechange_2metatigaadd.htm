@@ -1,0 +1,31 @@
+				<div class="widget">
+					<div class="widget-header transparent">
+						<h2><strong>Change</strong> Meta Upline</h2>
+					</div>
+					<div class="widget-content padding">
+						<div id="horizontal-form">
+							<form class="form-horizontal" role="form">
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Email Upline</label>
+										<div class="col-sm-4">
+											<input type="hidden" class="form-control" name="acc" value="{$metanya}"disabled>
+											<input type="text" class="form-control" name="emailold">
+										</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Email</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" name="emailnew" >
+										</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label"></label>
+										<div class="col-sm-4">
+											<input type="button" class="btn btn-warning" name="Next" value="Next"
+											onClick="Uplinechange_2.changemeta(Next.value, acc.value, emailold.value, emailnew.value);">
+										</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>

@@ -1,0 +1,246 @@
+<div id="confirm" class="content">
+	<link href="assets/libs/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	<link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="custom/datatable2/media/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="custom/datatable2/resources/syntax/shCore.css">
+
+	<script type="text/javascript" language="javascript" src="custom/datatable2/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="custom/datatable2/resources/syntax/shCore.js"></script>
+	<script type="text/javascript" language="javascript" src="custom/datatable2/resources/demo.js"></script>
+	
+	<link rel="stylesheet" href="assets/libs/bootstrap-multiselect/dist/css/bootstrap-multiselect.css" type="text/css">
+	<script type="text/javascript" src="assets/libs/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"></script>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header transparent">
+                    <h1>
+            <i class="icon-vcard">
+            </i>
+            <strong>
+			  {$clientaecode.name}
+			  Count reserved fund
+            </strong>
+          </h1>
+                <div class="additional-btn">
+                        <a href="#" class="hidden reload">
+                            <i class="icon-ccw-1"></i>
+                        </a>
+                        <a href="#" class="widget-toggle">
+                            <i class="icon-down-open-2"></i>
+                        </a>
+                        <a href="#" class="widget-close">
+                            <i class="icon-cancel-3"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-content padding">
+                    <div id="horizontal-form">
+					
+						  <div class="alert alert-info nomargin">
+							* This form to calculate your reserved fund.
+						  </div>
+		<div class="col-md-12">
+			<div class="widget"> 
+                <div class="widget-content padding">
+                    <div id="cariae">
+                        <form class="validation-reg" role="form" id='formnya'>
+							<div class="vertical-form-group" style="text-align:right">
+								<div class="form-group">
+									<label class="col-xs-1 control-label"> Name</label>
+									<div class="col-xs-3">
+									<input type="text" class="form-control" name="name" value="{$tampil0}" disabled>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-xs-2 control-label"> Email</label>
+									<div class="col-xs-2">
+									<input type="text" class="form-control" name="accountmeta" value="{$tampil1}" disabled>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-xs-2 control-label"> Branch</label>
+									<div class="col-xs-2">
+									<input type="text" class="form-control" name="branch" value="{$tampil2}" disabled>
+									</div>
+								</div>
+								<br>
+								<br>
+							</div>
+                            <div class="vertical-form-group" style="text-align:right">
+								<div class="form-group">
+									<label for="tradingplatform" class="col-sm-2 control-label">reserved fund Date </label>
+									<div class="col-md-2">
+										 <input type="text" name="commissiondate[]" class="form-control col-sm-2 datenya" data-mask="9999-99-99" placeholder="yyyy-mm-dd">
+										 <!-- <input type="text" name="commissiondate" class="form-control timing" data-mask="9999-99-99" placeholder="yyyy-mm-dd"> -->
+									</div> 
+									<div class="col-md-2">
+										 <input type="text" name="commissionhour[]" class="form-control col-sm-2" data-mask="99-99-99" placeholder="hh-mm-ss">
+										 <!-- <input type="text" name="commissiondate" class="form-control timing" data-mask="9999-99-99" placeholder="yyyy-mm-dd"> -->
+									</div> 
+								</div>
+								<div class="form-group">
+									<label for="tradingplatform" class="col-sm-2 control-label">To Date </label>
+									<div class="col-md-2">
+										 <input type="text" name="todate[]" class="form-control datenya" data-mask="9999-99-99" placeholder="yyyy-mm-dd">
+									</div>
+									<div class="col-md-2">
+										 <input type="text" name="tohour[]" class="form-control" data-mask="99-99-99" placeholder="hh-mm-ss">
+									</div> 
+								</div>
+								<br>
+								<br>
+							</div>
+										<div class="form-group" style="text-align:right">
+											<label class="col-xs-1 control-label">To:</label>
+											<div class="col-xs-3">
+												<div class="example">
+													<script type="text/javascript">
+														$(document).ready(function() {
+															$('#example-large-includeSelectAllOption-enableFiltering').multiselect({
+																maxHeight: 200,
+																includeSelectAllOption: true,
+																enableFiltering: true
+															});
+														});
+													</script>
+													<select id="example-large-includeSelectAllOption-enableFiltering" multiple="multiple" name="example[]">
+														{foreach from=$meta key=meta item=i}
+														  <option value="{$i.ACCNO}">{$i.group_play}</option>
+														{/foreach}
+													</select>
+												</div>
+											</div>
+											<div class="col-xs-1">								
+											<input type="button" class="btn btn-warning" name="Approv" value="Count"
+											onClick="car_DC.carimeta();">
+											</div>
+										</div>
+                        </form>
+                    </div>
+                </div>							
+            </div>
+		</div>
+		<div class="col-md-12">
+			<div class="widget yellow-2 left">
+                <div class="widget-header ">
+					<h2>Tabel reserved fund</h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div> 
+                <div id="content1">						
+                    <!-- Tabel_meta -->
+                </div>							
+            </div>	
+		</div>
+		<div class="col-md-12" hidden>
+			<div class="widget yellow-2 left">
+                <div class="widget-header ">
+					<h2>Divide</h2>
+                    <div class="additional-btn">
+                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    </div>
+                </div> 
+                <div id="content2">						
+                    <!-- Tabel_meta -->
+                </div>							
+            </div>	
+		</div>
+	</div>
+</div>
+						
+                    </div>
+                </div>
+							
+					
+					<div class="col-md-12 portlets">
+                        <div class="widget">
+                            <div class="widget-header ">
+                                <h2>User Manual Count Reserved Fund</h2>
+                                <div class="additional-btn">
+                                    <!--<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a> -->
+                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                    <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content padding">
+                            <div class="alert alert-info">
+                               * Select from the Commission Date and To Date.<br>
+							   * press the button count to begin counting reserved fund.<br>
+							   * Scroll down And press the button Divide to begin Divide reserved fund.
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+					
+            </div>
+        </div>
+   
+	{literal}
+<script src="custom/js/car_dc.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {
+car_DC.init();
+});
+</script>
+{/literal}
+
+
+
+
+<script src="assets/libs/bootstrap-fileinput/bootstrap.file-input.js"></script>
+
+<!-- <script src="assets/libs/bootstrap/js/bootstrap.min.js"></script> -->
+
+<!-- <script src="assets/libs/jqueryui/jquery-ui-1.10.4.custom.min.js"></script> -->
+<!-- <script src="assets/libs/pace/pace.min.js"></script> -->
+<script src="assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<!-- <script src="assets/libs/bootstrap-timing/timingfield.js"></script> -->
+<!-- <script src="assets/libs/jquery-icheck/icheck.min.js"></script> -->
+
+<script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+<script src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="assets/js/pages/datatables.js"></script>
+
+<!-- <script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+<script src="assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="assets/js/pages/datatables.js"></script> -->
+
+<script src="assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="assets/libs/bootstrap-inputmask/inputmask.js"></script>
+<!-- <script src="assets/libs/summernote/summernote.js"></script> -->
+<!-- <script src="assets/js/pages/forms.js"></script> -->
+<!-- <script src="assets/libs/bootstrap/js/bootstrap.min.js"></script> -->
+<!-- <script src="custom/js/bootstrapValidator.min.js"></script> -->
+
+{literal}
+<script>
+$('.datenya').datepicker({
+ format: 'yyyy-mm-dd'
+});
+</script>
+{/literal}
+
+<!-- {literal}
+<script>
+$(".timing").timingfield({
+	  maxHour:        23,
+	  width:          263,
+	  hoursText:      'H',
+	  minutesText:    'M',
+	  secondsText:    'S'
+	});
+</script>
+{/literal} -->
+
+

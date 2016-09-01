@@ -28,6 +28,27 @@ var VIEW_schedules = function() {
                 }
             });
         },
+		delet: function(lihat) {
+           var url = 'view_schedules_delete.php?lihat=' + lihat;
+            var data = '&ajax_validation=1';
+			    // console.log(lihat);     
+			 
+            
+			$.ajax({
+                url: url,
+                data:data,
+                type: 'POST',
+                success: function(response) {
+                       // console.log(response)
+					// $("#main_content").html(response);
+					var title = 'Delete Success!!';
+                    var keterangan = '';
+                    notifysuccess_common('success', 'top right', title, keterangan);
+					setTimeout('history.go(0);', 2000);
+				                
+                }
+            });
+        },
 						   
     };
 }();

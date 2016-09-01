@@ -35,10 +35,35 @@ var AC_Schedule = function() {
             });
         },
 		
+		shownya: function(b) {
+            var url = 'admin_car_schedule.php';
+            var data = {
+                shownya: b
+            };
+			// console.log(b);
+             $.ajax({
+                url: url,
+                data: data,
+                type: 'POST',
+                success: function(response) {
+					if ( b == 'No Car Available' ){
+						$('#Approv').prop('disabled', true);
+						$('#Cancel').prop('disabled', false);
+						$('#offer').prop('disabled', false);
+					} else {
+						$('#Cancel').prop('disabled', true);
+						$('#Approv').prop('disabled', false);
+						$('#offer').prop('disabled', true);
+					}
+					
+				}
+			 });
+        },
+		
 		admin1: function(Approv, meta, downline, upline, mail, offer) {
 			var url = 'admin_car_schedule_do.php?Approv=' + Approv + '&meta=' + meta + '&ACCNO=' + downline + '&accountupline=' + upline + '&email=' + mail + '&offer=' + offer;
             var data = '&ajax_validation=1';
-			     console.log(Approv, meta, downline, upline, mail, offer);     
+			     // console.log(Approv, meta, downline, upline, mail, offer);     
 			 
             
 			 $.ajax({
@@ -52,8 +77,8 @@ var AC_Schedule = function() {
                      // alert("20:" + res);
                     if (res == '0') {//success
                           // alert("22:Success");
-                        var title = 'Confirm schedule successfully';
-                        var keterangan = 'And Then e-mail reply from User and Upline';
+                        var title = 'Schedule confirmed successfully';
+                        var keterangan = '';
                         notifysuccess_common1('success', 'top right', title, keterangan);
                         setTimeout('history.go(0);', 4000);
 						// $("#main_content").html(response);
@@ -64,13 +89,14 @@ var AC_Schedule = function() {
                         var keterangan = 'Please fill in the first Car Id field';
                         notifyerror1('error', 'top right', title, keterangan);
 						
-                    }else if (res == '2') {//Access unAuthorizee
-                        //alert("35:Fail");
-                        var title = "Can not create a schedule";
-                        var keterangan = 'Please fill in the first Offer field';
-                        notifyerror1('error', 'top right', title, keterangan);
-                       
                     }
+					// else if (res == '2') {//Access unAuthorizee
+                        // //alert("35:Fail");
+                        // var title = "Can not create a schedule";
+                        // var keterangan = 'Please fill in the first Offer field';
+                        // notifyerror1('error', 'top right', title, keterangan);
+                       
+                    // }
 				  
                 }
             });
@@ -105,13 +131,14 @@ var AC_Schedule = function() {
                         var keterangan = 'Please fill in the first Car Id field';
                         notifyerror1('error', 'top right', title, keterangan);
 						
-                    }else if (res == '2') {//Access unAuthorizee
-                        //alert("35:Fail");
-                        var title = "Can not create a schedule";
-                        var keterangan = 'Please fill in the first Offer field';
-                        notifyerror1('error', 'top right', title, keterangan);
-                       
                     }
+					// else if (res == '2') {//Access unAuthorizee
+                        // //alert("35:Fail");
+                        // var title = "Can not create a schedule";
+                        // var keterangan = 'Please fill in the first Offer field';
+                        // notifyerror1('error', 'top right', title, keterangan);
+                       
+                    // }
 				  
                 }
             });
