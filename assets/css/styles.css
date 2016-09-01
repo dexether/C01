@@ -1224,6 +1224,12 @@ hr {
   margin-bottom: 15px;
   text-transform: uppercase;
 }
+.slider-item-caption-title-black {
+  color: black;
+  font-size: 60px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
 @media (max-width:992px) {
   .slider-item-caption-title {
     font-size: 25px !important;
@@ -1231,6 +1237,7 @@ hr {
   }
 }
 .slider-item-caption-desc {
+  color: black;
   font-size: 20px;
   opacity: 0.75;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";

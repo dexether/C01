@@ -117,7 +117,7 @@ src="custom/datatable2/resources/demo.js">
 							<input type="hidden" name="token" value="{$token}">
 							<input type="hidden" name="aecodeid" value="{$alldatas.aecodeid}">
 							<input type="hidden" name="postmode" value="upload">
-							
+
 							<div>
 								<span class="btn btn-default btn-file">
 									<div class="dropzone fileinput-exists thumbnail"
@@ -142,7 +142,7 @@ src="custom/datatable2/resources/demo.js">
 			</div>
 		</div>
 		<!-- End div .col-sm-4 -->
-		
+
 		<div class="col-sm-9">
 			<br> <br>
 
@@ -188,7 +188,7 @@ src="custom/datatable2/resources/demo.js">
 												</div>
 												<div class="form-group">
 													<label class="control-label">Date of Birth <i class="text-danger">*</i></label>
-													<input type="text" class="form-control" id="date" 
+													<input type="text" class="form-control" id="date"
 													id='register_birthday' name='register_birthday' value="{$alldatas.bod}" >
 													<p class="help-block">Date of Birthday is yyyy-mm-dd</p>
 												</div>
@@ -525,11 +525,11 @@ src="custom/datatable2/resources/demo.js">
 																					<strong>Why are you required to provide a copy
 																						of your card?</strong>
 																					</p>
-																					<p>IC Markets complies with Australian Anti-Money
+																					<!-- <p>IC Markets complies with Australian Anti-Money
 																						Laundering (AML) law, as such we are required to ensure
 																						that we only accept funds from the owner of the trading
 																						account and not from another person. Sighting a copy of
-																						your credit card ensures that we comply with the law.</p>
+																						your credit card ensures that we comply with the law.</p> -->
 																						<p>To be accepted for credit card funding you must
 																							ensure that:</p>
 																							<p>
@@ -555,8 +555,8 @@ src="custom/datatable2/resources/demo.js">
 																				</div>
 																			</div>
 
-																			
-																			
+
+
 																		</div>
 
 																	</div>
@@ -612,7 +612,7 @@ src="custom/datatable2/resources/demo.js">
 	//IS VERY IMPORTANT Load Ajax Page before below Initial, if not all scroll problem
 	jQuery(document).ready(function() {
 		UpdateProfile.init();
-		
+
 	});
 </script>
 
@@ -703,7 +703,7 @@ src="custom/datatable2/resources/demo.js">
 	 $(this.element).closest('form').submit();
 	 }
 	 });
-	 
+
 	 $('form button.btn').unbind('click').click(function(e) {
 	 e.preventDefault()
 	 $(this).closest('form').find('#form').data('html5imageupload').imageCrop()

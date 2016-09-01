@@ -1,4 +1,3 @@
-
 <div class="navbar-before mobile-hidden">
     <div class="container">
         <div class="row">

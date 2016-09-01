@@ -1,11 +1,11 @@
 <?php
 
 /* * ****************************************************************************
- * User.class.php                                                          
- *                                                                             
- * @description                                                                
- * Description goes here                                                       
- *                                                                                                                  
+ * User.class.php
+ *
+ * @description
+ * Description goes here
+ *
  *
  * **************************************************************************** */
 
@@ -212,14 +212,14 @@ class User {
 
 
         global $DB;
-        $query = "SELECT 
-                user.*, group.isadmin, group.issupervisor, group.ismanager, 
+        $query = "SELECT
+                user.*, group.isadmin, group.issupervisor, group.ismanager,
                 group.description AS group_description
-                FROM USER,`group`  
-                WHERE  user.groupid = group.groupid     
-                and 
+                FROM USER,`group`
+                WHERE  user.groupid = group.groupid
+                and
                 $where";
-        //echo "$query"; 
+        //echo "$query";
         $rows = $DB->execresultset($query);
         $adadata = "no";
         //UsertradeLog("User.class.php-216:" . $query);
@@ -238,12 +238,12 @@ class User {
             if ($row['groupid'] == '3') {
                 $query2 = "SELECT client_aecode.name,client_aecode.nametengah,
                 client_aecode.nameakhir,
-                user.*, group.isadmin, group.issupervisor, group.ismanager, 
+                user.*, group.isadmin, group.issupervisor, group.ismanager,
                 group.description AS group_description
-                FROM USER,client_aecode,`group`  
-                WHERE user.username = client_aecode.aecode 
-                AND user.groupid = group.groupid     
-                and 
+                FROM USER,client_aecode,`group`
+                WHERE user.username = client_aecode.aecode
+                AND user.groupid = group.groupid
+                and
                 $where";
                 $rows2 = $DB->execresultset($query2);
                 $adadata = "no";
