@@ -31,6 +31,8 @@ class Format
         return $string;
     }
     public function getFirstNameWithEs($name){
+      // var_dump($name);
+        if($name != NULL):
         $pecah = explode(" ", $name);
         if (count($pecah > 0)) {
             # code...
@@ -39,10 +41,10 @@ class Format
         }else{
             return NULL;
         }
+      else:
+        return NULL;
+      endif;
 
 
     }
 }
-
-
-
