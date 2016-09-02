@@ -428,6 +428,16 @@ class Buy_sell extends CI_Controller
             $tgl     = date('Y-m-d H:i:s', time());
             $sql     = $this->basicmodel->insertData('email', array('timeupdate' => $tgl, 'email_to' => $this->nativesession->getObject('username'), 'email_subject' => $subject, 'email_body' => $body, 'module' => 'itemCheckoutPay'));
 
+            $subject_toadmin = "Ada transaksi baru dari ".$this->nativesession->getObject('username');
+            $body = "Hallo Admin<br/>";
+            $body .= "<br/>";
+            $body .= "Nampaknya, user ".$this->nativesession->getObject('username')." telah melakukan Konfirmasi transasksi, silahkan cek laporan transasksi,<br/>";
+            $body .= "<br/>";
+            $to = $this->config->item('admin_email');
+            $cc = $this->config->item('finance_email');
+            // insertData
+            $this->basicmodel->insertData('email', array('timeupdate' => $tgl, 'email_to' => $to, 'email_cc' => $cc, 'email_subject' => $subject_toadmin, 'email_body' => $body, 'module' => 'itemCheckoutPay'));
+
             $do = $this->basicmodel->updateData('master_invoice', $data, 'invoice', $invoice);
             redirect('payment/transactions', 'refresh');
 

@@ -53,7 +53,7 @@ if ($_GET['getsend'] == 'yes') {
 
         for ($icount = 0; $icount < count($emails); $icount++) {
             $email = $emails[$icount];
-            
+
             $mail = new PHPMailer();
             $mail->IsSMTP();
             $mail->SMTPAuth = true;                  // enable SMTP authentication
@@ -69,6 +69,17 @@ if ($_GET['getsend'] == 'yes') {
             $mail->Password = $password;
             $mail->SetFrom($mail_from, $programname);
             $mail->AddReplyTo($mail_from, $mail_from);
+            // emails
+            $explode_cc = explode(";",$email['email_cc']);
+           
+            foreach ($explode_cc as $key1 => $value1) {
+              # code...
+              $mail->AddCC($value1, $value1);
+               echo "<pre>";
+            print_r($value1);
+            echo "</pre>";
+            }
+
             $variabel = explode(";", $mail_tocc); //a=1&account=1234567
             for ($i_counter = 0; $i_counter < count($variabel); $i_counter++) {
                 $thereceiver = $variabel[$i_counter];
@@ -88,18 +99,18 @@ if ($_GET['getsend'] == 'yes') {
             //tradelog("BackProcess-77");
             if ($mail->Send()) {
                 $timesendupdate = date('Y-m-d H:i', strtotime('-1 hour'));
-                $query = "update email set timesend='$timesendupdate' 
-                where email_to='$email[email_to]' 
-                and email_subject='$email[email_subject]' 
-                and email_body='$msgbody'     
+                $query = "update email set timesend='$timesendupdate'
+                where email_to='$email[email_to]'
+                and email_subject='$email[email_subject]'
+                and email_body='$msgbody'
                     ";
                 //tradelog("BackProcess-85-Success:" . $query);
                 $DB->execonly($query);
             } else {
                 $themessage = "Something went wrong:" . $mail->ErrorInfo . ";TimeUpdate:" . $timesendupdate . ";To:" . $email['email_to'] . ";Subject:" . $email['email_subject'] . ";Body:" . $email['email_body'];
-               
+
                     echo "Line-95b:Problem" . $themessage . "<br>";
-                
+
             }
             //if ($mail->Send()) {
         }
@@ -120,3 +131,4 @@ function logss($msg) {
     return;
 }
 ?>
+<META HTTP-EQUIV="refresh" CONTENT="5">
