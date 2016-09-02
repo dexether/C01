@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<nav class="navbar navbar-inverse navbar-main yamm">
+<nav class="navbar navbar-inverse navbar-main-black yamm">
     <div class="container">
         <div class="navbar-header">
             <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-nav-collapse" area_expanded="false"><span class="sr-only">Main Menu</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
