@@ -112,7 +112,7 @@ class Store extends CI_Controller
             array('col' => 'master_cat.cat_name', 'val' => $type),
             array('col' => 'master_product.is_active', 'val' => true)
         );
-        $datas = $this->basicmodel->getDataPromo('prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where);
+        $datas = $this->basicmodel->getDataPromo('prod_star, prod_images, prod_name, prod_alias, prod_price, cat_name, promo_name, promo_value', 'master_product', $on, $where);
         $datas2 = array();
         foreach ($datas as $key => $value) {
             # code...
@@ -130,7 +130,7 @@ class Store extends CI_Controller
             $data['title'] = $value;
         }
         // $article = $this->basicmodel->getData();
-        // var_dump($data);
+        // var_dump($datas2);
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
             "body"   => $this->load->view('mall/cat', array('data' => $data, 'list' => $datas2), true),

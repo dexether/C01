@@ -3,7 +3,7 @@
     <h1 class="page-title"><?php echo $data['title']['cat_alias']; ?></h1>
         <ol class="breadcrumb page-breadcrumb">
             <li><?php echo $data['title']['cat_desc']; ?></li>
-           
+
         </ol>
         <ul class="category-selections clearfix">
             <li>
@@ -35,11 +35,11 @@
         </ul>
     </header>
     <div class="row" data-gutter="15">
-    <?php 
+    <?php
     $i = 0;
     $last = 12;
     foreach ($list as $key => $value) {
-        # code..    
+        # code..
     ?>
         <div class="col-md-3">
             <div class="product ">
@@ -53,21 +53,10 @@
                 </div>
                 <a class="product-link" href="<?php echo base_url(). "c/".$value['cat_name']. "/".$value['prod_name']?>"></a>
                 <div class="product-caption">
-                    <ul class="product-caption-rating">
-                        <li class="rated"><i class="fa fa-star"></i>
-                        </li>
-                        <li class="rated"><i class="fa fa-star"></i>
-                        </li>
-                        <li class="rated"><i class="fa fa-star"></i>
-                        </li>
-                        <li><i class="fa fa-star"></i>
-                        </li>
-                        <li><i class="fa fa-star"></i>
-                        </li>
-                    </ul>
+                    <div class="my-rating" data-rating="<?php echo $value['prod_star']; ?>"></div>
                     <h5 class="product-caption-title"><?php echo $value['prod_alias'] ?></h5>
                     <div class="product-caption-price">
-                    <?php if($value['promo_name'] == NULL){
+                    <?php if($value['promo_name'] == NULL || $value['promo_value'] == 0){
                         echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['prod_price']).'</span>';
                     }else{
                         echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
@@ -75,8 +64,8 @@
                     }
 
                     ?>
-                    
-                    
+
+
                     </div>
                    <!--  <ul class="product-caption-feature-list">
                         <li>Free Shipping</li>
@@ -361,3 +350,10 @@
         </div>
     </div> -->
 </div>
+<script type="text/javascript">
+	$(document).ready(function($) {
+		$(".my-rating").starRating({
+			starSize: 20
+		});
+	});
+</script>
