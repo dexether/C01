@@ -215,7 +215,7 @@ class User {
         $query = "SELECT
                 user.*, group.isadmin, group.issupervisor, group.ismanager,
                 group.description AS group_description
-                FROM USER,`group`
+                FROM user,`group`
                 WHERE  user.groupid = group.groupid
                 and
                 $where";
@@ -240,7 +240,7 @@ class User {
                 client_aecode.nameakhir,
                 user.*, group.isadmin, group.issupervisor, group.ismanager,
                 group.description AS group_description
-                FROM USER,client_aecode,`group`
+                FROM user,client_aecode,`group`
                 WHERE user.username = client_aecode.aecode
                 AND user.groupid = group.groupid
                 and

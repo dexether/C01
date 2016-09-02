@@ -1,32 +1,32 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-31 17:05:30
-         compiled from "/home/theprogrammer/project/cabinet-stable/web2/templates/footerside.htm" */ ?>
+<?php /* Smarty version 3.1.27, created on 2016-09-02 08:21:39
+         compiled from "/var/www/cabinet-stable/web2/templates/footerside.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:144160466957c6abeac169b8_33647698%%*/
+/*%%SmartyHeaderCode:187085947157c8d423354f34_92926368%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '57555a2fbc50a35ae1a369a4ba30a205b2849790' => 
+    '0c46dde2211b25ef308c1234fea29af3c0ac1a80' => 
     array (
-      0 => '/home/theprogrammer/project/cabinet-stable/web2/templates/footerside.htm',
-      1 => 1472441354,
+      0 => '/var/www/cabinet-stable/web2/templates/footerside.htm',
+      1 => 1472724567,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '144160466957c6abeac169b8_33647698',
+  'nocache_hash' => '187085947157c8d423354f34_92926368',
   'variables' => 
   array (
     'companys' => 0,
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57c6abeac1b1c5_34471832',
+  'unifunc' => 'content_57c8d423359482_39247859',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57c6abeac1b1c5_34471832')) {
-function content_57c6abeac1b1c5_34471832 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_57c8d423359482_39247859')) {
+function content_57c8d423359482_39247859 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '144160466957c6abeac169b8_33647698';
+$_smarty_tpl->properties['nocache_hash'] = '187085947157c8d423354f34_92926368';
 ?>
 <!-- Footer Start -->
 <footer>

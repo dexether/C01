@@ -74,7 +74,7 @@ if ($postmode == "show") {
 
                   if($group_play == $rows['group_play']) {
                     echo "selected";
-                }
+                  }
 
                 ?>><?php echo $rows['description'] ?></option>
                 <?php } ?>

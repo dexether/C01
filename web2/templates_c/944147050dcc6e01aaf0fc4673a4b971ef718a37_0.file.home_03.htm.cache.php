@@ -1,19 +1,19 @@
-<?php /* Smarty version 3.1.27, created on 2016-08-31 17:05:30
-         compiled from "/home/theprogrammer/project/cabinet-stable/web2/templates/home_03/home_03.htm" */ ?>
+<?php /* Smarty version 3.1.27, created on 2016-09-02 08:21:39
+         compiled from "/var/www/cabinet-stable/web2/templates/home_03/home_03.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:168167985157c6abeabe6c81_43456907%%*/
+/*%%SmartyHeaderCode:163310187957c8d423320cf0_65329607%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    'a6c069188a4822bf9d834098aeb2a15712cf51d8' => 
+    '944147050dcc6e01aaf0fc4673a4b971ef718a37' => 
     array (
-      0 => '/home/theprogrammer/project/cabinet-stable/web2/templates/home_03/home_03.htm',
-      1 => 1472441354,
+      0 => '/var/www/cabinet-stable/web2/templates/home_03/home_03.htm',
+      1 => 1472724567,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '168167985157c6abeabe6c81_43456907',
+  'nocache_hash' => '163310187957c8d423320cf0_65329607',
   'variables' => 
   array (
     'status' => 0,
@@ -25,13 +25,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57c6abeac0a029_49071178',
+  'unifunc' => 'content_57c8d4233483c4_79490458',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57c6abeac0a029_49071178')) {
-function content_57c6abeac0a029_49071178 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_57c8d4233483c4_79490458')) {
+function content_57c8d4233483c4_79490458 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '168167985157c6abeabe6c81_43456907';
+$_smarty_tpl->properties['nocache_hash'] = '163310187957c8d423320cf0_65329607';
 ?>
 <link href="assets/libs/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
 <div class="content" id="main_content">
