@@ -36,27 +36,8 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown"><a href="#"><i class="fa fa-reorder"></i>&nbsp; <?php echo $this->lang->line('header_cat_title'); ?><i class="drop-caret" data-toggle="dropdown"></i></a>
                     <ul class="dropdown-menu dropdown-menu-category">
-                        <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Analisa</a>
-                            <div class="dropdown-menu-category-section">
-                                <div class="dropdown-menu-category-section-inner">
-                                    <div class="dropdown-menu-category-section-content">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <h5 class="dropdown-menu-category-title">Forex</h5>
-                                                <ul class="dropdown-menu-category-list">
-                                                    <li><a href="<?php echo base_url().'c/forex-analisa'; ?>">Forex Analisa</a>
-                                                        <p>Berbagai Analisa tentang Forex</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/7-i.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Buku</a>
-                            <div class="dropdown-menu-category-section">
+                        <li><a href="<?php echo base_url().'c/forex-book'; ?>"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Forex Books</a>
+                            <!-- <div class="dropdown-menu-category-section">
                                 <div class="dropdown-menu-category-section-inner">
                                     <div class="dropdown-menu-category-section-content">
                                         <div class="row">
@@ -72,10 +53,10 @@
                                     </div>
                                     <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/7-i.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
                                 </div>
-                            </div>
+                            </div> -->
                         </li>
-                        <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Edukasi</a>
-                            <div class="dropdown-menu-category-section">
+                        <li><a href="<?php echo base_url().'c/forex-education'; ?>"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Forex Education</a>
+                            <!-- <div class="dropdown-menu-category-section">
                                 <div class="dropdown-menu-category-section-inner">
                                     <div class="dropdown-menu-category-section-content">
                                         <div class="row">
@@ -91,29 +72,10 @@
                                     </div>
                                     <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/7-i.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
                                 </div>
-                            </div>
+                            </div> -->
                         </li>
-                        <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>EA & Bots</a>
-                            <div class="dropdown-menu-category-section">
-                                <div class="dropdown-menu-category-section-inner">
-                                    <div class="dropdown-menu-category-section-content">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <h5 class="dropdown-menu-category-title">Forex</h5>
-                                                <ul class="dropdown-menu-category-list">
-                                                    <li><a href="<?php echo base_url().'c/forex-robot'; ?>">Forex EA</a>
-                                                        <p>Menjual Semua tentang EA & Bot</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/7-i.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Indikator</a>
-                            <div class="dropdown-menu-category-section">
+                        <li><a href="<?php echo base_url().'c/forex-indicator'; ?>"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Forex Indicator</a>
+                            <!-- <div class="dropdown-menu-category-section">
                                 <div class="dropdown-menu-category-section-inner">
                                     <div class="dropdown-menu-category-section-content">
                                         <div class="row">
@@ -129,84 +91,87 @@
                                     </div>
                                     <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/7-i.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
                                 </div>
-                            </div>
+                            </div> -->
                         </li>
-                                <!--  <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Produk</a>
-                                    <div class="dropdown-menu-category-section">
-                                        <div class="dropdown-menu-category-section-inner">
-                                            <div class="dropdown-menu-category-section-content">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <h5 class="dropdown-menu-category-title">Forex</h5>
-                                                        <ul class="dropdown-menu-category-list">
-                                                            <li><a href="#">Indikator Forex</a>
-                                                                <p>Menjual Semua tentang Indikator</p>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                        <li><a href="<?php echo base_url().'c/forex-merchandise'; ?>"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Forex Merchandise</a>
+                            <!-- <div class="dropdown-menu-category-section">
+                                <div class="dropdown-menu-category-section-inner">
+                                    <div class="dropdown-menu-category-section-content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h5 class="dropdown-menu-category-title">Forex</h5>
+                                                <ul class="dropdown-menu-category-list">
+                                                    <li><a href="<?php echo base_url().'c/forex-merchandise'; ?>">Forex Merchandise</a>
+                                                        <p>Best Merchandise</p>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/7-i.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
                                         </div>
                                     </div>
-                                </li> -->
-                                <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Seminar</a>
-                                    <div class="dropdown-menu-category-section">
-                                        <div class="dropdown-menu-category-section-inner">
-                                            <div class="dropdown-menu-category-section-content">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <h5 class="dropdown-menu-category-title">Forex</h5>
-                                                        <ul class="dropdown-menu-category-list">
-                                                            <li><a href="<?php echo base_url().'c/forex-seminar'; ?>">Seminar Finansial</a>
-                                                                <p>Semua tentang seminar Finansial</p>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                    <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/seminar.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
+                                </div>
+                            </div> -->
+                        </li>
+                        <li><a href="<?php echo base_url().'c/forex-robot'; ?>"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>EA & Robotic</a>
+                            <!-- <div class="dropdown-menu-category-section">
+                                <div class="dropdown-menu-category-section-inner">
+                                    <div class="dropdown-menu-category-section-content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h5 class="dropdown-menu-category-title">Forex</h5>
+                                                <ul class="dropdown-menu-category-list">
+                                                    <li><a href="<?php echo base_url().'c/forex-robot'; ?>">Forex EA</a>
+                                                        <p>Menjual Semua tentang EA & Bot</p>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/seminar.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
                                         </div>
                                     </div>
-                                </li>
-                                <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Copytrade</a>
-                                    <div class="dropdown-menu-category-section">
-                                        <div class="dropdown-menu-category-section-inner">
-                                            <div class="dropdown-menu-category-section-content">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <h5 class="dropdown-menu-category-title">Forex</h5>
-                                                        <ul class="dropdown-menu-category-list">
-                                                            <li><a href="<?php echo base_url().'c/forex-copytrade'; ?>">Copytrade</a>
-                                                                <p>Best Copytrade</p>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                    <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/7-i.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
+                                </div>
+                            </div> -->
+                        </li>
+                        <li><a href="<?php echo base_url().'c/forex-seminar'; ?>"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Forex Seminar</a>
+                            <!-- <div class="dropdown-menu-category-section">
+                                <div class="dropdown-menu-category-section-inner">
+                                    <div class="dropdown-menu-category-section-content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h5 class="dropdown-menu-category-title">Forex</h5>
+                                                <ul class="dropdown-menu-category-list">
+                                                    <li><a href="<?php echo base_url().'c/forex-seminar'; ?>">Seminar Finansial</a>
+                                                        <p>Semua tentang seminar Finansial</p>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/seminar.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
                                         </div>
                                     </div>
-                                </li>
-                                <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Merchandise</a>
-                                    <div class="dropdown-menu-category-section">
-                                        <div class="dropdown-menu-category-section-inner">
-                                            <div class="dropdown-menu-category-section-content">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <h5 class="dropdown-menu-category-title">Forex</h5>
-                                                        <ul class="dropdown-menu-category-list">
-                                                            <li><a href="<?php echo base_url().'c/forex-merchandise'; ?>">Forex Merchandise</a>
-                                                                <p>Best Merchandise</p>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                    <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/seminar.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
+                                </div>
+                            </div> -->
+                        </li>
+                        <li><a href="<?php echo base_url().'c/forex-copytrade'; ?>"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Master Trader</a>
+                            <!-- <div class="dropdown-menu-category-section">
+                                <div class="dropdown-menu-category-section-inner">
+                                    <div class="dropdown-menu-category-section-content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h5 class="dropdown-menu-category-title">Forex</h5>
+                                                <ul class="dropdown-menu-category-list">
+                                                    <li><a href="<?php echo base_url().'c/forex-copytrade'; ?>">Copytrade</a>
+                                                        <p>Best Copytrade</p>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/seminar.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
                                         </div>
                                     </div>
-                                </li>
+                                    <img class="dropdown-menu-category-section-theme-img" src="<?php echo base_url('assets') ?>/img/test_cat/seminar.png" alt="Image Alternative text" title="Image Title" style="right: 0px;" />
+                                </div>
+                            </div> -->
+                        </li>
+
+
+
                                 <li><a href="#"><i class="fa fa-futbol-o dropdown-menu-category-icon"></i>Brokers</a>
                                     <div class="dropdown-menu-category-section">
                                         <div class="dropdown-menu-category-section-inner">

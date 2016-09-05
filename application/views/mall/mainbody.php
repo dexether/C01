@@ -49,8 +49,8 @@
 		<div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">
 			<a class="banner-link" href="<?php echo base_url().'c/forex-indicator'; ?>"></a>
 			<div class="banner-caption-left">
-				<h5 class="banner-title">Indikator Forex</h5>
-				<!-- <p class="banner-desc">Pro Backpacks 70% Off.</p> -->
+				<h5 class="banner-title">Forex Indicator</h5>
+				<p class="banner-desc">Indikator forex terbaik</p>
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
@@ -64,7 +64,7 @@
 			<a class="banner-link" href="<?php echo base_url()?>c/forex-signal"></a>
 			<div class="banner-caption-left">
 				<h5 class="banner-title">Daily Signal</h5>
-				<p class="banner-desc">Best Forex Signal</p>
+				<p class="banner-desc">Signal Forex</p>
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
@@ -76,8 +76,8 @@
 		<div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/750x200background.png);">
 			<a class="banner-link" href="<?php echo base_url()?>c/forex-copytrade"></a>
 			<div class="banner-caption-left">
-				<h5 class="banner-title">Copy Trade</h5>
-				<p class="banner-desc">Digital Copy systems</p>
+				<h5 class="banner-title">Master Trader</h5>
+				<p class="banner-desc">Copy trading</p>
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
@@ -88,8 +88,8 @@
 		<div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/560x200background.png);">
 			<a class="banner-link" href="<?php echo base_url().'c/forex-book'; ?>"></a>
 			<div class="banner-caption-left">
-				<h5 class="banner-title">Buku Finansial</h5>
-				<p class="banner-desc">Koleksi buku finansial terbaik</p>
+				<h5 class="banner-title">financial book</h5>
+				<p class="banner-desc">Koleksi buku finansial</p>
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
@@ -101,8 +101,8 @@
 		<div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/560x200background.png);">
 			<a class="banner-link" href="<?php echo base_url().'c/forex-seminar'; ?>"></a>
 			<div class="banner-caption-left">
-				<h5 class="banner-title">Seminar Finansial</h5>
-				<p class="banner-desc">Acara Seminar finansial terbaik</p>
+				<h5 class="banner-title">financial seminar</h5>
+				<p class="banner-desc">Acara seminar finansial</p>
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
@@ -114,8 +114,8 @@
 		<div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">
 			<a class="banner-link" href="<?php echo base_url().'c/forex-robot'; ?>"></a>
 			<div class="banner-caption-left">
-				<h5 class="banner-title">EA & Bot</h5>
-				<p class="banner-desc">Best EA & Bots, get It !</p>
+				<h5 class="banner-title">EA & ROBOTIC</h5>
+				<p class="banner-desc">EA dan program trading robot</p>
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
@@ -127,8 +127,8 @@
 		<div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">
 			<a class="banner-link" href="<?php echo base_url().'c/forex-education'; ?>"></a>
 			<div class="banner-caption-left">
-				<h5 class="banner-title">Edukasi Finansial</h5>
-				<p class="banner-desc">Best Education For you</p>
+				<h5 class="banner-title">financial education</h5>
+				<p class="banner-desc">Edukasi finansial</p>
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
@@ -141,7 +141,7 @@
 			<a class="banner-link" href="<?php echo base_url() ?>c/forex-merchandise"></a>
 			<div class="banner-caption-left">
 				<h5 class="banner-title">Merchandise</h5>
-				<p class="banner-desc">Top Finance Merchandise!</p>
+				<p class="banner-desc">Koleksi barang - barang forex</p>
 				<p class="banner-shop-now">Shop Now <i class="fa fa-caret-right"></i>
 				</p>
 			</div>
