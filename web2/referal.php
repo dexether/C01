@@ -41,7 +41,7 @@ $alldata['userdata']['username'] = "";
 $alldata['userdata'] = userdatas($memberid_hash);
 if (empty($alldata['userdata'])) {
 }
-$id            = 160421101;
+$id            = @$_GET['memberkey'];
 $accountnumber = base64_encode($id);
 $query = "SELECT mlm_bonus_settings.`group_play`, mlm_bonus_settings.`description` FROM mlm_bonus_settings WHERE group_play <> 'no_plan' AND mlm_bonus_settings.`active` = TRUE";
 $result = $DB->execresultset($query);
@@ -76,6 +76,7 @@ AND client_accounts.accountname = mlm.ACCNO
 AND mlm.group_play = group_play.group_play
 AND client_accounts.`accountname` = '$account'";
  $result = $DB->execresultset($query);
+ // var_dump($query);
  foreach ($result as $key => $value) {
      $data = $value;
  }
