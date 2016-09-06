@@ -67,7 +67,7 @@ if ($postmode == "yes") {
   // Send Email To Client
   $iden = getIdentitas($account);
   $to = $iden['email'];
-  
+
   $body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
   $body = $body . "Dear ".$iden['name'].",<br>";
   $body = $body . " <br>";
@@ -120,7 +120,7 @@ if ($postmode == "yes") {
   $DB->execonly($delete);
   $delete = "DELETE FROM mlm_wcd WHERE account = '$account'";
   $DB->execonly($delete);
-  
+
   $error = "success";
   $errno = 0;
   $subject = "Success !";
@@ -150,13 +150,13 @@ function myfilter($input_var_outer, $param) {
 }
 function getIdentitas($account) {
   global $DB;
-  $query = "SELECT 
+  $query = "SELECT
   client_accounts.`accountname`,
   client_aecode.`email`,
-  client_aecode.`name` 
+  client_aecode.`name`
   FROM
   client_accounts,
-  client_aecode 
+  client_aecode
   WHERE client_accounts.`accountname` = '$account'
   AND client_aecode.`aecodeid` = client_accounts.`aecodeid`";
   $result = $DB->execresultset($query);
@@ -174,7 +174,7 @@ function sendEmail($to, $subject, $body, $module) {
   email_subject = '$subject',
   email_body = '$body',
   timesend = '1970-01-31 00:00:00',
-  module = '$module'    
+  module = '$module'
   ";
   $DB->execonly($query);
 }

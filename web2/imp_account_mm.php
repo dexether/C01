@@ -27,7 +27,7 @@ $_SESSION['page'] = 'imp_account_mm';
 =            Start Coding            =
 ====================================*/
 
-$query = "SELECT 
+$query = "SELECT
 client_accounts.`accountname`,
 client_accounts.`suspend`,
 client_aecode.`name`,
@@ -36,14 +36,18 @@ mlm.`companyconfirm`
 FROM
 mlm,
 client_accounts,
-client_aecode 
+client_aecode
 WHERE mlm.ACCNO = client_accounts.accountname
-AND client_accounts.`aecodeid` = client_aecode.`aecodeid`";
+AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
+AND client_accounts.suspend = TRUE
+AND mlm.companyconfirm = '1'
+";
 $result = $DB->execresultset($query);
+// var_dump($result);
 $template->assign("allaccounts", $result);
 /*=====  End of Start Coding  ======*/
 
-$query = "SELECT ACCNO, upline FROM mlm WHERE companyconfirm = '1'";
+$query = "SELECT typeaccount, ACCNO, upline FROM mlm, client_accounts WHERE mlm.ACCNO = client_accounts.accountname AND companyconfirm = '1'";
 $result2 = $DB->execresultset($query);
 $template->assign("notactive", $result2);
 
@@ -73,13 +77,13 @@ function TradeLogUnderConstruct_Secure($msg) {
 }
 function getIdentitas($account) {
   global $DB;
-  $query = "SELECT 
+  $query = "SELECT
   client_accounts.`accountname`,
   client_aecode.`email`,
-  client_aecode.`name` 
+  client_aecode.`name`
   FROM
   client_accounts,
-  client_aecode 
+  client_aecode
   WHERE client_accounts.`accountname` = '$account'
   AND client_aecode.`aecodeid` = client_accounts.`aecodeid`";
   $result = $DB->execresultset($query);
@@ -97,7 +101,7 @@ function sendEmail($to, $subject, $body, $module) {
   email_subject = '$subject',
   email_body = '$body',
   timesend = '1970-01-31 00:00:00',
-  module = '$module'    
+  module = '$module'
   ";
   $DB->execonly($query);
 }
