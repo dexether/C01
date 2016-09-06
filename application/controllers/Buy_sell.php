@@ -431,7 +431,7 @@ class Buy_sell extends CI_Controller
             $subject_toadmin = "Ada transaksi baru dari ".$this->nativesession->getObject('username');
             $body = "Hallo Admin<br/>";
             $body .= "<br/>";
-            $body .= "Nampaknya, user ".$this->nativesession->getObject('username')." telah melakukan Konfirmasi transasksi, silahkan cek laporan transasksi,<br/>";
+            $body .= "Nampaknya, user ".$this->nativesession->getObject('username')." telah melakukan Konfirmasi transasksi dengan nomor invoice ".$invoice.", silahkan cek laporan transasksi,<br/>";
             $body .= "<br/>";
             $to = $this->config->item('admin_email');
             $cc = $this->config->item('finance_email');
