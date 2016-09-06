@@ -13,14 +13,14 @@ $groupid = '1';
 //tradeLog("OpenAccount2-13");
 
 
-$email = anti_injection($_POST["email"]);
-$username = $email;
-$userpass1 = $_POST["password"];
-$userpass = MD5(anti_injection($userpass1));
-$namaawal = anti_injection($_POST["register_name"]);
-$namatengah = '';
+@$email = anti_injection($_POST["email"]);
+@$username = $email;
+@$userpass1 = $_POST["password"];
+@$userpass = MD5(anti_injection($userpass1));
+@$namaawal = anti_injection($_POST["register_name"]);
+@$namatengah = '';
 //$namatengah = anti_injection($_POST["register_name_tengah"]);
-$namaakhir = '';
+@$namaakhir = '';
 //$namaakhir = anti_injection($_POST["register_name_akhir"]);
 //tradeLog("OpenAccount2-24-NamaAwal:".$namaawal);
 //$address = anti_injection($_POST["address"]);
@@ -34,7 +34,7 @@ $namaakhir = '';
 //$no_identitas = anti_injection($_POST["no_identitas"]);
 // $no_identitas = anti_injection($_POST["countryid"]);
 $template->assign("username", $username);
-$template->assign("userpass", anti_injection($_POST["password"]));
+$template->assign("userpass", anti_injection(@$_POST["password"]));
 
 
 $query = "SELECT * FROM usercompany";
@@ -50,14 +50,20 @@ $phonenumber = '';
 //$register_birthday = anti_injection($_POST["register_birthday"]);
 $register_birthday = '';
 
-$description1 = anti_injection($_POST["description1"]);
-$description2 = anti_injection($_POST["upline"]);
+$description1 = anti_injection(@$_POST["description1"]);
+$description2 = anti_injection(@$_POST["upline"]);
+$description = NULL;
+if($description1 == "Agent"):
+$description = $description1.":".@$_POST["agen"];
+else:
 $description = $description1.":".$description2;
+endif;
+
 $afiliasi = $description2;
 
 //display_error("Debuging<br>$description1<br>$description2<br>$afiliasi");
 //$countries_states1 = anti_injection($_POST["countries_states1"]);
-$countries_states2 = anti_injection($_POST["nationality"]);
+$countries_states2 = anti_injection(@$_POST["nationality"]);
 //$countries_states2 = ''
 //tradeLog("OpenAccount2-44-Country1:" . $countries_states1.";Country2:".$countries_states2);
 //tradelog(">>>>>: " . $username . " >> " . $email . " >> " . $userpass . " >> " . $namaawal . " >> " . $phonenumber . " >> " . $register_birthday.";Check Terms:".$checkterms);
@@ -101,14 +107,14 @@ foreach ($rows2 as $row) {
   	aecode = '$username',
   	name = '$namaawal',
   	nametengah = '$namatengah',
-  	nameakhir = '$namaakhir',    
+  	nameakhir = '$namaakhir',
   	telephone_home = '$phonenumber',
   	sendmethod = 'Email',
   	email = '$email',
   	afiliasi = '$afiliasi',
-  	nationality = '$countries_states2',    
+  	nationality = '$countries_states2',
   	address = '',
-  	no_identitas = '',          
+  	no_identitas = '',
   	suspend = '0',
   	status = '0',
   	description = '$description',
@@ -136,10 +142,10 @@ foreach ($rows2 as $row) {
 
   	$query = "INSERT INTO client_aecode_bank
   	SET aecode = '$username',
-  	banktype = '', 
+  	banktype = '',
   	aeaccountname = '$namaawal',
-  	aeaccountnumber = '', 
-  	status = '0',  
+  	aeaccountnumber = '',
+  	status = '0',
   	last_updated = NOW();
   	";
     //tradeLog("OpenAccount2-97:" . $query);
@@ -201,7 +207,7 @@ foreach ($rows2 as $row) {
   	email_to = '$email',
   	email_subject = '$subject',
   	email_body = '$body',
-  	timesend = '1970-01-31 00:00:00'    
+  	timesend = '1970-01-31 00:00:00'
   	";
     //tradeLogCompanyConfirm_Admin3("Withdrawal-301:" . $query);
   	$DB->execonly($query);

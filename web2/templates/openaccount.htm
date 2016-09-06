@@ -10,7 +10,7 @@
       <meta content="yes" name="apple-mobile-web-app-capable"/>
       <meta content="" name="description"/>
       <meta content="Komoditas,Commodity,Multilateral,Pasar,Market,Berjangka,Derivatives,Futures" name="keywords"/>
-      <meta content="PT. Saint Technologies Indonesia" name="author"/>
+      <meta content="" name="author"/>
       <!-- Base Css Files -->
       <link href="assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet"/>
       <link href="assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
@@ -190,17 +190,24 @@
                                           </select>
                                        </div>
                                        <div class="col-sm-6">
-                                          <label class="control-label" for="upline">
+                                          <label class="control-label" for="upline" style="">
                                              Introducer Email Address / AE Code /
                                              <span class="ina">
                                                 Alamat email yang mengenalkan / Kode Agen
                                              </span>
                                           </label>
-                                          <input class="form-control" id="upline" name="upline" value="{$companys.email}" placeholder="{$companys.email}" type="text"/>
+                                          <style>
+                                          .hiddenInput {
+                                            display: none;
+                                          }
+                                          </style>
+                                          <input class="form-control upline" id="upline" name="upline" value="{$companys.email}" placeholder="{$companys.email}" type="text" style=""/>
+                                          <input class="form-control hiddenInput" id="agen" name="agen" placeholder="Please enter your agen email" type="text" style=""/>
                                        </div>
                                     </div>
                                  </div>
                                  <div class="form-group">
+
                                     <label>
                                        <input class="interests" name="acceptTerms" type="checkbox">
                                           <a href="{$companys.companyname} T&C.pdf" target="_blank">
@@ -390,11 +397,16 @@
             // console.log($valuenya)
             if ($valuenya == 'Newspaper') {
                var Upline = $('input[name=upline]');
+               var agen = $('input[name=agen]');
                $(Upline).attr('readonly', true);
+               $(Upline).removeClass('hiddenInput');
+               $(agen).addClass('hiddenInput');
                // console.log('News');
             }else{
                var Upline = $('input[name=upline]');
-               $(Upline).attr('readonly', false);
+               var agen = $('input[name=agen]');
+               $(Upline).addClass('hiddenInput');
+               $(agen).removeClass('hiddenInput');
             }
         });
 
@@ -427,6 +439,10 @@
                             message: 'Email is not correct'
                         }, notEmpty: {
                             message: 'Email can not be empty'
+                        },remote: {
+                         url: 'imp_check_email.php',
+                         message: 'Email already registered',
+                         type: 'POST'
                         }
                     }
                 },
@@ -436,9 +452,17 @@
                             message: 'Upline Cannot be empty'
                         },
                         remote: {
-                         url: 'imp_check_agent.php',
+                         url: 'imp_check_agent.php?postmode=upline',
                          type: 'POST'
                         }
+                    }
+                },
+                agen: {
+                    validators: {
+                      remote: {
+                       url: 'imp_check_agent.php?postmode=agent',
+                       type: 'POST'
+                      }
                     }
                 },
                 Newspaper: {
