@@ -82,6 +82,7 @@ if ($error != 'error') {
             $adaae      = 'noae';
             $rows       = $DB->execresultset($query);
             $lastaccout = 0;
+            $upline_plan = "no_plan";
             foreach ($rows as $row) {
                 $adaae      = 'adaae';
                 $aecodeid   = $row['aecodeid'];
