@@ -37,10 +37,10 @@ var ar_account_mm_JS = function() {
                 type: 'POST',
                 success: function(response) {
                     // console.log(response)
-                    var res = JSON.parse(response);
-                    if (res.status == 'error') {
-                        alert("Opps, Something wrong, call Application Publisher");
-                    } else {}
+                    // var res = JSON.parse(response);
+                    // if (res.status == 'error') {
+                    //     alert("Opps, Something wrong, call Application Publisher");
+                    // } else {}
                 }
             });
         },
@@ -57,10 +57,10 @@ var ar_account_mm_JS = function() {
                 type: 'POST',
                 success: function(response) {
                     // console.log(response)
-                    var res = JSON.parse(response);
-                    if (res.status == 'error') {
-                        alert("Opps, Something wrong, call Application Publisher");
-                    } else {}
+                    // var res = JSON.parse(response);
+                    // if (res.status == 'error') {
+                    //     alert("Opps, Something wrong, call Application Publisher");
+                    // } else {}
                 }
             });
         },
