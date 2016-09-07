@@ -31,7 +31,7 @@ if ($skip_authentication != 1) { // Require login
         if (!$user->checkPassword()) {
             header("Location: /login.php"); // Password does not match DB password / Password could have changed.
         } else {
-            
+
         }
     } else {
         echo "<SCRIPT language='Javascript1.2'>\n";
