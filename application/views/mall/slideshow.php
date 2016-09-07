@@ -1,18 +1,5 @@
 <div class="owl-carousel owl-loaded" data-autoplay="true" data-options='{"items":1,"loop":true}'>
-<div class="owl-item">
-        <div class="slider-item" style="background-image:url(<?php echo base_url() ?>assets/img/back/1200x600catur.jpg);">
-            <div class="container">
-               <div class="slider-item-inner">
-                <div class="slider-item-caption-right slider-item-caption-white">
-                    <h4 class="slider-item-caption-title-black">The most trusted FX Broker provider</h4>
-                    <p class="slider-item-caption-desc">Offering you the best broker partner, tools, workshop, and education</p>
-                    <!-- <a class="btn btn-lg btn-ghost btn-white" href="<?PHP echo base_url('web2/openaccount.php?cabang=1') ?>">DAFTAR SEKARANG</a> -->
-                </div>
-                <!-- <img class="slider-item-img-left" src="<?php echo base_url() ?>assets/img/test_banner/860x660img_itemslider3.png" alt="Daftar sekarang" title="Dapatkan penawaran menarik" style=" width: 40%; bottom: 10px" /> -->
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class="owl-item">
 
@@ -45,7 +32,7 @@
         </div>
     </div>
 </div>
- <div class="owl-item">
+ <!-- <div class="owl-item">
         <div class="slider-item" style="background-image:url(<?php echo base_url() ?>assets/img/back/1280x480background.jpg);">
             <div class="container">
                <div class="slider-item-inner">
@@ -57,7 +44,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 </div>
 <script type="text/javascript">
 function openInNewTab(url) {
