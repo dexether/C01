@@ -105,13 +105,13 @@ if ($error != 'error') {
                 $rolldate        = date('Y-m-d', time());
                 $accountnamebaru = check_account($update_tradeby, $last);
                 $query           = "SELECT client_branch.branch,client_group.group AS thegroup,
-    client_aecode.aecodeid,client_aecode.name,client_aecode.nametengah,client_aecode.nameakhir,
-    client_aecode.email,client_aecode.description
-    FROM client_branch,client_group,client_aecode
-    WHERE client_branch.branchid = client_group.branchid
-    AND client_group.groupid = client_aecode.groupid
-    and client_aecode.aecode = '$user->username'
-    ";
+                client_aecode.aecodeid,client_aecode.name,client_aecode.nametengah,client_aecode.nameakhir,
+                client_aecode.email,client_aecode.description
+                FROM client_branch,client_group,client_aecode
+                WHERE client_branch.branchid = client_group.branchid
+                AND client_group.groupid = client_aecode.groupid
+                and client_aecode.aecode = '$user->username'
+                ";
                 //tradeLogMMNewLevel("MM_New_Level-131-Query:" . $query);
                 $rows = $DB->execresultset($query);
                 foreach ($rows as $row) {
@@ -141,16 +141,21 @@ if ($error != 'error') {
                 if ($accnomlm == 'COMPANY') {
                     $lastaccout = 'COMPANY';
                 }
+                // $plan
+                if($lastaccout == 'company' || $lastaccout == 'COMPANY' && $plan != '0'):
+                  $upline_plan = $plan;
+                endif;
+
                 $query = "insert into mlm set
- mt4dt = 'nometa',
- ACCNO='$accountnamebaru',
- Upline = '$lastaccout',
- datetime = NOW(),
- companyconfirm = '1',
- payment = '0',
- group_play = '$upline_plan',
- updateby = '$user->username'
- ";
+                 mt4dt = 'nometa',
+                 ACCNO='$accountnamebaru',
+                 Upline = '$lastaccout',
+                 datetime = NOW(),
+                 companyconfirm = '1',
+                 payment = '0',
+                 group_play = '$upline_plan',
+                 updateby = '$user->username'
+                 ";
                 //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
                 $DB->execonly($query);
                 $timenya = date('Y-m-d H:i', strtotime('-1 hour'));
@@ -169,18 +174,18 @@ if ($error != 'error') {
                 $body    = $body . " " . $companys['companyurl'] . " <br>";
 
                 $query = "insert into email set
- timeupdate = '$timenya',
- email_to = '$usernya[email]',
- email_subject = '$subject',
- email_body = '$body',
- timesend = '1970-01-31 00:00:00'
- ";
+                 timeupdate = '$timenya',
+                 email_to = '$usernya[email]',
+                 email_subject = '$subject',
+                 email_body = '$body',
+                 timesend = '1970-01-31 00:00:00'
+                 ";
                 $DB->execonly($query);
                 $error            = "success";
                 $subject          = "Your Account " . $accountnamebaru . " for this plan has been created ";
                 $msg              = "You need Admin confrimation to confirm your account, We will confirm your account as soon as possible";
                 $link             = $companys['appurl'] . "/web2/mainmenu.php";
-                $_SESSION['page'] = 'treview';
+                $_SESSION['page'] = 'imp_treeview';
             }
 
         } else {

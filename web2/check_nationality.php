@@ -16,7 +16,7 @@ if ($_POST["nationality"]) {
     $nationality = $_POST["nationality"];
     if($nationality=='SG' || $nationality=='US'){
         $output = "false";
-        
+
     }
 
     //tradeLog("Check_Nationality_17:" . $nationality);

@@ -50,12 +50,13 @@ var AR_Registration_JS = function() {
                 url: 'imp_registration_do.php?postmode=yes',
                 data: data,
                 type: 'POST',
+                dataType: 'JSON',
                 beforeSubmit: function() {
 
                 },
-                success: function(response) {
+                success: function(res) {
                     // console.log(response);
-                    var res = JSON.parse(response);
+                    // var res = JSON.parse(response);
                     swal({
                         type: res.status,
                         title: res.subject,
@@ -65,6 +66,12 @@ var AR_Registration_JS = function() {
                     });
                     $(thisnya).button('reset');
                     setTimeout('history.go(0);', 5000);
+                },
+                complete: function(){
+                  $(thisnya).button('reset');
+                },
+                error: function(){
+                  swal('Something went wrong');
                 }
             });
 
