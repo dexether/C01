@@ -156,14 +156,41 @@ if ($error != 'error') {
                  group_play = '$upline_plan',
                  updateby = '$user->username'
                  ";
-                //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
                 $DB->execonly($query);
+                //  tambahan jika askap maka auto Sync
+                $auto_registered = false;
+                if($upline_plan == "askap"):
+                  $query = "SELECT alias, mt4dt FROM mt_database WHERE mt_database.`alias` LIKE '%askap%' AND mt_database.`enabled` = 'yes'";
+                  $hasil = $DB->execresultset($query);
+                  foreach ($hasil as $key => $value) {
+                    $query = "SELECT LOGIN, EMAIL FROM ".$value['mt4dt'].".`mt4_users` WHERE ".$value['mt4dt'].".`mt4_users`.`EMAIL` = '".$user->username."'";
+                    $hasil_mt = $DB->execresultset($query);
+                    foreach ($hasil_mt as $key_mt => $value_mt) {
+                      # code...
+                      $cekdullu = checkLoginMetaIfRegistered($value_mt['LOGIN'], $value['mt4dt']);
+                      if($cekdullu):
+                      else:
+                        $insert = "INSERT INTO mlm2 SET ACCNO = '$accountnamebaru', mt4dt = '$value[mt4dt]', mt4login = '$value_mt[LOGIN]', suspend = '0'";
+                        $DB->execonly($insert);
+                        $auto_registered = true;
+                        $registered_login[] = $value_mt['LOGIN'];
+                      endif;
+                    }
+
+
+                  }
+                endif;
+                //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
+
                 $timenya = date('Y-m-d H:i', strtotime('-1 hour'));
                 $subject = "New Cabinet ID $accountnamebaru has been created";
                 $body    = "Time: " . $timenya . "<br> <br>";
                 $body    = $body . "Dear  $usernya[name] $usernya[nametengah] $usernya[nameakhir],<br>";
                 $body    = $body . " <br>";
                 $body    = $body . "Your New Cabinet ID has been created. you will need the admin confirmation to confirm your Cabinet ID<br>";
+                if($auto_registered):
+                  $body    = $body. "and your LOGIN number ".$value_mt['LOGIN']."  has been sync automatically to this account<br/>";
+                endif;
                 $body    = $body . "We will confirm your Cabinet ID as soon as possible<br>";
                 $body    = $body . "Did you know? With cabinet ID you can Sync to MetaTrader LOGIN, Education and more, and with once E-Mail you can registered unlimited Cabinet ID,<br>";
                 $body    = $body . " <br>";
@@ -183,6 +210,9 @@ if ($error != 'error') {
                 $DB->execonly($query);
                 $error            = "success";
                 $subject          = "Your Account " . $accountnamebaru . " for this plan has been created ";
+                if($auto_registered):
+                  $subject    = $subject. "and your LOGIN number on ".$value_mt['LOGIN']."  has been sync automatically to this account";
+                endif;
                 $msg              = "You need Admin confrimation to confirm your account, We will confirm your account as soon as possible";
                 $link             = $companys['appurl'] . "/web2/mainmenu.php";
                 $_SESSION['page'] = 'imp_treeview';
@@ -564,6 +594,19 @@ function isEmail($email)
         $output = false;
     }
     return $output;
+
+}
+function checkLoginMetaIfRegistered($login, $mt4dt)
+{
+    global $DB;
+    global $user;
+      $query = "SELECT * FROM mlm2 WHERE mt4login = '$login' AND mt4dt = '$mt4dt'";
+    $result = $DB->execresultset($query);
+    if(count($result) > 0):
+      return true;
+    else:
+      return false;
+    endif;
 
 }
 
