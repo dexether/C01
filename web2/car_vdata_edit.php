@@ -79,52 +79,25 @@ if(isset($_GET['lihat'])){
 $template->assign("account", $account);
 // var_dump ($account);   
 
-$tampil1 ="";
-$tampil2 ="";
-$tampil3 ="";
-$tampil4 ="";
-$tampil5 ="";
-$tampil6 ="";
-$tampil7 ="";
-// $tampil8 ="";
-// $tampil9 ="";
-// $tampil0 ="";
-$query	  = "SELECT 
-  client_aecode.*,
-  mlm.`ACCNO`,
-  mlm.`branch` 
-FROM
-  client_accounts,
-  client_aecode,
-  mlm 
-WHERE mlm.`ACCNO` = client_accounts.`accountname` 
-  AND client_accounts.`email` = client_aecode.`aecode` 
-  AND client_accounts.`accountname`='$account'";
-		$rows = $DB->execresultset($query);
-		foreach ($rows as $row) {
-		$tampil1 = $row['name'];
-		$tampil2 = $row['aecode'];
-		$tampil3 = $row['ACCNO'];
-		$tampil4 = $row['branch'];
-		$tampil5 = $row['telephone_home'];
-		$tampil6 = $row['telephone_mobile'];
-		$tampil7 = $row['gender'];
-		// $tampil8 = $row['pros_Summary'];
-		// $tampil9 = $row['status'];
-		// $tampil0 = $row['remarks'];
-		}
-		$template->assign("tampil1", $tampil1);
-		$template->assign("tampil2", $tampil2);
-		$template->assign("tampil3", $tampil3);
-		$template->assign("tampil4", $tampil4);
-		$template->assign("tampil5", $tampil5);
-		$template->assign("tampil6", $tampil6);
-		$template->assign("tampil7", $tampil7);
-		// $template->assign("tampil8", $tampil8);
-		// $template->assign("tampil9", $tampil9);
-		// $template->assign("tampil0", $tampil0);
-		    // var_dump($tampil);
-
+$query = "SELECT 
+		  client_aecode.*,
+		  mlm.`ACCNO`,
+		  mlm.`branch` 
+		FROM
+		  client_accounts,
+		  client_aecode,
+		  mlm 
+		WHERE mlm.`ACCNO` = client_accounts.`accountname` 
+		  AND client_accounts.`email` = client_aecode.`aecode` 
+		  AND client_accounts.`accountname`='$account'";
+		//tradeLogProfile("Profile-20-Query:".$query);
+$rows = $DB->execresultset($query);
+$allpersonaldata = array();
+foreach ($rows as $key => $row) {
+    $allpersonaldata = $row;    
+}
+$template->assign("alldatas", $allpersonaldata);
+// var_dump($allpersonaldata);
 
 /*=====  End of Coding  ======*/
 $template->display("car_vdata_edit.htm");

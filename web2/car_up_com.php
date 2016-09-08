@@ -128,6 +128,8 @@ $query = "SELECT
 			// var_dump($adameta);
 
 $jumlah_dipilih = count($emailnya);
+$mt4 = $jumlah_dipilih - 1;
+
 if ($adameta > 0){
 	echo 1;
 }else {
@@ -201,8 +203,8 @@ for($x=0;$x<$jumlah_dipilih;$x++){
                     "sendmethod = 'Email'";
             //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
             $DB->execonly($query);
-
-            $query = "insert into mlm set
+if ($emailupnya[$x] == $emailupnya[$mt4]) {
+                $query = "insert into mlm set
                     mt4dt = 'agr0_source',
                     ACCNO='$accountnamebaru',
                     Upline = '$bm',
@@ -214,8 +216,24 @@ for($x=0;$x<$jumlah_dipilih;$x++){
                     group_play = '$metanya[$x]',
                     updateby = '$user->username',     
                     mt4login = '$metanya[$x]'";
-            //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
-            $DB->execonly($query);
+					//tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
+					$DB->execonly($query);
+            } else {
+               $query = "insert into mlm set
+                    mt4dt = 'agr0_source',
+                    ACCNO='$accountnamebaru',
+                    Upline = '$bm',
+					group_branch = '$groupnya[$x]',
+					branch = '$branchnya[$x]',
+                    datetime = NOW(),
+                    companyconfirm = '0',
+                    payment = '0',
+                    group_play = '$metanya[$x]',
+                    updateby = '$user->username',     
+                    mt4login = '0'";
+					//tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
+					$DB->execonly($query);
+            } 
 }
 echo 0;
 	}

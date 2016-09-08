@@ -25,14 +25,14 @@ var Vdata_JS = function() {
             }); 
            
         },
-		edit: function(lihat, commissiondate, commissionhour, todate, tohour) {
-			      // console.log(lihat, commissiondate, commissionhour, todate, tohour);     
-			var url = 'car_vdata_editdo.php?lihat=' + lihat + "&commissiondate=" + commissiondate + "&commissionhour=" + commissionhour + "&todate=" + todate+ "&tohour=" + tohour;
-            var data = '&ajax_validation=1';
-			 
+		edit: function() {
+			var datas = $('#formnya').serializeArray();
+			var url = 'car_vdata_editdo.php';
+			// console.log(datas);
+			
 			$.ajax({
                 url: url,
-                data:data,
+                data:datas,
                 type: 'POST',
                 success: function(response) {
                        // console.log(response)
@@ -57,19 +57,6 @@ var Vdata_JS = function() {
                         //alert("35:Fail");
                         var title = "Can not Edit";
                         var keterangan = 'And Please fill in the first Telp Home field';
-                        notifyerror1('error', 'top right', title, keterangan);
-                        
-                    }else if (res == '3') {//Access unAuthorize
-                        //alert("35:Fail");
-                        var title = "Can not Edit";
-                        var keterangan = 'And Please fill in the first Telp Mobile field';
-                        notifyerror1('error', 'top right', title, keterangan);
-                        
-                    }
-					else if (res == '4') {//Access unAuthorize
-                        //alert("35:Fail");
-                        var title = "Can not Edit";
-                        var keterangan = 'Please fill in the first Gender field';
                         notifyerror1('error', 'top right', title, keterangan);
                         
                     }

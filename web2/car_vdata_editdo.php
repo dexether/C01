@@ -72,59 +72,95 @@ $_SESSION['page'] = 'car_vdata_editdo';
 /*==============================
 =        Start Coding          =
 ==============================*/
-$account="";
-if(isset($_GET['lihat'])){
-    $account = $_GET['lihat'];
+// echo "<pre>";
+// print_r($_POST);
+// echo "</pre>";
+ 
+$nama="";
+if(isset($_POST['namenya'])){
+    $nama = $_POST['namenya'];
 }
-$template->assign("account", $account);
-// var_dump ($account);  
+// var_dump ($nama);
 
-$namanya="";
-if(isset($_GET['commissiondate'])){
-    $namanya = $_GET['commissiondate'];
+$email="";
+if(isset($_POST['email'])){
+    $email = $_POST['email'];
 }
-$template->assign("namanya", $namanya);
-// var_dump ($namanya);  
+// var_dump ($email); 
 
-$home="";
-if(isset($_GET['commissionhour'])){
-    $home = $_GET['commissionhour'];
+$tlp_home="";
+if(isset($_POST['Home'])){
+    $tlp_home = $_POST['Home'];
 }
-$template->assign("home", $home);
-// var_dump ($home);  
+// var_dump ($tlp_home); 
 
-$mobile="";
-if(isset($_GET['todate'])){
-    $mobile = $_GET['todate'];
+$tlp_mobile="";
+if(isset($_POST['Mobile'])){
+    $tlp_mobile = $_POST['Mobile'];
 }
-$template->assign("mobile", $mobile);
-// var_dump ($mobile);  
+// var_dump ($tlp_mobile); 
+
+$npwp="";
+if(isset($_POST['npwp'])){
+    $npwp = $_POST['npwp'];
+}
+// var_dump ($npwp); 
+
+$salary="";
+if(isset($_POST['salary'])){
+    $salary = $_POST['salary'];
+}
+// var_dump ($salary); 
 
 $gender="";
-if(isset($_GET['tohour'])){
-    $gender = $_GET['tohour'];
+if(isset($_POST['gender'])){
+    $gender = $_POST['gender'];
 }
-$template->assign("gender", $gender);
-// var_dump ($gender);   
+// var_dump ($gender); 
 
+$martial="";
+if(isset($_POST['martial'])){
+    $martial = $_POST['martial'];
+}
+// var_dump ($martial); 
 
-if($namanya == ""){
+$ptkp="";
+if(isset($_POST['ptkp'])){
+    $ptkp = $_POST['ptkp'];
+}
+// var_dump ($ptkp); 
+
+$st_npwp="";
+if(isset($_POST['st_npwp'])){
+    $st_npwp = $_POST['st_npwp'];
+}
+// var_dump ($st_npwp); 
+
+$st_salary="";
+if(isset($_POST['st_salary'])){
+    $st_salary = $_POST['st_salary'];
+}
+// var_dump ($st_salary);  
+
+if($nama == ""){
 	echo 1;
-} else if($home == ""){
+} else if($st_salary == ""){
 	echo 2;
-}else if($mobile == ""){
-	echo 3;
-}else if($gender == ""){
-	echo 4;
 } else {
 $query = "UPDATE 
   client_aecode 
 SET
-  NAME = '$namanya',
-  telephone_home = '$home',
-  telephone_mobile = '$mobile',
-  gender = '$gender' 
-WHERE client_aecode.aecode = '$account' ";
+  NAME = '$nama',
+  gender = '$gender', 
+  martial = '$martial', 
+  ptkp = '$ptkp', 
+  st_npwp = '$st_npwp', 
+  npwp = '$npwp', 
+  st_salary = '$st_salary', 
+  salary_on = '$salary', 
+  telephone_home = '$tlp_home',
+  telephone_mobile = '$tlp_mobile'
+WHERE client_aecode.aecode = '$email' ";
 			
 			$DB->execonly($query);
 			 // var_dump($query);

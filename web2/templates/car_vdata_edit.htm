@@ -1,59 +1,170 @@
-										<form class="form-horizontal" role="form">
+										<form class="form-horizontal" role="form" id="formnya">
 											<div class="form-group">
 												<label for="tradingplatform" class="col-sm-4 control-label"> Name :</label>
 												<div class="col-sm-8">
 												<!-- <label class="col-sm-8 control-label" style="text-align : left">{$tampil1}</label> -->
-												<input type="text" class="form-control" name="namenya" value="{$tampil1}">
+												<input type="text" class="form-control" name="namenya" value="{$alldatas.name}">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="tradingplatform" class="col-sm-4 control-label">Email :</label>
 												<div class="col-md-8">
 												<!-- <label class="col-sm-8 control-label" style="text-align : left">{$tampil2}</label> -->
-												<input type="text" class="form-control" name="Email" value="{$tampil2}" disabled>
+												<input type="text" class="form-control" name="email" value="{$alldatas.aecode}">
 												</div> 
 											</div>
 											<div class="form-group">
 												<label for="tradingplatform" class="col-sm-4 control-label">Account :</label>
 												<div class="col-md-8">
 												<!-- <label class="col-sm-8 control-label" style="text-align : left">{$tampil3}</label> -->
-												<input type="text" class="form-control" name="name" value="{$tampil3}" disabled>												
+												<input type="text" class="form-control" name="name" value="{$alldatas.ACCNO}">												
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="tradingplatform" class="col-sm-4 control-label">Branch :</label>
 												<div class="col-md-8">
 												<!-- <label class="col-sm-8 control-label" style="text-align : left">{$tampil4}</label> -->
-												<input type="text" class="form-control" name="name" value="{$tampil4}" disabled>
+												<input type="text" class="form-control" name="name" value="{$alldatas.branch}">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="tradingplatform" class="col-sm-4 control-label">Telp Home :</label>
 												<div class="col-md-8">
 												<!-- <label class="col-sm-8 control-label" style="text-align : left">{$tampil5}</label> -->
-												<input type="text" class="form-control" name="Home" value="{$tampil5}">
+												<input type="text" class="form-control" name="Home" value="{$alldatas.telephone_home}">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="tradingplatform" class="col-sm-4 control-label">Telp Mobile :</label>
 												<div class="col-md-8">
 												<!-- <label class="col-sm-8 control-label" style="text-align : left">{$tampil6}</label> -->
-												<input type="text" class="form-control" name="Mobile" value="{$tampil6}">
+												<input type="text" class="form-control" name="Mobile" value="{$alldatas.telephone_mobile}">
 												</div>
 											</div>
 											<div class="form-group">
-												<label for="accounttype" class="col-sm-4 control-label">Gender :</label>
+												<label for="tradingplatform" class="col-sm-4 control-label">No NPWP :</label>
 												<div class="col-md-8">
-												<!-- <label class="col-sm-8 control-label" style="text-align : left">{$tampil7}</label> -->
-												<input type="text" class="form-control" name="Gender" value="{$tampil7}">
+												<!-- <label class="col-sm-8 control-label" style="text-align : left">{$tampil6}</label> -->
+												<input type="text" class="form-control" name="npwp" value="{$alldatas.npwp}">
 												</div>
 											</div>
-											
+											<div class="form-group">
+												<label for="tradingplatform" class="col-sm-4 control-label">Salary ON :</label>
+												<div class="col-md-8">
+												<!-- <label class="col-sm-8 control-label" style="text-align : left">{$tampil6}</label> -->
+												<input type="text" class="form-control" name="salary" value="{$alldatas.salary_on}">
+												</div>
+											</div>
+														<div class="col-sm-1">
+															
+														</div>
+														<div class="col-sm-2">
+															<label class="control-label">Gender <i class="text-danger">*</i></label>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="gender" id="optionsRadios1" value="male" {if $alldatas.gender == "male"} checked {/if}>
+																	Male
+																</label>
+															</div>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="gender" id="optionsRadios2" value="female" {if $alldatas.gender == "female"} checked {/if}>
+																	Female
+																</label>
+
+															</div>
+														</div>
+														<div class="col-sm-2">
+															<label class="control-label">Marital status <i class="text-danger">*</i></label>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="martial" id="optionsRadios1" value="Single" {if $alldatas.martial == "Single"} checked {/if}>
+																	Single
+																</label>
+															</div>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="martial" id="optionsRadios2" value="Marry" {if $alldatas.martial == "Marry"} checked {/if}>
+																	Marry
+																</label>
+
+															</div>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="martial" id="optionsRadios2" value="Widow" {if $alldatas.martial == "Widow"} checked {/if}>
+																	Widow
+																</label>
+															</div>
+														</div>
+														<div class="col-sm-2">
+															<label class="control-label">P T K P <i class="text-danger">*</i></label>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="ptkp" id="optionsRadios1" value="TK" {if $alldatas.ptkp == "TK"} checked {/if}>
+																	TK
+																</label>
+															</div>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="ptkp" id="optionsRadios2" value="K0" {if $alldatas.ptkp == "K0"} checked {/if}>
+																	K0
+																</label>
+
+															</div>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="ptkp" id="optionsRadios2" value="K1" {if $alldatas.ptkp == "K1"} checked {/if}>
+																	K1
+																</label>
+															</div>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="ptkp" id="optionsRadios2" value="K2" {if $alldatas.ptkp == "K2"} checked {/if}>
+																	K2
+																</label>
+															</div>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="ptkp" id="optionsRadios2" value="K3" {if $alldatas.ptkp == "K3"} checked {/if}>
+																	K3
+																</label>
+															</div>
+														</div>
+														<div class="col-sm-2">
+															<label class="control-label">N P W P <i class="text-danger">*</i></label>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="st_npwp" id="optionsRadios1" value="Yes" {if $alldatas.st_npwp == "Yes"} checked {/if}>
+																	Yes
+																</label>
+															</div>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="st_npwp" id="optionsRadios2" value="No" {if $alldatas.st_npwp == "No"} checked {/if}>
+																	No
+																</label>
+															</div>
+														</div>
+														<div class="col-sm-2">
+															<label class="control-label">Status Karyawan <i class="text-danger">*</i></label>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="st_salary" id="optionsRadios1" value="pkwt" {if $alldatas.st_salary == "pkwt"} checked {/if}>
+																	PKWT
+																</label>
+															</div>
+															<div class="radio iradio">
+																<label>
+																	<input type="radio" name="st_salary" id="optionsRadios2" value="pkwtt" {if $alldatas.st_salary == "pkwtt"} checked {/if}>
+																	PKWTT
+																</label>
+															</div>
+														</div>
 											<div class="form-group">
 											<label for="currency" class="col-sm-4 control-label"></label>
 											<div class="col-sm-8">								
 											<input type="button" class="btn btn-success" name="Approv" value="Edit"
-											onClick="Vdata_JS.edit(Email.value, namenya.value, Home.value, Mobile.value, Gender.value);">
+											onClick="Vdata_JS.edit();">
 											</div>
                             </div>
 										</form>
