@@ -73,7 +73,7 @@ if ($postmode == "yes") {
   $body = $body . " <br>";
   $body = $body . "".$themesege." <br>";
   $body = $body . " <br>";
-  $body = $body . "You may login to your APR program account via our website at ".$companys['companyurl']." <br>";
+  $body = $body . "You may login to your AgendaFX account via our website at ".$companys['companyurl']." <br>";
   $body = $body . " <br>";
   $body = $body . " <br>";
   $body = $body . "Thank you,<br>";
@@ -94,7 +94,7 @@ if ($postmode == "yes") {
   $body = $body . "About your request of Account $account, the request has been rejected by Admin.<br>";
   $body = $body . "We apologize for your request that we can not fill. Thank you has participated<br>";
   $body = $body . " <br>";
-  $body = $body . "You may login to your APR program account via our website at ".$companys['companyurl']." <br>";
+  $body = $body . "You may login to your AgendaFX account via our website at ".$companys['companyurl']." <br>";
   $body = $body . " <br>";
   $body = $body . " <br>";
   $body = $body . "Thank you,<br>";
