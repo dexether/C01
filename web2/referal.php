@@ -41,11 +41,15 @@ $alldata['userdata']['username'] = "";
 $alldata['userdata'] = userdatas($memberid_hash);
 if (empty($alldata['userdata'])) {
 }
+
 $id            = @$_GET['memberkey'];
 $accountnumber = base64_encode($id);
+$template->assign('accountnumber', $memberid_crypt);
 $query = "SELECT mlm_bonus_settings.`group_play`, mlm_bonus_settings.`description` FROM mlm_bonus_settings WHERE group_play <> 'no_plan' AND mlm_bonus_settings.`active` = TRUE";
 $result = $DB->execresultset($query);
 $alldata['group_play'] = $result;
+$this_url = urlencode($companys['appurl']."web2/referal.php?memberkey=".$memberid_crypt);
+$template->assign('this_url', $this_url);
 /*====================================
 =            Start Coding            =
 ====================================*/
