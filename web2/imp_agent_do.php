@@ -142,80 +142,154 @@ if ($error != 'error') {
             $_SESSION['page'] = 'treview';
             }elseif ($type == "twofrx") {
                # code...
+                $last            = 0;
+                $update_tradeby  = $user->username;
+                $rolldate        = date('Y-m-d', time());
+                $accountnamebaru = check_account($update_tradeby, $last);
+
+                //tradeLogMMNewLevel("MM_New_Level-131-Query:" . $query);
+
+                $query = "INSERT INTO client_accounts SET " .
+                    "aecodeid = '" . $users . "', " .
+                    "accountname = '" . $accountnamebaru . "', " .
+                    "name = '" . $accountnamebaru . "', " .
+                    "address = '', " .
+                    "telephone_home = '', " .
+                    "telephone_office = '', " .
+                    "telephone_mobile = '', " .
+                    "suspend = '0', " .
+                    "email = '', " .
+                    "daycall = '0', " .
+                    "nightcall = '0', " .
+                    "`float_rate` = '0', " .
+                    "telephone_fax = '', " .
+                    "last_updated = NOW(), " .
+                    "status = 'normal', " .
+                    "rolldate='" . $rolldate . "', " .
+                    "typeaccount='agent', " .
+                    "sendmethod = 'Email'";
+                //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
+                $DB->execonly($query);
+                // Select Account that upline mine
+                if ($accnomlm == 'COMPANY') {
+                    $lastaccout = 'COMPANY';
+                }
+                $query = "insert into mlm set
+                 mt4dt = 'nometa',
+                 ACCNO='$accountnamebaru',
+                 Upline = '$lastaccout',
+                 datetime = NOW(),
+                 companyconfirm = '2',
+                 payment = '0',
+                 group_play = 'twofrx',
+                 updateby = '$user->username'
+                 ";
+                //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
+                $DB->execonly($query);
+                $userdatas = getIdentitas($accountnamebaru);
+                $timenya   = date('Y-m-d H:i', strtotime('-1 hour'));
+                $subject   = "New Cabinet ID $accountnamebaru was Added By Admin to be an Agent";
+                $body      = "Time: " . $timenya . "<br> <br>";
+                $body      = $body . "Dear  $userdatas[name],<br>";
+                $body      = $body . " <br>";
+                $body      = $body . "Your New Cabinet ID has been created. this Cabinet ID is registered by Administrator Privileges<br>";
+                $body      = $body . "And Now you can give your email to your downline and filling the referall e-mail on the registration page<br>";
+                $body      = $body . " <br>";
+                $body      = $body . "Thank you," . "<br>";
+                $body      = $body . "<br><strong>" . $companys['companyname'] . "</strong>" . "<br>";
+                $body      = $body . $companys['long_address'];
+                $body      = $body . " Email : " . $companys['email'] . " <br>";
+                $body      = $body . " " . $companys['companyurl'] . " <br>";
+
+                $query = "insert into email set
+               timeupdate = '$timenya',
+               email_to = '$userdatas[email]',
+               email_subject = '$subject',
+               email_body = '$body',
+               timesend = '1970-01-31 00:00:00'
+               ";
+                $DB->execonly($query);
+                $error            = "success";
+                $subject          = "The Agent with cabinet ID " . $accountnamebaru . " has been created ";
+                $msg              = "";
+                $link             = $companys['appurl'] . "/web2/mainmenu.php";
+                // $_SESSION['page'] = 'tw';
+            }elseif ($type == "asiawide") {
+                  # code...
                $last            = 0;
-            $update_tradeby  = $user->username;
-            $rolldate        = date('Y-m-d', time());
-            $accountnamebaru = check_account($update_tradeby, $last);
+               $update_tradeby  = $user->username;
+               $rolldate        = date('Y-m-d', time());
+               $accountnamebaru = check_account($update_tradeby, $last);
 
-            //tradeLogMMNewLevel("MM_New_Level-131-Query:" . $query);
+               //tradeLogMMNewLevel("MM_New_Level-131-Query:" . $query);
 
-            $query = "INSERT INTO client_accounts SET " .
-                "aecodeid = '" . $users . "', " .
-                "accountname = '" . $accountnamebaru . "', " .
-                "name = '" . $accountnamebaru . "', " .
-                "address = '', " .
-                "telephone_home = '', " .
-                "telephone_office = '', " .
-                "telephone_mobile = '', " .
-                "suspend = '0', " .
-                "email = '', " .
-                "daycall = '0', " .
-                "nightcall = '0', " .
-                "`float_rate` = '0', " .
-                "telephone_fax = '', " .
-                "last_updated = NOW(), " .
-                "status = 'normal', " .
-                "rolldate='" . $rolldate . "', " .
-                "typeaccount='agent', " .
-                "sendmethod = 'Email'";
-            //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
-            $DB->execonly($query);
-            // Select Account that upline mine
-            if ($accnomlm == 'COMPANY') {
-                $lastaccout = 'COMPANY';
+               $query = "INSERT INTO client_accounts SET " .
+                   "aecodeid = '" . $users . "', " .
+                   "accountname = '" . $accountnamebaru . "', " .
+                   "name = '" . $accountnamebaru . "', " .
+                   "address = '', " .
+                   "telephone_home = '', " .
+                   "telephone_office = '', " .
+                   "telephone_mobile = '', " .
+                   "suspend = '0', " .
+                   "email = '', " .
+                   "daycall = '0', " .
+                   "nightcall = '0', " .
+                   "`float_rate` = '0', " .
+                   "telephone_fax = '', " .
+                   "last_updated = NOW(), " .
+                   "status = 'normal', " .
+                   "rolldate='" . $rolldate . "', " .
+                   "typeaccount='agent', " .
+                   "sendmethod = 'Email'";
+               //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
+                   $DB->execonly($query);
+                   // Select Account that upline mine
+                   if ($accnomlm == 'COMPANY') {
+                       $lastaccout = 'COMPANY';
+                   }
+                   $query = "insert into mlm set
+                    mt4dt = 'nometa',
+                    ACCNO='$accountnamebaru',
+                    Upline = '$lastaccout',
+                    datetime = NOW(),
+                    companyconfirm = '2',
+                    payment = '0',
+                    group_play = 'asiawide',
+                    updateby = '$user->username'
+                    ";
+                   //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
+                   $DB->execonly($query);
+                   $userdatas = getIdentitas($accountnamebaru);
+                   $timenya   = date('Y-m-d H:i', strtotime('-1 hour'));
+                   $subject   = "New Cabinet ID $accountnamebaru was Added By Admin to be an Agent";
+                   $body      = "Time: " . $timenya . "<br> <br>";
+                   $body      = $body . "Dear  $userdatas[name],<br>";
+                   $body      = $body . " <br>";
+                   $body      = $body . "Your New Cabinet ID has been created. this Cabinet ID is registered by Administrator Privileges<br>";
+                   $body      = $body . "And Now you can give your email to your downline and filling the referall e-mail on the registration page<br>";
+                   $body      = $body . " <br>";
+                   $body      = $body . "Thank you," . "<br>";
+                   $body      = $body . "<br><strong>" . $companys['companyname'] . "</strong>" . "<br>";
+                   $body      = $body . $companys['long_address'];
+                   $body      = $body . " Email : " . $companys['email'] . " <br>";
+                   $body      = $body . " " . $companys['companyurl'] . " <br>";
+
+                   $query = "insert into email set
+                  timeupdate = '$timenya',
+                  email_to = '$userdatas[email]',
+                  email_subject = '$subject',
+                  email_body = '$body',
+                  timesend = '1970-01-31 00:00:00'
+                  ";
+                   $DB->execonly($query);
+                   $error            = "success";
+                   $subject          = "The Agent with cabinet ID " . $accountnamebaru . " has been created ";
+                   $msg              = "";
+                   $link             = $companys['appurl'] . "/web2/mainmenu.php";
+                   // $_SESSION['page'] = 'tw';
             }
-            $query = "insert into mlm set
-             mt4dt = 'nometa',
-             ACCNO='$accountnamebaru',
-             Upline = '$lastaccout',
-             datetime = NOW(),
-             companyconfirm = '2',
-             payment = '0',
-             group_play = 'twofrx',
-             updateby = '$user->username'
-             ";
-            //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
-            $DB->execonly($query);
-            $userdatas = getIdentitas($accountnamebaru);
-            $timenya   = date('Y-m-d H:i', strtotime('-1 hour'));
-            $subject   = "New Cabinet ID $accountnamebaru was Added By Admin to be an Agent";
-            $body      = "Time: " . $timenya . "<br> <br>";
-            $body      = $body . "Dear  $userdatas[name],<br>";
-            $body      = $body . " <br>";
-            $body      = $body . "Your New Cabinet ID has been created. this Cabinet ID is registered by Administrator Privileges<br>";
-            $body      = $body . "And Now you can give your email to your downline and filling the referall e-mail on the registration page<br>";
-            $body      = $body . " <br>";
-            $body      = $body . "Thank you," . "<br>";
-            $body      = $body . "<br><strong>" . $companys['companyname'] . "</strong>" . "<br>";
-            $body      = $body . $companys['long_address'];
-            $body      = $body . " Email : " . $companys['email'] . " <br>";
-            $body      = $body . " " . $companys['companyurl'] . " <br>";
 
-            $query = "insert into email set
-           timeupdate = '$timenya',
-           email_to = '$userdatas[email]',
-           email_subject = '$subject',
-           email_body = '$body',
-           timesend = '1970-01-31 00:00:00'
-           ";
-            $DB->execonly($query);
-            $error            = "success";
-            $subject          = "The Agent with cabinet ID " . $accountnamebaru . " has been created ";
-            $msg              = "";
-            $link             = $companys['appurl'] . "/web2/mainmenu.php";
-            $_SESSION['page'] = 'treview';
-            }
-            
 
         } else {
             // echo 'Ga Valid.'; // invalid
