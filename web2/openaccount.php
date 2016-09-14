@@ -25,6 +25,24 @@ foreach($result as $rows) {
 	$companys['year'] = $years;
 }
 $template->assign("companys", $companys);
+
+// Check agent
+// MTYwNzEyMTQx
+$agent = false;
+if (isset($_GET['agent'])) {
+	# code...
+	$agent = anti_injection(base64_decode($_GET['agent']));
+	$query = $DB->execresultset("SELECT client_accounts.accountname, client_aecode.email FROM client_accounts, client_aecode WHERE client_accounts.aecodeid = client_aecode.aecodeid AND client_accounts.accountname = '$agent'");
+	$agent = false;
+	foreach ($query as $key => $value) {
+		# code...
+		$agent['email'] = $value['email'];
+		$agent['accno'] = base64_encode($value['accountname']);
+		$agent['theurl'] = urlencode($companys['companyurl']."web2/referal.php?memberkey=".base64_encode($value['accountname']));
+
+	}
+}
+$template->assign('agent', $agent);
 $template->display("openaccount.htm");
 function tradeLog($msg)
 {

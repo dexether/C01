@@ -100,8 +100,9 @@
                <div class="col-md-12 portlets">
                   <div class="widget">
                      <div class="widget-content padding">
-                        <form action="openaccount2.php" class="form-horizontal" id="registerForm" method="post" role="form">
+                        <form action="openaccount2.php{if $agent != false}?redirect={$agent.theurl}{/if}" class="form-horizontal" id="registerForm" method="post" role="form">
                            <div class="widget-content padding">
+                           
                               <div class="form-group">
                                  <label class="control-label">
                                     Nationality /
@@ -180,11 +181,11 @@
                                                 Darimana anda tau kita ?
                                              </span>
                                           </label>
-                                          <select class="form-control" id="description1" name="description1">
-                                             <option value="Agent">
+                                          <select class="form-control" id="description1" name="description1" readonly="true" {if $agent != false}{/if}>
+                                             <option value="Agent" {if $agent != false}selected{/if}>
                                                 Agent / Agen
                                              </option>
-                                             <option value="Newspaper" selected>
+                                             <option value="Newspaper" {if $agent == false}selected{/if}>
                                                 Mass Media / Media Masa
                                              </option>
                                           </select>
@@ -202,7 +203,7 @@
                                           }
                                           </style>
                                           <input class="form-control upline" id="upline" name="upline" value="{$companys.email}" placeholder="{$companys.email}" type="text" style=""/>
-                                          <input class="form-control hiddenInput" id="agen" name="agen" placeholder="Please enter your agen email" type="text" style=""/>
+                                          <input class="form-control hiddenInput" id="agen" name="agen" placeholder="Please enter your agen email" value="{if $agent != false}{$agent.email}{/if}" {if $agent != false}readonly{/if} type="text" style=""/>
                                        </div>
                                     </div>
                                  </div>
@@ -387,10 +388,23 @@
    <script type="text/javascript">
       jQuery(document).ready(function($) {
          $valuenya = $('#description1').val();
+            // if ($valuenya == 'Newspaper') {
+            //    var Upline = $('input[name=upline]');
+            //    $(Upline).attr('readonly', 'true');
+            //    // console.log('News');
+            // }
             if ($valuenya == 'Newspaper') {
                var Upline = $('input[name=upline]');
-               $(Upline).attr('readonly', 'true');
+               var agen = $('input[name=agen]');
+               $(Upline).attr('readonly', true);
+               $(Upline).removeClass('hiddenInput');
+               $(agen).addClass('hiddenInput');
                // console.log('News');
+            }else{
+               var Upline = $('input[name=upline]');
+               var agen = $('input[name=agen]');
+               $(Upline).addClass('hiddenInput');
+               $(agen).removeClass('hiddenInput');
             }
         $('#description1').change(function(event) {
             $valuenya = $(this).val();

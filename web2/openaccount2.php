@@ -12,7 +12,8 @@ $var_to_pass = null;
 $groupid = '1';
 //tradeLog("OpenAccount2-13");
 
-
+@$redirect = anti_injection($_GET['redirect']);
+$template->assign('redirect', $redirect);
 @$email = anti_injection($_POST["email"]);
 @$username = $email;
 @$userpass1 = $_POST["password"];

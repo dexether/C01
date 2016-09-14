@@ -1,4 +1,3 @@
 <?php
-echo session_save_path();
-phpinfo();
+echo urlencode('http://agendafx.dev/web2/referal.php?memberkey=MTYwOTAzMjMz');
 ?>
