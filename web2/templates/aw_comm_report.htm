@@ -1,0 +1,148 @@
+<!-- Include Required Prerequisites -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+<link href="assets/css/style.css" rel="stylesheet"/>
+<!-- Include Date Range Picker -->
+<script src="custom/daterange/js/moment.min.js" type="text/javascript">
+</script>
+<script src="custom/daterange/js/daterangepicker.js" type="text/javascript">
+</script>
+<link href="custom/daterange/css/daterangepicker.css" rel="stylesheet" type="text/css"/>
+<div class="content" id="main_content">
+    <div class="page-heading">
+        <h1>
+            <i class="icon-vcard">
+            </i>
+            AsiaWide Commision Reporting
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12 portlets">
+            <div class="widget">
+                <div class="widget-header ">
+                    <h2>
+                        <strong>
+                            Commision
+                        </strong>
+                        Generator
+                    </h2>
+                    <div class="additional-btn">
+                        <a class="widget-toggle" href="#">
+                            <i class="icon-down-open-2">
+                            </i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-content padding">
+                <div class="alert alert-warning">
+                   <p><strong>NOTE :</strong> if you check the "Replace Existing Data" the commision data on that priode will be replaced by new data</p>
+                </div>
+                    <form class="form-inline " id="ajax-form" role="form">
+                        <div class="form-group">
+                            <input name="replace" type="checkbox"/>
+                            Replace Existing data
+                        </div>
+                        <div class="form-group">
+                            <div class="dropdown" id="period">
+                            </div>
+                        </div>
+                        <input name="token" type="hidden" value="{$token}"/>
+                        <button class="btn btn-success" type="button">
+                            Submit
+                        </button>
+                        <br/>
+                        <br/>
+                        <!-- <div class="form-group"> -->
+                        <div class="progress no-rounded progress-striped active">
+                            <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="progress-bar progress-bar-success" role="progressbar" style="width: 0%">
+                            </div>
+                        </div>
+                        <span class="help-block">
+                        </span>
+                        <ul id="progress-msg">
+                        </ul>
+                        <!-- </div> -->
+                        <script src="custom/js/aw_detailed_commison.js" type="text/javascript">
+                        </script>
+                        <script type="text/javascript">
+                            jQuery(document).ready(function($) {
+                           aw_comm_JS.init();
+                           $('button[type=button]').click(function(event) {
+                           aw_comm_JS.generate(this);
+                           });
+                        });
+                        </script>
+                        <script type="text/javascript">
+                            var s = document.createElement("select");
+                        s.id = 'periode';
+                        s.name = 'periode';
+                        s.className = 'form-control';
+                        var p = document.createElement("option");
+                        p.value = "periode";
+                        p.textContent = "Periode";
+                        s.appendChild(p);
+                        var m;
+                        var mo;
+
+
+
+
+                        function label(months) {
+                           switch (months) {
+                              case 1:
+                              mo = "Januari";
+                              break;
+                              case 2:
+                              mo = "Februari";
+                              break;
+                              case 3:
+                              mo = "Maret";
+                              break;
+                              case 4:
+                              mo = "April";
+                              break;
+                              case 5:
+                              mo = "Mei";
+                              break;
+                              case 6:
+                              mo = "Juni";
+                              break;
+                              case 7:
+                              mo = "Juli";
+                              break;
+                              case 8:
+                              mo = "Agustus";
+                              break;
+                              case 9:
+                              mo = "September";
+                              break;
+                              case 10:
+                              mo = "Oktober";
+                              break;
+                              case 11:
+                              mo = "November";
+                              break;
+                              case 12:
+                              mo = "Desember";
+                              break;
+                           }
+                           return mo;
+                        }
+
+                        for(var i = 1; i < moment().format('M'); i++){
+                           m = moment().format('M') - i;
+                           var t = document.createElement("option");
+                           t.value = moment().subtract(m,'month').startOf('month').format('YYYY-MM-DD') + " - " + moment().subtract(m,'month').endOf('month').format('YYYY-MM-DD');
+                           t.textContent = label(i);
+                           s.appendChild(t);
+                        }
+
+                        document.getElementById('period').appendChild(s);
+                        </script>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
