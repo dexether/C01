@@ -53,7 +53,7 @@ if ($error != 'error') {
                     $delete = "DELETE FROM mlm_temp WHERE rolldate = '$periode_date' AND type = 'askap'";
                     $DB->execonly($delete);
 
-                    $delete = "DELETE FROM mlm_comm WHERE rolldate = '$periode_date' AND type = 'askap";
+                    $delete = "DELETE FROM mlm_comm WHERE rolldate = '$periode_date' AND type = 'askap'";
                     $DB->execonly($delete);
 
                     $query = "SELECT
@@ -81,7 +81,7 @@ if ($error != 'error') {
             } else if ($postmode == 'hitung') {
                 // tradeLogs($postmode. "HITUNG");
                 // Check it first
-                $query  = "SELECT ACCNO FROM mlm_comm WHERE rolldate = '$periode_date' LIMIT 0,1 AND type = 'askap'";
+                $query  = "SELECT ACCNO FROM mlm_comm WHERE rolldate = '$periode_date' AND type = 'askap' LIMIT 0,1 ";
                 $result = $DB->execresultset($query);
                 if (!count($result) > 0) {
                     $query = "SELECT
@@ -230,42 +230,42 @@ function buildTree(array &$elements, $parentId, $periode_date)
                     foreach ($result as $row) {
                         $element['DATA'] = $row['ACCNO'] . " TO " . $element['upline'];
                     }
-                    $insert = "INSERT INTO mlm_temp SET ACCNO = '$element[ACCNO]', Upline = '$element[upline]',  methode = 'general', rolldate = '$periode_date'";
+                    $insert = "INSERT INTO mlm_temp SET ACCNO = '$element[ACCNO]', Upline = '$element[upline]',  methode = 'general', rolldate = '$periode_date', type = 'askap'";
                     $DB->execonly($insert);
 
-                    $query = "SELECT ACCNO, id FROM mlm_temp WHERE ACCNO = '$row[ACCNO]' AND rolldate = '$periode_date'";
+                    $query = "SELECT ACCNO, id FROM mlm_temp WHERE ACCNO = '$row[ACCNO]' AND rolldate = '$periode_date' AND type = 'askap'";
                     $res   = $DB->execresultset($query);
                     if (count($res) > 0) {
                         $update = "DELETE FROM mlm_temp WHERE id = '" . $res[0]['id'] . "'";
                         $DB->execonly($update);
-                        $insert = "INSERT INTO mlm_temp SET ACCNO = '$row[ACCNO]', Upline = '$element[upline]',  methode = 'compress', rolldate = '$periode_date'";
+                        $insert = "INSERT INTO mlm_temp SET ACCNO = '$row[ACCNO]', Upline = '$element[upline]',  methode = 'compress', rolldate = '$periode_date', type = 'askap'";
                         $DB->execonly($insert);
                     } else {
-                        $insert = "INSERT INTO mlm_temp SET ACCNO = '$row[ACCNO]', Upline = '$element[upline]',  methode = 'compress', rolldate = '$periode_date'";
+                        $insert = "INSERT INTO mlm_temp SET ACCNO = '$row[ACCNO]', Upline = '$element[upline]',  methode = 'compress', rolldate = '$periode_date', type = 'askap'";
                         $DB->execonly($insert);
                     }
 
                 } else {
-                    $query = "SELECT ACCNO FROM mlm_temp WHERE ACCNO = '$element[ACCNO]' AND rolldate = '$periode_date'";
+                    $query = "SELECT ACCNO FROM mlm_temp WHERE ACCNO = '$element[ACCNO]' AND rolldate = '$periode_date' AND type = 'askap'";
                     $res   = $DB->execresultset($query);
                     if (count($res) > 0) {
 
                     } else {
                         $element['harus'] = 'GAUSAH';
-                        $insert           = "INSERT INTO mlm_temp SET ACCNO = '$element[ACCNO]', Upline = '$element[upline]',  methode = 'general', rolldate = '$periode_date'";
+                        $insert           = "INSERT INTO mlm_temp SET ACCNO = '$element[ACCNO]', Upline = '$element[upline]',  methode = 'general', rolldate = '$periode_date', type = 'askap'";
                         $DB->execonly($insert);
                     }
 
                 }
                 $element['children'] = $children;
             } else {
-                $query = "SELECT ACCNO FROM mlm_temp WHERE ACCNO = '$element[ACCNO]' AND rolldate = '$periode_date'";
+                $query = "SELECT ACCNO FROM mlm_temp WHERE ACCNO = '$element[ACCNO]' AND rolldate = '$periode_date' AND type = 'askap'";
                 $res2  = $DB->execresultset($query);
                 // tradeLogs(count($res2) . " ACCNO ". $element['ACCNO']);
                 if (count($res2) > 0) {
 
                 } else {
-                    $insert = "INSERT INTO mlm_temp SET ACCNO = '$element[ACCNO]', Upline = '$element[upline]',  methode = 'general2', rolldate = '$periode_date'";
+                    $insert = "INSERT INTO mlm_temp SET ACCNO = '$element[ACCNO]', Upline = '$element[upline]',  methode = 'general2', rolldate = '$periode_date', type = 'askap'";
                     $DB->execonly($insert);
                 }
             }

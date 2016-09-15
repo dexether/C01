@@ -199,12 +199,12 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-left navbar-main-search" role="search">
+                    <!-- <form class="navbar-form navbar-left navbar-main-search" role="search">
                         <div class="form-group">
                             <input class="form-control" type="text" placeholder="<?php echo $this->lang->line('header_field_seacrh'); ?>" />
                         </div>
                         <a class="fa fa-search navbar-main-search-submit" href="#"></a>
-                    </form>
+                    </form> -->
                     <ul class="nav navbar-nav navbar-right">
                     	<?php if (!$this->nativesession->getObject('username')) {
                     		# code...
