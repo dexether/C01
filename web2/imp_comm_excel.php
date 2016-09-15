@@ -7,7 +7,7 @@ For Production reason Error reporting will disable
 
 include_once "$_SERVER[DOCUMENT_ROOT]/includes/functions.php";
 include_once "$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php";
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../classes/PHPExcel.php';
 $var_to_pass = null;
 global $user;
 global $template;
@@ -108,7 +108,7 @@ foreach ($result as $key => $value) {
       foreach ($hasil1 as $key2 => $value2) {
          $lots = $value2['lot'];
       }
-      
+
       $detailed2[$_i] = $value;
       $detailed2[$_i]['LOGIN'] = $value1['mt4login'];
       $detailed2[$_i]['LOTS']  = $lots;
