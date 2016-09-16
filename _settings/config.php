@@ -80,7 +80,7 @@ switch ($httphost) {
         $mysql['crypt_key'] = "139";
         break;
 	case 'cabinet.koperasi-mppi.dev':
-        $mysql['host'] = "10.10.0.122:3306";
+        $mysql['host'] = "10.10.0.122:1603";
         $mall          = false;
         // $mysql['host'] = "localhost";
         $mysql['user']      = "root";
