@@ -94,10 +94,10 @@ if ($error != 'error') {
                         ON mlm_temp.`ACCNO` = mlm2.`ACCNO`
                       LEFT JOIN client_accounts ON mlm_temp.`ACCNO` = client_accounts.`accountname`
                       AND mlm_temp.`rolldate` = '$periode_date'
-                      AND mlm_temp.`type` = 'askap'
+                      WHERE mlm_temp.`type` = 'askap'
                       GROUP BY mlm_temp.`ACCNO`
-                    ORDER BY mlm_temp.`ACCNO`";
-                    // tradeLogs($query);
+                    ORDER BY mlm_temp.`ACCNO`
+                    AND mlm_temp.`type` = 'askap'";
                     $result = $DB->execresultset($query);
                     foreach ($result as $rows) {
                         $acccount = $rows['ACCNO'];
@@ -361,7 +361,7 @@ FROM
 WHERE mlm_temp.`rolldate` = '" . $periode_date . "'
 AND mlm_temp.ACCNO = '" . $account . "'
 AND mlm_temp.type = 'askap'";
-    // tradeLogs($query);
+
     $result = $DB->execresultset($query);
     $data   = array();
     foreach ($result as $row) {
@@ -670,7 +670,7 @@ function ewallets($account, $amount, $desc){
       # code...
       $amount_old = $value['amounts'];
     }
-    tradeLogs('ACCNO '.$account . ' AMOUNT '.$amount . ' OLD AMOUNT '.$amount_old);
+    //tradeLogs('ACCNO '.$account . ' AMOUNT '.$amount . ' OLD AMOUNT '.$amount_old);
     $final = $amount + $amount_old;
     $update = "UPDATE mlm_ewallet SET balance = '$final' WHERE account = '$account'";
     $DB->execonly($update);

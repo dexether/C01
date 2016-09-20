@@ -13,7 +13,7 @@ var aw_comm_JS = function() {
             var tahun = $('select[name=tahun]').val();
             // console.log(tahun)
             $.ajax({
-                url: 'imp_detailed_report_do.php?postmode=show',
+                url: 'aw_detailed_report_do.php?postmode=show',
                 data: data,
                 type: 'POST',
                 dataType: 'json',
@@ -196,7 +196,7 @@ var aw_comm_JS = function() {
             $(a).button('loading');
             var formData = $('#ajax-form').serializeArray();
             $.ajax({
-                url: 'imp_detailed_report_do.php?postmode=client',
+                url: 'aw_detailed_report_do.php?postmode=client',
                 data: formData,
                 type: 'POST',
                 dataType: 'json',

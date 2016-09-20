@@ -21,7 +21,7 @@ if (isset($_GET['postmode'])) {
     $postmode = $_GET['postmode'];
 }
 
-$_SESSION['page'] = 'loket_pesawat';
+$_SESSION['page'] = 'loket_finansial';
 
 /*====================================
 =            Start Coding            =
@@ -32,7 +32,7 @@ $_SESSION['page'] = 'loket_pesawat';
 /*=====  End of Start Coding  ======*/
 
 
-$template->display("loket_pesawat.htm");
+$template->display("loket_finansial.htm");
 
 function myfilter($input_var_outer, $param) {
     global $var_to_pass;
