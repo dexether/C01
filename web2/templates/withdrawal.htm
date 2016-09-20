@@ -22,12 +22,12 @@
                 </div>
                 <div class="widget-content padding">
 				<div class="alert alert-info">
-					Notice : User withdrawal now will be charged 5% of the amount as Tax. 
+					Notice : User withdrawal now will be charged 5% of the amount as Tax.
 					</div>
                 {if $bankaccounts.0.status == '1'}
                 <div class="alert alert-warning">
                     <p class="text-justify">
-                        Your bank account / document not yet confirmed by Admin, 
+                        Your bank account / document not yet confirmed by Admin,
                     </p>
                 </div>
                 {else}
@@ -38,7 +38,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-control" name="method" id="method">
                                         <option disabled selected value> -- select method -- </option>
-                                        
+
                                         <option value="bank">Bank Tranfer</option>
                                     </select>
                                 </div>
@@ -49,9 +49,9 @@
                                     <select class="form-control" name="account" id="account" >
                                         <option disabled selected value> -- select an account -- </option>
                                         {foreach from=$accounts item=account}
-                                        <option value="{$account.accountname}">APEX {$account.accountname} | USD {$account.balance}</option>
+                                        <option value="{$account.accountname}">APEX {$account.accountname} | USD {$account.balance|number_format:2}</option>
                                         {/foreach}
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -60,11 +60,11 @@
                                 <div class="col-sm-4">
                                     <select class="form-control" name="bankaccount" id="bankaccount" >
                                         <option disabled selected value> -- select bank account -- </option>
-                                        
+
                                         {foreach from=$bankaccounts item=bankaccount}
                                         <option value="{$bankaccount.aeaccountnumber}">{$bankaccount.tipe_akun} {$bankaccount.aeaccountnumber}</option>
                                         {/foreach}
-                                        
+
                                     </select>
                                     <input type="hidden" name="token" id="token" value="{$token}">
                                 </div>
@@ -75,7 +75,7 @@
                                     <input type="text" class="form-control" name="amount" id="amount" value="" placeholder="Amount ..">
                                 </div>
                             </div>
-							
+
 							<script>
 								window.onload = function(){
 									var tax = "{$tax}";
@@ -89,7 +89,7 @@
 									};
 								};
 							</script>
-						
+
 							<div class="form-group col-sm-12">
 								<label for="amount" class="col-sm-2 control-label">Withdrawal amount after tax</label>
 								<span id="after_tax" class="col-sm-2"></span>
@@ -112,7 +112,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -155,19 +155,19 @@
                                         <td>Bank Transfer, {$a.type_transaction}</td>
                                         <td>USD {$a.amount|number_format:2}</td>
                                         <td>
-                                           {if $r.status == '0'}
+                                           {if $a.status == '0'}
                                        <span class="label label-warning">
                                           Request
                                        </span>
-                                       {elseif $r.status == '1'}
+                                       {elseif $a.status == '1'}
                                        <span class="label label-info">
                                           Pending
                                        </span>
-                                       {elseif $r.status == '2'}
+                                       {elseif $a.status == '2'}
                                        <span class="label label-success">
                                           Approved
                                        </span>
-                                       {elseif $r.status == '3'}
+                                       {elseif $a.status == '3'}
                                        <span class="label label-danger">
                                           Rejected
                                        </span>
