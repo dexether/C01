@@ -55,7 +55,7 @@ $filter_agen
 $filter_date
 AND mlm_comm.`ACCNO` = client_accounts.`accountname`
   AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
-  AND mlm_comm.type = 'askap'
+  AND mlm_comm.type = 'asiawide'
 GROUP BY mlm_comm.`ACCNO` ";
 $result = $DB->execresultset($query);
 $quick  = $result;
@@ -85,7 +85,7 @@ $filter_agen
 $filter_date
 AND mlm_comm.`ACCNO` = client_accounts.`accountname`
   AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
-  AND mlm_comm.type = 'askap'";
+  AND mlm_comm.type = 'asiawide'";
 // print_r($query);
 $result = $DB->execresultset($query);
 

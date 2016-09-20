@@ -79,7 +79,7 @@ if ($error != 'error') {
            AND client_accounts.suspend = '0'
            ORDER BY client_accounts.`accountname` DESC
            LIMIT 0, 1 ";
-           tradeLogMMNewLevel($query);
+          //  tradeLogMMNewLevel($query);
             $adaae      = 'noae';
             $rows       = $DB->execresultset($query);
             $lastaccout = 0;
