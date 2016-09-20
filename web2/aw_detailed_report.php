@@ -21,18 +21,27 @@ if (isset($_GET['postmode'])) {
     $postmode = $_GET['postmode'];
 }
 
-$_SESSION['page'] = 'loket_pesawat';
+$_SESSION['page'] = 'aw_detailed_report';
 
 /*====================================
 =            Start Coding            =
 ====================================*/
 
+// Years
+$yers_end = 2015;
+$yers_now = date('Y', time());
 
-
+foreach (range($yers_end, $yers_now) as $key => $value) {
+    $tahun['tahun'][] = $value;
+    $tahun['tahun_selected'] = $yers_now;
+    $tahun['bulan_selected'] = date('m', time());
+}
+$template->assign('tahun', $tahun);
+// var_dump($tahun);
 /*=====  End of Start Coding  ======*/
 
 
-$template->display("loket_pesawat.htm");
+$template->display("aw_detailed_report.htm");
 
 function myfilter($input_var_outer, $param) {
     global $var_to_pass;
