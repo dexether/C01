@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2016-09-15 06:11:18
+<?php /* Smarty version 3.1.27, created on 2016-09-20 12:25:49
          compiled from "/var/www/cabinet-stable/web2/templates/mainmenu.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:28642935357d9d9160a4b14_10640178%%*/
+/*%%SmartyHeaderCode:145933981857e0c85d4501e0_67142270%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -9,11 +9,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'eba8c8e5b4010a69b7c7ad5429fa53e662cf20ad' => 
     array (
       0 => '/var/www/cabinet-stable/web2/templates/mainmenu.htm',
-      1 => 1473887587,
+      1 => 1474343347,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '28642935357d9d9160a4b14_10640178',
+  'nocache_hash' => '145933981857e0c85d4501e0_67142270',
   'variables' => 
   array (
     'companys' => 0,
@@ -21,13 +21,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_57d9d9160d69b6_66465340',
+  'unifunc' => 'content_57e0c85d479a61_82164572',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_57d9d9160d69b6_66465340')) {
-function content_57d9d9160d69b6_66465340 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_57e0c85d479a61_82164572')) {
+function content_57e0c85d479a61_82164572 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '28642935357d9d9160a4b14_10640178';
+$_smarty_tpl->properties['nocache_hash'] = '145933981857e0c85d4501e0_67142270';
 ?>
 <!DOCTYPE html>
 <html>
@@ -143,7 +143,7 @@ $_smarty_tpl->properties['nocache_hash'] = '28642935357d9d9160a4b14_10640178';
                                                 <!-- ============================================================== -->
                                                 <!-- CONTENT -->
                                                 
-                                                <?php include_once ('imp_comm_report.php');?>
+                                                <?php include_once ('loket_finansial.php');?>
 
                                                 
                                                 <!-- /END OF CONTENT -->
