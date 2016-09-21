@@ -1,7 +1,8 @@
 <div class="gap gap-small"></div>
 <div class="container">
 	<!-- Today Promo -->
-	<h3 class="widget-title-lg"><?php echo $this->lang->line('main_daily_promo_title') ?></h3>
+	<?php if(!empty($promo)): ?>
+	<h3 class="widget-title-lg"><span class="fa fa-fire" aria-hidden = "true"></span> <?php echo $this->lang->line('main_daily_promo_title') ?></h3>
 	<div class="row row-sm-gap" data-gutter="10">
 		<div class="owl-carousel owl-loaded owl-nav-out" data-options='{"items":3,"loop":true,"nav":true}'>
 	<?php
@@ -42,8 +43,10 @@
     <?php } ?>
 </div>
 </div>
+
+<?php endif; ?>
 <!-- End Of Today Promo -->
-<div class="gap"></div>
+<div class="gap gap-small"></div>
 <div class="row" data-gutter="15">
 	<div class="col-md-4">
 		<div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">
