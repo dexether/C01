@@ -16,6 +16,8 @@
                     </li>
                     <li><a href="<?php echo base_url('help/how-to-buy') ?>">Cara belanja</a>
                     </li>
+                    <li><a href="<?php echo base_url('terms') ?>">Informasi pengguna</a>
+                    </li>
 
                 </ul>
             </div>

@@ -46,9 +46,9 @@
         <script src="<?php echo base_url('assets') ?>/js/bootstrap.js"></script>
         <?php echo $header ?>
         <!-- End of mainheader -->
-        <!-- <div class="container"> -->
-            <?php echo $slider ?>
-        <!-- </div> -->
+        <div class="container">
+        <?php echo $slider ?>
+        </div>
 
         <!-- Start Of Crausel -->
 
