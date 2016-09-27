@@ -9,6 +9,11 @@
 <script src="<?php echo base_url() ?>assets/js/libs/bootstrap-slider/bootstrap-slider.min.js"></script>
 <script src="<?php echo base_url() ?>assets/js/libs/slim-image/slim/slim.kickstart.min.js"></script>
 
+<!-- Dropzone -->
+<script src="<?php echo base_url() ?>assets/js/libs/dropzone-master/dist/min/dropzone.min.js"></script>
+<!-- Dropzone CSS -->
+<link href="<?php echo base_url() ?>assets/js/libs/dropzone-master/dist/min/dropzone.min.css" rel="stylesheet">
+
 <div class="container">
     <header class="page-header">
         <h1 class="page-title">
@@ -34,6 +39,7 @@
                 <?php echo $this->
                 lang->line('sell_title_detail'); ?>
             </h3>
+
             <!-- <form> -->
             <?php echo form_open_multipart('Uploader/secureSaveUploadedImages');?>
                 <div class="form-group">
@@ -42,6 +48,7 @@
                     </label>
                     <input class="form-control" type="text" name="prod_alias" value="" required/>
                 </div>
+
                 <div class="form-group">
                     <label>
                         <?php echo $this->lang->line('sell_name_cat'); ?>
@@ -58,7 +65,7 @@
 
                 <div class="form-group">
                     <label>
-                        Masukan gambar anda
+                        Masukan gambar Utama anda
                     </label>
                        <div class="slim"
                      data-label="Tarik gambar anda kesini"
@@ -68,6 +75,16 @@
                     <input type="file" name="slim[]" required />
                 </div>
 
+                </div>
+                <div class="form-group">
+                    <label>
+                        Masukkan gambar lainnya disini
+                    </label>
+                    <div class="uploadform dropzone no-margin dz-clickable">
+                    <div class="dz-default dz-message">
+                    <span>Drop your Cover Picture here</span>
+                    </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>
@@ -117,7 +134,46 @@
     </div>
 </div>
 <script type="text/javascript">
+    Dropzone.options.myAwesomeDropzone = { // The camelized version of the ID of the form element
+
+      // The configuration we've talked about above
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        parallelUploads: 100,
+        maxFiles: 100,
+
+        // The setting up of the dropzone
+        init: function() {
+        var myDropzone = this;
+
+        // First change the button to actually tell Dropzone to process the queue.
+        this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+          // Make sure that the form isn't actually being sent.
+          e.preventDefault();
+          e.stopPropagation();
+          myDropzone.processQueue();
+        });
+
+        // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
+        // of the sending event because uploadMultiple is set to true.
+        this.on("sendingmultiple", function() {
+          // Gets triggered when the form is actually being sent.
+          // Hide the success button or the complete form.
+        });
+        this.on("successmultiple", function(files, response) {
+          // Gets triggered when the files have successfully been sent.
+          // Redirect user or notify of success.
+        });
+        this.on("errormultiple", function(files, response) {
+          // Gets triggered when there was an error sending the files.
+          // Maybe show form again, and notify user of error
+        });
+      }
+
+    }
+    // Jquery
     jQuery(document).ready(function($) {
+        $('#myids').dropzone();
         $('#ex1').slider({
             formatter: function(value) {
                 return 'Current value: ' + value;
@@ -139,4 +195,31 @@
           focus: true                  // set focus to editable area after initializing summernote
         });
     });
+</script>
+<script>
+$(document).ready(function(){
+  Dropzone.autoDiscover = false; // keep this line if you have multiple dropzones in the same page
+  $(".uploadform").dropzone({
+    url: "<?php echo base_url('uploader/uploadMultipleImages') ?>",
+    paramName: "file",
+    maxFiles: 5,
+    parallelUploads: 5,
+    maxFilesize: 10, // MB
+    acceptedFiles: 'image/*',
+    addRemoveLinks: true,
+    dictRemoveFile: "Hapus gambar",
+    // autoDiscover: false,
+    uploadMultiple: true,
+    params: {
+      '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
+    },
+    maxfilesexceeded: function(file)
+    {
+      alert('You have uploaded more than 1 Image. Only the first file will be uploaded!');
+    },
+    success: function (response) {
+      console.log(response)
+    }
+  });
+});
 </script>

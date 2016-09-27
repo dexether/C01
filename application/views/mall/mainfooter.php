@@ -46,9 +46,9 @@
 
                         <ul class="main-footer-social-list pull-right">
                             <li>
-                                <a class="fa fa-facebook" href="#"></a>
+                                <a class="fa fa-facebook" href="https://www.facebook.com/AgendaFX/"></a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a class="fa fa-twitter" href="#"></a>
                             </li>
                             <li>
@@ -59,7 +59,7 @@
                             </li>
                             <li>
                                 <a class="fa fa-google-plus" href="#"></a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                     <div class="col-md-6">
                         <p class="copyright-text">Copyright &copy; <a href="#"><?php echo $this->config->item('APP_TITLE') ?></a> <?php echo date('Y') ?> <?php echo $this->config->item('APP_DESC') ?></p>
                     </div>
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <ul class="payment-icons-list">
                             <li>
                                 <img src="<?php echo base_url('assets') ?>/img/payment/visa-straight-32px.png" alt="" title="Pay with Visa" />
@@ -88,7 +88,7 @@
                             </li>
 
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

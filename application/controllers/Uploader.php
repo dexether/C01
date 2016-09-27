@@ -39,10 +39,10 @@ class Uploader extends CI_Controller
         foreach ($this->upload->get_multi_upload_data() as $key => $value) {
             $location = reduce_double_slashes($this->config->item('product_uploads').$value['file_name']);
             $data = array(
-              "id_prod" => $product_id,
               "is_images" => true,
               "image_location" => $location,
-              "image_type" => "secondary"
+              "image_type" => "secondary",
+              "unix" => $_SERVER['REMOTE_ADDR']
             );
             $do = $this->basicmodel->insertData('master_product_images', $data);
         }
@@ -93,7 +93,15 @@ class Uploader extends CI_Controller
             );
             $sql = $this->basicmodel->insertData('master_product', $insert);
             if ($sql) {
-                redirect('product/step/2/'.$prod_name, 'refresh');
+                // $data = array(
+                //   'id_prod' => 0
+                // );
+                // $updatePictures = $this->basicmodel->updateData('master_product_images', $data, $where, $where_value);
+                $remote_address = $_SERVER['REMOTE_ADDR'];
+                $update = $this->db->query('UPDATE master_product_images SET id_Prod = "'.$this->db->insert_id().'" WHERE unix = "'.$remote_address.'" AND id_prod IS NULL');
+                // redirect('product/step/2/'.$prod_name, 'refresh');
+                redirect('product/success/'.$prod_name);
+
             } else {
                 show_404();
             }

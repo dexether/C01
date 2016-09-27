@@ -1269,7 +1269,7 @@ hr {
 }
 
 .slider-item, .slider-item-sm {
-    height: 500px;
+    max-height: 490px;
     position: relative;
     background-color: #fff;
     -webkit-background-size: cover;

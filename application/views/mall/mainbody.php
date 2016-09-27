@@ -297,7 +297,7 @@
 			<?php } ?>
 	</div>
 </div>
-<div class="gap">sql</div>
+<div class="gap"></div>
 <script type="text/javascript">
 	$(document).ready(function($) {
 		$(".my-rating").starRating({
