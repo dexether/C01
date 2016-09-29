@@ -78,11 +78,11 @@
                 </div>
                 <div class="form-group">
                     <label>
-                        Masukkan gambar lainnya disini
+                        Masukkan 5 Gambar terbaik disini
                     </label>
                     <div class="uploadform dropzone no-margin dz-clickable">
                     <div class="dz-default dz-message">
-                    <span>Drop your Cover Picture here</span>
+                    <span>Drag your Pictures Here</span>
                     </div>
                     </div>
                 </div>

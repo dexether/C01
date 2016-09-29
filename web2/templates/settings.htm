@@ -1,6 +1,8 @@
 <div id="main_content" class="content">
+	<!-- validator -->
+	<link href="custom/validator/dist/css/formValidation.min.css" rel="stylesheet"/>
 	<div class="page-heading">
-		<h1><i class='fa icon-list'></i> Settings</h1>		
+		<h1><i class='fa icon-list'></i> Settings</h1>
 	</div>
 	<!-- Page Heading End-->
 	<!-- Your awesome content goes here -->
@@ -8,39 +10,152 @@
 		<div class="col-md-12">
 			<div class="widget">
 				<div class="widget-header">
-                    <h2><strong>CONNECT</strong> With Social Network</h2>
-                    <div class="additional-btn">
-                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
-                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
-                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
-                    </div>
-                </div>
+					<h2><strong>Change</strong> Account Settings</h2>
+					<div class="additional-btn">
+						<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+						<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+						<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+					</div>
+				</div>
 				<div class="widget-content padding">
+					<!-- <div class="row">
+								<div class="col-sm-4">
+											<div class="widget">
+														<div class="widget-content padding">
+																	<button class="btn btn-facebook btn-block btn-lg"><i class="fa fa-facebook"></i> Facebook</button>
+														</div>
+											</div>
+								</div>
+								<div class="col-sm-4">
+											<div class="widget">
+														<div class="widget-content padding">
+																	<button class="btn btn-google-plus btn-block btn-lg"><i class="fa fa-google-plus"></i> Google Plus</button>
+														</div>
+											</div>
+								</div>
+								<div class="col-sm-4">
+											<div class="widget">
+														<div class="widget-content padding">
+																	<button class="btn btn-linkedin btn-block btn-lg"><i class="fa fa-linkedin"></i> Linkedin</button>
+														</div>
+											</div>
+								</div>
+					</div> -->
+					{if $avaible == true}
 					<div class="row">
-						<div class="col-sm-4">
-							<div class="widget">
-								<div class="widget-content padding">
-									<button class="btn btn-facebook btn-block btn-lg"><i class="fa fa-facebook"></i> Facebook</button>
+						<div class="col-sm-6">
+							<form action="" method="POST" role="form" name="ajaxForm" id="ajaxForm">
+								<input type="hidden" name="token" value="{$token}"></input>
+								<legend>Default email change</legend>
+								<div class="alert alert-warning">
+									<p>Anda terdaftar otomatis dari system saat migrasi data, silahkan masukan email yang valid agar anda dapat terus menikmati layanan di Program ini</p>
 								</div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="widget">
-								<div class="widget-content padding">
-									<button class="btn btn-google-plus btn-block btn-lg"><i class="fa fa-google-plus"></i> Google Plus</button>
+								<div class="form-group">
+									<label for="oldEmail">Email</label>
+									<input type="text" class="form-control" id="oldEmail" name="oldEmail" value="{$userdata.email}" readonly>
 								</div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="widget">
-								<div class="widget-content padding">
-									<button class="btn btn-linkedin btn-block btn-lg"><i class="fa fa-linkedin"></i> Linkedin</button>
+								<div class="form-group">
+									<label for="newEmail">New Email</label>
+									<input type="text" class="form-control" id="newEmail" name="newEmail">
 								</div>
-							</div>
+								<div class="form-group">
+									<label for="confirmNewEmail">Confirm New Email</label>
+									<input type="text" class="form-control" id="confirmNewEmail" name="confirmNewEmail">
+								</div>
+								<div class="form-group">
+									<label for="confirmNewEmail">Enter your password</label>
+									<input type="password" class="form-control" id="yourPassword" name="yourPassword">
+								</div>
+								<!-- <button type="submit" class="btn btn-primary">Save Settings</button> -->
+								<input type="submit" name="submit" class="btn btn-primary" value="Save Setiings"></input>
+							</form>
 						</div>
 					</div>
+					{else}
+					<div class="alert alert-success">
+						<p>Everything is ok, No change needed</p>
+					</div>
+					{/if}
+					
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<!-- FormValidation plugin and the class supports validating Bootstrap form -->
+<script src="custom/validator/dist/js/formValidation.min.js">
+</script>
+<script src="custom/validator/dist/js/framework/bootstrap.min.js">
+</script>
+<script>
+   $(document).ready(function() {
+     // ar_account_mm_JS.init();
+     $('#ajaxForm').formValidation({
+         framework: 'bootstrap',
+         icon: {
+             valid: 'glyphicon glyphicon-ok',
+             invalid: 'glyphicon glyphicon-remove',
+             validating: 'fa fa-circle-o-notch fa-spin'
+         },
+         fields: {
+             newEmail: {
+                 validators: {
+                        emailAddress: {
+                            message: 'Email is not correct'
+                        },
+                        notEmpty: {
+                            message: 'Email can not be empty'
+                        },
+                        remote: {
+                         url: 'imp_check_email2.php',
+                         message: 'Email already registered',
+                         type: 'POST'
+                        }
+                    }
+             },
+             confirmNewEmail: {
+                 validators: {
+                     notEmpty: {
+                         message: 'The Confirm email is required'
+                     },
+                     identical: {
+                            field: 'newEmail',
+                            message: 'Confirm email not equal on New email, please check'
+                        }
+                 }
+             },
+             yourPassword: {
+                 validators: {
+                     notEmpty: {
+                         message: 'The Password is required'
+                     }
+                 }
+             }
+         }
+     })
+     .on('success.form.fv', function(e) {
+           e.preventDefault();           
+             var $form = $(e.target),
+                 fv = $form.data('formValidation');
+                 $.ajax({
+                 	url: 'settings_do.php',
+                 	type: 'POST',
+                 	dataType: 'JSON',
+                 	data: $form.serializeArray(),
+                 	success: function(response){
+                 		alert(response.status);
+                 		
+                 	},
+                 	error: function(){
+                 		alert('Error while get data from servers')
+                 	},
+                 	complete: function(){
+                 		location.reload();
+                 	}
+                 });
+            
+            // ar_account_mm_JS.create_agent($form);
+            // console.log('success clicked');
+        });
+ });
+</script>

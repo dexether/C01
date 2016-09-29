@@ -1,6 +1,7 @@
 <?php
 include_once("$_SERVER[DOCUMENT_ROOT]/includes/functions.php");
 include_once("$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/classes/security.csrf.php");
 include_once("includes/wr_tools.php");
 $var_to_pass = null;
 global $user;
@@ -8,7 +9,9 @@ global $template;
 global $themonth;
 global $mysql;
 global $DB;
-
+$security = new \security\CSRF;
+$token = $security->set(3, 3600);
+$template->assign('token', $token);
 if (isset($user)) {
     $user;
 }
@@ -69,6 +72,24 @@ if (isset($_GET['postmode'])) {
 }
 
 $_SESSION['page'] = 'settings';
+
+// Coding
+$pecah = explode('@', $user->username);
+if($pecah[1] == 'thecabinetsystems.com'):
+    $avaible = true;
+else:
+    $avaible = false;
+endif;
+$template->assign('avaible', $avaible);
+
+/* get client data */
+$query = "SELECT email, aecode, aecodeid, name FROM client_aecode WHERE aecode = '".$user->username."'";
+$data = $DB->execresultset($query);
+foreach ($data as $key => $value) {
+    # code...
+    $data_array = $value;
+}
+$template->assign('userdata', @$data_array);
 $template->display("settings.htm");
 
 function myfilter($input_var_outer, $param) {

@@ -153,9 +153,11 @@
 </div>
 
 <div class="container">
+	<div class="gap gap-small">
+	</div>
 	<h3 class="widget-title"><?php echo $this->lang->line('main_best_ea'); ?></h3>
 	<div class="owl-carousel owl-loaded owl-nav-out" data-options='{"items":5,"loop":true,"nav":true}'>
-		<?php	foreach ($brand['forex-robot'] as $key => $value) {	?>
+		<?php foreach ($brand['forex-robot'] as $key => $value) {	?>
 			<div class="owl-item">
 					<div class="product  owl-item-slide">
 						<ul class="product-labels">
@@ -186,7 +188,80 @@
 			<?php } ?>
 	</div>
 </div>
-
+<?php if(!empty($brand['forex-seminar'])): ?>
+<div class="container">
+	<div class="gap gap-small">
+	</div>
+	<h3 class="widget-title">Forex Seminar</h3>
+	<div class="owl-carousel owl-loaded owl-nav-out" data-options='{"items":5,"loop":true,"nav":true}'>
+		<?php foreach ($brand['forex-seminar'] as $key => $value) {	?>
+			<div class="owl-item">
+					<div class="product  owl-item-slide">
+						<ul class="product-labels">
+							<?php if(!$value['promo_alias'] == NULL){
+								echo "<li>".$value['promo_alias']."</li>";
+							}
+							?>
+						</ul>
+							<div class="product-img-wrap">
+									<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
+							</div>
+							<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
+							<div class="product-caption">
+	                <div class="my-rating" data-rating="<?php echo $value['prod_star']; ?>"></div>
+	                <h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
+	                <div class="product-caption-price">
+	                	<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
+	                  		echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['prod_price']).'</span>';
+	                	}else{
+	                  		echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
+	                  		echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['final_price']).'</span>';
+	                	}
+	                	?>
+	                </div>
+	            </div>
+					</div>
+			</div>
+			<?php } ?>
+	</div>
+</div>
+<?php endif; ?>
+<div class="container">
+	<div class="gap gap-small">
+	</div>
+	<h3 class="widget-title">Master Trader</h3>
+	<div class="owl-carousel owl-loaded owl-nav-out" data-options='{"items":5,"loop":true,"nav":true}'>
+		<?php foreach ($brand['forex-copytrade'] as $key => $value) {	?>
+			<div class="owl-item">
+					<div class="product  owl-item-slide">
+						<ul class="product-labels">
+							<?php if(!$value['promo_alias'] == NULL){
+								echo "<li>".$value['promo_alias']."</li>";
+							}
+							?>
+						</ul>
+							<div class="product-img-wrap">
+									<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
+							</div>
+							<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
+							<div class="product-caption">
+	                <div class="my-rating" data-rating="<?php echo $value['prod_star']; ?>"></div>
+	                <h5 class="product-caption-title"><?php echo $value['prod_alias']; ?></h5>
+	                <div class="product-caption-price">
+	                	<?php if($value['promo_name'] == NULL || $value['promo_value'] == 0 ){
+	                  		echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['prod_price']).'</span>';
+	                	}else{
+	                  		echo '<span class="product-caption-price-old">'.$this->format->set_rp($value['prod_price']).'</span>';
+	                  		echo '<span class="product-caption-price-new">'.$this->format->set_rp($value['final_price']).'</span>';
+	                	}
+	                	?>
+	                </div>
+	            </div>
+					</div>
+			</div>
+			<?php } ?>
+	</div>
+</div>
 <div class="container">
 	<div class="gap gap-small">
 	</div>
