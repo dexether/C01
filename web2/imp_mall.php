@@ -37,20 +37,21 @@ foreach ($result as $key => $value) {
     $base_url = $value['value'];
 }
 $template->assign('base_url', $base_url);
-$query = "SELECT 
+$query = "SELECT
 master_product.`id`,
   master_product.`prod_alias`,
   master_product.`prod_name`,
   master_product.`comm`,
   master_product.`prod_price`,
   master_cat.`cat_name`,
-  client_aecode.`name` 
+  client_aecode.`name`,
+  master_cat.cat_alias
 FROM
   master_product,
   master_cat,
-  client_aecode 
-WHERE master_product.`id_cat` = master_cat.`id` 
-  AND master_product.`aecodeid` = client_aecode.`aecodeid` 
+  client_aecode
+WHERE master_product.`id_cat` = master_cat.`id`
+  AND master_product.`aecodeid` = client_aecode.`aecodeid`
   AND master_product.`is_active` = FALSE ";
 $result = $DB->execresultset($query);
 $template->assign('product_list', $result);

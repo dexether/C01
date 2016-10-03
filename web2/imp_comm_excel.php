@@ -7,7 +7,7 @@ For Production reason Error reporting will disable
 
 include_once "$_SERVER[DOCUMENT_ROOT]/includes/functions.php";
 include_once "$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php";
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../classes/PHPExcel.php';
 $var_to_pass = null;
 global $user;
 global $template;
@@ -55,6 +55,7 @@ $filter_agen
 $filter_date
 AND mlm_comm.`ACCNO` = client_accounts.`accountname`
   AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
+  AND mlm_comm.type = 'askap'
 GROUP BY mlm_comm.`ACCNO` ";
 $result = $DB->execresultset($query);
 $quick  = $result;
@@ -83,7 +84,8 @@ WHERE 1=1
 $filter_agen
 $filter_date
 AND mlm_comm.`ACCNO` = client_accounts.`accountname`
-  AND client_accounts.`aecodeid` = client_aecode.`aecodeid` ";
+  AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
+  AND mlm_comm.type = 'askap'";
 // print_r($query);
 $result = $DB->execresultset($query);
 
@@ -111,7 +113,7 @@ foreach ($result as $key => $value) {
       foreach ($hasil1 as $key2 => $value2) {
          $lots = $value2['lot'];
       }
-      
+
       $detailed2[$_i] = $value;
       $detailed2[$_i]['LOGIN'] = $value1['mt4login'];
       $detailed2[$_i]['LOTS']  = $lots;

@@ -71,6 +71,8 @@ $route['cart/alter/(:any)'] = 'Buy_sell/deleteProductFromcart/$1';
 $route['checkout'] = 'Buy_sell/itemCheckoutPay';
 $route['checkout/(:any)/success'] = 'Buy_sell/itemCheckoutSuccess/$1';
 $route['about-us'] = 'Store/AboutUs';
+$route['terms'] = 'Store/termsAndCondidition';
+
 
 /* API */
 // $route['email/adminapprove/'] = 'api/sendEmailAfterApprove';

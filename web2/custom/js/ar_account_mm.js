@@ -287,6 +287,38 @@ var ar_account_mm_JS = function() {
                     // Ajax Start
                 }, 1000);
             });
+        },
+        create_agent_aw: function(a) {
+            var data = a.serializeArray();
+            // console.log(data);
+            swal({
+                title: "Are you sure?",
+                text: "Do you want to process ?",
+                type: "info",
+                confirmButtonText: "Yes, process it!",
+                cancelButtonText: "No, cancel!",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                html: true,
+                showLoaderOnConfirm: true,
+            }, function() {
+                setTimeout(function() {
+                    $.ajax({
+                        url: 'imp_agent_do.php?type=asiawide',
+                        type: 'POST',
+                        data: data,
+                        dataType: 'JSON',
+                    }).done(function(res) {
+                        // console.log(res)
+                        swal(res.subject, res.msg, res.status);
+                        // setTimeout('history.go(0)', 4000)
+                    }).fail(function() {
+                        swal('We found an error', 'Check your details', 'error');
+                    }).always(function() {});
+                    // swal("Success!", "The job have running well.", "success");
+                    // Ajax Start
+                }, 1000);
+            });
         }
     };
 }();

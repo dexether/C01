@@ -27,8 +27,8 @@ if (isset($_GET['postmode'])) {
 	$postmode = $_GET['postmode'];
 }
 if ($postmode == "export") {
-	
-	$query = "SELECT 
+
+	$query = "SELECT
 	client_accounts.`accountname`,
 	LEFT(client_accounts.`last_updated`, 10) AS last_pay
 	FROM
@@ -49,7 +49,7 @@ if ($postmode == "export") {
 
 }elseif ($postmode == "doit") {
 	storeToCronLogs('wcd');
-	$query = "SELECT 
+	$query = "SELECT
   mlm_wcd.`account`,
   mlm_wcd.`last_pay`,
   mlm_wcd.`next_pay`,
@@ -57,65 +57,113 @@ if ($postmode == "export") {
   mlm_bonus_settings.`group_play`,
   mlm_bonus_settings.`amount`,
   mlm_bonus_settings.`description`,
-  mlm_bonus_settings.`wcd` 
+  mlm_bonus_settings.`wcd`,
+	client_aecode.nationality
 FROM
   client_aecode,
   client_accounts,
   mlm_wcd,
   mlm,
-  mlm_bonus_settings 
-WHERE mlm_wcd.status = '1' 
-  AND mlm_wcd.`account` = mlm.`ACCNO` 
-  AND client_aecode.aecodeid = client_accounts.aecodeid 
-  AND client_accounts.`suspend` = '0' 
-  AND mlm_wcd.account = client_accounts.`accountname` 
-  AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
-  AND mlm.`companyconfirm` = '2' 
-  AND mlm_wcd.`next_pay` = DATE(NOW())";
+  mlm_bonus_settings
+WHERE mlm_wcd.status = '1'
+  AND mlm_wcd.`account` = mlm.`ACCNO`
+  AND client_aecode.aecodeid = client_accounts.aecodeid
+  AND client_accounts.`suspend` = '0'
+  AND mlm_wcd.account = client_accounts.`accountname`
+  AND mlm.`group_play` = mlm_bonus_settings.`group_play`
+  AND mlm.`companyconfirm` = '2'
+  AND mlm_wcd.`next_pay` <= DATE(NOW())";
 	// tradeLogConstruct("ar_admin_wcd- 75 : ". $query);
 	$result = $DB->execresultset($query);
 	foreach($result as $rows) {
-	/*	$balancealls = getBalance($rows['account']);
-	$total = $balancealls['ewallet']['balance'] + $balancealls['goldsaving']['balance'];*/
-	$total = $rows['amount'];
-	$total_bagi = $total * ($rows['wcd'] / 100);
-	$do = storeToWallet($rows['account'], $total_bagi);
-	if($do == '0') {
-		$new_tgl = date('Y-m-d', strtotime("+1 week", strtotime($rows['next_pay'])));
-		$query = "UPDATE mlm_wcd SET next_pay = '$new_tgl', last_pay = '$rows[next_pay]' WHERE account = '$rows[account]' ";
-		$DB->execonly($query);
-		bonusLogs($rows['account'], 'wcd' , $total_bagi , 'This bonus split 70% Into E-Wallet and 30% into Gold Saving account');
+	// Tamahan kalo misalkan Malaysia (MY) itu 100% divendnya
+	if ($rows['nationality'] == 'MY') {
+		# code...
+		/*	$balancealls = getBalance($rows['account']);
+		$total = $balancealls['ewallet']['balance'] + $balancealls['goldsaving']['balance'];*/
+		$total = $rows['amount'];
+		$total_bagi = $total * ($rows['wcd'] / 100);
+		$do = storeToEWallet($rows['account'], $total_bagi);
+		if($do == '0') {
+			$new_tgl = date('Y-m-d', strtotime("+1 week", strtotime($rows['next_pay'])));
+			$query = "UPDATE mlm_wcd SET next_pay = '$new_tgl', last_pay = '$rows[next_pay]' WHERE account = '$rows[account]' ";
+			$DB->execonly($query);
+			bonusLogs($rows['account'], 'wcd' , $total_bagi , 'This bonus Will store to your ewallet');
 
-			// Send email
-		$query = "SELECT 
-		client_aecode.`aecodeid`,
-		client_accounts.`accountname`,
-		client_aecode.`email`,
-		client_aecode.`name`
-		FROM
-		client_accounts,
-		client_aecode 
-		WHERE client_accounts.`accountname` = '$rows[account]'
-		AND client_accounts.`aecodeid` = client_aecode.`aecodeid`";
-		$hasil = $DB->execresultset($query);
-		$subject = "Congratulations, you have got a bonus";
-		$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
-		$body = $body . "Dear ".$hasil[0]['name'].",<br>";
-		$body = $body . " <br>";
-		$body = $body . "Congratulations, you have earned on Account ".$rows['account']." <b>WEALTH CLUB DIVIDEND (W.C.D)</b> bonus of USD ".number_format($total_bagi, 2)." <br>";
-		$body = $body . "This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) <br>";
-		$body = $body . " <br>";
-		$body = $body . "You may login to your APR program account via our website at http://www.apexregent.com <br>";
-		$body = $body . " <br>";
-		$body = $body . " <br>";
-		$body = $body . "Thank you," . "<br>";
-		$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
-		$body = $body . $companys['long_address'];
-		$body = $body . " Email : ".$companys['email']." <br>";
-		$body = $body . " ".$companys['companyurl']." <br>";
+				// Send email
+			$query = "SELECT
+			client_aecode.`aecodeid`,
+			client_accounts.`accountname`,
+			client_aecode.`email`,
+			client_aecode.`name`
+			FROM
+			client_accounts,
+			client_aecode
+			WHERE client_accounts.`accountname` = '$rows[account]'
+			AND client_accounts.`aecodeid` = client_aecode.`aecodeid`";
+			$hasil = $DB->execresultset($query);
+			$subject = "Congratulations, you have got a bonus";
+			$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
+			$body = $body . "Dear ".$hasil[0]['name'].",<br>";
+			$body = $body . " <br>";
+			$body = $body . "Congratulations, you have earned on Account ".$rows['account']." <b>WEALTH CLUB DIVIDEND (W.C.D)</b> bonus of USD ".number_format($total_bagi, 2)." <br>";
+			//$body = $body . "This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) <br>";
+			$body = $body . " <br>";
+			$body = $body . "You may login to your APR program account via our website at http://www.apexregent.com <br>";
+			$body = $body . " <br>";
+			$body = $body . " <br>";
+			$body = $body . "Thank you," . "<br>";
+			$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+			$body = $body . $companys['long_address'];
+			$body = $body . " Email : ".$companys['email']." <br>";
+			$body = $body . " ".$companys['companyurl']." <br>";
 
-		sendEmail($hasil[0]['email'], $subject, $body , 'ar_admin_wcd');
-	}	
+			sendEmail($hasil[0]['email'], $subject, $body , 'ar_admin_wcd');
+		}
+	}else{
+		/*	$balancealls = getBalance($rows['account']);
+		$total = $balancealls['ewallet']['balance'] + $balancealls['goldsaving']['balance'];*/
+		$total = $rows['amount'];
+		$total_bagi = $total * ($rows['wcd'] / 100);
+		$do = storeToWallet($rows['account'], $total_bagi);
+		if($do == '0') {
+			$new_tgl = date('Y-m-d', strtotime("+1 week", strtotime($rows['next_pay'])));
+			$query = "UPDATE mlm_wcd SET next_pay = '$new_tgl', last_pay = '$rows[next_pay]' WHERE account = '$rows[account]' ";
+			$DB->execonly($query);
+			bonusLogs($rows['account'], 'wcd' , $total_bagi , 'This bonus split 70% Into E-Wallet and 30% into Gold Saving account');
+
+				// Send email
+			$query = "SELECT
+			client_aecode.`aecodeid`,
+			client_accounts.`accountname`,
+			client_aecode.`email`,
+			client_aecode.`name`
+			FROM
+			client_accounts,
+			client_aecode
+			WHERE client_accounts.`accountname` = '$rows[account]'
+			AND client_accounts.`aecodeid` = client_aecode.`aecodeid`";
+			$hasil = $DB->execresultset($query);
+			$subject = "Congratulations, you have got a bonus";
+			$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
+			$body = $body . "Dear ".$hasil[0]['name'].",<br>";
+			$body = $body . " <br>";
+			$body = $body . "Congratulations, you have earned on Account ".$rows['account']." <b>WEALTH CLUB DIVIDEND (W.C.D)</b> bonus of USD ".number_format($total_bagi, 2)." <br>";
+			$body = $body . "This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) <br>";
+			$body = $body . " <br>";
+			$body = $body . "You may login to your APR program account via our website at http://www.apexregent.com <br>";
+			$body = $body . " <br>";
+			$body = $body . " <br>";
+			$body = $body . "Thank you," . "<br>";
+			$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+			$body = $body . $companys['long_address'];
+			$body = $body . " Email : ".$companys['email']." <br>";
+			$body = $body . " ".$companys['companyurl']." <br>";
+
+			sendEmail($hasil[0]['email'], $subject, $body , 'ar_admin_wcd');
+		}
+	}
+
 }
 }
 /*
@@ -174,6 +222,30 @@ function storeToWallet($account, $amount) {
 
 	return 0;
 }
+function storeToEWallet($account, $amount) {
+	global $DB;
+	$wallet = $amount;
+	$GoldSaving = $amount * 0.3;
+	$balancealls = getBalance($account);
+	$wallet_final = $balancealls['ewallet']['balance'] + $wallet;
+	$GoldSaving_final = $balancealls['goldsaving']['balance'] + $GoldSaving;
+	// tradeLogConstruct("ar_admin_wcd- 94 : ". $wallet_final . " " . $GoldSaving_final);
+	$balance_prev_wallet = $balancealls['ewallet']['balance'];
+	$prev_time_wallet = $balancealls['ewallet']['time'];
+
+	$balance_prev_gold = $balancealls['goldsaving']['balance'];
+	$prev_time_gold = $balancealls['goldsaving']['time'];
+	// Store to wallet
+	$query = "UPDATE mlm_ewallet SET balance = '$wallet_final', balance_prev = '$balance_prev_wallet', lastupdate = NOW(), lastupdate_prev = '$prev_time_wallet' WHERE account = '$account' ";
+	// tradeLogConstruct("ar_admin_wcd- 94 : ". $query);
+	$DB->execonly($query);
+
+	// $query = "UPDATE mlm_goldsaving SET balance = '$GoldSaving_final', balance_prev = '$balance_prev_gold', lastupdate = NOW(), lastupdate_prev = '$prev_time_gold' WHERE account = '$account' ";
+	// // tradeLogConstruct("ar_admin_wcd- 94 : ". $query);
+	// $DB->execonly($query);
+
+	return 0;
+}
 
 function tradeLogConstruct($msg) {
 	$fp = fopen("trader.log", "a");
@@ -192,7 +264,7 @@ function sendEmail($to, $subject, $body, $module) {
 	email_subject = '$subject',
 	email_body = '$body',
 	timesend = '1970-01-31 00:00:00',
-	module = '$module'    
+	module = '$module'
 	";
 	$DB->execonly($query);
 }

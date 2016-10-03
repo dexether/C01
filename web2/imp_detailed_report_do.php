@@ -67,7 +67,8 @@ WHERE 1=1
 $filter_agen
 $filter_date
 AND mlm_comm.`ACCNO` = client_accounts.`accountname`
-  AND client_accounts.`aecodeid` = client_aecode.`aecodeid` ";
+  AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
+  AND mlm_comm.type = 'askap'";
    // print_r($query);
    $result = $DB->execresultset($query);
 
@@ -133,6 +134,7 @@ $filter_agen
 $filter_date
 AND mlm_comm.`ACCNO` = client_accounts.`accountname`
   AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
+  AND mlm_comm.type = 'askap'
 GROUP BY mlm_comm.`ACCNO` ";
    $result2                = $DB->execresultset($query);
    $response['detailed']   = $result;

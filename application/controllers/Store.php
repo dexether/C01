@@ -249,4 +249,13 @@ class Store extends CI_Controller
         );
         $this->load->view('mall/index', $part);
     }
+    public function termsAndCondidition()
+    {
+        $part = array(
+            "header" => $this->load->view('mall/mainheader', array(), true),
+            "body"   => $this->load->view('mall/terms', array(), true),
+            "slider" => "",
+        );
+        $this->load->view('mall/index', $part);
+    }
 }

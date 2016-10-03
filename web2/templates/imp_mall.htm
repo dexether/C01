@@ -169,6 +169,9 @@
                                                 Product
                                             </th>
                                             <th>
+                                                Category
+                                            </th>
+                                            <th>
                                                 Price
                                             </th>
                                             <th>
@@ -190,6 +193,9 @@
                                                 <a href="{$base_url}/c/{$row.cat_name}/{$row.prod_name}" target="_blank">
                                                     {$row.prod_alias}
                                                 </a>
+                                            </td>
+                                            <td>
+                                                {$row.cat_alias}
                                             </td>
                                             <td>
                                                 {$row.prod_price|number_format:0}

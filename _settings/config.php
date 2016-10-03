@@ -69,6 +69,26 @@ switch ($httphost) {
         $mysql['meta']      = "askap_source_mini";
         $mysql['crypt_key'] = "139";
         break;
+	case 'agendaf.dev':
+        $mysql['host'] = "127.0.0.1";
+        $mall          = true;
+        // $mysql['host'] = "localhost";
+        $mysql['user']      = "root";
+        $mysql['password']  = "mugen1996";
+        $mysql['database']  = "imperium_cabinet";
+        $mysql['meta']      = "askap_source_mini";
+        $mysql['crypt_key'] = "139";
+        break;
+	case 'cabinet.koperasi-mppi.dev':
+        $mysql['host'] = "10.10.0.122:1603";
+        $mall          = false;
+        // $mysql['host'] = "localhost";
+        $mysql['user']      = "root";
+        $mysql['password']  = "apexcabinet1603";
+        $mysql['database']  = "koperasi_mppi_dev";
+        $mysql['meta']      = "askap_source_mini";
+        $mysql['crypt_key'] = "139";
+        break;
 	case 'agendafx.dev:90':
         // $mysql['host'] = "10.10.0.103";
         $mall          = true;
