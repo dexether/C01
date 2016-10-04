@@ -97,14 +97,17 @@ foreach ($result as $key => $value) {
    $rolldate       = $value['rolldate'];
    $from_date      = date('Y-m-d', strtotime($rolldate));
    $to_date        = date('Y-m-t', strtotime($rolldate));
+   // tradeLogComm($from_date);
    $detailed[$key] = $value;
    $query          = "SELECT mlm2.mt4dt, mt4login, alias FROM mlm2, mt_database WHERE mlm2.mt4dt = mt_database.mt4dt AND ACCNO = '$value[from]'";
    $hasil          = $DB->execresultset($query);
    $datalot        = array();
    foreach ($hasil as $key1 => $value1) {
 
-      $from_date = date('Y-m-d', (strtotime('-1 day', strtotime($from_date))));
-      $query     = "SELECT SUM(VOLUME)/100 as lot FROM " . $value1['mt4dt'] . ".mt4_trades WHERE LOGIN = '$value1[mt4login]' AND CMD IN ('1', '0') AND CLOSE_TIME BETWEEN '" . $from_date . " 22:30:01' AND '" . $to_date . " 22:30:0' GROUP BY LOGIN";
+      $from_date2 = date('Y-m-d', (strtotime('-1 day', strtotime($from_date))));
+      // tradeLogComm($from_date2);
+      $query     = "SELECT SUM(VOLUME)/100 as lot FROM " . $value1['mt4dt'] . ".mt4_trades WHERE LOGIN = '$value1[mt4login]' AND CMD IN ('1', '0') AND CLOSE_TIME BETWEEN '" . $from_date2 . " 22:30:01' AND '" . $to_date . " 22:30:00' GROUP BY LOGIN";
+      // tradeLogComm($query);
       $hasil1    = $DB->execresultset($query);
       $lots      = 0;
       foreach ($hasil1 as $key2 => $value2) {
