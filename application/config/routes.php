@@ -83,6 +83,7 @@ $route['api/images'] = 'api/secureGetImage';
 
 /* Create Product */
 $route['product/new'] = 'Buy_sell/sell';
+$route['product/edit/(:any)'] = 'Product/editProductByUsers/$1';
 $route['product/step/2/(:any)'] = 'Uploader/createProductStepTwo/$1';
 $route['product/success/(:any)'] = 'Uploader/successCreatePage/$1';
 /* End Create Product */
