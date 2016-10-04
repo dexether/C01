@@ -72,7 +72,7 @@ $route['checkout'] = 'Buy_sell/itemCheckoutPay';
 $route['checkout/(:any)/success'] = 'Buy_sell/itemCheckoutSuccess/$1';
 $route['about-us'] = 'Store/AboutUs';
 $route['terms'] = 'Store/termsAndCondidition';
-
+$route['myproduct'] = 'Buy_sell/myProduct';
 
 /* API */
 // $route['email/adminapprove/'] = 'api/sendEmailAfterApprove';

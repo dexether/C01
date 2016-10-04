@@ -6,6 +6,24 @@ var ar_account_mm_JS = function() {
             //alert("Line-79");
             //handle_withdrawal();
         },
+		create_cabinetid: function(a) {
+            var data = a.serializeArray();
+            $.ajax({
+                url: 'imp_create_cabinetid_do.php',
+                data: data,
+                type: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response)
+                    var res = response;
+                    swal(res.subject, res.msg, res.status);
+                    // console.log(res);
+                },
+                error: function(response) {
+                    swal('Oops, something was happend', 'Contact Administrator', 'error');
+                }
+            });
+        },
         change_upline: function(a) {
             var data = a.serializeArray();
             $.ajax({
