@@ -12,6 +12,7 @@ $lang["header_menu_help"] = "Bantuan";
 $lang["header_menu_sign"] = "Masuk";
 $lang["header_menu_myagenda"] = "Agenda";
 $lang["header_menu_sell"] = "Jual";
+$lang["header_menu_myproduct"] = "My Product";
 $lang["header_menu_logout"] = "Keluar";
 $lang["header_menu_register"] = "Buat Akun";
 $lang["header_field_seacrh"] = "Cari yang anda mau disini ...";
@@ -44,6 +45,10 @@ $lang["cart_continue"] = "Lanjutkan Berbelanja";
 $lang["cart_empty"] = "Anda belum memiliki item apapun";
 $lang["cart_empty_button"] = "Mulai Berbelanja";
 /* End Of Cart */
+
+// Start Of My Product
+$lang["myproduct_title"] = "Barang Jualan Saya";
+//End Of My Product
 
 /* Start of Checkout */
 $lang["checkout_title"] = "Checkout Pesanan";

@@ -323,6 +323,15 @@ class Buy_sell extends CI_Controller
         );
         $this->load->view('mall/index', $part);
     }
+	public function myproduct(){
+        $sql  = $this->basicmodel->getDataBySeller('client_aecode');
+        $part = array(
+            "header" => $this->load->view('mall/mainheader', array(), true),
+            "body"   => $this->load->view('mall/myProduct', array('list_cat' => $sql, 'userdata' => $datausers), true),
+            "slider" => "",
+        );
+        $this->load->view('mall/index', $part);
+	}
     public function userPaymentTransaction()
     {
         $get_aecodeid = $this->basicmodel->getData('client_aecode', 'aecodeid', $where = array('aecode' => $this->nativesession->getObject('username')));
