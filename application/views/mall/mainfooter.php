@@ -43,24 +43,20 @@
                     </div>
                     </div>
                     <div class="col-md-3">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <img class="img-responsive" src="<?php echo base_url('assets/img/imperium200x60.png') ?>" width="150px"/>
 
-                        <ul class="main-footer-social-list pull-right">
-                            <li>
-                                <a class="fa fa-facebook" href="https://www.facebook.com/AgendaFX/"></a>
-                            </li>
-                            <!-- <li>
-                                <a class="fa fa-twitter" href="#"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-pinterest" href="#"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-instagram" href="#"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-google-plus" href="#"></a>
-                            </li> -->
-                        </ul>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="gap-small">
+                          
+                        </div>
+                        <img class="img-responsive" src="<?php echo base_url('assets/img/two600x338.png') ?>" width="150px"/>
+                      </div>
+                    </div>
+
+
                     </div>
                 </div>
                 <div class="gap gap-small"></div>
