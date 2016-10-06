@@ -64,7 +64,7 @@ switch ($httphost) {
         $mall          = true;
         // $mysql['host'] = "localhost";
         $mysql['user']      = "root";
-        $mysql['password']  = "mugen1996";
+        $mysql['password']  = "";
         $mysql['database']  = "imperium_cabinet";
         $mysql['meta']      = "askap_source_mini";
         $mysql['crypt_key'] = "139";

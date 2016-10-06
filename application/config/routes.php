@@ -72,7 +72,7 @@ $route['checkout'] = 'Buy_sell/itemCheckoutPay';
 $route['checkout/(:any)/success'] = 'Buy_sell/itemCheckoutSuccess/$1';
 $route['about-us'] = 'Store/AboutUs';
 $route['terms'] = 'Store/termsAndCondidition';
-
+$route['myproduct'] = 'Buy_sell/myProduct';
 
 /* API */
 // $route['email/adminapprove/'] = 'api/sendEmailAfterApprove';
@@ -83,6 +83,7 @@ $route['api/images'] = 'api/secureGetImage';
 
 /* Create Product */
 $route['product/new'] = 'Buy_sell/sell';
+$route['product/edit/(:any)'] = 'Product/editProductByUsers/$1';
 $route['product/step/2/(:any)'] = 'Uploader/createProductStepTwo/$1';
 $route['product/success/(:any)'] = 'Uploader/successCreatePage/$1';
 /* End Create Product */

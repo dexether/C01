@@ -23,15 +23,6 @@
     </header>
 
     <div class="row row-col-gap" data-gutter="60">
-    <?php
-
-    if ($userdata['address'] == "" || $userdata['telephone_mobile'] == "" || empty($userdata['address'])) {
-        $this->nativesession->set('page', 'profile');
-    ?>
-        <div class="alert alert-warning">
-            <?php echo $this->lang->line('sell_disallow'); ?><a href="<?php echo base_url('web2/mainmenu.php') ?>" target="_blank"><?php echo $this->lang->line('sell_disallow_link'); ?></a>
-        </div>
-    <?php                                                                                                         } ?>
         <div class="col-md-1">
         </div>
         <div class="col-md-10">
@@ -46,7 +37,7 @@
                     <label>
                         <?php echo $this->lang->line('sell_name_prod'); ?>
                     </label>
-                    <input class="form-control" type="text" name="prod_alias" value="" required/>
+                    <input class="form-control" type="text" name="prod_alias" value="<?php echo $dataBarang->prod_alias ?>" required/>
                 </div>
 
                 <div class="form-group">
@@ -57,7 +48,7 @@
                         <?php foreach ($list_cat as $key => $value) {
                             # code...
                         ?>
-                        <option value="<?php echo $value['id'] ?>"><?php echo $value['cat_alias'] ?></option>
+                        <option value="<?php echo $value['id'] ?>" <?php if($dataBarang->id_cat == $value['id']): echo "selected"; endif; ?>><?php echo $value['cat_alias'] ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -67,13 +58,14 @@
                     <label>
                         Masukan gambar Utama anda
                     </label>
-                       <div class="slim"
+                    <div class="slim"
                      data-label="Tarik gambar anda kesini"
                      accept="image/jpeg"
                      data-size="640,640"
                      data-ratio="1:1">
+                     <img src="<?php echo base_url($dataBarang->prod_images) ?>" alt=""/>
                     <input type="file" name="slim[]" required />
-                </div>
+                    </div>
 
                 </div>
                 <div class="form-group">
@@ -114,19 +106,10 @@
                     <input id="ex1" name="comm" class="form-control" data-slider-id='ex1Slider' type="text" data-slider-min="10" data-slider-max="100" data-slider-step="1" data-slider-value="10"/>
                     <!-- <input class="form-control" type="text"/> -->
                 </div>
-                <?php
-
-                if ($userdata['address'] == "" || $userdata['telephone_mobile'] == "" || empty($userdata['address'])) {
-                            ?>
-                                <div class="alert alert-warning">
-                                    <?php echo $this->lang->line('sell_disallow'); ?><a href="<?php echo base_url('web2/mainmenu.php') ?>" target="_blank"><?php echo $this->lang->line('sell_disallow_link'); ?></a>
-                    </div>
-                <?php                                                                                                                                                                                                                                                                                                                                                                                                                     }else { ?>
                 <div class="form-group">
                     <input type="submit" value="Simpan" class="btn btn-success"></input>
                     <!-- <input class="form-control" type="text"/> -->
                 </div>
-                <?php } ?>
             </form>
         </div>
         <div class="col-md-1">
@@ -168,6 +151,7 @@
           // Gets triggered when there was an error sending the files.
           // Maybe show form again, and notify user of error
         });
+
       }
 
     }
@@ -219,6 +203,9 @@ $(document).ready(function(){
     },
     success: function (response) {
       console.log(response)
+    },
+    init: function () {
+      console.log('readdy');
     }
   });
 });
