@@ -117,44 +117,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    Dropzone.options.myAwesomeDropzone = { // The camelized version of the ID of the form element
-
-      // The configuration we've talked about above
-        autoProcessQueue: false,
-        uploadMultiple: true,
-        parallelUploads: 100,
-        maxFiles: 100,
-
-        // The setting up of the dropzone
-        init: function() {
-        var myDropzone = this;
-
-        // First change the button to actually tell Dropzone to process the queue.
-        this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
-          // Make sure that the form isn't actually being sent.
-          e.preventDefault();
-          e.stopPropagation();
-          myDropzone.processQueue();
-        });
-
-        // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
-        // of the sending event because uploadMultiple is set to true.
-        this.on("sendingmultiple", function() {
-          // Gets triggered when the form is actually being sent.
-          // Hide the success button or the complete form.
-        });
-        this.on("successmultiple", function(files, response) {
-          // Gets triggered when the files have successfully been sent.
-          // Redirect user or notify of success.
-        });
-        this.on("errormultiple", function(files, response) {
-          // Gets triggered when there was an error sending the files.
-          // Maybe show form again, and notify user of error
-        });
-
-      }
-
-    }
     // Jquery
     jQuery(document).ready(function($) {
         $('#myids').dropzone();
@@ -187,13 +149,28 @@ $(document).ready(function(){
     url: "<?php echo base_url('uploader/uploadMultipleImages') ?>",
     paramName: "file",
     maxFiles: 5,
-    parallelUploads: 5,
+    // parallelUploads: 5,
     maxFilesize: 10, // MB
     acceptedFiles: 'image/*',
     addRemoveLinks: true,
+    removedfile: function(file) {
+      var result = confirm("Apakah yakin anda mau menghapus file ini ?");
+      if (result) {
+          //Logic to delete the item
+          console.log(file);
+          var dataArray = {
+            '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>',
+            'image_location' : file.name
+          };
+          $.post('<?php echo base_url("product/removeFiles") ?>' , dataArray);
+          var _ref;
+          return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+      }
+
+    },
     dictRemoveFile: "Hapus gambar",
     // autoDiscover: false,
-    uploadMultiple: true,
+    // uploadMultiple: true,
     params: {
       '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
     },
@@ -205,7 +182,14 @@ $(document).ready(function(){
       console.log(response)
     },
     init: function () {
-      console.log('readdy');
+      thisDropzone = this;
+      $.get('<?php echo base_url("product/getImagesDropZone/".$dataBarang->id) ?>', function(data) {
+        $.each(data, function(index, val) {
+          var mockFile = { name: val.image_location, size: val.size };
+          thisDropzone.options.addedfile.call(thisDropzone, mockFile);
+          thisDropzone.options.thumbnail.call(thisDropzone, mockFile, '<?php echo base_url() ?>' + val.image_location);
+        });
+      });
     }
   });
 });

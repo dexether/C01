@@ -26,16 +26,17 @@ class Product extends CI_Controller
     }
     public function editProductByUsers($product_id = null)
     {
-        $secreat_key = $this->encrypt->decode($this->input->get('$secreat_key'));
-        $this->db->select('id_cat, prod_name, prod_alias, prod_desc, prod_desc_long, prod_images, comm, cat_alias');
+        $secreat_key = $this->encrypt->decode($this->input->get('secreat_key'));
+        $this->db->select('master_product.id, id_cat, prod_name, prod_alias, prod_desc, prod_desc_long, prod_images, comm, cat_alias');
         $this->db->from('master_product');
         $this->db->join('master_cat', 'master_product.id_cat = master_cat.id');
-        $this->db->where('prod_name', 'cigarette-case-the-fed');
+        $this->db->where('prod_name', 'algo-option');
         $query = $this->db->get();
         foreach ($query->result() as $key => $value) {
           # code...
           $dataBarang = $value;
         }
+        var_dump($dataBarang);
         $sql  = $this->basicmodel->getData('master_cat', 'id, cat_name, cat_alias', array());
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
@@ -44,26 +45,49 @@ class Product extends CI_Controller
         );
         $this->load->view('mall/index', $part);
     }
-    public function getImagesDropZone()
+    public function getImagesDropZone($id)
     {
-        $ds          = DIRECTORY_SEPARATOR;
-        $result  = array();
-        $storeFolder = 'assets/product';
-        $files = scandir($storeFolder);                 //1
-        if ( false!==$files ) {
-        foreach ( $files as $file )
-        {
-            if ( '.'!=$file && '..'!=$file) {       //2
-                $obj['name'] = $file;
-                $obj['size'] = filesize($storeFolder.$ds.$file);
-                $result[] = $obj;
-            }
-        }
-        }
+        $this->db->select('image_location, id');
+        $this->db->from('master_product_images');
+        $this->db->where('id_prod', $id);
 
+        $hasil = $this->db->get()->result_array();
+        foreach($hasil as $key => $rows):
+          $data[$key] = $rows;
+          $data[$key]['size'] = filesize($rows['image_location']);
+        endforeach;
+        // $ds          = DIRECTORY_SEPARATOR;
+        // $result  = array();
+        // $storeFolder = 'assets/img';
+        // $files = scandir($storeFolder);                 //1
+        // if ( false!==$files ) {
+        // foreach ( $files as $file )
+        // {
+        //     if ( '.'!=$file && '..'!=$file) {       //2
+        //         $obj['name'] = $file;
+        //         $obj['size'] = filesize($storeFolder.$ds.$file);
+        //         $result[] = $obj;
+        //     }
+        // }
+        // }
+        //
         header('Content-type: text/json');              //3
         header('Content-type: application/json');
-        echo json_encode($result, JSON_PRETTY_PRINT);
+        echo json_encode($data, JSON_UNESCAPED_SLASHES);
+        // print_r($data);
+    }
+    public function removeFiles()
+    {
+      $image_location = $this->input->post('image_location');
+      $delete = $this->db->delete('master_product_images', array('image_location' => $image_location));
+      if($delete):
+        $response['valid'] = true;
+      else:
+        $response['valid'] = false;
+      endif;
+      header('Content-type: text/json');              //3
+      header('Content-type: application/json');
+      echo json_encode($response);
     }
 
 }

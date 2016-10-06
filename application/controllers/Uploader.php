@@ -35,8 +35,9 @@ class Uploader extends CI_Controller
         // Get POST var
         $product_id = $this->encrypt->decode($this->input->post('product_encrypt'));
 
-        // print_r($this->upload->display_errors());
+        
         foreach ($this->upload->get_multi_upload_data() as $key => $value) {
+            print_r('Uploading '.$value['file_name']);
             $location = reduce_double_slashes($this->config->item('product_uploads').$value['file_name']);
             $data = array(
               "is_images" => true,
