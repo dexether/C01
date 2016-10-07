@@ -26,17 +26,28 @@ class Product extends CI_Controller
     }
     public function editProductByUsers($product_id = null)
     {
+        // If is mine
+
+        $sql = $this->basicmodel->getData('client_aecode', 'aecodeid', array('aecode' => $this->nativesession->getObject('username')));
+        foreach ($sql as $key => $value) {
+            $aecodeid = $value['aecodeid'];
+        }
         $secreat_key = $this->encrypt->decode($this->input->get('secreat_key'));
-        $this->db->select('comm, master_product.id, prod_price, id_cat, prod_name, prod_alias, prod_desc, prod_desc_long, prod_images, comm, cat_alias');
+        $this->db->select('aecodeid, comm, master_product.id, prod_price, id_cat, prod_name, prod_alias, prod_desc, prod_desc_long, prod_images, comm, cat_alias');
         $this->db->from('master_product');
         $this->db->join('master_cat', 'master_product.id_cat = master_cat.id');
-        $this->db->where('prod_name', 'baju-keren-dan-berkualiatas');
+        $this->db->where('prod_name', $product_id);
         $query = $this->db->get();
+        if(empty($query)):
+          show_404();
+        endif;
         foreach ($query->result() as $key => $value) {
           # code...
           $dataBarang = $value;
         }
-        var_dump($dataBarang);
+        if($dataBarang->aecodeid != $aecodeid):
+          show_404();
+        endif;
         $sql  = $this->basicmodel->getData('master_cat', 'id, cat_name, cat_alias', array());
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
