@@ -34,10 +34,8 @@ class Uploader extends CI_Controller
         $this->upload->do_multi_upload("file");
         // Get POST var
         $product_id = $this->encrypt->decode($this->input->post('product_encrypt'));
-
-        
         foreach ($this->upload->get_multi_upload_data() as $key => $value) {
-            print_r('Uploading '.$value['file_name']);
+            // print_r('Uploading '.$value['file_name']);
             $location = reduce_double_slashes($this->config->item('product_uploads').$value['file_name']);
             $data = array(
               "is_images" => true,
@@ -58,13 +56,14 @@ class Uploader extends CI_Controller
 
             show_404();
         } else {
+
             $sql = $this->basicmodel->getData('client_aecode', 'aecodeid', array('aecode' => $this->nativesession->getObject('username')));
             foreach ($sql as $key => $value) {
                 $aecodeid = $value['aecodeid'];
             }
 
             foreach ($images as $image) {
-                $file = Slim::saveFile($image['output']['data'], $image['input']['name']);
+                $file = Slim::saveFile($image['output']['data'], $this->format->url_dash($image['input']['name']));
             }
             $prod_name      = $this->format->seoUrl($this->input->post('prod_alias'));
             $prod_alias     = $this->input->post('prod_alias');

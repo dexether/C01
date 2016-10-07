@@ -47,4 +47,12 @@ class Format
 
 
     }
+    public function url_dash($string)
+    {
+        // Lower case everything
+        $string = strtolower($string);
+        $string = preg_replace("/[^a-z0-9._\s-]/", "-", $string);
+        $string = preg_replace("/[\s_]/", "-", $string);
+        return $string;
+    }
 }
