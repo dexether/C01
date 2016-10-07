@@ -132,6 +132,37 @@ class Uploader extends CI_Controller
         );
         $this->load->view('mall/index', $part);
     }
+    public function editStatement()
+    {
+        $config['upload_path']          = $this->config->item('product_uploads');
+        $config['allowed_types']        = 'jpg|png';
+        $config['max_size']             = 1024;
+        $config['encrypt_name']         = true;
+
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('file'))
+        {
+                $error = array('error' => $this->upload->display_errors());
+                print_r($error);
+        }
+        else
+        {
+                $datas = array('upload_data' => $this->upload->data());
+                foreach($datas as $value):
+                  $location = $this->config->item('product_uploads').$value['file_name'];
+                  $data = array(
+                    "is_images" => true,
+                    "image_location" => $location,
+                    "image_type" => "secondary",
+                    "unix" => $_SERVER['REMOTE_ADDR']
+                  );
+                  $do = $this->basicmodel->insertData('master_product_images', $data);
+                endforeach;
+
+        }
+    }
 }
 
 /* End of file Uploader.php */

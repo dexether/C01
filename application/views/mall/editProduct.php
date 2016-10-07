@@ -32,7 +32,8 @@
             </h3>
 
             <!-- <form> -->
-            <?php echo form_open_multipart('Uploader/secureSaveUploadedImages');?>
+            <?php echo form_open_multipart('Product/editProductDo');?>
+            <?php echo form_hidden('prod_id', $dataBarang->id); ?>
                 <div class="form-group">
                     <label>
                         <?php echo $this->lang->line('sell_name_prod'); ?>
@@ -82,20 +83,20 @@
                     <label>
                         <?php echo $this->lang->line('sell_name_price'); ?>
                     </label>
-                    <input class="form-control" type="text" name="prod_price" value="" />
+                    <input class="form-control" type="text" name="prod_price" value="<?php echo $dataBarang->prod_price ?>" />
                 </div>
                 <div class="form-group">
                     <label>
                         Deskripsi Short
                     </label>
-                    <textarea class="form-control" name="prod_desc"></textarea>
+                    <textarea class="form-control" name="prod_desc"><?php echo $dataBarang->prod_desc ?></textarea>
                     <!-- <input class="form-control" type="text"/> -->
                 </div>
                 <div class="form-group">
                     <label>
                         Deskripsi Long
                     </label>
-                    <textarea class="form-control" id="summernote" name="prod_desc_long"></textarea>
+                    <textarea class="form-control" id="summernote" name="prod_desc_long"><?php echo $dataBarang->prod_desc_long ?></textarea>
                     <!-- <input class="form-control" type="text"/> -->
                 </div>
                 <div class="form-group">
@@ -103,7 +104,7 @@
                         Komisi untuk <?php echo $this->config->item('APP_TITLE') ?> sebesar : <p id="percent"></p>
                     </label>
                     <br/>
-                    <input id="ex1" name="comm" class="form-control" data-slider-id='ex1Slider' type="text" data-slider-min="10" data-slider-max="100" data-slider-step="1" data-slider-value="10"/>
+                    <input id="ex1" name="comm" class="form-control" data-slider-id='ex1Slider' type="text" data-slider-min="10" data-slider-max="100" data-slider-step="1" data-slider-value="<?php echo $dataBarang->comm ?>"/>
                     <!-- <input class="form-control" type="text"/> -->
                 </div>
                 <div class="form-group">
@@ -146,7 +147,7 @@
 $(document).ready(function(){
   Dropzone.autoDiscover = false; // keep this line if you have multiple dropzones in the same page
   $(".uploadform").dropzone({
-    url: "<?php echo base_url('uploader/uploadMultipleImages') ?>",
+    url: "<?php echo base_url('uploader/editStatement') ?>",
     paramName: "file",
     maxFiles: 5,
     // parallelUploads: 5,
@@ -157,7 +158,6 @@ $(document).ready(function(){
       var result = confirm("Apakah yakin anda mau menghapus file ini ?");
       if (result) {
           //Logic to delete the item
-          console.log(file);
           var dataArray = {
             '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>',
             'image_location' : file.name
@@ -168,6 +168,8 @@ $(document).ready(function(){
       }
 
     },
+    thumbnailWidth:"1000",
+    thumbnailHeight:"1000",
     dictRemoveFile: "Hapus gambar",
     // autoDiscover: false,
     // uploadMultiple: true,
@@ -179,15 +181,20 @@ $(document).ready(function(){
       alert('You have uploaded more than 1 Image. Only the first file will be uploaded!');
     },
     success: function (response) {
-      console.log(response)
+
     },
     init: function () {
       thisDropzone = this;
       $.get('<?php echo base_url("product/getImagesDropZone/".$dataBarang->id) ?>', function(data) {
         $.each(data, function(index, val) {
-          var mockFile = { name: val.image_location, size: val.size };
+          var mockFile = { name: val.image_location , size: val.size };
+          // thisDropzone.emit("addedfile", mockFile);
           thisDropzone.options.addedfile.call(thisDropzone, mockFile);
-          thisDropzone.options.thumbnail.call(thisDropzone, mockFile, '<?php echo base_url() ?>' + val.image_location);
+          thisDropzone.options.thumbnail.call(thisDropzone, mockFile, 'http://agendafx.dev/' + val.image_location);
+          // myDropzone.createThumbnailFromUrl(mockFile, val.image_location
+          thisDropzone.createThumbnailFromUrl(val.image_location, 'http://agendafx.dev/' + val.image_location);
+          $('.dz-preview').addClass('dz-complete');
+
         });
       });
     }

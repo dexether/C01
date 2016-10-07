@@ -27,10 +27,10 @@ class Product extends CI_Controller
     public function editProductByUsers($product_id = null)
     {
         $secreat_key = $this->encrypt->decode($this->input->get('secreat_key'));
-        $this->db->select('master_product.id, id_cat, prod_name, prod_alias, prod_desc, prod_desc_long, prod_images, comm, cat_alias');
+        $this->db->select('comm, master_product.id, prod_price, id_cat, prod_name, prod_alias, prod_desc, prod_desc_long, prod_images, comm, cat_alias');
         $this->db->from('master_product');
         $this->db->join('master_cat', 'master_product.id_cat = master_cat.id');
-        $this->db->where('prod_name', 'algo-option');
+        $this->db->where('prod_name', 'baju-keren-dan-berkualiatas');
         $query = $this->db->get();
         foreach ($query->result() as $key => $value) {
           # code...
@@ -89,7 +89,62 @@ class Product extends CI_Controller
       header('Content-type: application/json');
       echo json_encode($response);
     }
+    public function editProductDo()
+    {
+      $this->load->library('slim');
+      $images = Slim::getImages();
+      // var_dump($_POST);
+      if ($images == false) {
+          // show_404();
+          die('Not Images');
+      } else {
+          foreach ($images as $image) {
+              $file = Slim::saveFile($image['output']['data'], $this->format->url_dash($image['input']['name']));
+          }
+          $prod_id        = $this->input->post('prod_id');
+          $prod_alias     = $this->input->post('prod_alias');
+          $cat            = $this->input->post('cat');
+          $prod_price     = $this->input->post('prod_price');
+          $int            = filter_var($prod_price, FILTER_SANITIZE_NUMBER_INT);
+          $prod_price     = $int;
+          $prod_desc      = $this->input->post('prod_desc');
+          $prod_desc_long = $this->input->post('prod_desc_long');
+          $comm           = $this->input->post('comm');
+          $prod_images    = $file['path'];
+          $data         = array(
+            'id_cat'         => $cat,
+            'prod_alias'     => $prod_alias,
+            'prod_desc'      => $prod_desc,
+            'prod_desc_long' => $prod_desc_long,
+            'prod_price'     => $prod_price,
+            'prod_images'    => $prod_images,
+            'comm'           => $comm,
+          );
+          $sql = $this->db->update('master_product', $data, array('id' => $prod_id));
+          if ($sql) {
+              // $data = array(
+              //   'id_prod' => 0
+              // );
+              // $updatePictures = $this->basicmodel->updateData('master_product_images', $data, $where, $where_value);
+              $remote_address = $_SERVER['REMOTE_ADDR'];
+              $update = $this->db->query('UPDATE master_product_images SET id_Prod = "'.$prod_id.'" WHERE unix = "'.$remote_address.'" AND id_prod IS NULL');
+              // redirect('product/step/2/'.$prod_name, 'refresh');
+              // redirect('product/success/'.$prod_name);
+              $data = $this->db->query('SELECT cat_name, prod_name FROM master_product, master_cat WHERE master_product.`id_cat` = master_cat.`id` AND master_product.id = "'.$prod_id.'"')->result();
+              foreach($data as $rows):
+                $superdata = $rows;
+              endforeach;
+              redirect(base_url('c/' .$superdata->cat_name . "/" . $superdata->prod_name));
+              // var_dump(base_url('c/' .$superdata->cat_name . "/" . $superdata->prod_name));
 
+          } else {
+              show_404();
+              // die('');
+
+          }
+              // echo '<img src="' . base_url() . $file['path'] . '" alt=""/>';
+      }
+    }
 }
 
 /* End of file Buy_sell.php */
