@@ -323,11 +323,50 @@ class Buy_sell extends CI_Controller
         );
         $this->load->view('mall/index', $part);
     }
-	public function myproduct(){
-        $sql  = $this->basicmodel->getDataBySeller('client_aecode');
+	public function myproduct($cat_name = null){
+		$data      = $this->basicmodel->getData('client_aecode', 'aecodeid,telephone_mobile,aecode, name, email, nationality, address', array('aecode' => $this->nativesession->getObject('username')));
+        $datausers = array();
+        foreach ($data as $key => $value) {
+            # code...
+            $datausers = $value;
+        }
+		$cat	= $this->basicmodel->getData('master_cat', 'cat_alias, cat_name');
+		$cats = array();
+		foreach ($cat as $key => $value) {
+			$cats[] = $value;
+			
+		}
+		if($cat_name == null){
+			$sql  = $this->basicmodel->getDataBySeller($datausers['aecodeid']);
+		}else{
+			$sql = $this->basicmodel->myProductDataByCat($cat_name, $datausers['aecodeid']);
+		}
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
-            "body"   => $this->load->view('mall/myProduct', array('list_cat' => $sql, 'userdata' => $datausers), true),
+            "body"   => $this->load->view('mall/myProduct', array('list_prod' => $sql, 'userdata' => $datausers, 'list_cat' => $cats), true),
+            "slider" => "",
+        );
+        $this->load->view('mall/index', $part);
+	}
+	public function deleteProduct($prod_id = null){
+		$data      = $this->basicmodel->getData('client_aecode', 'aecodeid,telephone_mobile,aecode, name, email, nationality, address', array('aecode' => $this->nativesession->getObject('username')));
+        $datausers = array();
+        foreach ($data as $key => $value) {
+            # code...
+            $datausers = $value;
+        }
+		$cat	= $this->basicmodel->getData('master_cat', 'cat_alias, cat_name');
+		$cats = array();
+		foreach ($cat as $key => $value) {
+			$cats[] = $value;
+			
+		}
+		$sql = $this->basicmodel->deleteProduct($prod_id, $datausers['aecodeid']);
+        $sql2  = $this->basicmodel->getDataBySeller($datausers['aecodeid']);
+		
+        $part = array(
+            "header" => $this->load->view('mall/mainheader', array(), true),
+            "body"   => $this->load->view('mall/myProduct', array('list_prod' => $sql2, 'userdata' => $datausers, 'list_cat' => $cats), true),
             "slider" => "",
         );
         $this->load->view('mall/index', $part);
