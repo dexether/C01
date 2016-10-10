@@ -63,8 +63,8 @@ switch ($httphost) {
         $mysql['host'] = "127.0.0.1";
         $mall          = true;
         // $mysql['host'] = "localhost";
-        $mysql['user']      = "root";
-        $mysql['password']  = "";
+        $mysql['user']      = "agendafx";
+        $mysql['password']  = "agendafx";
         $mysql['database']  = "imperium_cabinet";
         $mysql['meta']      = "askap_source_mini";
         $mysql['crypt_key'] = "139";
@@ -73,8 +73,8 @@ switch ($httphost) {
         $mysql['host'] = "127.0.0.1";
         $mall          = true;
         // $mysql['host'] = "localhost";
-        $mysql['user']      = "root";
-        $mysql['password']  = "mugen1996";
+        $mysql['user']      = "agendafx";
+        $mysql['password']  = "agendafx";
         $mysql['database']  = "imperium_cabinet";
         $mysql['meta']      = "askap_source_mini";
         $mysql['crypt_key'] = "139";

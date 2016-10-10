@@ -34,9 +34,8 @@ class Uploader extends CI_Controller
         $this->upload->do_multi_upload("file");
         // Get POST var
         $product_id = $this->encrypt->decode($this->input->post('product_encrypt'));
-
-        // print_r($this->upload->display_errors());
         foreach ($this->upload->get_multi_upload_data() as $key => $value) {
+            // print_r('Uploading '.$value['file_name']);
             $location = reduce_double_slashes($this->config->item('product_uploads').$value['file_name']);
             $data = array(
               "is_images" => true,
@@ -57,13 +56,14 @@ class Uploader extends CI_Controller
 
             show_404();
         } else {
+
             $sql = $this->basicmodel->getData('client_aecode', 'aecodeid', array('aecode' => $this->nativesession->getObject('username')));
             foreach ($sql as $key => $value) {
                 $aecodeid = $value['aecodeid'];
             }
 
             foreach ($images as $image) {
-                $file = Slim::saveFile($image['output']['data'], $image['input']['name']);
+                $file = Slim::saveFile($image['output']['data'], $this->format->url_dash($image['input']['name']));
             }
             $prod_name      = $this->format->seoUrl($this->input->post('prod_alias'));
             $prod_alias     = $this->input->post('prod_alias');
@@ -131,6 +131,37 @@ class Uploader extends CI_Controller
         "slider" => "",
         );
         $this->load->view('mall/index', $part);
+    }
+    public function editStatement()
+    {
+        $config['upload_path']          = $this->config->item('product_uploads');
+        $config['allowed_types']        = 'jpg|png';
+        $config['max_size']             = 1024;
+        $config['encrypt_name']         = true;
+
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('file'))
+        {
+                $error = array('error' => $this->upload->display_errors());
+                print_r($error);
+        }
+        else
+        {
+                $datas = array('upload_data' => $this->upload->data());
+                foreach($datas as $value):
+                  $location = $this->config->item('product_uploads').$value['file_name'];
+                  $data = array(
+                    "is_images" => true,
+                    "image_location" => $location,
+                    "image_type" => "secondary",
+                    "unix" => $_SERVER['REMOTE_ADDR']
+                  );
+                  $do = $this->basicmodel->insertData('master_product_images', $data);
+                endforeach;
+
+        }
     }
 }
 
