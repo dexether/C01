@@ -215,29 +215,29 @@
                            </li>
                            <li><a href="<?php echo base_url(); ?>web2/openaccount.php?cabang=1"><?php echo $this->lang->line('header_menu_register'); ?></a>
                            </li>
+                           <li><a class="fa fa-shopping-cart" href="<?php echo base_url('cart') ?>" data-toggle="tooltip" title="Cart" data-placement="bottom"></a>
+                           </li>
                            <?php }else{ ?>
-							 <li><a href="<?php echo base_url('myProduct'); ?>"><?php echo $this->lang->line('header_menu_myproduct'); ?></a>
                            </li>
                            <li><a href="<?php echo base_url('product/new'); ?>"><?php echo $this->lang->line('header_menu_sell'); ?></a>
                            </li>
-                           <li><a href="<?php echo base_url(); ?>web2/mainmenu.php" target="_blank"><?php echo $this->format->getFirstNameWithEs($this->nativesession->getObject('aename'))." ".$this->lang->line('header_menu_myagenda'); ?></a>
+                           <li><a class="fa fa-money" href="<?php echo base_url('payment/transactions') ?>" data-toggle="tooltip" title="Transaksi" data-placement="bottom"></a>
                            </li>
-                           <li><a href="<?php echo base_url(); ?>auth/logout"><?php echo $this->lang->line('header_menu_logout'); ?></a>
-                           </li>
-                            <li><a class="fa fa-money" href="<?php echo base_url('payment/transactions') ?>" data-toggle="tooltip" title="Transaksi" data-placement="bottom"></a>
-                           </li>
-                           <?php } ?>
                            <li><a class="fa fa-shopping-cart" href="<?php echo base_url('cart') ?>" data-toggle="tooltip" title="Cart" data-placement="bottom"></a>
                            </li>
                            <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Tarikh Agenda</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><?php echo $this->format->getFirstNameWithEs($this->nativesession->getObject('aename'))." ".$this->lang->line('header_menu_myagenda'); ?></a>
                             <ul class="dropdown-menu">
-                              <li><a href="#">My Dashboard</a></li>
-                              <li><a href="#">Produk saya</a></li>
+                              <li><a href="<?php echo base_url(); ?>web2/mainmenu.php">My Dashboard</a></li>
+                              <li><a href="<?php echo base_url('myProduct'); ?>"><?php echo $this->lang->line('header_menu_myproduct'); ?></a></li>
                               <li role="separator" class="divider"></li>
-                              <li><a href="#">Keluar</a></li>
+                              <li><a href="<?php echo base_url(); ?>auth/logout"><?php echo $this->lang->line('header_menu_logout'); ?></a>
+                              </li>
                             </ul>
                           </li>
+                           <?php } ?>
+
+
                         </li>
 
                        </ul>
