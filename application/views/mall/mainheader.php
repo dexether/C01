@@ -215,68 +215,33 @@
                            </li>
                            <li><a href="<?php echo base_url(); ?>web2/openaccount.php?cabang=1"><?php echo $this->lang->line('header_menu_register'); ?></a>
                            </li>
+                           <li><a class="fa fa-shopping-cart" href="<?php echo base_url('cart') ?>" data-toggle="tooltip" title="Cart" data-placement="bottom"></a>
+                           </li>
                            <?php }else{ ?>
+<<<<<<< HEAD
 							 <li><a href="<?php echo base_url('myproduct'); ?>"><?php echo $this->lang->line('header_menu_myproduct'); ?></a>
+=======
+>>>>>>> 1c4a44c8288cca800c0a8601a47f99c4248574f6
                            </li>
                            <li><a href="<?php echo base_url('product/new'); ?>"><?php echo $this->lang->line('header_menu_sell'); ?></a>
                            </li>
-                           <li><a href="<?php echo base_url(); ?>web2/mainmenu.php" target="_blank"><?php echo $this->format->getFirstNameWithEs($this->nativesession->getObject('aename'))." ".$this->lang->line('header_menu_myagenda'); ?></a>
+                           <li><a class="fa fa-money" href="<?php echo base_url('payment/transactions') ?>" data-toggle="tooltip" title="Transaksi" data-placement="bottom"></a>
                            </li>
-                           <li><a href="<?php echo base_url(); ?>auth/logout"><?php echo $this->lang->line('header_menu_logout'); ?></a>
-                           </li>
-                            <li><a class="fa fa-money" href="<?php echo base_url('payment/transactions') ?>" data-toggle="tooltip" title="Transaksi" data-placement="bottom"></a>
-                           </li>
-                           <?php } ?>
                            <li><a class="fa fa-shopping-cart" href="<?php echo base_url('cart') ?>" data-toggle="tooltip" title="Cart" data-placement="bottom"></a>
                            </li>
                            <li class="dropdown">
-                            <a href="<?php echo base_url(); ?>web2/mainmenu.php" target="_blank"><?php echo $this->format->getFirstNameWithEs($this->nativesession->getObject('aename'))." ".$this->lang->line('header_menu_myagenda'); ?></a>
-                            <ul class="dropdown-menu dropdown-menu-shipping-cart">
-                                <li>
-                                    <a class="dropdown-menu-shipping-cart-img" href="#">
-                                        <img src="img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                                    </a>
-                                    <div class="dropdown-menu-shipping-cart-inner">
-                                        <p class="dropdown-menu-shipping-cart-price">$16</p>
-                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">Gucci Patent Leather Open Toe Platform</a>
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-menu-shipping-cart-img" href="#">
-                                        <img src="img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                                    </a>
-                                    <div class="dropdown-menu-shipping-cart-inner">
-                                        <p class="dropdown-menu-shipping-cart-price">$19</p>
-                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">Nikon D5200 24.1 MP Digital SLR Camera</a>
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-menu-shipping-cart-img" href="#">
-                                        <img src="img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                                    </a>
-                                    <div class="dropdown-menu-shipping-cart-inner">
-                                        <p class="dropdown-menu-shipping-cart-price">$49</p>
-                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">Apple 11.6" MacBook Air Notebook </a>
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-menu-shipping-cart-img" href="#">
-                                        <img src="img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                                    </a>
-                                    <div class="dropdown-menu-shipping-cart-inner">
-                                        <p class="dropdown-menu-shipping-cart-price">$34</p>
-                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">Fossil Women's Original Boyfriend</a>
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <p class="dropdown-menu-shipping-cart-total">Total: $150</p>
-                                    <button class="dropdown-menu-shipping-cart-checkout btn btn-primary">Checkout</button>
-                                </li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><?php echo $this->format->getFirstNameWithEs($this->nativesession->getObject('aename'))." ".$this->lang->line('header_menu_myagenda'); ?></a>
+                            <ul class="dropdown-menu">
+                              <li><a href="<?php echo base_url(); ?>web2/mainmenu.php">My Dashboard</a></li>
+                              <li><a href="<?php echo base_url('myProduct'); ?>"><?php echo $this->lang->line('header_menu_myproduct'); ?></a></li>
+                              <li role="separator" class="divider"></li>
+                              <li><a href="<?php echo base_url(); ?>auth/logout"><?php echo $this->lang->line('header_menu_logout'); ?></a>
+                              </li>
                             </ul>
+                          </li>
+                           <?php } ?>
+
+
                         </li>
 
                        </ul>
