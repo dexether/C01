@@ -218,10 +218,6 @@
                            <li><a class="fa fa-shopping-cart" href="<?php echo base_url('cart') ?>" data-toggle="tooltip" title="Cart" data-placement="bottom"></a>
                            </li>
                            <?php }else{ ?>
-<<<<<<< HEAD
-							 <li><a href="<?php echo base_url('myproduct'); ?>"><?php echo $this->lang->line('header_menu_myproduct'); ?></a>
-=======
->>>>>>> 1c4a44c8288cca800c0a8601a47f99c4248574f6
                            </li>
                            <li><a href="<?php echo base_url('product/new'); ?>"><?php echo $this->lang->line('header_menu_sell'); ?></a>
                            </li>
