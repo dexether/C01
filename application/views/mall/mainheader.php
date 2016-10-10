@@ -229,7 +229,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><?php echo $this->format->getFirstNameWithEs($this->nativesession->getObject('aename'))." ".$this->lang->line('header_menu_myagenda'); ?></a>
                             <ul class="dropdown-menu">
                               <li><a href="<?php echo base_url(); ?>web2/mainmenu.php">My Dashboard</a></li>
-                              <li><a href="<?php echo base_url('myProduct'); ?>"><?php echo $this->lang->line('header_menu_myproduct'); ?></a></li>
+                              <li><a href="<?php echo base_url('myproduct'); ?>"><?php echo $this->lang->line('header_menu_myproduct'); ?></a></li>
                               <li role="separator" class="divider"></li>
                               <li><a href="<?php echo base_url(); ?>auth/logout"><?php echo $this->lang->line('header_menu_logout'); ?></a>
                               </li>
