@@ -79,6 +79,14 @@ class Shop_model extends CI_Model
         $hasil = $this->db->query($query);
         return $hasil->result_array();
     }
+	public function deleteProduct($prod_id = '', $sellerid = '')
+    {
+        $query = "DELETE
+			FROM master_product
+			WHERE id = '$prod_id' AND aecodeid = '$sellerid'";
+        $hasil = $this->db->query($query);
+    }
+	
     public function getDataByProd($name = '')
     {
         $query = "SELECT
@@ -112,9 +120,10 @@ class Shop_model extends CI_Model
         return $hasil->result_array();
     }
 	
-	public function getDataBySeller($sellerid = '')
+	public function myProductDataByCat($type = '', $sellerid = '')
     {
         $query = "SELECT
+		master_product.`id`as prod_id,
       master_product.`prod_name`,
       master_product.`prod_star`,
       master_product.`prod_images`,
@@ -122,6 +131,41 @@ class Shop_model extends CI_Model
       master_product.`prod_desc_long`,
       master_product.`prod_alias`,
       master_product.`prod_price`,
+	  master_product.`is_active`,
+      master_product_promo.`id`,
+      master_promo.`promo_name`,
+      master_promo.`promo_value`,
+      master_cat.cat_name,
+      CASE
+        master_promo.`promo_name`
+        WHEN '%'
+        THEN (master_promo.`promo_value` * (master_product.`prod_price` / 100))
+        ELSE prod_price
+      END AS amount
+    FROM
+      master_product
+      LEFT JOIN master_cat
+        ON master_product.`id_cat` = master_cat.`id`
+      LEFT JOIN master_product_promo
+        ON master_product.`id` = master_product_promo.`id_product`
+      LEFT JOIN master_promo
+        ON master_product_promo.`id_promo` = master_promo.`id`
+        WHERE master_cat.cat_name = '$type' AND master_product.aecodeid = '$sellerid'";
+        $hasil = $this->db->query($query);
+        return $hasil->result_array();
+    }	
+	public function getDataBySeller($sellerid = '')
+    {
+        $query = "SELECT
+		master_product.`id` as prod_id,
+      master_product.`prod_name`,
+      master_product.`prod_star`,
+      master_product.`prod_images`,
+      master_product.`prod_desc`,
+      master_product.`prod_desc_long`,
+      master_product.`prod_alias`,
+      master_product.`prod_price`,
+	  master_product.`is_active`,
       master_product_promo.`id`,
       master_promo.`promo_name`,
       master_promo.`promo_value`,

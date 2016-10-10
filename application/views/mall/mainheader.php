@@ -216,7 +216,7 @@
                            <li><a href="<?php echo base_url(); ?>web2/openaccount.php?cabang=1"><?php echo $this->lang->line('header_menu_register'); ?></a>
                            </li>
                            <?php }else{ ?>
-							 <li><a href="<?php echo base_url('myProduct'); ?>"><?php echo $this->lang->line('header_menu_myproduct'); ?></a>
+							 <li><a href="<?php echo base_url('myproduct'); ?>"><?php echo $this->lang->line('header_menu_myproduct'); ?></a>
                            </li>
                            <li><a href="<?php echo base_url('product/new'); ?>"><?php echo $this->lang->line('header_menu_sell'); ?></a>
                            </li>
