@@ -52,22 +52,20 @@ if ($error != 'error') {
                     $progress = 0;
                     # code...
                     $data    = getDatas($id);
+                    $dataHasil = $DB->execresultset('SELECT cat_name, master_product.`prod_alias`, master_product.`prod_desc`, master_product.`prod_price`, master_product.`prod_images`, master_product.`prod_name`, cat_alias FROM master_product, master_cat WHERE master_product.`id_cat` = master_cat.`id` AND master_product.id  = "'.$id.'"');
+                    foreach ($dataHasil as $key => $value) {
+                      # code...
+                      $dataHasils = $value;
+                    }
                     $to      = $data['email'];
                     $subject = "Produk anda telah dikonfimasi oleh admin";
-                    $body    = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
-                    $body    = $body . "Dear " . $data['name'] . ",<br>";
-                    $body    = $body . " <br>";
-                    $body    = $body . "Selamat Produk anda telah terkonfirmasi <br>";
-                    $body    = $body . " <br>";
-                    $body    = $body . "Anda bisa lihat produk anda di " . $companys['companyurl'] . " <br>";
-                    $body    = $body . " <br>";
-                    $body    = $body . " <br>";
-                    $body    = $body . "Thank you,<br>";
-                    $body    = $body . "<br><strong>" . $companys['companyname'] . "</strong>" . "<br>";
-                    $body    = $body . $companys['long_address'];
-                    $body    = $body . " Email : " . $companys['email'] . " <br>";
-                    $body    = $body . " " . $companys['companyurl'] . " <br>";
-                    sendEmail($to, $subject, $body, 'imp_mall_do');
+                    ob_start();
+                    $template->assign('dataHasils', $dataHasils);
+                    $template->assign('companys', $companys);
+                    $template->display("mall_email_approved_product.htm");
+                    $html = ob_get_contents();
+                    ob_end_clean();
+                    sendEmail($to, $subject, $html, 'imp_mall_do');
                     // ------------------------------------
                 } else {
                     $error    = "error";
