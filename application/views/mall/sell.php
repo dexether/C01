@@ -97,22 +97,12 @@
                         Deskripsi Short
                     </label>
                     <textarea class="form-control" name="prod_desc"></textarea>
-                    <!-- <input class="form-control" type="text"/> -->
                 </div>
                 <div class="form-group">
                     <label>
                         Deskripsi Long
                     </label>
                     <textarea class="form-control" id="summernote" name="prod_desc_long"></textarea>
-                    <!-- <input class="form-control" type="text"/> -->
-                </div>
-                <div class="form-group">
-                    <label>
-                        Komisi untuk <?php echo $this->config->item('APP_TITLE') ?> sebesar : <p id="percent"></p>
-                    </label>
-                    <br/>
-                    <input id="ex1" name="comm" class="form-control" data-slider-id='ex1Slider' type="text" data-slider-min="10" data-slider-max="100" data-slider-step="1" data-slider-value="10"/>
-                    <!-- <input class="form-control" type="text"/> -->
                 </div>
                 <?php
 
