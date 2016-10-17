@@ -241,6 +241,11 @@ class Buy_sell extends CI_Controller
         /* Send Information Email To Client*/
         $subject = $this->lang->line('invoice_title');
         $invoice = $this->input->post('invoice');
+        $unix_price = $this->input->post('total_val') + rand(500, 999);
+        $data_inv = array(
+            "unix_price" => $unix_price,
+        );
+        $this->basicmodel->updateData('master_invoice', $data_inv, 'invoice', $invoice);
         $body    = file_get_contents(base_url('email/invoice/' . $invoice));
         $tgl     = date('Y-m-d H:i:s', time());
         $sql     = $this->basicmodel->insertData('email', array('timeupdate' => $tgl, 'email_to' => $this->nativesession->getObject('username'), 'email_subject' => $subject, 'email_body' => $body, 'module' => 'itemCheckoutPay'));
@@ -249,10 +254,7 @@ class Buy_sell extends CI_Controller
             $array = array(
                 'cmd' => '8',
             );
-            $data_inv = array(
-                "unix_price" => $this->input->post('total_val'),
-            );
-            $this->basicmodel->updateData('master_invoice', $data_inv, 'invoice', $invoice);
+
 
             $this->db->set($array);
             $this->db->where('invoice', $invoice);
@@ -334,7 +336,7 @@ class Buy_sell extends CI_Controller
 		$cats = array();
 		foreach ($cat as $key => $value) {
 			$cats[] = $value;
-			
+
 		}
 		if($cat_name == null){
 			$sql  = $this->basicmodel->getDataBySeller($datausers['aecodeid']);
@@ -359,11 +361,11 @@ class Buy_sell extends CI_Controller
 		$cats = array();
 		foreach ($cat as $key => $value) {
 			$cats[] = $value;
-			
+
 		}
 		$sql = $this->basicmodel->deleteProduct($prod_id, $datausers['aecodeid']);
         $sql2  = $this->basicmodel->getDataBySeller($datausers['aecodeid']);
-		
+
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
             "body"   => $this->load->view('mall/myProduct', array('list_prod' => $sql2, 'userdata' => $datausers, 'list_cat' => $cats), true),

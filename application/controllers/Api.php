@@ -30,34 +30,16 @@ class Api extends CI_Controller
         print_r('logon');
     }
     public function getEmailInvoice($invoice){
-        $tgl  = date('Y-m-d H:i:s', time());
-        $join = array(
-            array('table' => 'client_aecode', 'on' => 'master_cart.aecodeid = client_aecode.aecodeid', 'type' => 'left'),
-            array('table' => 'master_product', 'on' => 'master_cart.id_prod = master_product.id', 'type' => 'left'),
-            array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= "'.$this->db->escape($tgl).'" AND master_product_promo.dateto >= "'.$this->db->escape($tgl).'"', 'type' => 'left'),
-            array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
-        );
-        $where = array(
-            array('col' => 'master_cart.cmd', 'val' => '7'),
-            array('col' => 'master_cart.invoice', 'val' => $invoice)
-            );
-        $data = $this->basicmodel->getDataPromo('name,master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
-        $datas_barang = array();
-
-        foreach ($data as $key => $value) {
-            # code...
-            $datas_barang[$key]                = $value;
-            $datas_barang[$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
-            @$total = $total + $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
-        }
-        $datas_barang['name'] = $value['name'];
-
-        $datas_barang['total'] = $total;
-        if (empty($datas_barang)) {
-            # code...
-            show_404();
-        }
-        $this->load->view('api/invoce_email', array('data' => $datas_barang));
+        $this->db->select('client_aecode.name, master_invoice.unix_price');
+        $this->db->from('master_invoice');
+        $this->db->join('master_cart', 'master_invoice.invoice = master_cart.invoice');
+        $this->db->join('client_aecode', 'master_cart.aecodeid = client_aecode.aecodeid');
+        $this->db->where('master_invoice.invoice', $invoice);
+        $get = $this->db->get()->result();
+        foreach($get as $key => $rows):
+          $get_data = $rows;
+        endforeach;
+        $this->load->view('api/invoce_email', array('data' => $get_data));
     }
     public function confirmationSendEmail(){
 
