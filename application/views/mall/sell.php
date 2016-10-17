@@ -67,14 +67,17 @@
                     <label>
                         Masukan gambar Utama anda
                     </label>
-                       <div class="slim"
-                     data-label="Tarik gambar anda kesini"
-                     accept="image/jpeg"
-                     data-size="640,640"
-                     data-ratio="1:1">
-                    <input type="file" name="slim[]" required />
-                </div>
-
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="slim"
+                           data-label="Tarik gambar anda kesini"
+                           accept="image/jpeg"
+                           data-size="640,640"
+                           data-ratio="1:1">
+                           <input type="file" name="slim[]" required />
+                        </div>
+                      </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>
