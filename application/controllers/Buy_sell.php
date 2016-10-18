@@ -281,6 +281,7 @@ class Buy_sell extends CI_Controller
             array('table' => 'master_product', 'on' => 'master_cart.id_prod = master_product.id', 'type' => 'left'),
             array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= ' . $this->db->escape($tgl) . ' AND master_product_promo.dateto >= ' . $this->db->escape($tgl) . '', 'type' => 'left'),
             array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
+            array('table' => 'master_invoice', 'on' => 'master_cart.invoice = master_invoice.invoice', 'type' => 'left'),
         );
         $where = array(
             array('col' => 'master_cart.cmd', 'val' => '8'),
@@ -288,8 +289,9 @@ class Buy_sell extends CI_Controller
             // array('col' => 'master_product_promo.datefrom <=', 'val' => $tgl),
             // array('col' => 'master_product_promo.dateto >=', 'val' => $tgl)
         );
-        $data = $this->basicmodel->getDataPromo('master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
+        $data = $this->basicmodel->getDataPromo('unix_price, master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
         // $datas = array();
+        var_dump($data);
         $datas_barang = array();
         foreach ($data as $key => $value) {
             # code...
