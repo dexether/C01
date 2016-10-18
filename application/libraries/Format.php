@@ -44,8 +44,6 @@ class Format
       else:
         return NULL;
       endif;
-
-
     }
     public function url_dash($string)
     {

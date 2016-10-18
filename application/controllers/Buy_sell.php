@@ -241,6 +241,11 @@ class Buy_sell extends CI_Controller
         /* Send Information Email To Client*/
         $subject = $this->lang->line('invoice_title');
         $invoice = $this->input->post('invoice');
+        $unix_price = $this->input->post('total_val') + rand(500, 999);
+        $data_inv = array(
+            "unix_price" => $unix_price,
+        );
+        $this->basicmodel->updateData('master_invoice', $data_inv, 'invoice', $invoice);
         $body    = file_get_contents(base_url('email/invoice/' . $invoice));
         $tgl     = date('Y-m-d H:i:s', time());
         $sql     = $this->basicmodel->insertData('email', array('timeupdate' => $tgl, 'email_to' => $this->nativesession->getObject('username'), 'email_subject' => $subject, 'email_body' => $body, 'module' => 'itemCheckoutPay'));
@@ -249,10 +254,7 @@ class Buy_sell extends CI_Controller
             $array = array(
                 'cmd' => '8',
             );
-            $data_inv = array(
-                "unix_price" => $this->input->post('total_val'),
-            );
-            $this->basicmodel->updateData('master_invoice', $data_inv, 'invoice', $invoice);
+
 
             $this->db->set($array);
             $this->db->where('invoice', $invoice);
@@ -279,6 +281,7 @@ class Buy_sell extends CI_Controller
             array('table' => 'master_product', 'on' => 'master_cart.id_prod = master_product.id', 'type' => 'left'),
             array('table' => 'master_product_promo', 'on' => 'master_product.id = master_product_promo.id_product AND master_product_promo.datefrom <= ' . $this->db->escape($tgl) . ' AND master_product_promo.dateto >= ' . $this->db->escape($tgl) . '', 'type' => 'left'),
             array('table' => 'master_promo', 'on' => 'master_product_promo.id_promo = master_promo.id', 'type' => 'left'),
+            array('table' => 'master_invoice', 'on' => 'master_cart.invoice = master_invoice.invoice', 'type' => 'left'),
         );
         $where = array(
             array('col' => 'master_cart.cmd', 'val' => '8'),
@@ -286,8 +289,9 @@ class Buy_sell extends CI_Controller
             // array('col' => 'master_product_promo.datefrom <=', 'val' => $tgl),
             // array('col' => 'master_product_promo.dateto >=', 'val' => $tgl)
         );
-        $data = $this->basicmodel->getDataPromo('master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
+        $data = $this->basicmodel->getDataPromo('unix_price, master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
         // $datas = array();
+        var_dump($data);
         $datas_barang = array();
         foreach ($data as $key => $value) {
             # code...
@@ -334,7 +338,7 @@ class Buy_sell extends CI_Controller
 		$cats = array();
 		foreach ($cat as $key => $value) {
 			$cats[] = $value;
-			
+
 		}
 		if($cat_name == null){
 			$sql  = $this->basicmodel->getDataBySeller($datausers['aecodeid']);
@@ -359,11 +363,11 @@ class Buy_sell extends CI_Controller
 		$cats = array();
 		foreach ($cat as $key => $value) {
 			$cats[] = $value;
-			
+
 		}
 		$sql = $this->basicmodel->deleteProduct($prod_id, $datausers['aecodeid']);
         $sql2  = $this->basicmodel->getDataBySeller($datausers['aecodeid']);
-		
+
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
             "body"   => $this->load->view('mall/myProduct', array('list_prod' => $sql2, 'userdata' => $datausers, 'list_cat' => $cats), true),

@@ -26,7 +26,7 @@
                         <tr>
                             <td><?php echo $value['prod_alias'] ?></td>
                             <td><?php echo $value['qty'] ?></td>
-                            <td><?php echo $this->format->set_rp($value['final_price'])?></td>
+                            <td align="right"><?php echo $this->format->set_rp($value['final_price'])?></td>
                         </tr>
                         <?php
                         @$total = $total + $value['final_price'];
@@ -34,15 +34,15 @@
                         ?>
                         <tr>
                             <td colspan="2">Subtotal</td>
-                            <td><?php echo $this->format->set_rp($total); ?></td>
+                            <td align="right"><?php echo $this->format->set_rp($total); ?></td>
                         </tr>
                         <tr>
-                            <td colspan="2">Shipping</td>
-                            <td>0</td>
+                            <td colspan="2">Kode Unix</td>
+                            <td align="right"><?php echo $value['unix_price'] - $total; ?></td>
                         </tr>
                         <tr>
-                            <td colspan="2">Total</td>
-                            <td><?php echo $this->format->set_rp($total); ?></td>
+                            <td colspan="2" style="font-weight: bold;">Total</td>
+                            <td align="right" style="font-weight: bold;"><?php echo $this->format->set_rp($value['unix_price']); ?></td>
                         </tr>
                     </tbody>
                 </table>

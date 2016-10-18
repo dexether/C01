@@ -73,7 +73,8 @@ class Uploader extends CI_Controller
             $prod_price     = $int;
             $prod_desc      = $this->input->post('prod_desc');
             $prod_desc_long = $this->input->post('prod_desc_long');
-            $comm           = $this->input->post('comm');
+            // $comm           = $this->input->post('comm');
+            $comm           = 0;
             $prod_images    = $file['path'];
             $insert         = array(
 

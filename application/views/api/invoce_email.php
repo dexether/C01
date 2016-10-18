@@ -54,7 +54,7 @@
                                                             <tr>
                                                                 <td align="center" colspan="5">
                                                                     <p style="color:#404040;font-size:16px;line-height:24px;font-weight:lighter;padding:0;margin:0">
-                                                                        Hai <?php echo $data['name'] ?>,
+                                                                        Hai <?php echo $data->name; ?>,
                                                                         <?php echo $this->lang->line('invoice_desc'); ?> <?php echo $this->config->item('APP_TITLE'). $this->lang->line('invoice_desc1') ?>
                                                                     </p>
                                                                 </td>
@@ -67,7 +67,9 @@
                                                                                 <tr>
                                                                                     <td align="center" style="margin:0;text-align:center">
                                                                                         <a href="#" style="font-size:21px;line-height:22px;text-decoration:none;color:#ffffff;font-weight:bold;border-radius:2px;background-color:#0096d3;padding:14px 40px;display:block;letter-spacing:1.2px">
-                                                                                            <?php echo $this->format->set_rp($data['total']) ?>
+                                                                                            <?php
+                                                                                            echo $this->format->set_rp($data->unix_price);
+                                                                                            ?>
                                                                                         </a>
                                                                                     </td>
                                                                                 </tr>
@@ -76,7 +78,13 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
-
+                                                            <tr>
+                                                                <td align="center" colspan="5">
+                                                                    <p style="color:#404040;font-size:15px;line-height:24px;font-weight:lighter;padding:0;margin:0">
+                                                                      Mohon Untuk melakukan Transfer sesuai jumlah diatas, Tiga angka unix diatas <strong style="font-weight:bold;"><?php echo substr($data->unix_price, -3); ?></strong>, membantu proses pengecekan pembayaran
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
                                                             <tr align="center">
                                                                 <td colspan="3" height="30">
                                                                 <br>
