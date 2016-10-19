@@ -290,8 +290,7 @@ class Buy_sell extends CI_Controller
             // array('col' => 'master_product_promo.dateto >=', 'val' => $tgl)
         );
         $data = $this->basicmodel->getDataPromo('unix_price, master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
-        // $datas = array();
-        var_dump($data);
+        // $datas = array();        
         $datas_barang = array();
         foreach ($data as $key => $value) {
             # code...
