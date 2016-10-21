@@ -128,7 +128,7 @@
         $("form").submit(function(event) {
 
             // Get the submit button element
-            event.preventDefault();            
+            event.preventDefault();
             var btn = $(this).find("input[type=submit]:focus");
             var data = $(this).serializeArray();
             $(btn).button('loading');
