@@ -249,6 +249,22 @@ class Buy_sell extends CI_Controller
         $body    = file_get_contents(base_url('email/invoice/' . $invoice));
         $tgl     = date('Y-m-d H:i:s', time());
         $sql     = $this->basicmodel->insertData('email', array('timeupdate' => $tgl, 'email_to' => $this->nativesession->getObject('username'), 'email_subject' => $subject, 'email_body' => $body, 'module' => 'itemCheckoutPay'));
+
+        // Kirim Email Ke Penjual
+        $payload = "SELECT master_invoice.invoice, client_aecode.aecodeid, master_product.`aecodeid`, client_aecode.`name`, email FROM master_invoice, master_cart, master_product, client_aecode WHERE master_invoice.`invoice` = master_cart.`invoice` AND master_invoice.`invoice` = '$invoice' AND master_cart.`id_prod` = master_product.`id`AND master_product.`aecodeid` = client_aecode.`aecodeid` GROUP BY client_aecode.`aecodeid`";
+        $execute = $this->db->query($payload)->result();
+        $this->load->model('penjual');
+        foreach ($execute as $key => $value) {
+          $subject = "Selamat, Barang anda ada yang pesan !";
+          ob_start();
+          $datapenjual = $this->penjual->ambildatapenjualdariinvoice($value->aecodeid, $value->invoice);
+          $datapembeli = $this->penjual->ambildatapembelidariinvoice($value->invoice);
+          $dataadmin = $this->penjual->ambiladminmall();
+          $this->load->view('api/emailkepenjual', array('datapenjual' => $datapenjual, 'datapembeli' => $datapembeli, 'dataadmin' => $dataadmin));
+          $html = ob_get_contents();
+          ob_end_clean();
+          $sql     = $this->basicmodel->insertData('email', array('email_cc' => implode(';', $dataadmin), 'timeupdate' => $tgl, 'email_to' => $value->email, 'email_subject' => $subject, 'email_body' => $html, 'module' => 'emailkepenjual'));
+        }
         if ($sql) {
             # code...
             $array = array(
@@ -290,7 +306,7 @@ class Buy_sell extends CI_Controller
             // array('col' => 'master_product_promo.dateto >=', 'val' => $tgl)
         );
         $data = $this->basicmodel->getDataPromo('unix_price, master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
-        // $datas = array();        
+        // $datas = array();
         $datas_barang = array();
         foreach ($data as $key => $value) {
             # code...

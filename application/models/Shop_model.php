@@ -86,7 +86,7 @@ class Shop_model extends CI_Model
 			WHERE id = '$prod_id' AND aecodeid = '$sellerid'";
         $hasil = $this->db->query($query);
     }
-	
+
     public function getDataByProd($name = '')
     {
         $query = "SELECT
@@ -119,7 +119,7 @@ class Shop_model extends CI_Model
         $hasil = $this->db->query($query);
         return $hasil->result_array();
     }
-	
+
 	public function myProductDataByCat($type = '', $sellerid = '')
     {
         $query = "SELECT
@@ -153,7 +153,7 @@ class Shop_model extends CI_Model
         WHERE master_cat.cat_name = '$type' AND master_product.aecodeid = '$sellerid'";
         $hasil = $this->db->query($query);
         return $hasil->result_array();
-    }	
+    }
 	public function getDataBySeller($sellerid = '')
     {
         $query = "SELECT
@@ -188,7 +188,7 @@ class Shop_model extends CI_Model
         $hasil = $this->db->query($query);
         return $hasil->result_array();
     }
-	
+
     public function insertData($table, $data)
     {
         $sql = $this->db->insert($table, $data);
