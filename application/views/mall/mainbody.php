@@ -51,7 +51,7 @@ $aecodeid = $this->nativesession->getObject('aecodeid');
 $name = $this->nativesession->getObject('aename');
 // $nama =
 $data = $this->penjual->ambil_alamat($aecodeid);
-if(!(count($data->result()) > 0) && $this->nativesession->getObject('username')):
+if(count($data->result()) < 0 && $this->nativesession->getObject('username')):
 	$this->load->view('mall/notification_desktop', array('name' => $name));
 endif;
 ?>

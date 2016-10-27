@@ -22,7 +22,7 @@
           <?php
           $aecodeid = $this->nativesession->getObject('aecodeid');
           $data = $this->penjual->ambil_alamat($aecodeid);
-          if(($data->num_rows > 0)):
+          if(count($data->result()) < 0):
           $attributes = array('id' => 'myform');
           echo form_open('Pengguna/simpan_alamat', $attributes);
           echo form_hidden('aecodeid', $this->nativesession->getObject('aecodeid'));
@@ -45,10 +45,6 @@
                   <div class="form-group">
                     <label for="kota">Pilih Kota</label>
                     <select name="kota" id="kota" class="form-control">
-                      <option value="1">1
-                      </option>
-                      <option value="2">2
-                      </option>
                     </select>
                     <p class="help-block">Pilih kota tujuan.</p>
                   </div>

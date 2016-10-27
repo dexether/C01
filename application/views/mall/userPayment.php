@@ -51,7 +51,7 @@
                     ?>
                     <tr>
                         <td><a href="#"><?php echo $value['invoice'] ?></a></td>
-                        <td><?php echo $this->format->set_rp($value['total']) ?></td>
+                        <td><?php echo $this->format->set_rp($value['unix_price'] + $value['ongkir']) ?></td>
                         <td><?php echo $value['timestamp'] ?></td>
                         <td><?php echo $value['cmd_alias'] ?></td>
                         <td>

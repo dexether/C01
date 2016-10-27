@@ -438,7 +438,22 @@ class Buy_sell extends CI_Controller
             $datas[$value1['invoice']]['total'] = $total;
         }
         // $data[$value['invoice']]['total'] = $total;
-
+        $this->db->select('master_invoice.invoice, master_cmd.cmd, master_invoice.timestamp, client_aecode.aecodeid, unix_price, ongkir, cmd_alias');
+        $this->db->from('master_invoice');
+        $this->db->join('master_cmd', 'master_invoice.cmd = master_cmd.cmd');
+        $this->db->join('master_cart','master_invoice.invoice = master_cart.invoice');
+        $this->db->join('client_aecode', 'client_aecode.aecodeid = master_cart.aecodeid');
+        $this->db->group_by('master_invoice.invoice');
+        $this->db->where('client_aecode.aecodeid', $aecodeid);
+        $this->db->order_by('master_invoice.timestamp', 'DESC');
+        $get = $this->db->get();
+        $datas = $get->result_array();
+        // foreach ($get->result_array() as $key => $value) {
+        //   # code...
+        //   $datas[$value['invoice']] = $value;
+        // }
+        // var_dump($data_invoices);
+        // var_dump($datas);
         (!empty($datas)) ? $page = 'userPayment' : $page = 'userPaymentEmpty';
         // var_dump($data);
         $part = array(
