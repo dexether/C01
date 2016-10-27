@@ -26,6 +26,7 @@ class Store extends CI_Controller
         parent::__construct();
         $this->lang->load('message_lang', 'indonesia');
         $this->load->model('Shop_model', 'basicmodel');
+        $this->load->model('penjual');
 
         date_default_timezone_set('Asia/Jakarta');
         // $this->load->library('session');

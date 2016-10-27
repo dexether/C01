@@ -43,6 +43,14 @@ class Penjual extends CI_Model
       $pecah = explode(',', $dataadmin);
       return $pecah;
     }
+    public function ambil_alamat($aecodeid)
+    {
+      $this->db->select('*');
+      $this->db->from('client_aecode_address');
+      $this->db->where('aecodeid', $aecodeid);
+      $get = $this->db->get();
+      return $get;
+    }
 }
 
 /* End of file shop_model.php */

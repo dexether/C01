@@ -17,6 +17,7 @@ class Buy_sell extends CI_Controller
         $this->load->library('nativesession');
         $this->load->library('format');
         $this->load->library('encrypt');
+        $this->load->library('rajaongkir');
         if (!$this->nativesession->getObject('username')) {
             # code...
             redirect(base_url() . "web2/index.php?redirect=" . urlencode(current_url()));
@@ -223,6 +224,8 @@ class Buy_sell extends CI_Controller
             $datas_barang[$key]['final_price'] = $this->basicmodel->cekPromo($value['promo_name'], $value['promo_value'], $value['prod_price']);
 
         }
+        $provinces = json_decode($this->rajaongkir->province());
+        $provinces = $provinces->rajaongkir->results;
         if (empty($datas_barang)) {
             # code...
             show_404();
@@ -230,7 +233,7 @@ class Buy_sell extends CI_Controller
 
         $part = array(
             "header" => $this->load->view('mall/mainheader', array(), true),
-            "body"   => $this->load->view('mall/checkout', array('user' => $datas, 'list' => $datas_barang), true),
+            "body"   => $this->load->view('mall/checkout', array('invoice' => $invoice, 'user' => $datas, 'list' => $datas_barang , 'provinces' => $provinces), true),
             "slider" => "",
         );
         $this->load->view('mall/index', $part);
@@ -241,9 +244,13 @@ class Buy_sell extends CI_Controller
         /* Send Information Email To Client*/
         $subject = $this->lang->line('invoice_title');
         $invoice = $this->input->post('invoice');
-        $unix_price = $this->input->post('total_val') + rand(500, 999);
+        $unix_price = $this->input->post('total_val') + $this->input->post('ongkir') + rand(500, 999);
         $data_inv = array(
             "unix_price" => $unix_price,
+            "city_id" => $this->input->post('kota'),
+            "ongkir" => $this->input->post('ongkir'),
+            "type" => $this->input->post('type')
+
         );
         $this->basicmodel->updateData('master_invoice', $data_inv, 'invoice', $invoice);
         $body    = file_get_contents(base_url('email/invoice/' . $invoice));
@@ -268,7 +275,7 @@ class Buy_sell extends CI_Controller
         if ($sql) {
             # code...
             $array = array(
-                'cmd' => '8',
+                'cmd' => '8'
             );
 
 
@@ -305,7 +312,7 @@ class Buy_sell extends CI_Controller
             // array('col' => 'master_product_promo.datefrom <=', 'val' => $tgl),
             // array('col' => 'master_product_promo.dateto >=', 'val' => $tgl)
         );
-        $data = $this->basicmodel->getDataPromo('unix_price, master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
+        $data = $this->basicmodel->getDataPromo('city_id, ongkir, unix_price, master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
         // $datas = array();
         $datas_barang = array();
         foreach ($data as $key => $value) {

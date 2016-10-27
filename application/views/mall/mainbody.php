@@ -45,6 +45,17 @@
 
 <?php endif; ?>
 <!-- End Of Today Promo -->
+<!-- start of notification -->
+<?php
+$aecodeid = $this->nativesession->getObject('aecodeid');
+$name = $this->nativesession->getObject('aename');
+// $nama =
+$data = $this->penjual->ambil_alamat($aecodeid);
+if(!(count($data->result()) > 0) && $this->nativesession->getObject('username')):
+	$this->load->view('mall/notification_desktop', array('name' => $name));
+endif;
+?>
+<!-- end ofnotification -->
 <div class="row" data-gutter="15">
 	<div class="col-md-4">
 		<div class="banner banner-o-hid" style="background-image:url(<?php echo base_url() ?>assets/img/back/380x200background.png);">

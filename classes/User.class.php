@@ -25,6 +25,7 @@ class User {
 
     var $userid;
     var $username;
+    var $aecodeid;
     var $password; // In MD5 Format
     var $groupid;
     var $group_description;
@@ -213,10 +214,11 @@ class User {
 
         global $DB;
         $query = "SELECT
-                user.*, group.isadmin, group.issupervisor, group.ismanager,
+                client_aecode.aecodeid, user.*, group.isadmin, group.issupervisor, group.ismanager,
                 group.description AS group_description
-                FROM user,`group`
+                FROM user,`group`, client_aecode
                 WHERE  user.groupid = group.groupid
+                AND user.username = client_aecode.aecode
                 and
                 $where";
         //echo "$query";
@@ -227,6 +229,7 @@ class User {
             $adadata = "yes";
             //UsertradeLog("User.class.php-219-UserId:" . $row[userid]);
             $this->userid = $row['userid'];
+            $this->aecodeid = $row['aecodeid'];
             $this->username = $row['username'];
             $this->password = $row['password'];
             $this->groupid = $row['groupid'];

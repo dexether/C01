@@ -97,3 +97,8 @@ $route['payment/transactions'] = 'Buy_sell/userPaymentTransaction';
 // how to sell
 $route['help/how-to-sell'] = 'Store/howToSellProduct';
 $route['help/how-to-buy'] = 'Store/howToBuyProduct';
+
+
+// user
+$route['user/settings'] = 'Pengguna/settings';
+// endogf user

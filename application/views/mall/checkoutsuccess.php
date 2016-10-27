@@ -38,7 +38,11 @@
                         </tr>
                         <tr>
                             <td colspan="2">Kode Unix</td>
-                            <td align="right"><?php echo $value['unix_price'] - $total; ?></td>
+                            <td align="right"><?php echo $value['unix_price'] - $total - $value['ongkir']; ?></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Biaya pengiriman</td>
+                            <td align="right"><?php echo $this->format->set_rp($value['ongkir']); ?></td>
                         </tr>
                         <tr>
                             <td colspan="2" style="font-weight: bold;">Total</td>

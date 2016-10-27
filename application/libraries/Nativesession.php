@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
@@ -39,6 +40,30 @@ class Nativesession
     }
     public function getObject($key)
     {
-        return isset($_SESSION['user']->$key) ? $_SESSION['user']->$key : null;   
+        return isset($_SESSION['user']->$key) ? $_SESSION['user']->$key : null;
+    }
+    public function set_flashdata($value, $msg)
+    {
+        // Set Sessions
+      $_SESSION['flashdata'][$value] = $msg;
+    }
+    public function flashdata($value = null)
+    {
+        if ($value != null):
+        $session_data = @$_SESSION['flashdata'][$value];
+        if ($session_data != null):
+          unset($_SESSION['flashdata'][$value]);
+
+        return $session_data; else:
+          return false;
+        endif; else:
+        // return false;
+        $session_data = count(@$_SESSION['flashdata']);
+        if ($session_data > 0):
+          // unset($_SESSION['flashdata'][$value]);
+          return true; else:
+          return false;
+        endif;
+        endif;
     }
 }
