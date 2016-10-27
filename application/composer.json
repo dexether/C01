@@ -1,5 +1,6 @@
 {
     "require": {
-        "steevenz/rajaongkir": "^1.2"
+        "steevenz/rajaongkir": "^1.2",
+        "illuminate/database": "^5.0"
     }
 }
