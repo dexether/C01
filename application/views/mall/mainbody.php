@@ -19,8 +19,7 @@
 
 			</ul>
             <div class="product-img-wrap">
-			<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
-			<img class="product-img-alt" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
+			<img class="product-img" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
 					</div>
             <a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
             <div class="product-caption">
@@ -178,7 +177,7 @@ endif;
 							?>
 						</ul>
 							<div class="product-img-wrap">
-									<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
+									<img class="product-img" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
 							</div>
 							<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
 							<div class="product-caption">
@@ -215,7 +214,7 @@ endif;
 							?>
 						</ul>
 							<div class="product-img-wrap">
-									<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
+									<img class="product-img" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
 							</div>
 							<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
 							<div class="product-caption">
@@ -252,7 +251,7 @@ endif;
 							?>
 						</ul>
 							<div class="product-img-wrap">
-									<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
+									<img class="product-img" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
 							</div>
 							<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
 							<div class="product-caption">
@@ -288,7 +287,7 @@ endif;
 							?>
 						</ul>
 							<div class="product-img-wrap">
-									<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
+									<img class="product-img" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
 							</div>
 							<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
 							<div class="product-caption">
@@ -325,7 +324,7 @@ endif;
 							?>
 						</ul>
 							<div class="product-img-wrap">
-									<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
+									<img class="product-img" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
 							</div>
 							<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
 							<div class="product-caption">
@@ -362,7 +361,7 @@ endif;
 							?>
 						</ul>
 							<div class="product-img-wrap">
-									<img class="product-img-primary" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
+									<img class="product-img" data-src="<?php echo base_url() ?><?php echo $value['prod_images']; ?>" src="<?php echo base_url()  ?>assets/img/ripple.svg" alt="" title="Image Title" />
 							</div>
 							<a class="product-link" href="<?php echo base_url()."c/".$value['cat_name']."/".$value['prod_name'] ?>"></a>
 							<div class="product-caption">
