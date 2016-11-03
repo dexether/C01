@@ -52,7 +52,22 @@ if ($error != 'error') {
                     $progress = 0;
                     # code...
                     $data    = getDatas($id);
-                    $dataHasil = $DB->execresultset('SELECT cat_name, master_product.`prod_alias`, master_product.`prod_desc`, master_product.`prod_price`, master_product.`prod_images`, master_product.`prod_name`, cat_alias FROM master_product, master_cat WHERE master_product.`id_cat` = master_cat.`id` AND master_product.id  = "'.$id.'"');
+                    $dataHasil = $DB->execresultset('SELECT
+                                    cat_name,
+                                    master_product.`prod_alias`,
+                                    master_product.`prod_desc`,
+                                    master_product.`prod_price`,
+                                    master_product.`prod_images`,
+                                    master_product.`prod_name`,
+                                    cat_alias ,
+                                    client_aecode.`name`
+                                  FROM
+                                    master_product,
+                                    master_cat ,
+                                    client_aecode
+                                  WHERE master_product.`id_cat` = master_cat.`id`
+                                  AND master_product.`aecodeid` = client_aecode.`aecodeid`
+                                  AND master_product.id = "'.$id.'"');
                     foreach ($dataHasil as $key => $value) {
                       # code...
                       $dataHasils = $value;
