@@ -79,7 +79,7 @@ if($postmode == 'yes') {
 			$accnya = $row['Account'];
 			$type = $row['PayType'];
 		}
-		
+
 		if ($type == 'Club Package') {
 
 			$query = "INSERT INTO apex_balance SET apex_balance.from = '$accnya', apex_balance.amount = '$amount', datetime = NOW(), fromuser = '$user->username'";
@@ -90,28 +90,28 @@ if($postmode == 'yes') {
 			 * Untuk Bonus WRB
 			 * Jadi dapetin bonus dari peresentasenya langsung masuk ke Ewallet dan gold saving account
 			 */
-			
-			$query = "SELECT 
-			ACCNO,  
+
+			$query = "SELECT
+			ACCNO,
 			mlm_bonus_settings.`description`,
 			client_aecode.`name`,
 			client_aecode.`email`,
-			mlm_bonus_settings.`wrb` 
+			mlm_bonus_settings.`wrb`
 			FROM
 			mlm,
 			client_aecode,
 			client_accounts,
-			mlm_bonus_settings 
-			WHERE ACCNO = 
-			(SELECT 
-			upline 
+			mlm_bonus_settings
+			WHERE ACCNO =
+			(SELECT
+			upline
 			FROM
-			mlm 
-			WHERE ACCNO = '$accnya') 
-			AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
-			AND mlm.`ACCNO` = client_accounts.`accountname` 
+			mlm
+			WHERE ACCNO = '$accnya')
+			AND mlm.`group_play` = mlm_bonus_settings.`group_play`
+			AND mlm.`ACCNO` = client_accounts.`accountname`
 			AND client_accounts.`aecodeid` = client_aecode.`aecodeid`";
-			$result_upline = $DB->execresultset($query); 
+			$result_upline = $DB->execresultset($query);
 			// tradeLogConstruct("ar_admin_payment_table - 124 : ". $query);
 			foreach($result_upline as $r) {
 				$account_upline = $r['ACCNO'];
@@ -127,7 +127,7 @@ if($postmode == 'yes') {
 			 * ini untuk bonus wr
 			 *
 			 */
-			
+
 			cekwcb($account_upline, $accnya);
 
 			// Change Company Confirm
@@ -158,6 +158,7 @@ if($postmode == 'yes') {
 			$new_tgl = date('Y-m-d', strtotime("+1 week", strtotime($tglskrng)));
 			$query = "UPDATE mlm_wcd SET next_pay = '$new_tgl', status = '1' WHERE account = '$accnya'";
 			$DB->execonly($query);
+      // tradeLogConstruct();
 			$bonuswrb = storeToWalletWrb($account_upline, $amount, $wrb_upline);
 			bonusLogs($account_upline, $accnya, 'wrb', $bonuswrb, 'you got WEALTH REFERRAL BONUS from '.$accnya.'This bonus will be split into two type Account (6% goes to E-Wallet / 1% goes to Gold Saving Account)');
 			$subject = "Congratulations, you have got a bonus";
@@ -205,15 +206,15 @@ if($postmode == 'yes') {
 			$arisan_account = $arisanaccount[1];
 			$query = "UPDATE mlm_arisan_account SET payment = '2' WHERE arisan_account = '$arisan_account'";
 			$DB->execonly($query);
-			$query = "SELECT 
+			$query = "SELECT
 			  mlm.`ACCNO`,
 			  mlm.group_play,
 			  mlm_arisan_block.`id`
 			FROM
 			  mlm,
-			  mlm_arisan_block 
-			WHERE mlm.`group_play` = mlm_arisan_block.`group_play` 
-			  AND mlm.`ACCNO` = '$accnya' 
+			  mlm_arisan_block
+			WHERE mlm.`group_play` = mlm_arisan_block.`group_play`
+			  AND mlm.`ACCNO` = '$accnya'
 			  AND mlm_arisan_block.`board` LIKE '%1'";
 			$result = $DB->execresultset($query);
 			foreach($result as $row){
@@ -224,13 +225,13 @@ if($postmode == 'yes') {
 			$DB->execonly($query);
 
 		}
-		$query = "SELECT 
+		$query = "SELECT
 		client_aecode.`email`,
 		client_aecode.name
 		FROM
 		client_accounts,
-		client_aecode 
-		WHERE client_accounts.`accountname` = '$accnya' 
+		client_aecode
+		WHERE client_accounts.`accountname` = '$accnya'
 		AND client_accounts.`aecodeid` = client_aecode.`aecodeid`";
 		$result = $DB->execresultset($query);
 
@@ -250,7 +251,7 @@ if($postmode == 'yes') {
 			$body = $body . $companys['long_address'];
 			$body = $body . " Email : ".$companys['email']." <br>";
 			$body = $body . " ".$companys['companyurl']." <br>";
-			
+
 
 		$query = "insert into email set
 		timeupdate = '$timenya',
@@ -262,12 +263,12 @@ if($postmode == 'yes') {
 		";
 		$DB->execonly($query);
 	}
-	
+
 }
 $query = $_SESSION['q'];
 if ($postmode == 'querys') {
 	$query = "SELECT * FROM mlm_payment WHERE 1=1 $filter_date $filter_type $filter_status";
-	$_SESSION['q'] = $query;	
+	$_SESSION['q'] = $query;
 }
 
 $template->assign("q", $query);
@@ -321,10 +322,10 @@ function storeToWalletWrb($account, $amount, $wrb) {
 	$balancealls = getBalance($account);
 
 	// tradeLogConstruct("ar_admin_payment_table- 230 : ". print_r($balancealls));
-	
+
 	$wallet_final = $balancealls['ewallet']['balance'] + $wallet;
 	$GoldSaving_final = $balancealls['goldsaving']['balance'] + $GoldSaving;
-	
+
 	// tradeLogConstruct("ar_admin_payment_table- 235 : ". $wallet_final . " " . $GoldSaving_final);
 
 	$balance_prev_wallet = $balancealls['ewallet']['balance'];
@@ -355,18 +356,18 @@ function sendEmail($to, $subject, $body, $module) {
 	email_subject = '$subject',
 	email_body = '$body',
 	timesend = '1970-01-31 00:00:00',
-	module = '$module'    
+	module = '$module'
 	";
 	$DB->execonly($query);
 }
 function cekwcb($upline, $account) {
 	global $DB;
-	$query = "SELECT 
-	mlm_wcb.`registered` 
+	$query = "SELECT
+	mlm_wcb.`registered`
 	FROM
-	mlm_wcb 
-	WHERE mlm_wcb.`account` = '$upline' 
-	AND mlm_wcb.`payment` = 0 
+	mlm_wcb
+	WHERE mlm_wcb.`account` = '$upline'
+	AND mlm_wcb.`payment` = 0
 	AND LENGTH(TRIM(BOTH ';' FROM registered)) - LENGTH(
 		REPLACE(
 			TRIM(BOTH ';' FROM registered),
