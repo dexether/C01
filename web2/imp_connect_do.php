@@ -3,6 +3,9 @@ include_once "$_SERVER[DOCUMENT_ROOT]/includes/functions.php";
 include_once "$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php";
 require_once "$_SERVER[DOCUMENT_ROOT]/classes/security.csrf.php";
 include_once "includes/wr_tools.php";
+require '../classes/metatrader/sync.class.php';
+$sync = new Sync();
+// require 'autoload/initial.php';
 $var_to_pass = null;
 global $user;
 global $template;
@@ -39,6 +42,16 @@ $id      = @($_POST['id']);
 /*====================================
 =            Start Coding            =
 ====================================*/
+// Cek apakah Mt4 Account Duplicated
+$check = $sync->check_duplicate($number);
+tradeLogMMNewLevel($check. " ". $number);
+if($check == 'true'):
+  $error   = "error";
+  $subject = "Oops, data Duplicated";
+  $msg     = "Mt4 Login berikut sudah digunakan";
+endif;
+
+tradeLogMMNewLevel($subject);
 if ($error != 'error') {
    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       if ($security->get($token)) {

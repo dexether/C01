@@ -3,6 +3,8 @@ include_once "$_SERVER[DOCUMENT_ROOT]/includes/functions.php";
 include_once "$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php";
 require_once "$_SERVER[DOCUMENT_ROOT]/classes/security.csrf.php";
 include_once "includes/wr_tools.php";
+require '../classes/metatrader/sync.class.php';
+$sync = new Sync();
 $var_to_pass = null;
 global $user;
 global $template;

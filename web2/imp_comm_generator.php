@@ -472,16 +472,25 @@ FROM
         $commision = 0;
         if ($is_agent) {
             // Cari Amount
-            // tradeLogs('ACCNO '.$accno . " AGENT");
+
+            // tradeLogs('AGENT '. $accno);
             $sublot  = 0;
             $subcomm = 0;
             foreach ($datas as $key => $val) {
                 $ceklot     = checkTradeDetalis($val['mt4dt'], $val['mt4login']);
                 $query      = "SELECT amount FROM imp_manage_schema WHERE mt4dt = '" . $val['mt4dt'] . "' AND bonus_for = 'ae' AND level = '$level'";
+                // if ($accno == '16071507281') {
+                //   tradeLogs('16071507281 '. $val['mt4login'] . $query);
+                //   tradeLogs('16071507281 LOT '. $ceklot);
+                // }
+
                 $comm_array = $DB->execresultset($query);
                 foreach ($comm_array as $key => $value) {
                     $commision2 = $value['amount'] * $ceklot;
                 }
+                // if ($accno == '16071507281') {
+                //   tradeLogs('16071507281 TOTAL  ' . $val['mt4login'] . $commision2);
+                // }
                 $sublot  = $sublot + $ceklot;
                 $subcomm = $subcomm + $commision2;
             }

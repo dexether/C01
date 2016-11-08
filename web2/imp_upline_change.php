@@ -32,13 +32,14 @@ $_SESSION['page'] = 'imp_upline_change';
 ====================================*/
 
 
-$query = "SELECT 
+$query = "SELECT
   client_aecode.`name`,
-  client_aecode.`aecodeid`
+  client_aecode.`aecodeid`,
+  client_aecode.`email`
 FROM
-  client_aecode 
+  client_aecode
 WHERE client_aecode.`suspend` = '0' ORDER BY NAME ASC";
-$result = $DB->execresultset($query); 
+$result = $DB->execresultset($query);
 $template->assign('accountlist', $result);
 
 

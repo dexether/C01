@@ -7,7 +7,7 @@ For Production reason Error reporting will disable
 
 include_once "$_SERVER[DOCUMENT_ROOT]/includes/functions.php";
 include_once "$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php";
-require_once dirname(__FILE__) . '/../classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
 $var_to_pass = null;
 global $user;
 global $template;
@@ -55,7 +55,6 @@ $filter_agen
 $filter_date
 AND mlm_comm.`ACCNO` = client_accounts.`accountname`
   AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
-  AND mlm_comm.type = 'askap'
 GROUP BY mlm_comm.`ACCNO` ";
 $result = $DB->execresultset($query);
 $quick  = $result;
@@ -84,8 +83,7 @@ WHERE 1=1
 $filter_agen
 $filter_date
 AND mlm_comm.`ACCNO` = client_accounts.`accountname`
-  AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
-  AND mlm_comm.type = 'askap'";
+  AND client_accounts.`aecodeid` = client_aecode.`aecodeid` ";
 // print_r($query);
 $result = $DB->execresultset($query);
 
@@ -124,8 +122,10 @@ foreach ($result as $key => $value) {
    // $detailed[$key]['full'] = $datalot;
 
 }
-
-// var_dump($detailed2);
+// echo "<pre>";
+// print_r($detailed2);
+// echo "</pre>";
+// die();
 $objPHPExcel = new PHPExcel();
 
 // Set document properties
@@ -246,6 +246,10 @@ $objPHPExcel->getActiveSheet()->getStyle("A1")->applyFromArray($middle);
 
 $i_row = 3;
 // var_dump($detailed2);
+// echo "<pre>";
+// print_r($detailed2);
+// echo "</pre>";
+// die();
 foreach ($detailed2 as $key => $value) {
    $i_parent = $i_row;
    $objPHPExcel->getActiveSheet()->getStyle('A' . $i_row . '')->applyFromArray($leftwithborder);
@@ -277,8 +281,18 @@ foreach ($detailed2 as $key => $value) {
       } else {
          $bonus_for = 'ae';
       }
-      $query = "SELECT amount FROM imp_manage_schema WHERE mt4dt = '$value1[mt4dt]' AND bonus_for = '$bonus_for' AND level = '$value[level]'";
+      // echo "<pre>";
+      // print_r($value);
+      // echo "</pre>";
+      $query = "SELECT amount FROM imp_manage_schema WHERE mt4dt = '$value[mt4dt]' AND bonus_for = '$bonus_for' AND level = '$value[level]'";
+      // echo "<pre>";
+      // print_r($query);
+      // echo "</pre>";
+
       // tradeLogComm($query);
+      // if ($accno == '16071507281') {
+      //   tradeLogComm('16071507281 TOTAL  ' . $val['mt4login'] . ' ' . $commision2);
+      // }
       $result2  = $DB->execresultset($query);
       $amounted = 0;
       foreach ($result2 as $key2 => $value2) {
@@ -328,6 +342,7 @@ foreach ($detailed2 as $key => $value) {
    // $objPHPExcel->getActiveSheet()->getStyle('A' . $i_parent . ':G' . ($i_row - 1) . '')->applyFromArray($BStyle);
 
 }
+// die();
 $objPHPExcel->setActiveSheetIndex(0)->setTitle('Summary Report');
 $objPHPExcel->setActiveSheetIndex(1)->setTitle('Detailed Report');
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
