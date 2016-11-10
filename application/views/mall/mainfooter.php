@@ -44,18 +44,22 @@
                     </div>
                     <div class="col-md-3">
                     <div class="row">
-                      <div class="col-sm-12">
-                        <img class="img-responsive" src="<?php echo base_url('assets/img/imperium200x60.png') ?>" width="150px"/>
-
+                      <div class="col-sm-6">
+                        <img class="img-responsive" style="margin-top: 20%;" src="<?php echo base_url('assets/img/imperium200x60.png') ?>" width="150px"/>
                       </div>
+                      <div class="col-sm-6">
+                        <img class="img-responsive" src="<?php echo base_url('web2/images/logo/tree/tree-forex.jpg') ?>" width="150px"/>
+                      </div>
+
+                    </div>
+                    <div class="row">
                       <div class="col-sm-12">
                         <div class="gap-small">
-                          
+
                         </div>
                         <img class="img-responsive" src="<?php echo base_url('assets/img/two600x338.png') ?>" width="150px"/>
                       </div>
                     </div>
-
 
                     </div>
                 </div>
