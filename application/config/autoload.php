@@ -126,4 +126,5 @@ $autoload['language'] = array('message');
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('M_appconfig');
+// $autoload['model'] = array();
+$autoload['models'] = array('locations_model');
