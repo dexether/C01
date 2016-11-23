@@ -86,7 +86,7 @@
     <div class="modal-body">
         <!-- <p>Some text in the modal.</p> -->
         <!-- <form action="" method="POST" role="form" class="form-horizontal"> -->
-        <?php echo form_open('buy_sell/confirmPayment', array('class' => "form-horizontal", "name" => "ajax-form"));
+        <?php echo form_open('mod_ecommerce_payment/confirmPayment', array('class' => "form-horizontal", "name" => "ajax-form"));
         echo form_hidden('aecodeid', '0');
         echo form_hidden('inv', '0');
         ?>
@@ -178,7 +178,7 @@ $(function() {
           function(){
             //
             $.ajax({
-              url: '<?php echo base_url('Buy_sell/barangSudahDiterima') ?>',
+              url: '<?php echo base_url('mod_ecommerce_payment/barangSudahDiterima') ?>',
               type: 'POST',
               dataType: 'JSON',
               data: {
@@ -213,7 +213,7 @@ $(function() {
         $button = $(this).button();
         $button.button('loading');
         $.ajax({
-            url: '<?php echo base_url() ?>buy_sell/getTransactionData',
+            url: '<?php echo base_url() ?>mod_ecommerce_payment/getTransactionData',
             type: 'GET',
             dataType: 'JSON',
             data: {},

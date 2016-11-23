@@ -32,7 +32,7 @@
             </h3>
 
             <!-- <form> -->
-            <?php echo form_open_multipart('Product/editProductDo');?>
+            <?php echo form_open_multipart('mod_ecommerce_product/product_edit/editProductDo');?>
             <?php echo form_hidden('prod_id', $dataBarang->id); ?>
                 <div class="form-group">
                     <label>
@@ -185,7 +185,7 @@ $(document).ready(function(){
     },
     init: function () {
       thisDropzone = this;
-      $.get('<?php echo base_url("product/getImagesDropZone/".$dataBarang->id) ?>', function(data) {
+      $.get('<?php echo base_url("mod_ecommerce_product/product_edit/getImagesDropZone/".$dataBarang->id) ?>', function(data) {
         $.each(data, function(index, val) {
           var mockFile = { name: val.image_location , size: val.size };
           // thisDropzone.emit("addedfile", mockFile);

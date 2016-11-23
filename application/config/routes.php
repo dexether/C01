@@ -18,41 +18,59 @@ $route['c/(:any)'] = 'mod_ecommerce_category/show_product/$1';
 $route['c/(:any)/(:any)'] = 'mod_ecommerce_product/show_product/$1/$2';
 // $route['cart'] = 'Buy_sell/showMyCart';
 $route['cart'] = 'mod_ecommerce_cart/show_cart';
-$route['cart/checkout'] = 'Buy_sell/itemCheckout';
-$route['cart/add/(:any)/(:num)'] = 'Buy_sell/addProductToChart/$1/$2';
-$route['cart/(:any)/checkout'] = 'Buy_sell/userCheckOut/$1';
-$route['cart/alter/(:any)'] = 'Buy_sell/deleteProductFromcart/$1';
-$route['checkout'] = 'Buy_sell/itemCheckoutPay';
-$route['checkout/(:any)/success'] = 'Buy_sell/itemCheckoutSuccess/$1';
-$route['about-us'] = 'Store/AboutUs';
-$route['terms'] = 'Store/termsAndCondidition';
-$route['myproduct'] = 'Buy_sell/myProduct';
-$route['myproduct/(:any)'] = 'Buy_sell/myProduct/$1';
-$route['product/delete/(:any)'] = 'Buy_sell/deleteProduct/$1';
 
-/* API */
+// $route['cart/add/(:any)/(:num)'] = 'Buy_sell/addProductToChart/$1/$2';
+$route['cart/add/(:any)/(:num)'] = 'mod_ecommerce_cart/item_add/$1/$2';
+
+// $route['cart/alter/(:any)'] = 'Buy_sell/deleteProductFromcart/$1';
+$route['cart/alter/(:any)'] = 'mod_ecommerce_cart/item_delete/$1';
+
+// $route['cart/checkout'] = 'Buy_sell/itemCheckout';
+$route['cart/checkout'] = 'mod_ecommerce_cart/item_checkout';
+
+// $route['cart/(:any)/checkout'] = 'Buy_sell/userCheckOut/$1';
+$route['cart/(:any)/checkout'] = 'mod_ecommerce_cart/item_checkout_confirmation/$1';
+
+// $route['checkout'] = 'Buy_sell/itemCheckoutPay';
+$route['checkout'] = 'mod_ecommerce_cart/item_checkout_process';
+
+// $route['checkout/(:any)/success'] = 'Buy_sell/itemCheckoutSuccess/$1';
+$route['checkout/(:any)/success'] = 'mod_ecommerce_cart/item_checkout_success/$1';
+
+// $route['about-us'] = 'Store/AboutUs';
+$route['about-us'] = 'mod_ecommerce_page/about_us';
+
+// $route['terms'] = 'Store/termsAndCondidition';terms
+$route['terms'] = 'mod_ecommerce_page/terms';
+
+// how to sell
+$route['help/how-to-sell'] = 'mod_ecommerce_page/how_to_sell_product';
+$route['help/how-to-buy'] = 'mod_ecommerce_page/how_to_buy_product';
+
 // $route['email/adminapprove/'] = 'api/sendEmailAfterApprove';
-$route['email/invoice/(:any)'] = 'api/getEmailInvoice/$1';
-$route['api/images'] = 'api/secureGetImage';
+$route['email/invoice/(:any)'] = 'mod_ecommerce_invoice/get_email_invoice/$1';
+$route['api/images'] = 'mod_ecommerce_payment/secureGetImage';
 
 /* End of API */
+$route['myproduct'] = 'mod_ecommerce_product/list_product';
+$route['myproduct/(:any)'] = 'mod_ecommerce_product/list_product/$1';
 
+$route['product/delete/(:any)'] = 'mod_ecommerce_product/product_edit/deleteProduct/$1';
 /* Create Product */
-$route['product/new'] = 'Buy_sell/sell';
-$route['product/edit/(:any)'] = 'Product/editProductByUsers/$1';
+$route['product/new'] = 'mod_ecommerce_product/sell_product';
+$route['product/upload'] = 'mod_ecommerce_product/mod_ecommerce_product_upload/secureSaveUploadedImages';
+$route['product/success/(:any)'] = 'mod_ecommerce_product/product_add_success/$1';
+$route['product/edit/(:any)'] = 'mod_ecommerce_product/product_edit/editProductByUsers/$1';
 $route['product/step/2/(:any)'] = 'Uploader/createProductStepTwo/$1';
-$route['product/success/(:any)'] = 'Uploader/successCreatePage/$1';
+
 /* End Create Product */
 
 /* Payment */
-$route['payment/transactions'] = 'Buy_sell/userPaymentTransaction';
+$route['payment/transactions'] = 'mod_ecommerce_payment/userPaymentTransaction';
 /* END Payment */
 
-// how to sell
-$route['help/how-to-sell'] = 'Store/howToSellProduct';
-$route['help/how-to-buy'] = 'Store/howToBuyProduct';
 
 
 // user
-$route['user/settings'] = 'Pengguna/settings';
+$route['user/settings'] = 'mod_ecommerce_users/settings';
 // endogf user

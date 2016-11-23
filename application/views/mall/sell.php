@@ -41,7 +41,7 @@
             </h3>
 
             <!-- <form> -->
-            <?php echo form_open_multipart('Uploader/secureSaveUploadedImages');?>
+            <?php echo form_open_multipart('product/upload');?>
                 <div class="form-group">
                     <label>
                         <?php echo $this->lang->line('sell_name_prod'); ?>
@@ -193,7 +193,7 @@
 $(document).ready(function(){
   Dropzone.autoDiscover = false; // keep this line if you have multiple dropzones in the same page
   $(".uploadform").dropzone({
-    url: "<?php echo base_url('uploader/uploadMultipleImages') ?>",
+    url: "<?php echo base_url('mod_ecommerce_product/mod_ecommerce_product_upload/uploadMultipleImages') ?>",
     paramName: "file",
     maxFiles: 5,
     parallelUploads: 5,
@@ -211,7 +211,7 @@ $(document).ready(function(){
       alert('You have uploaded more than 1 Image. Only the first file will be uploaded!');
     },
     success: function (response) {
-      console.log(response)
+      
     }
   });
 });

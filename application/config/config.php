@@ -514,3 +514,11 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 // var_dump($config);
+$config['product_uploads'] = 'assets/product/';
+$config['faq_email'] = 'team@agendafx.com';
+$config['support_email'] = 'support@agendafx.com';
+$config['finance_email'] = 'finance@agendafx.com';
+$config['transfer_secure_upload_dir'] = 'C:/Project/imperium/upload/transactions/';
+$config['transfer_secure_upload_dir'] = '/root/public_html/upload/';
+$config['APP_TITLE'] = 'AgendaFX';
+$config['APP_DESC'] = 'Solution For Forex Traders';

@@ -254,13 +254,13 @@ Country
 <script>
 $("#kota").remoteChained({
   parents : "#provinsi",
-  url : "<?php echo base_url('Ongkir/getCity/') ?>"
+  url : "<?php echo base_url('mod_ecommerce_ongkir/getCity/') ?>"
 });
 $("#kota").change(function(){
   var provinsi = $('#provinsi').val();
   var kota = $('#kota').val();
   var invoice = "<?php echo $invoice; ?>";
-  $.get( "<?php echo base_url('Ongkir/getOngkos/"+provinsi+"/"+kota+"/"+ invoice +"') ?>", function( data ) {
+  $.get( "<?php echo base_url('mod_ecommerce_ongkir/getOngkos/"+provinsi+"/"+kota+"/"+ invoice +"') ?>", function( data ) {
     // $('#ongkir').html(data);
     // console.log(data);
     var response = JSON.parse(data);
