@@ -65,6 +65,8 @@ class Mod_ecommerce_product_upload extends MY_Controller
           }
           $prod_name = $this->format->seoUrl($this->input->post('prod_alias'));
           $prod_alias = $this->input->post('prod_alias');
+          $send_method = ($this->input->post('send_method') == "on") ? true : false;
+          $prod_weight = $this->input->post('weight');
           $cat = $this->input->post('cat');
           $prod_price = $this->input->post('prod_price');
           $int = filter_var($prod_price, FILTER_SANITIZE_NUMBER_INT);
@@ -76,18 +78,20 @@ class Mod_ecommerce_product_upload extends MY_Controller
           $prod_images = $file['path'];
           $insert = array(
 
-          'id_cat' => $cat,
-          'aecodeid' => $aecodeid,
-          'prod_alias' => $prod_alias,
-          'prod_name' => $prod_name,
-          'prod_desc' => $prod_desc,
-          'prod_desc_long' => $prod_desc_long,
-          'prod_star' => 0,
-          'is_active' => false,
-          'prod_price' => $prod_price,
-          'prod_seen' => 0,
-          'prod_images' => $prod_images,
-          'comm' => $comm,
+            'id_cat' => $cat,
+            'aecodeid' => $aecodeid,
+            'prod_alias' => $prod_alias,
+            'prod_name' => $prod_name,
+            'prod_desc' => $prod_desc,
+            'prod_desc_long' => $prod_desc_long,
+            'prod_star' => 0,
+            'is_active' => false,
+            'prod_price' => $prod_price,
+            'prod_seen' => 0,
+            'prod_images' => $prod_images,
+            'prod_weight' => $prod_weight,
+            'by_email' => $send_method,
+            'comm' => $comm,
 
           );
           $sql = $this->basicmodel->insertData('master_product', $insert);

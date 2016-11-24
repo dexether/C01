@@ -15,7 +15,7 @@ $route['translate_uri_dashes'] = false;
 // $route['c/(:any)'] = 'Store/cat/$1';
 $route['c/(:any)'] = 'mod_ecommerce_category/show_product/$1';
 // $route['c/(:any)/(:any)'] = 'Store/product/$1/$2';
-$route['c/(:any)/(:any)'] = 'mod_ecommerce_product/show_product/$1/$2';
+$route['c/(:any)/(:any)'] = 'mod_ecommerce_product/View_product/show_product/$1/$2';
 // $route['cart'] = 'Buy_sell/showMyCart';
 $route['cart'] = 'mod_ecommerce_cart/show_cart';
 
@@ -48,7 +48,7 @@ $route['help/how-to-sell'] = 'mod_ecommerce_page/how_to_sell_product';
 $route['help/how-to-buy'] = 'mod_ecommerce_page/how_to_buy_product';
 
 // $route['email/adminapprove/'] = 'api/sendEmailAfterApprove';
-$route['email/invoice/(:any)'] = 'mod_ecommerce_invoice/get_email_invoice/$1';
+$route['email/invoice/(:any)'] = 'mod_ecommerce_invoice/email/get_email_invoice/$1';
 $route['api/images'] = 'mod_ecommerce_payment/secureGetImage';
 
 /* End of API */

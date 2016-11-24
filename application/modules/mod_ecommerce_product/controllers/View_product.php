@@ -1,6 +1,6 @@
 <?php
 
-class Mod_ecommerce_product extends Auth_area
+class View_product extends MY_Controller
 {
     public function __construct()
     {
@@ -12,10 +12,6 @@ class Mod_ecommerce_product extends Auth_area
         $this->load->library('encrypt');
 
         $this->load->model('mod_ecommerce_product_model', 'mymodel');
-    }
-    public function index()
-    {
-        echo 'Mod Product';
     }
     public function show_product($cat = null, $type = null)
     {
@@ -78,57 +74,6 @@ class Mod_ecommerce_product extends Auth_area
           'body' => $this->load->view('mall/product', array('check' => $data_check, 'data' => $data, 'images' => $image_data, 'reviews' => $data_reviews), true),
           'slider' => '',
       );
-        $this->load->view('mall/index', $part);
-    }
-    public function list_product($cat_name = null)
-    {
-        $data = $this->basicmodel->getData('client_aecode', 'aecodeid,telephone_mobile,aecode, name, email, nationality, address', array('aecode' => $this->nativesession->getObject('username')));
-        $datausers = array();
-        foreach ($data as $key => $value) {
-            // code...
-            $datausers = $value;
-        }
-        $cat = $this->basicmodel->getData('master_cat', 'cat_alias, cat_name');
-        $cats = array();
-        foreach ($cat as $key => $value) {
-            $cats[] = $value;
-        }
-        if ($cat_name == null) {
-            $sql = $this->basicmodel->getDataBySeller($datausers['aecodeid']);
-        } else {
-            $sql = $this->basicmodel->myProductDataByCat($cat_name, $datausers['aecodeid']);
-        }
-        $part = array(
-            'header' => $this->load->view('mall/mainheader', array(), true),
-            'body' => $this->load->view('mall/myProduct', array('list_prod' => $sql, 'userdata' => $datausers, 'list_cat' => $cats), true),
-            'slider' => '',
-        );
-        $this->load->view('mall/index', $part);
-    }
-    public function sell_product()
-    {
-        /* Check if data is complete */
-        $data      = $this->basicmodel->getData('client_aecode', 'telephone_mobile,aecode, name, email, nationality, address', array('aecode' => $this->nativesession->getObject('username')));
-        $datausers = array();
-        foreach ($data as $key => $value) {
-            # code...
-            $datausers = $value;
-        }
-        $sql  = $this->basicmodel->getData('master_cat', 'id, cat_name, cat_alias', array());
-        $part = array(
-            "header" => $this->load->view('mall/mainheader', array(), true),
-            "body"   => $this->load->view('mall/sell', array('list_cat' => $sql, 'userdata' => $datausers), true),
-            "slider" => "",
-        );
-        $this->load->view('mall/index', $part);
-    }
-    public function product_add_success($productname)
-    {
-        $part = array(
-        "header" => $this->load->view('mall/mainheader', array(), true),
-        "body"   => $this->load->view('mall/successcreateproduct', array(), true),
-        "slider" => "",
-        );
         $this->load->view('mall/index', $part);
     }
 }

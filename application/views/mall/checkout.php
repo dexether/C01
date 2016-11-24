@@ -52,7 +52,9 @@
                 </td>
               </tr>
               <?php
+              $send_email = $value['by_email'];
               @$total = $total + $value['final_price'];
+              @$total_w = $total_w + $value['prod_weight'];
             }
             ?>
           </tbody>
@@ -116,6 +118,7 @@ Country
   </div> -->
 </div>
 </div>
+<?php if(!$send_email): ?>
 <div class="row">
   <div class="col-md-12">
     <h3 class="widget-title">
@@ -174,6 +177,14 @@ Country
     </div>
   </div>
 </div>
+<?php else: ?>
+  <?php
+  echo form_open('checkout');
+  echo form_hidden('ongkir', 0);
+  echo form_hidden('invoice', $this->uri->segment(2));
+  echo form_hidden('total_val', $total);
+  ?>
+<?php endif; ?>
 <div class="gap-small">
 
 </div>
@@ -233,7 +244,15 @@ Country
         <div class="row">
           <div class="col-md-12">
 
-            <button name="lanjut" type="submit" class="btn btn-warning" disabled>Lanjutkan</button>
+
+            <?php if($send_email == true): ?>
+              <button name="" type="submit" class="btn btn-warning">Lanjutkan</button>
+            <?php else: ?>
+              <button name="lanjut" type="submit" class="btn btn-warning" disabled>Lanjutkan</button>
+            <?php endif; ?>
+
+
+
           </div>
         </div>
         <?php echo form_close(); ?>

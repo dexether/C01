@@ -41,18 +41,22 @@ class Mod_ecommerce_ongkir extends MY_Controller
         // var_dump($kota);
         $cities[] = $this->rajaongkir->cost($kota_pengririm, $kota, $value->prod_weight, 'jne');
         }
-      // print_r($cities);
+      // var_dump(json_decode($cities));
+      $ongkir = array();
       foreach ($cities as $key => $value) {
+          $decode = json_decode($value);
 
-        // code...
-        $decode = json_decode($value);
-          $ongkir = array();
           foreach ($decode->rajaongkir->results as $results):
-          foreach ($results->costs as $costs):
-            $ongkir_int = $costs->cost[0]->value;
-          $ongkir[$costs->service] = @$ongkir[$costs->service] + $ongkir_int;
-          endforeach;
-          endforeach;
+
+            foreach ($results->costs as $costs):
+              // var_dump($costs);
+              $ongkir_int = $costs->cost[0]->value;
+              $test[$costs->service] = @$test[$costs->service] + $ongkir_int;
+
+              $ongkir[$costs->service] = @$ongkir[$costs->service] + $ongkir_int;
+            endforeach;
+
+          endforeach;          
       }
         echo json_encode($ongkir, JSON_PRETTY_PRINT);
       // origin=501&destination=114&weight=1700&courier=jne

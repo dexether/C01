@@ -1,7 +1,7 @@
 <?php
 
 
-class Product_edit extends MY_Controller
+class Product_edit extends Auth_area
 {
     public function __construct()
     {
@@ -23,17 +23,13 @@ class Product_edit extends MY_Controller
     public function editProductByUsers($product_id = null)
     {
         // If is mine
-
+        $this->load->model('edit_m');
         $sql = $this->basicmodel->getData('client_aecode', 'aecodeid', array('aecode' => $this->nativesession->getObject('username')));
         foreach ($sql as $key => $value) {
             $aecodeid = $value['aecodeid'];
         }
         $secreat_key = $this->encrypt->decode($this->input->get('secreat_key'));
-        $this->db->select('aecodeid, comm, master_product.id, prod_price, id_cat, prod_name, prod_alias, prod_desc, prod_desc_long, prod_images, comm, cat_alias');
-        $this->db->from('master_product');
-        $this->db->join('master_cat', 'master_product.id_cat = master_cat.id');
-        $this->db->where('prod_name', $product_id);
-        $query = $this->db->get();
+        $query = $this->edit_m->get_detail($product_id);
         if (empty($query)):
           show_404();
         endif;
@@ -47,7 +43,7 @@ class Product_edit extends MY_Controller
         $sql = $this->basicmodel->getData('master_cat', 'id, cat_name, cat_alias', array());
         $part = array(
             'header' => $this->load->view('mall/mainheader', array(), true),
-            'body' => $this->load->view('mall/editProduct', array('dataBarang' => $dataBarang, 'list_cat' => $sql), true),
+            'body' => $this->load->view('edit_v', array('dataBarang' => $dataBarang, 'list_cat' => $sql), true),
             'slider' => '',
         );
         $this->load->view('mall/index', $part);
@@ -117,6 +113,8 @@ class Product_edit extends MY_Controller
           $prod_desc      = $this->input->post('prod_desc');
           $prod_desc_long = $this->input->post('prod_desc_long');
           $comm           = $this->input->post('comm');
+          $prod_weight    = filter_var($this->input->post('weight'), FILTER_SANITIZE_NUMBER_INT);
+          $send_email     = ($this->input->post('send_method') == "on") ? true : false;
           $prod_images    = $file['path'];
           $data         = array(
             'id_cat'         => $cat,
@@ -125,7 +123,8 @@ class Product_edit extends MY_Controller
             'prod_desc_long' => $prod_desc_long,
             'prod_price'     => $prod_price,
             'prod_images'    => $prod_images,
-            'comm'           => $comm,
+            'by_email'       => $send_email,
+            'prod_weight'    => $prod_weight,
           );
           $sql = $this->db->update('master_product', $data, array('id' => $prod_id));
           if ($sql) {

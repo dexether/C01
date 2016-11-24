@@ -173,7 +173,7 @@ class Mod_ecommerce_cart extends Auth_area
           // array('col' => 'master_product_promo.datefrom <=', 'val' => $tgl),
           // array('col' => 'master_product_promo.dateto >=', 'val' => $tgl)
       );
-      $data = $this->basicmodel->getDataPromo('master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value', 'master_cart', $join, $where);
+      $data = $this->basicmodel->getDataPromo('master_cart.id,prod_alias,prod_price,prod_images,qty,promo_name,promo_value, prod_weight , by_email', 'master_cart', $join, $where);
       // $datas = array();
       $datas_barang = array();
       foreach ($data as $key => $value) {
