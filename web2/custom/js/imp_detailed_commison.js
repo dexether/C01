@@ -80,6 +80,7 @@ var imp_comm_JS = function() {
                                 tr.append("<td>" + value[i].periode + "</td>");
                                 tr.append("<td>" + parseFloat(value[i].lots).toFixed(2) + "</td>");
                                 tr.append("<td>" + imp_comm_JS.changetorp(value[i].lot_amount * value[i].lots) + "</td>");
+                                tr.append("<td><button type=button class='btn btn-warning' onClick='imp_comm_JS.register(" + value[i].LOGIN + ",\"" + key + "\")'>Daftarkan</button></td>");
                                 $('table[id=table-anony] tbody').append(tr);
                             }
                         });
@@ -269,6 +270,46 @@ var imp_comm_JS = function() {
                     }
                 }
             });
+        },
+        register: function(login, mt4dt) {
+            // alert('register');
+            var data_hasil = imp_comm_JS.cek_if_registered(login, mt4dt);
+            // console.log(data_hasil[status]);
+            $('#myModal').modal('show');
+        },
+        cek_if_registered: function(login, mt4dt) {
+            var res;
+            var responses = $.ajax({
+                url: 'imp_anony_register_do.php',
+                type: 'POST',
+                data: {
+                  'login' : login,
+                  'mt4dt' : mt4dt
+                },
+                dataType: 'JSON',
+                success : function(response){
+                  imp_comm_JS.show_response(response);
+                }
+            });
+            // console.log(responses.responseJSON);
+            return responses;
+        },
+        show_response: function(json_data){
+          $.ajax({
+              url: 'imp_anony_register_view.php',
+              type: 'POST',
+              data: json_data,
+              dataType: 'HTML',
+              success : function(response){
+                // console.log(response);
+                $('#modal-body').html(response);
+              }
+          });
+
+        },
+        save_new:  function(){
+          var data = $('form[id=form-new]').serializeArray();
+          console.log(data);
         }
     };
 }();
