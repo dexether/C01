@@ -3,13 +3,13 @@ include_once "$_SERVER[DOCUMENT_ROOT]/includes/functions.php";
 include_once "$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php";
 require dirname(__FILE__) . '/../classes/metatrader/sync.class.php';
 $sync = new Sync();
-// $sync->get_response(@$_POST['login'], @$_POST['mt4dt']);
-$sync->get_response(88003117, 'askap_source_mini');
+$sync->get_response(@$_POST['login'], @$_POST['mt4dt']);
+// $sync->get_response(39010108, 'askap_source_reguler');
 switch ($sync->status) {
   case 0:
     // Email dari meta blum terdaftar
     $response['status'] = 0;
-    $response['msg'] = 'Email belum terdaftar, silahkan daftar';
+    $response['msg'] = 'Email ' . $sync->email .' belum terdaftar, silahkan daftar';
     $response['login'] = @$_POST['login'];
     $response['mt4dt'] = @$_POST['mt4dt'];
     $response['email'] = $sync->email;
@@ -17,7 +17,7 @@ switch ($sync->status) {
   case 1:
     // Email dari sudah terdaftar, tapi LOGIN belum tersync
     $response['status'] = 1;
-    $response['msg'] = 'Email sudah terdaftar, akan tetapi LOGIN ' . @$_POST['login'] . ' belum terintegrasi';
+    $response['msg'] = 'Email ' . $sync->email .' sudah terdaftar, akan tetapi LOGIN ' . @$_POST['login'] . ' belum terintegrasi';
     $response['login'] = @$_POST['login'];
     $response['mt4dt'] = @$_POST['mt4dt'];
     $response['email'] = $sync->email;

@@ -283,33 +283,58 @@ var imp_comm_JS = function() {
                 url: 'imp_anony_register_do.php',
                 type: 'POST',
                 data: {
-                  'login' : login,
-                  'mt4dt' : mt4dt
+                    'login': login,
+                    'mt4dt': mt4dt
                 },
                 dataType: 'JSON',
-                success : function(response){
-                  imp_comm_JS.show_response(response);
+                success: function(response) {
+                    imp_comm_JS.show_response(response);
                 }
             });
             // console.log(responses.responseJSON);
             return responses;
         },
-        show_response: function(json_data){
-          $.ajax({
-              url: 'imp_anony_register_view.php',
-              type: 'POST',
-              data: json_data,
-              dataType: 'HTML',
-              success : function(response){
-                // console.log(response);
-                $('#modal-body').html(response);
-              }
-          });
+        show_response: function(json_data) {
+            $.ajax({
+                url: 'imp_anony_register_view.php',
+                type: 'POST',
+                data: json_data,
+                dataType: 'HTML',
+                success: function(response) {
+                    // console.log(response);
+                    $('#modal-body').html(response);
+                }
+            });
 
         },
-        save_new:  function(){
-          var data = $('form[id=form-new]').serializeArray();
-          console.log(data);
+        save_new: function() {
+            var data = $('form[id=form-new]').serializeArray();
+            // console.log(data);
+            $.ajax({
+                url: 'imp_anony_register.php?postmode=save_new',
+                type: 'POST',
+                dataType: 'JSON',
+                data: data,
+                success: function(response) {
+                    alert(response.msg);
+                    $('#myModal').modal('hide');
+                }
+            });
+        },
+        save_cabinet_id: function()
+        {
+          var data = $('form[id=form-id]').serializeArray();
+          // console.log(data);
+          $.ajax({
+              url: 'imp_anony_register.php?postmode=save_cabinet_id',
+              type: 'POST',
+              dataType: 'JSON',
+              data: data,
+              success: function(response) {
+                  alert(response.msg);
+                  $('#myModal').modal('hide');
+              }
+          });
         }
     };
 }();
