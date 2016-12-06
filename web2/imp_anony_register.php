@@ -24,7 +24,7 @@ switch ($postmode) {
   case 'save_cabinet_id':
     // code...
 
-    $userdata = $mlm->get_user_data('agustia.tarikh150@gmail.com');
+    $userdata = $mlm->get_user_data($_POST['email']);
     if($mlm->register_cabinet_id($userdata->aecodeid, $_POST['login'], $_POST['mt4dt'], $_POST['upline'])):
       $response['status'] = true;
       $response['msg'] = 'Registrasi Berhasil, password default adalah 1234. Silahkan refresh halaman';
