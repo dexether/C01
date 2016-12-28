@@ -2,16 +2,16 @@
 
 class Latihan extends MY_Controller
 {
-    public function __construct()
+    private function _init()
     {
-        parent::__construct();
+        $this->output->set_template('default');
+        $this->load->js('assets/themes/default/js/jquery-1.9.1.min.js');
+        $this->load->js('assets/themes/default/hero_files/bootstrap-transition.js');
+        $this->load->js('assets/themes/default/hero_files/bootstrap-collapse.js');
     }
+
     public function index()
     {
-      die('Hello');
-    }
-    public function test()
-    {
-      die('Hello');
+        $this->load->view('ci_simplicity/welcome');
     }
 }
