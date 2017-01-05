@@ -32,8 +32,24 @@ $_SESSION['page'] = 'imp_comm_report';
 =            Start Coding            =
 ====================================*/
 
+// Ambil Tanggal Bulan
+for ($m=1; $m<=12; $m++)
+{
+  if (date('m') == '01') {
+    $month = date('Y-m-01', mktime(0,0,0,$m, 1, date('Y') - 1)) . ' - ' . date('Y-m-t', mktime(0,0,0,$m, 1, date('Y') - 1));
+    $month_name = date('F, Y', mktime(0,0,0,$m, 1, '2016'));
 
+  }else{
+    $month = date('Y-m-01', mktime(0,0,0,$m, 1, date('Y'))) . ' - ' . date('Y-m-t', mktime(0,0,0,$m, 1, date('Y')));
+    $month_name = date('F , Y', mktime(0,0,0,$m, 1, date('Y')));
 
+  }
+  $tanggals[$m-1]['bulan_number'] = $month;
+  $tanggals[$m-1]['bulan_name'] = $month_name;
+}
+
+// 2016-01-01 - 2016-01-31
+$template->assign('tanggals', $tanggals);
 /*=====  End of Start Coding  ======*/
 
 
