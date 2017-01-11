@@ -37,6 +37,7 @@ class connDB { // Beginn class
 
         // Error handling
         catch (PDOException $errMsg) {
+            // var_dump($errMsg);
             trigger_error( $errMsg->getMessage() . ",E_USER_ERROR" );
             exit( 1 );
             return false;

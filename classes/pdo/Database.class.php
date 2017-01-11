@@ -28,5 +28,5 @@ class Database
     {
       return $this->error_msg;
     }
-    
+
 }
