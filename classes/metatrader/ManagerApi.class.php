@@ -96,7 +96,6 @@ class ManagerApi
         "comment" => $comment
       );
       $data_string = json_encode($data, JSON_PRESERVE_ZERO_FRACTION);
-
       $ch = curl_init($this->url);
       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
       curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
@@ -104,12 +103,14 @@ class ManagerApi
       curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
       //execute post
       $result = curl_exec($ch);
-      if($result == ""):
-        $this->error = "Something went wrong, Call Admin | ERR_WITHDRAWAL_RESULT";
-        return false;
-      endif;
       //close connection
       curl_close($ch);
-      return json_decode($result);
+
+      if ($result == "" || $result == NULL || $result == "NOT_LOGIN" || $result == "null") {
+        $this->error = "ERROR : ".$result." This login Not Under manager " . $this->username;
+        return false;
+      }else{
+        return json_decode($result);
+      }
     }
 }
