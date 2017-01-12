@@ -20,6 +20,7 @@
                                 <div class="form-group">
                                     <label for="brokers">Select Brokers</label>
                                     <select name="brokers" class="form-control" id="brokers">
+                                      <option value="">-Select Broker-</option>
                                       {foreach from=$brokers item=broker}
                                       <option value="{$broker.mt4dt}">{$broker.alias}</option>
                                       {/foreach}
@@ -38,6 +39,10 @@
                                 <div class="form-group">
                                     <label for="amount">Amount</label>
                                     <input type="text" name="amount" id="amount" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="comment">Comment</label>
+                                    <textarea name="comment" rows="8" cols="40" id="comment" class="form-control"></textarea>
                                 </div>
                                 <button type="submit" name="button" class="btn btn-primary">Deposit</button>
                             </form>

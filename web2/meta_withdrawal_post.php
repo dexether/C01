@@ -30,6 +30,7 @@ $broker = anti_injection($_POST['brokers']);
 $cabinetid = anti_injection($_POST['cabinetid']);
 $login = anti_injection($_POST['login']);
 $amount = $_POST['amount'];
+$comment = anti_injection($_POST['comment']);
 $sql = "SELECT * FROM mt_manager WHERE mt_manager.`mt4dt` = '$broker'";
 $data = $DB->execresultset($sql);
 if (count($data) == 0) {
@@ -42,7 +43,7 @@ foreach ($data as $key => $value) {
 }
 require_once dirname(__FILE__) . '../../classes/metatrader/ManagerApi.class.php';
 $manager = new ManagerApi($setting['ip'] , $setting['username'] , $setting['password']);
-$deposit = $manager->withdrawal($login, $amount , 'Withdawal From Cabinet');
+$deposit = $manager->withdrawal($login, $amount , $comment);
 if($deposit == false):
   header('Content-Type: application/json');
   echo json_encode(['status' => false , 'msg' => $manager->display_error()], JSON_PRETTY_PRINT);
