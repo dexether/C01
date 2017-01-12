@@ -521,4 +521,6 @@ $config['finance_email'] = 'finance@agendafx.com';
 $config['transfer_secure_upload_dir'] = 'C:/Project/imperium/upload/transactions/';
 $config['transfer_secure_upload_dir'] = '/root/public_html/upload/';
 $config['app_title'] = 'AgendaFX';
+$config['APP_TITLE'] = 'AgendaFX';
+$config['APP_DESC'] = 'Solution For Forex Traders';
 $config['app_desc'] = 'Solution For Forex Traders';
