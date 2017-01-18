@@ -16,8 +16,9 @@ class Sync extends Database
         ->join('client_accounts', 'mlm2.ACCNO', '=', 'client_accounts.accountname')
         ->join('client_aecode', 'client_accounts.aecodeid', '=', 'client_aecode.aecodeid')
         ->where('mt4login', $mt4login);
-        if ($row->count() > 1):
-          return true; else:
+        if ($row->count() > 0):
+          return true;
+        else:
           return false;
         endif;
     }

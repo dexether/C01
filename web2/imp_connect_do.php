@@ -44,8 +44,7 @@ $id      = @($_POST['id']);
 ====================================*/
 // Cek apakah Mt4 Account Duplicated
 $check = $sync->check_duplicate($number);
-tradeLogMMNewLevel($check. " ". $number);
-if($check == 'true'):
+if($check == true):
   $error   = "error";
   $subject = "Oops, data Duplicated";
   $msg     = "Mt4 Login berikut sudah digunakan";
