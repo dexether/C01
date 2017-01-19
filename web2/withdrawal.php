@@ -77,50 +77,50 @@ $_SESSION['page'] = 'withdrawal';
 =            Coding            =
 ==============================*/
 
-$query = "SELECT 
+$query = "SELECT
 client_accounts.`accountname`,
-mlm_ewallet.`balance` 
+mlm_ewallet.`balance`
 FROM
 client_accounts,
 client_aecode,
-mlm_ewallet 
-WHERE client_accounts.`aecodeid` = client_aecode.`aecodeid` 
+mlm_ewallet
+WHERE client_accounts.`aecodeid` = client_aecode.`aecodeid`
 AND client_accounts.`suspend` = '0'
-AND client_aecode.`aecode` = '$user->username' 
+AND client_aecode.`aecode` = '$user->username'
 AND mlm_ewallet.`account` = client_accounts.`accountname`";
 $result = $DB->execresultset($query);
 $template->assign("accounts", $result);
 
 
-$query = "SELECT 
+$query = "SELECT
 client_aecode_bank.`aeaccountname`,
 client_aecode_bank.`tipe_akun`,
 client_aecode_bank.`aeaccountnumber`,
 client_aecode_bank.`status`
 FROM
 client_aecode,
-client_aecode_bank 
-WHERE client_aecode.`aecode` = '$user->username' 
+client_aecode_bank
+WHERE client_aecode.`aecode` = '$user->username'
 AND client_aecode.`aecode` = client_aecode_bank.`aecode` ";
 $result = $DB->execresultset($query);
 $template->assign("bankaccounts", $result);
 //TradeLogUnderConstruct_Secure("Query Bank Accounts :". $query);
 
 
-$query = "SELECT 
+$query = "SELECT
 mlm_transaction.`date_transaction`,
 client_accounts.`accountname`,
 mlm_transaction.`type_transaction`,
 mlm_transaction.`amount`,
-mlm_transaction.`status` 
+mlm_transaction.`status`
 FROM
 mlm_transaction,
 client_accounts,
-client_aecode 
-WHERE mlm_transaction.`type_transaction` = 'withdrawal' 
+client_aecode
+WHERE mlm_transaction.`type_transaction` = 'withdrawal'
 
-AND mlm_transaction.`account_from` = client_accounts.`accountname` 
-AND client_accounts.`aecodeid` = client_aecode.`aecodeid` 
+AND mlm_transaction.`account_from` = client_accounts.`accountname`
+AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
 AND client_aecode.`aecode` = '$user->username'";
 
 $result = $DB->execresultset($query);

@@ -50,15 +50,26 @@ if ($error != 'error') {
         if ($security->get($token)) {
             $security->delete($token);
             if($postmode == 'get'):
-                $sql = "SELECT cat_name, master_product.`id`, prod_name, prod_alias, cat_alias, client_aecode.`name` , email FROM master_product, master_cat, client_aecode WHERE master_product.`id_cat` = master_cat.`id` AND master_product.`aecodeid` = client_aecode.`aecodeid` $product_alias AND master_cat.id  = '$category_id'";
-                $query = $DB->execresultset($sql);
+                $sql = "SELECT client_aecode.address, client_aecode.telephone_mobile, cat_name, master_product.`id`, prod_name, prod_alias, cat_alias, client_aecode.`name` , email FROM master_product, master_cat, client_aecode WHERE master_product.`id_cat` = master_cat.`id` AND master_product.`aecodeid` = client_aecode.`aecodeid` $product_alias AND master_cat.id  = '$category_id'";
+                $query = $DB->execresultset($sql);                
                 ob_start();
                 foreach($query as $rows):
                 ?>
                 <tr>
                   <td><a href="http://agendafx.com/c/<?php echo $rows['cat_name'] ?>/<?php echo $rows['prod_name'] ?>" target="_blank"><?php echo $rows['prod_alias'] ?></a></td>
                   <td><?php echo $rows['cat_alias'] ?></td>
-                  <td><?php echo $rows['name'] ?></td>
+                  <td>
+                    <?php echo $rows['name'] ?>
+                  </td>
+                  <td>
+                    <?php echo $rows['email'] ?>
+                  </td>
+                  <td>
+                    <?php echo $rows['telephone_mobile'] ?>
+                  </td>
+                  <td>
+                    <?php echo $rows['address'] ?>
+                  </td>
                   <td>
                     <div class="btn-group">
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
