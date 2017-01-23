@@ -90,27 +90,34 @@ if($postmode == 'yes') {
 			 * Untuk Bonus WRB
 			 * Jadi dapetin bonus dari peresentasenya langsung masuk ke Ewallet dan gold saving account
 			 */
-
-			$query = "SELECT
-			ACCNO,
-			mlm_bonus_settings.`description`,
-			client_aecode.`name`,
-			client_aecode.`email`,
-			mlm_bonus_settings.`wrb`
-			FROM
-			mlm,
-			client_aecode,
-			client_accounts,
-			mlm_bonus_settings
-			WHERE ACCNO =
-			(SELECT
-			upline
-			FROM
-			mlm
-			WHERE ACCNO = '$accnya')
-			AND mlm.`group_play` = mlm_bonus_settings.`group_play`
-			AND mlm.`ACCNO` = client_accounts.`accountname`
-			AND client_accounts.`aecodeid` = client_aecode.`aecodeid`";
+      $query = "SELECT
+                ACCNO,
+                mlm_bonus_settings.`description`,
+                client_aecode.`name`,
+                client_aecode.`email`,
+                mlm_bonus_settings.`wrb` AS wrb_upline,
+                (
+                SELECT
+                  wrb
+                FROM
+                  mlm_bonus_settings,
+                  mlm
+                WHERE mlm_bonus_settings.`group_play` = mlm.`group_play`
+                  AND mlm.`ACCNO` = '$accnya') AS wrb
+                FROM
+                  mlm,
+                  client_aecode,
+                  client_accounts,
+                  mlm_bonus_settings
+                WHERE ACCNO =
+                  (SELECT
+                    upline
+                  FROM
+                    mlm
+                  WHERE ACCNO = '$accnya')
+                  AND mlm.`group_play` = mlm_bonus_settings.`group_play`
+                  AND mlm.`ACCNO` = client_accounts.`accountname`
+                  AND client_accounts.`aecodeid` = client_aecode.`aecodeid` ";
 			$result_upline = $DB->execresultset($query);
 			// tradeLogConstruct("ar_admin_payment_table - 124 : ". $query);
 			foreach($result_upline as $r) {
@@ -120,6 +127,7 @@ if($postmode == 'yes') {
 				$email_upline = $r['email'];
 				$wrb_upline = $r['wrb'];
 			}
+
 
 
 			/**
@@ -158,15 +166,15 @@ if($postmode == 'yes') {
 			$new_tgl = date('Y-m-d', strtotime("+1 week", strtotime($tglskrng)));
 			$query = "UPDATE mlm_wcd SET next_pay = '$new_tgl', status = '1' WHERE account = '$accnya'";
 			$DB->execonly($query);
-      // tradeLogConstruct();
 			$bonuswrb = storeToWalletWrb($account_upline, $amount, $wrb_upline);
-			bonusLogs($account_upline, $accnya, 'wrb', $bonuswrb, 'you got WEALTH REFERRAL BONUS from '.$accnya.'This bonus will be split into two type Account (6% goes to E-Wallet / 1% goes to Gold Saving Account)');
+      $explodes = explode( "-", $wrb_upline);
+			bonusLogs($account_upline, $accnya, 'wrb', $bonuswrb, 'you got WEALTH REFERRAL BONUS from '.$accnya.'This bonus will be split into two type Account ('.$explodes[0].'% goes to E-Wallet / '.$explodes[1].'% goes to Gold Saving Account)');
 			$subject = "Congratulations, you have got a bonus";
 			$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
 			$body = $body . "Dear ".$name_upline.",<br>";
 			$body = $body . " <br>";
 			$body = $body . "Congratulations, you have earned <b>WEALTH REFERRAL BONUS (W.R.B)</b> bonus of USD ".number_format($bonuswrb, 2)." from your Downline : ".$accnya." <br>";
-			$body = $body . "This bonus will be split into two type Account (6% goes to E-Wallet / 1% goes to Gold Saving Account) <br>";
+			$body = $body . "This bonus will be split into two type Account (".$explodes[0]."% goes to E-Wallet / ".$explodes[1]."% goes to Gold Saving Account) <br>";
 			$body = $body . " <br>";
 			$body = $body . "You may login to your APR program account via our website at http://www.apexregent.com <br>";
 			$body = $body . " <br>";
