@@ -1,5 +1,8 @@
 <?php
 $skip_authentication = 1;
+require_once dirname(__FILE__) . '../../classes/apexregent/apexregent.class.php';
+$apex = New Apexregent();
+$goldsaving_status = $apex->goldsaving_status();
 include_once("$_SERVER[DOCUMENT_ROOT]/includes/functions.php");
 include_once("$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php");
 $var_to_pass = null;
@@ -49,6 +52,7 @@ if ($postmode == "export") {
 
 }elseif ($postmode == "doit") {
 	storeToCronLogs('wcd');
+
 	$query = "SELECT
   mlm_wcd.`account`,
   mlm_wcd.`last_pay`,
@@ -73,6 +77,8 @@ WHERE mlm_wcd.status = '1'
   AND mlm.`group_play` = mlm_bonus_settings.`group_play`
   AND mlm.`companyconfirm` = '2'
   AND mlm_wcd.`next_pay` <= DATE(NOW())";
+	$wcd_day = $apex->bonus_setting()->AR_WCD_DAY;
+
 	// tradeLogConstruct("ar_admin_wcd- 75 : ". $query);
 	$result = $DB->execresultset($query);
 	foreach($result as $rows) {
@@ -83,12 +89,13 @@ WHERE mlm_wcd.status = '1'
 		$total = $balancealls['ewallet']['balance'] + $balancealls['goldsaving']['balance'];*/
 		$total = $rows['amount'];
 		$total_bagi = $total * ($rows['wcd'] / 100);
+
 		$do = storeToEWallet($rows['account'], $total_bagi);
 		if($do == '0') {
-			$new_tgl = date('Y-m-d', strtotime("+1 week", strtotime($rows['next_pay'])));
+			$new_tgl = date('Y-m-d', strtotime($wcd_day ." days", strtotime($rows['next_pay'])));
 			$query = "UPDATE mlm_wcd SET next_pay = '$new_tgl', last_pay = '$rows[next_pay]' WHERE account = '$rows[account]' ";
 			$DB->execonly($query);
-			bonusLogs($rows['account'], 'wcd' , $total_bagi , 'This bonus Will store to your ewallet');
+			bonusLogs($rows['account'], 'wcd' , $total_bagi , 'This bonus Will store to your ewallet', $rows['next_pay']);
 
 				// Send email
 			$query = "SELECT
@@ -125,12 +132,12 @@ WHERE mlm_wcd.status = '1'
 		$total = $balancealls['ewallet']['balance'] + $balancealls['goldsaving']['balance'];*/
 		$total = $rows['amount'];
 		$total_bagi = $total * ($rows['wcd'] / 100);
-		$do = storeToWallet($rows['account'], $total_bagi);
+		$do = storeToEWallet($rows['account'], $total_bagi);
 		if($do == '0') {
-			$new_tgl = date('Y-m-d', strtotime("+1 week", strtotime($rows['next_pay'])));
+			$new_tgl = date('Y-m-d', strtotime($wcd_day ." days", strtotime($rows['next_pay'])));
 			$query = "UPDATE mlm_wcd SET next_pay = '$new_tgl', last_pay = '$rows[next_pay]' WHERE account = '$rows[account]' ";
 			$DB->execonly($query);
-			bonusLogs($rows['account'], 'wcd' , $total_bagi , 'This bonus split 70% Into E-Wallet and 30% into Gold Saving account');
+			bonusLogs($rows['account'], 'wcd' , $total_bagi , 'This bonus will added to Your Wallet' , $rows['next_pay']);
 
 				// Send email
 			$query = "SELECT
@@ -149,7 +156,6 @@ WHERE mlm_wcd.status = '1'
 			$body = $body . "Dear ".$hasil[0]['name'].",<br>";
 			$body = $body . " <br>";
 			$body = $body . "Congratulations, you have earned on Account ".$rows['account']." <b>WEALTH CLUB DIVIDEND (W.C.D)</b> bonus of USD ".number_format($total_bagi, 2)." <br>";
-			$body = $body . "This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) <br>";
 			$body = $body . " <br>";
 			$body = $body . "You may login to your APR program account via our website at http://www.apexregent.com <br>";
 			$body = $body . " <br>";
@@ -172,7 +178,7 @@ Tinggal Dibiki log untuk Bonus nya ya
 
  */
 
-function bonusLogs($account, $type, $amount, $comment) {
+function bonusLogs($account, $type, $amount, $comment , $next_pay = null) {
 	global $DB;
 	$query = "INSERT INTO mlm_bonus_logs SET account = '$account', bonus_type = '$type', amount = '$amount', comment = '$comment', date_receipt = NOW()";
 	$DB->execonly($query);
@@ -200,8 +206,8 @@ function getBalance($account) {
 
 function storeToWallet($account, $amount) {
 	global $DB;
-	$wallet = $amount * 0.7;
-	$GoldSaving = $amount * 0.3;
+	$wallet = $amount;
+	// $GoldSaving = $amount * 0.3;
 	$balancealls = getBalance($account);
 	$wallet_final = $balancealls['ewallet']['balance'] + $wallet;
 	$GoldSaving_final = $balancealls['goldsaving']['balance'] + $GoldSaving;

@@ -12,8 +12,8 @@ class Database
                 'driver' => 'mysql', // Db driver
                 'host' => $mysql['host'],
                 'database' => $mysql['database'],
-                'username' => 'root',
-                'password' => 'mugen1996',
+                'username' => $mysql['user'],
+                'password' => $mysql['password'],
                 'charset' => 'utf8', // Optional
                 'collation' => 'utf8_unicode_ci', // Optional
                 'prefix' => '', // Table prefix, optional

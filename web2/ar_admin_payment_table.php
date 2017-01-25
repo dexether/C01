@@ -1,6 +1,10 @@
 <?php
 include_once("$_SERVER[DOCUMENT_ROOT]/includes/functions.php");
 include_once("$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php");
+
+require_once dirname(__FILE__) . '../../classes/apexregent/apexregent.class.php';
+$apex = New Apexregent();
+
 $var_to_pass = null;
 global $user;
 global $template;
@@ -168,23 +172,44 @@ if($postmode == 'yes') {
 			$DB->execonly($query);
 			$bonuswrb = storeToWalletWrb($account_upline, $amount, $wrb_upline);
       $explodes = explode( "-", $wrb_upline);
-			bonusLogs($account_upline, $accnya, 'wrb', $bonuswrb, 'you got WEALTH REFERRAL BONUS from '.$accnya.'This bonus will be split into two type Account ('.$explodes[0].'% goes to E-Wallet / '.$explodes[1].'% goes to Gold Saving Account)');
-			$subject = "Congratulations, you have got a bonus";
-			$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
-			$body = $body . "Dear ".$name_upline.",<br>";
-			$body = $body . " <br>";
-			$body = $body . "Congratulations, you have earned <b>WEALTH REFERRAL BONUS (W.R.B)</b> bonus of USD ".number_format($bonuswrb, 2)." from your Downline : ".$accnya." <br>";
-			$body = $body . "This bonus will be split into two type Account (".$explodes[0]."% goes to E-Wallet / ".$explodes[1]."% goes to Gold Saving Account) <br>";
-			$body = $body . " <br>";
-			$body = $body . "You may login to your APR program account via our website at http://www.apexregent.com <br>";
-			$body = $body . " <br>";
-			$body = $body . " <br>";
-			$body = $body . "Thank you," . "<br>";
-			$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
-			$body = $body . $companys['long_address'];
-			$body = $body . " Email : ".$companys['email']." <br>";
-			$body = $body . " ".$companys['companyurl']." <br>";
-			sendEmail($email_upline, $subject, $body, 'ar_admin_payment_table');
+      if ($apex->goldsaving_status == true) {
+        bonusLogs($account_upline, $accnya, 'wrb', $bonuswrb, 'you got WEALTH REFERRAL BONUS from '.$accnya.'This bonus will be split into two type Account ('.$explodes[0].'% goes to E-Wallet / '.$explodes[1].'% goes to Gold Saving Account)');
+  			$subject = "Congratulations, you have got a bonus";
+  			$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
+  			$body = $body . "Dear ".$name_upline.",<br>";
+  			$body = $body . " <br>";
+  			$body = $body . "Congratulations, you have earned <b>WEALTH REFERRAL BONUS (W.R.B)</b> bonus of USD ".number_format($bonuswrb, 2)." from your Downline : ".$accnya." <br>";
+  			$body = $body . "This bonus will be split into two type Account (".$explodes[0]."% goes to E-Wallet / ".$explodes[1]."% goes to Gold Saving Account) <br>";
+  			$body = $body . " <br>";
+  			$body = $body . "You may login to your APR program account via our website at http://www.apexregent.com <br>";
+  			$body = $body . " <br>";
+  			$body = $body . " <br>";
+  			$body = $body . "Thank you," . "<br>";
+  			$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+  			$body = $body . $companys['long_address'];
+  			$body = $body . " Email : ".$companys['email']." <br>";
+  			$body = $body . " ".$companys['companyurl']." <br>";
+  			sendEmail($email_upline, $subject, $body, 'ar_admin_payment_table');
+      }else{
+        bonusLogs($account_upline, $accnya, 'wrb', $bonuswrb, 'you got WEALTH REFERRAL BONUS from '.$accnya.'This bonus will be split into two type Account ('.$explodes[0].'% goes to E-Wallet)');
+  			$subject = "Congratulations, you have got a bonus";
+  			$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
+  			$body = $body . "Dear ".$name_upline.",<br>";
+  			$body = $body . " <br>";
+  			$body = $body . "Congratulations, you have earned <b>WEALTH REFERRAL BONUS (W.R.B)</b> bonus of USD ".number_format($bonuswrb, 2)." from your Downline : ".$accnya." <br>";
+  			$body = $body . "This bonus will be split into two type Account (".$explodes[0]."% goes to E-Wallet) <br>";
+  			$body = $body . " <br>";
+  			$body = $body . "You may login to your APR program account via our website at http://www.apexregent.com <br>";
+  			$body = $body . " <br>";
+  			$body = $body . " <br>";
+  			$body = $body . "Thank you," . "<br>";
+  			$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+  			$body = $body . $companys['long_address'];
+  			$body = $body . " Email : ".$companys['email']." <br>";
+  			$body = $body . " ".$companys['companyurl']." <br>";
+  			sendEmail($email_upline, $subject, $body, 'ar_admin_payment_table');
+      }
+
 
 		}
 		if ($type == 'Wealth Pool') {

@@ -44,11 +44,11 @@ foreach($result as $rows) {
 }
 if ($postmode == "doit") {
 	storeToCronLogs('rqb');
-	$query = "SELECT 
-	client_accounts.`accountname` 
+	$query = "SELECT
+	client_accounts.`accountname`
 	FROM
 	client_accounts,
-	client_aecode 
+	client_aecode
 	WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
 	AND client_accounts.`suspend` = '0'
 	";
@@ -57,6 +57,8 @@ if ($postmode == "doit") {
 	foreach($result as $rows) {
 		$accounts = $rows['accountname'];
 		$data = hitungrqb($accounts);
+		var_dump($data);
+		// die();
 
 		$tglbln = date('Y-m', time());
 		if ($data['layak'] != "no") {
@@ -89,7 +91,7 @@ if ($postmode == "doit") {
 				$body = $body . " Email : ".$companys['email']." <br>";
 				$body = $body . " ".$companys['companyurl']." <br>";
 				sendEmail($to, $subject, $body, 'ar_admin_rqb');
-				
+
 			}else{
 			}
 		}
@@ -129,13 +131,13 @@ function bonusLogs($account, $type, $amount, $comment) {
 
 function getIdentitas($account) {
 	global $DB;
-	$query = "SELECT 
+	$query = "SELECT
 	client_accounts.`accountname`,
 	client_aecode.`email`,
-	client_aecode.`name` 
+	client_aecode.`name`
 	FROM
 	client_accounts,
-	client_aecode 
+	client_aecode
 	WHERE client_accounts.`accountname` = '$account'
 	AND client_aecode.`aecodeid` = client_accounts.`aecodeid`";
 	$result = $DB->execresultset($query);
@@ -146,46 +148,48 @@ function getIdentitas($account) {
 }
 
 function hitungrqb($account) {
-	$layak = "no";
-	$tglpv = "PV:".date("Ym", time());
-	$gvl = array();
-	global $DB;
-	$query = "SELECT 
-	mlm.`ACCNO`,
-	mlm_payment.`Status`,
-	mlm_bonus_settings.`description`,
-	mlm_bonus_settings.`amount` 
-	FROM
-	mlm,
-	mlm_payment,
-	mlm_bonus_settings 
-	WHERE mlm_payment.`Account` = '$account'
-	AND mlm.`ACCNO` = mlm_payment.`Account` 
-	AND mlm_payment.`PayFor` = '$tglpv' 
-	AND mlm_payment.`Status` = '2' 
-	AND mlm.`group_play` = mlm_bonus_settings.`group_play`";
-	$result = $DB->execresultset($query);
-	if ($account == "COMPANY" || substr($account, 0, 4) == '9999') {
-		$result = 2;
-	}
-	// var_dump(count($result));
-	if(count($result) != 0){
+	// $layak = "no";
+	// $tglpv = "PV:".date("Ym", time());
+	// $gvl = array();
+	// global $DB;
+	// $query = "SELECT
+	// mlm.`ACCNO`,
+	// mlm_payment.`Status`,
+	// mlm_bonus_settings.`description`,
+	// mlm_bonus_settings.`amount`
+	// FROM
+	// mlm,
+	// mlm_payment,
+	// mlm_bonus_settings
+	// WHERE mlm_payment.`Account` = '$account'
+	// AND mlm.`ACCNO` = mlm_payment.`Account`
+	// AND mlm_payment.`PayFor` = '$tglpv'
+	// AND mlm_payment.`Status` = '2'
+	// AND mlm.`group_play` = mlm_bonus_settings.`group_play`";
+	// var_dump($query);
+	// $result = $DB->execresultset($query);
+	// if ($account == "COMPANY" || substr($account, 0, 4) == '9999') {
+	// 	$result = 2;
+	// }
+	// // var_dump(count($result));
+	// if(count($result) != 0){
 
-		$query = "SELECT 
+		$query = "SELECT
 		mlm.`ACCNO`,
 		mlm_payment.`Status`,
 		mlm_bonus_settings.`description`,
-		mlm_bonus_settings.`amount` 
+		mlm_bonus_settings.`amount`
 		FROM
 		mlm,
 		mlm_payment,
-		mlm_bonus_settings 
-		WHERE mlm.`Upline` = '$account' 
-		AND mlm.`ACCNO` = mlm_payment.`Account` 
-		AND mlm_payment.`PayFor` = '$tglpv' 
-		AND mlm_payment.`Status` = '2' 
+		mlm_bonus_settings
+		WHERE mlm.`Upline` = '$account'
+		AND mlm.`ACCNO` = mlm_payment.`Account`
+		AND mlm_payment.`PayFor` = '$tglpv'
+		AND mlm_payment.`Status` = '2'
 		AND mlm.`group_play` = mlm_bonus_settings.`group_play`
 		ORDER BY mlm_bonus_settings.`amount` DESC LIMIT 0,3";
+		var_dump($query);
 		$result = $DB->execresultset($query);
 		$hitung = count($result);
 		if ($hitung >= 3) {
@@ -200,13 +204,13 @@ function hitungrqb($account) {
 			$maxs_final = $maxs[0];
 			$gvl['account'] = $maxs_final;
 			$gvl['gvl'] = $gv_upline + $gvl_down;
-			$query = "SELECT 
+			$query = "SELECT
             *,
-			(amount * (ql/100)) AS total 
+			(amount * (ql/100)) AS total
 			FROM
-			mlm_rqb_settings 
-			WHERE mlm_rqb_settings.`amount` < '1000' 
-			ORDER BY mlm_rqb_settings.`amount` DESC 
+			mlm_rqb_settings
+			WHERE mlm_rqb_settings.`amount` < '1000'
+			ORDER BY mlm_rqb_settings.`amount` DESC
 			LIMIT 0, 1 ";
 			$result = $DB->execresultset($query);
 			foreach($result as $rows) {
@@ -217,8 +221,8 @@ function hitungrqb($account) {
 				$gvl['topay']['ql'] = 3;
 				$gvl['topay']['total'] = $gvl['topay']['amount'] * (3/100);
 			}
-		} 
-	}
+		}
+	// }
 	$gvl['layak'] = $layak;
 
 	return $gvl;
@@ -232,7 +236,7 @@ function sendEmail($to, $subject, $body, $module) {
 	email_subject = '$subject',
 	email_body = '$body',
 	timesend = '1970-01-31 00:00:00',
-	module = '$module'    
+	module = '$module'
 	";
 	$DB->execonly($query);
 }
