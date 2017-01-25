@@ -1,0 +1,90 @@
+<style media="screen">
+  #chart_div {
+    overflow-x: auto;
+    height: 560px;
+  }
+  table {
+    border-collapse: inherit !important;
+  }
+  table tr td {
+    /*padding: 5px !important;*/
+  }
+</style>
+<div id="main_content" class="content">
+    <div class="page-heading">
+        <h1><i class="icon-vcard"></i>Tree View</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12 portlets">
+            <div class="widget">
+              <div class="widget-header ">
+                <h2><strong>Family Treeview</strong></h2>
+              </div>
+                <div class="widget-content padding">
+                  <br>
+                  <form class="" action="index.html" method="post">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <div class="form-group">
+                          <input type="text" name="nomormlm" value="">
+                        </div>
+                        <div class="form-group">
+                          <button id="carimlm" type="button" name="button">Cari</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                  {literal}
+                  <script type="text/javascript">
+                    google.charts.load('current', {packages:["orgchart"]});
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart() {
+                      var data = new google.visualization.DataTable();
+                      data.addColumn('string', 'Name');
+                      data.addColumn('string', 'Manager');
+                      data.addColumn('string', 'ToolTip');
+
+                      // For each orgchart box, provide the name, manager, and tooltip to show.
+                      data.addRows({/literal}{$json}{literal});
+
+                      // Create the chart.
+                      var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+                      // Draw the chart, setting the allowHtml option to true for the tooltips.
+                      chart.draw(data, {allowHtml:true});
+                    }
+                  </script>
+                  {/literal}
+
+                      <div id="chart_div"></div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{literal}
+<script type="text/javascript">
+$('#carimlm').click(function(){
+  $nomor = $('input[name=nomormlm]').val();
+  // console.log('Cari');
+  // $whatever = $('#160614121');
+  // var rt = ($(window).width() - ($whatever.offset().left + $whatever.outerWidth()));
+  // console.log(rt);
+  // var scrollPos =  $("#160614121").offset().top;
+  // $(window).scrollTop(scrollPos);
+  var container = $('#chart_div'),
+    scrollTo = $('#' + $nomor);
+    //scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+    //scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+    console.log(scrollTo.offset());
+    container.animate({
+        scrollLeft: scrollTo.offset().left - container.offset().left + container.scrollLeft() - 350,
+        scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop() - 300
+
+    });
+});
+</script>
+{/literal}
