@@ -55,22 +55,22 @@ if($postmode == 'remove'){
 			$anak = $anak.",'".$row['accno']."'";
 		}
 	}
-	
-	$query="UPDATE mlm SET upline = $upline WHERE accno IN ($anak)";
+  if ($anak != "") {
+    $query="UPDATE mlm SET upline = $upline WHERE accno IN ($anak)";
+  }
 	//TradeLogUnderConstruct_Secure("Query".$query);
 	$result = $DB->execonly($query);
-	
 	$query="DELETE FROM mlm WHERE accno = '$accno'";
 	$result = $DB->execonly($query);
-	
+
 	$query="DELETE FROM client_accounts WHERE accountname = '$accno'";
 	$result = $DB->execonly($query);
-	
+
 	$response = array('status' => $error, 'subject' => $subject, 'msg' => $msg);
 // header("Content-Type: application/json;charset=utf-8");
 	echo json_encode($response);
 }
-	
+
 
 /*=====  End of Start Coding  ======*/
 

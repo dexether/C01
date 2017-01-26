@@ -11,6 +11,7 @@ $template->assign("user", $user);
 global $template;
 global $DB;
 
+
 function get_menu($data, $parent = 0) {
 	static $i = 1;
 	$tab = str_repeat("\t\t", $i);
@@ -42,29 +43,39 @@ function get_menu($data, $parent = 0) {
 	}
 }
 
-$data = array();
-$result = "SELECT * FROM
-menu
-WHERE enable = '1'
-AND access LIKE '%$user->groupid%'
-ORDER BY menu_order";
-$rows = $DB->execresultset($result);
-foreach ($rows as $row) {
-	if ($user->groupid != '9') {
-		if ($row['special_access'] == 'all') {
+// Check IF Limiter
+$query = "SELECT * FROM menu_access WHERE userid = '$user->userid'";
+$result = $DB->execresultset($query);
+if (count($result) > 0) {
+	$data = array();
+	$result = "SELECT
+  *
+FROM
+  menu_access
+  INNER JOIN menu ON menu.`id` = menu_access.`menu_id`
+WHERE menu.`enable` = '1'
+  AND access LIKE '%9%'
+  AND menu_access.`userid` = '$user->userid'
+ORDER BY menu_order ";
+	$rows = $DB->execresultset($result);
+	foreach ($rows as $row) {
 			$data[$row['parent_id']][] = $row;
-		}else{
-			$pecah = explode(',', $row['special_access']);
-			if (in_array($user->username, $pecah)) {
-				$data[$row['parent_id']][] = $row;
-			}
-		}
-	}else{
-		$data[$row['parent_id']][] = $row;
 	}
-
+}else{
+	$data = array();
+	$result = "SELECT * FROM
+	menu
+	WHERE enable = '1'
+	AND access LIKE '%$user->groupid%'
+	ORDER BY menu_order";
+	$rows = $DB->execresultset($result);
+	foreach ($rows as $row) {
+			$data[$row['parent_id']][] = $row;
+	}
 }
 
+
+// die();
 $menu = get_menu($data);
 $template->assign("menu", $menu);
  // var_dump($menu);

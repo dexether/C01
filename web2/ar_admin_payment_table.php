@@ -172,7 +172,7 @@ if($postmode == 'yes') {
 			$DB->execonly($query);
 			$bonuswrb = storeToWalletWrb($account_upline, $amount, $wrb_upline);
       $explodes = explode( "-", $wrb_upline);
-      if ($apex->goldsaving_status == true) {
+      if ($apex->goldsaving_status() == true) {
         bonusLogs($account_upline, $accnya, 'wrb', $bonuswrb, 'you got WEALTH REFERRAL BONUS from '.$accnya.'This bonus will be split into two type Account ('.$explodes[0].'% goes to E-Wallet / '.$explodes[1].'% goes to Gold Saving Account)');
   			$subject = "Congratulations, you have got a bonus";
   			$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
