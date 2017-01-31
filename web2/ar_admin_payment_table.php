@@ -99,7 +99,7 @@ if($postmode == 'yes') {
                 mlm_bonus_settings.`description`,
                 client_aecode.`name`,
                 client_aecode.`email`,
-                mlm_bonus_settings.`wrb` AS wrb_upline,
+                mlm_bonus_settings.`wrb` AS wrb,
                 (
                 SELECT
                   wrb
@@ -107,7 +107,7 @@ if($postmode == 'yes') {
                   mlm_bonus_settings,
                   mlm
                 WHERE mlm_bonus_settings.`group_play` = mlm.`group_play`
-                  AND mlm.`ACCNO` = '$accnya') AS wrb
+                  AND mlm.`ACCNO` = '$accnya') AS wrb_upline
                 FROM
                   mlm,
                   client_aecode,
@@ -191,13 +191,12 @@ if($postmode == 'yes') {
   			$body = $body . " ".$companys['companyurl']." <br>";
   			sendEmail($email_upline, $subject, $body, 'ar_admin_payment_table');
       }else{
-        bonusLogs($account_upline, $accnya, 'wrb', $bonuswrb, 'you got WEALTH REFERRAL BONUS from '.$accnya.'This bonus will be split into two type Account ('.$explodes[0].'% goes to E-Wallet)');
+        bonusLogs($account_upline, $accnya, 'wrb', $bonuswrb, 'you got WEALTH REFERRAL BONUS from '.$accnya);
   			$subject = "Congratulations, you have got a bonus";
   			$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
   			$body = $body . "Dear ".$name_upline.",<br>";
   			$body = $body . " <br>";
   			$body = $body . "Congratulations, you have earned <b>WEALTH REFERRAL BONUS (W.R.B)</b> bonus of USD ".number_format($bonuswrb, 2)." from your Downline : ".$accnya." <br>";
-  			$body = $body . "This bonus will be split into two type Account (".$explodes[0]."% goes to E-Wallet) <br>";
   			$body = $body . " <br>";
   			$body = $body . "You may login to your APR program account via our website at http://www.apexregent.com <br>";
   			$body = $body . " <br>";
