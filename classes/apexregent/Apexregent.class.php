@@ -4,9 +4,11 @@ define('root', $_SERVER['DOCUMENT_ROOT']);
 require_once root.'/classes/pdo/Database.class.php';
 class Apexregent extends Database
 {
+  public $keywords;
   public function __construct()
   {
     parent::__construct();
+    $this->keywords= "";
   }
   public function get()
   {
@@ -104,5 +106,20 @@ class Apexregent extends Database
       "groupid" => $groupid,
     ];
     $this->db->table('user')->where('userid', $userid)->update($data);
+  }
+  public function get_users($limit = 10, $offset, $keywords = "")
+  {
+    $this->keywords = $keywords;
+    $data = $this->db->table('client_aecode')->select(['name' , 'email' , 'status', 'telephone_mobile'])
+    ->where(function($q)
+      {
+          $q->orWhere('name', 'LIKE', '%'.$this->keywords.'%');
+          $q->orWhere('email', 'LIKE', '%'.$this->keywords.'%');
+          $q->orWhere('status', 'LIKE', '%'.$this->keywords.'%');
+          $q->orWhere('telephone_mobile', 'LIKE', '%'.$this->keywords.'%');
+      })
+    ->offset($offset)
+    ->limit($limit);
+    return $data;
   }
 }
