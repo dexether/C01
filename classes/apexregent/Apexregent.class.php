@@ -110,7 +110,7 @@ class Apexregent extends Database
   public function get_users($limit = 10, $offset, $keywords = "")
   {
     $this->keywords = $keywords;
-    $data = $this->db->table('client_aecode')->select(['name' , 'email' , 'status', 'telephone_mobile'])
+    $data = $this->db->table('client_aecode')->select(['aecodeid', 'name' , 'email' , 'status', 'telephone_mobile'])
     ->where(function($q)
       {
           $q->orWhere('name', 'LIKE', '%'.$this->keywords.'%');

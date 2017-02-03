@@ -21,12 +21,12 @@ foreach ($list_users->get() as $key => $value) {
   $array_user[$key][1] = $value->name;
   $array_user[$key][2] = $value->telephone_mobile;
   $array_user[$key][3] = $value->email;
-  $array_user[$key][4] = $value->status;
-  $array_user[$key][5] = $value->status;
+  $array_user[$key][4] = ($value->status == "1") ? "<span class='label label-success'>Active</span>" : "<span class='label label-danger'>Suspend</span>";
+  $array_user[$key][5] = "<button type='button' class='btn btn-info' onclick='get_user_detail(".$value->aecodeid.")'>More</button>";
   $offset++;
 }
 $result['data'] = $array_user;
 
 header('Content-Type: application/json');
-echo json_encode($result, JSON_PRETTY_PRINT);
+echo json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 ?>
