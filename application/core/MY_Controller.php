@@ -6,6 +6,7 @@ class MY_Controller extends MX_Controller
     {
         parent::__construct();
         $this->load->module('template');
+        $this->load->library('breadcrumb');
         date_default_timezone_set('Asia/Jakarta');
     }
 }

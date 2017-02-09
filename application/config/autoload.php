@@ -83,7 +83,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url','cookie');
+$autoload['helper'] = array('url','cookie' , 'seo' , 'currency' , 'header_assets');
 
 /*
 | -------------------------------------------------------------------
@@ -97,7 +97,7 @@ $autoload['helper'] = array('url','cookie');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
+$autoload['config'] = array('seo_config' , 'header_assets');
 
 /*
 | -------------------------------------------------------------------

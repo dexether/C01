@@ -12,72 +12,73 @@
                 <div class="homeslider">
                     <div class="content-slide">
                         <ul id="contenhomeslider">
-                          <li><img alt="Funky roots" src="http://lorempixel.com/666/447/city" title="Funky roots" /></li>
-                          <li><img alt="Funky roots" src="http://lorempixel.com/666/447/sports" title="Funky roots" /></li>
-                          <li><img  alt="Funky roots" src="http://lorempixel.com/666/447/nature" title="Funky roots" /></li>
+                          <!-- <li><img alt="Funky roots" src="http://lorempixel.com/666/447/city" title="Funky roots" /></li> -->
+                          <li><img alt="Funky roots" src="/assets/images/banner/banner-im-trader.jpg" title="" /></li>
+                          <li><img alt="Funky roots" src="/assets/images/banner/banner-apk.jpg" title="" /></li>
+                          <li><img alt="Funky roots" src="/assets/images/banner/banner-imlek.jpg" title="" /></li>
                         </ul>
                     </div>
                 </div>
                 <div class="header-banner banner-opacity">
-                    <a href="#"><img alt="Funky roots" src="http://lorempixel.com/234/447/nature" /></a>
+                    <a href="#"><img alt="Funky roots" src="/assets/images/banner/reza.png" /></a>
+                </div>
+                <div class="header-banner banner-opacity">
+                    <a href="#"><img style="height : 150px;" alt="Funky roots" src="/assets/images/banner/flash.png" /></a>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="service ">
+                    <div class="col-xs-6 col-sm-3 service-item">
+                        <div class="icon">
+                            <img alt="services" src="/assets/data/s1.png" />
+                        </div>
+                        <div class="info">
+                            <a href="#"><h3>Free Shipping</h3></a>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 service-item">
+                        <div class="icon">
+                            <img alt="services" src="/assets/data/s2.png" />
+                        </div>
+                        <div class="info">
+                            <a href="#"><h3>30-day return</h3></a>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 service-item">
+                        <div class="icon">
+                            <img alt="services" src="/assets/data/s3.png" />
+                        </div>
+
+                        <div class="info" >
+                            <a href="#"><h3>24/7 support</h3></a>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 service-item">
+                        <div class="icon">
+                            <img alt="services" src="/assets/data/s4.png" />
+                        </div>
+                        <div class="info">
+                            <a href="#"><h3>SAFE SHOPPING</h3></a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
 <!-- END Home slideder-->
-<!-- servives -->
-<div class="container">
-    <div class="service ">
-        <div class="col-xs-6 col-sm-3 service-item">
-            <div class="icon">
-                <img alt="services" src="/assets/data/s1.png" />
-            </div>
-            <div class="info">
-                <a href="#"><h3>Free Shipping</h3></a>
-                <span>On order over $200</span>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-3 service-item">
-            <div class="icon">
-                <img alt="services" src="/assets/data/s2.png" />
-            </div>
-            <div class="info">
-                <a href="#"><h3>30-day return</h3></a>
-                <span>Moneyback guarantee</span>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-3 service-item">
-            <div class="icon">
-                <img alt="services" src="/assets/data/s3.png" />
-            </div>
-
-            <div class="info" >
-                <a href="#"><h3>24/7 support</h3></a>
-                <span>Online consultations</span>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-3 service-item">
-            <div class="icon">
-                <img alt="services" src="/assets/data/s4.png" />
-            </div>
-            <div class="info">
-                <a href="#"><h3>SAFE SHOPPING</h3></a>
-                <span>Safe Shopping Guarantee</span>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end services -->
 
 <div class="content-page">
     <div class="container">
-        <!-- featured category fashion -->
+        <!-- featured category Indikator -->
         <div class="category-featured">
             <nav class="navbar nav-menu nav-menu-red show-brand">
               <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                  <div class="navbar-brand"><a href="#">fashion</a></div>
+                  <div class="navbar-brand"><a href="#">indikator</a></div>
                   <span class="toggle-menu"></span>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse">
@@ -97,7 +98,7 @@
                 <div class="banner-featured">
                     <!-- <div class="featured-text"><span>featured</span></div> -->
                     <div class="banner-img">
-                        <a href="#"><img alt="Featurered 1" src="/assets/data/f1.jpg" /></a>
+                        <a href="#"><img alt="Featurered 1" src="/assets/images/banner/banner-indikator.png" /></a>
                     </div>
                 </div>
                 <div class="product-featured-content">

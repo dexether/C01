@@ -290,4 +290,8 @@ class Mod_ecommerce_cart extends Auth_area
       );
       $this->load->view('mall/index', $part);
   }
+  public function set_item()
+  {
+    
+  }
 }
