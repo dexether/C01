@@ -151,7 +151,7 @@
                                       <a title="Quick view" class="search" href="#"></a>
                                     </div>
                                     <div class="add-to-cart">
-                                        <a title="Add to Cart" @click="addToCart(<?= $product->id ?>)" href="#">Tambah ke Keranjang</a>
+                                        <button type="button" @click="addToCart(<?= $product->id ?> , $event)" name="button">Tambah ke Keranjang</button>
                                     </div>
                                 </div>
                                 <div class="right-block">

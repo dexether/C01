@@ -11,6 +11,12 @@ class View_product extends MY_Controller
     {
       /* get product details */
       $product_details = $this->mymodel->get_product_details($product_name);
+      /* get new product by category */
+      $product_list = $this->mymodel->get_product_list($product_category, $product_name);
+      /* Meta Tags */
+      $data['meta']['title'] = $product_details->prod_alias;
+      $data['meta']['desc'] = $product_details->prod_desc;
+      $data['product_list'] = $product_list;
       $data['product'] = $product_details;
       $data['page'] = 'category-page';
       $data['content'] = 'mod_ecommerce_product/product_detail_v';

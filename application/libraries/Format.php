@@ -53,4 +53,18 @@ class Format
         $string = preg_replace("/[\s_]/", "-", $string);
         return $string;
     }
+    public function rating($star)
+    {
+      $html = "";
+      for ($i= 1; $i < 6; $i++) {
+        if ($star >= $i):
+          $html .= '<i class="fa fa-star"></i>'."\n";
+        elseif($i - $star == 0.5):
+          $html .= '<i class="fa fa-star-half-o"></i>'."\n";
+        else:
+          $html .= '<i class="fa fa-star-o"></i>'."\n";
+        endif;
+      }
+      return $html;
+    }
 }

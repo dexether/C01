@@ -43,6 +43,7 @@ class Cart extends MY_Controller {
         'img' => $datas->prod_images
     );
     $id = $this->cart->insert($data);
+    print_r($data);
     echo json_encode($this->cart->contents()[$id]);
   }
 }

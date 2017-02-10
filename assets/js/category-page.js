@@ -40,7 +40,9 @@ var vm = new Vue({
       }, function(error){
       });
     },
-    addToCart(item) {
+    addToCart(item, e) {
+      var btn_cart = e.target;
+      $(btn_cart).html('Sudah ditambah ke Keranjang');
       var link = '/cart/set_items/' + item;
       this.$http.get(link).then(function(response){
           // this.shop.push(response.data);
@@ -54,7 +56,7 @@ var vm = new Vue({
           // this.shop.push(response.data);
           this.getUsers();
       }, function(error){
-          
+
       });
     },
     fetchTips: function(){
