@@ -4,3 +4,5 @@ assets/img/product/*
 web2/templates_c/*
 web2/cache/
 *.log
+application/cache/*
+!application/cache/index.html
