@@ -107,7 +107,7 @@
                         </h4>
                     <div class="vertical-menu-content is-home">
                         <ul class="vertical-menu-list">
-                            <li><a href="/c/forex-book"><img class="icon-menu" alt="Funky roots" src="/assets/data/1.png">Forex Book</a></li>
+                            <li class="active"><a href="/c/forex-book"><img class="icon-menu" alt="Funky roots" src="/assets/data/1.png">Forex Book</a></li>
                             <li><a href="/c/forex-education"><img class="icon-menu" alt="Funky roots" src="/assets/data/1.png">Forex Education</a></li>
                             <li><a href="/c/forex-indicator"><img class="icon-menu" alt="Funky roots" src="/assets/data/1.png">Forex Indicator</a></li>
                             <li><a href="/c/forex-merchandise"><img class="icon-menu" alt="Funky roots" src="/assets/data/1.png">Forex Merchandise</a></li>
@@ -134,6 +134,12 @@
                                     <li class=""><a href="#">Affiliate</a></li>
                                     <li class=""><a href="#">Workshop</a></li>
                                     <li class=""><a href="#">Hot News</a></li>
+                                    <?php if ($this->session->login == false): ?>
+                                      <li class=""><a href="/auth">Login</a></li>
+                                    <?php else: ?>
+                                      <li class=""><a href="/auth/logout">Logout</a></li>
+                                    <?php endif; ?>
+
                                 </ul>
                             </div><!--/.nav-collapse -->
                         </div>

@@ -5,11 +5,10 @@ class Mod_ecommerce_category extends MY_Controller {
   {
     parent::__construct();
     $this->load->model('Shop_model', 'basicmodel');
-    $this->load->library('nativesession');
     $this->load->library('format');
     $this->load->helper('form');
     $this->load->library('encrypt');
-    
+
     $this->load->model('mod_ecommerce_category_model', 'mymodel');
   }
   public function index()

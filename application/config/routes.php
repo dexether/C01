@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-require('_settings/config.php');
+require '_settings/config.php';
 if ($mall) {
     # code...
-    $route['default_controller'] = 'dashboard';
+    $route['default_controller'] = 'home';
 } else {
     $route['default_controller'] = 'Store/basic';
 }
@@ -74,3 +74,7 @@ $route['payment/transactions'] = 'mod_ecommerce_payment/userPaymentTransaction';
 // user
 $route['user/settings'] = 'mod_ecommerce_users/settings';
 // endogf user
+/* Authentication */
+$route['auth']['get'] = 'mod_authentication/index';
+$route['auth']['post'] = 'mod_authentication/login';
+$route['auth/logout']['get'] = 'mod_authentication/logout';
