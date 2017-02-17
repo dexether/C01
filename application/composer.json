@@ -1,6 +1,7 @@
 {
     "require": {
         "steevenz/rajaongkir": "^1.2",
-        "illuminate/database": "^5.0"
+        "illuminate/database": "^5.0",
+        "phpmailer/phpmailer": "^5.2"
     }
 }

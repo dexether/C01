@@ -51,7 +51,7 @@ class Register extends MY_Controller
             'matches' => 'Konfirmasi Kata sandi tidak cocok',
           ]
         );
-        // $this->form_validation->set_rules('g-recaptcha-response', 'Captcha', 'required|callback_check_captcha');
+        $this->form_validation->set_rules('g-recaptcha-response', 'Captcha', 'required|callback_check_captcha');
         if($this->form_validation->run($this) == false):
           $this->templates->get_register_templates();
         else:

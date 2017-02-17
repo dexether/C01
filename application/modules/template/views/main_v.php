@@ -14,9 +14,12 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/responsive.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/custom.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script type="text/javascript" src="/assets/js/vue.js"></script>
     <script src="/assets/js/vue-resource.min.js"></script>
     <?= (isset($meta) ? meta_tags($meta) : meta_tags());?>
+    <!-- Google rechatpcha -->
+    <script src='https://www.google.com/recaptcha/api.js?hl=id'></script>
 </head>
 <body class="<?= (isset($page)) ? $page : "home"; ?>">
 <div id="app">
@@ -34,6 +37,22 @@
                       <img alt="email" src="<?= base_url('assets/images/Indonesia-flag.png') ?>" width="20" />Indonesia
 
                       </a>
+                </div>
+            </div>
+            <div id="user-info-top" class="user-info pull-right">
+                <div class="dropdown">
+                    <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span><?= ($this->session->login) ? "Selamat Datang, " . $this->session->name : "My Account"; ?></span></a>
+                    <ul class="dropdown-menu mega_dropdown" role="menu">
+                      <?php if ($this->session->login): ?>
+                        <li><a href="/web2">My Dashboard</a></li>
+                        <li><a href="/auth/logout">Logout</a></li>
+                      <?php else: ?>
+                        <li><a href="/auth">Login</a></li>
+                        <li><a href="/auth">Daftar</a></li>
+                      <?php endif; ?>
+
+
+                    </ul>
                 </div>
             </div>
         </div>
@@ -290,6 +309,22 @@
 <script type="text/javascript" src="/assets/js/jquery.actual.min.js"></script>
 <script type="text/javascript" src="/assets/js/theme-script.js"></script>
 <script type="text/javascript" src="/assets/js/category-page.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<?php $status = 'success'; if ($this->session->flashdata('success')): ?>
+<script>
+  toastr.<?php echo $status; ?>('<?php echo $this->session->flashdata('success') ?>')
+</script>
+<?php endif; ?>
+<?php $status = 'warning'; if ($this->session->flashdata('warning')): ?>
+<script>
+  toastr.<?php echo $status; ?>('<?php echo $this->session->flashdata('warning') ?>')
+</script>
+<?php endif; ?>
+<?php $status = 'error'; if ($this->session->flashdata('error')): ?>
+<script>
+  toastr.<?php echo $status; ?>('<?php echo $this->session->flashdata('error') ?>')
+</script>
+<?php endif; ?>
 <?php echo put_headers(); ?>
 </body>
 </html>

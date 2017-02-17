@@ -97,7 +97,7 @@ $autoload['helper'] = array('url','cookie' , 'seo' , 'currency' , 'header_assets
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array('seo_config' , 'header_assets');
+$autoload['config'] = array('seo_config' , 'header_assets' , 'google');
 
 /*
 | -------------------------------------------------------------------

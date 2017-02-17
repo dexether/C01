@@ -77,4 +77,8 @@ $route['user/settings'] = 'mod_ecommerce_users/settings';
 /* Authentication */
 $route['auth']['get'] = 'mod_authentication/index';
 $route['auth']['post'] = 'mod_authentication/login';
+$route['auth/signup']['post'] = 'mod_authentication/signup';
 $route['auth/logout']['get'] = 'mod_authentication/logout';
+$route['auth/activation']['get'] = 'mod_authentication/activation_user';
+$route['auth/activation/resend']['get'] = 'mod_authentication/activation_resend';
+$route['auth/activation/resend']['post'] = 'mod_authentication/activation_resend_post';

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9141c47206d92e498c5b8105b4a0068",
+    "content-hash": "5daacd31f35d5199442bc9fdc41d4fdf",
     "packages": [
         {
             "name": "danielstjules/stringy",
@@ -60,7 +60,7 @@
                 "utility",
                 "utils"
             ],
-            "time": "2015-07-23 00:54:12"
+            "time": "2015-07-23T00:54:12+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -127,7 +127,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-11-06 14:35:42"
+            "time": "2015-11-06T14:35:42+00:00"
         },
         {
             "name": "illuminate/container",
@@ -170,7 +170,7 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2015-05-29 20:16:27"
+            "time": "2015-05-29T20:16:27+00:00"
         },
         {
             "name": "illuminate/contracts",
@@ -212,7 +212,7 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2015-05-15 07:22:28"
+            "time": "2015-05-15T07:22:28+00:00"
         },
         {
             "name": "illuminate/database",
@@ -270,7 +270,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2015-06-02 13:39:10"
+            "time": "2015-06-02T13:39:10+00:00"
         },
         {
             "name": "illuminate/support",
@@ -323,7 +323,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2015-06-04 12:15:51"
+            "time": "2015-06-04T12:15:51+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -370,7 +370,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2015-11-04 20:07:17"
+            "time": "2015-11-04T20:07:17+00:00"
         },
         {
             "name": "o2system/o2curl",
@@ -430,7 +430,7 @@
                 "php",
                 "utilities"
             ],
-            "time": "2016-03-30 10:34:31"
+            "time": "2016-03-30T10:34:31+00:00"
         },
         {
             "name": "o2system/o2gears",
@@ -494,7 +494,7 @@
                 "php",
                 "utilities"
             ],
-            "time": "2016-03-30 10:42:01"
+            "time": "2016-03-30T10:42:01+00:00"
         },
         {
             "name": "o2system/o2glob",
@@ -548,7 +548,67 @@
                 "php",
                 "singleton"
             ],
-            "time": "2016-03-30 13:42:05"
+            "time": "2016-03-30T13:42:05+00:00"
+        },
+        {
+            "name": "phpmailer/phpmailer",
+            "version": "v5.2.22",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPMailer/PHPMailer.git",
+                "reference": "b18cb98131bd83103ccb26a888fdfe3177b8a663"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/b18cb98131bd83103ccb26a888fdfe3177b8a663",
+                "reference": "b18cb98131bd83103ccb26a888fdfe3177b8a663",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "*",
+                "phpunit/phpunit": "4.7.*"
+            },
+            "suggest": {
+                "league/oauth2-google": "Needed for Google XOAUTH2 authentication"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "class.phpmailer.php",
+                    "class.phpmaileroauth.php",
+                    "class.phpmaileroauthgoogle.php",
+                    "class.smtp.php",
+                    "class.pop3.php",
+                    "extras/EasyPeasyICS.php",
+                    "extras/ntlm_sasl_client.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Jim Jagielski",
+                    "email": "jimjag@gmail.com"
+                },
+                {
+                    "name": "Marcus Bointon",
+                    "email": "phpmailer@synchromedia.co.uk"
+                },
+                {
+                    "name": "Andy Prevost",
+                    "email": "codeworxtech@users.sourceforge.net"
+                },
+                {
+                    "name": "Brent R. Matzelle"
+                }
+            ],
+            "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
+            "time": "2017-01-09T09:33:47+00:00"
         },
         {
             "name": "steevenz/rajaongkir",
@@ -591,7 +651,7 @@
                 "api",
                 "rajaongkir"
             ],
-            "time": "2015-12-28 21:45:00"
+            "time": "2015-12-28T21:45:00+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -650,7 +710,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-05-18T14:26:46+00:00"
         },
         {
             "name": "symfony/translation",
@@ -714,7 +774,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-10-18 04:28:30"
+            "time": "2016-10-18T04:28:30+00:00"
         }
     ],
     "packages-dev": [],
