@@ -83,26 +83,35 @@ WHERE mt_database.`alias` LIKE '%askap%'
    $hasil = $DB->execresultset($query);
    foreach ($hasil as $key => $value) {
       $meta  = $value['mt4dt'];
-      $query = "SELECT
-  " . $meta . ".`mt4_trades`.`LOGIN`,
-  " . $meta . ".`mt4_users`.`NAME`,
-  (SUM(VOLUME) / 100) AS lots
-FROM
-  " . $meta . ".`mt4_trades`,
-   " . $meta . ".`mt4_users`
-WHERE " . $meta . ".`mt4_trades`.`LOGIN` = " . $meta . ".`mt4_users`.`LOGIN`
-AND CMD IN ('1', '0')
-AND " . $meta . ".`mt4_trades`.`LOGIN` NOT IN
-  (SELECT
-    mt4login
-  FROM
-    mlm2)
-  AND " . $meta . ".`mt4_trades`.`CLOSE_TIME` BETWEEN '$periode_start'
-  AND '$periode_end'
-GROUP BY " . $meta . ".`mt4_trades`.`LOGIN` ;
-
- ";
-// TradeLogUnderConstruct_Secure($query);
+      // $query = "SELECT
+      //           " . $meta . ".`mt4_trades`.`LOGIN`,
+      //           " . $meta . ".`mt4_users`.`NAME`,
+      //           (SUM(VOLUME) / 100) AS lots
+      //         FROM
+      //           " . $meta . ".`mt4_trades`,
+      //            " . $meta . ".`mt4_users`
+      //         WHERE " . $meta . ".`mt4_trades`.`LOGIN` = " . $meta . ".`mt4_users`.`LOGIN`
+      //         AND CMD IN ('1', '0')
+      //         AND " . $meta . ".`mt4_trades`.`LOGIN` NOT IN
+      //           (SELECT
+      //             mt4login
+      //           FROM
+      //             mlm2)
+      //           AND " . $meta . ".`mt4_trades`.`CLOSE_TIME` BETWEEN '$periode_start'
+      //           AND '$periode_end'
+      //         GROUP BY " . $meta . ".`mt4_trades`.`LOGIN`";
+              $query = "SELECT
+                        " . $meta . ".`mt4_users`.`LOGIN`,
+                        " . $meta . ".`mt4_users`.`NAME`
+                      FROM
+                        " . $meta . ".`mt4_users`
+                      WHERE " . $meta . ".`mt4_users`.`LOGIN` NOT IN
+                        (SELECT
+                          mt4login
+                        FROM
+                          mlm2)
+                      GROUP BY " . $meta . ".`mt4_users`.`LOGIN`";
+TradeLogUnderConstruct_Secure($query);
       $result3   = $DB->execresultset($query);
       // $anonydata = array();
       foreach ($result3 as $key => $row) {
