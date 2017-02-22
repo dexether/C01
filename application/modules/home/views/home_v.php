@@ -163,7 +163,7 @@
                 <div class="banner-featured">
                     <!-- <div class="featured-text"><span>featured</span></div> -->
                     <div class="banner-img">
-                        <a href="#"><img alt="Featurered 1" src="/assets/images/banner/banner-indikator.png" /></a>
+                        <a href="#"><img alt="Featurered 1" src="/assets/images/banner/banner-merchandise.png" /></a>
                     </div>
                 </div>
                 <div class="product-featured-content">
@@ -232,7 +232,7 @@
                 <div class="banner-featured">
                     <!-- <div class="featured-text"><span>featured</span></div> -->
                     <div class="banner-img">
-                        <a href="#"><img alt="Featurered 1" src="/assets/images/banner/banner-indikator.png" /></a>
+                        <a href="#"><img alt="Featurered 1" src="/assets/images/banner/banner-education.png" /></a>
                     </div>
                 </div>
                 <div class="product-featured-content">

@@ -44,7 +44,7 @@ foreach($result as $rows) {
 	$companys = $rows;
 }
 $template->assign("companys", $companys);
-//$phonenumber = anti_injection($_POST["phoneNumber"]);
+$phonenumber = anti_injection($_POST["phoneNumber"]);
 //$phonenumber = str_replace(' ', '-', $phonenumber);
 $phonenumber = '';
 //$register_birthday = anti_injection($_POST["register_birthday"]);
