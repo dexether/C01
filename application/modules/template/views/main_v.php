@@ -62,7 +62,7 @@
     <div class="container main-header">
         <div class="row">
             <div class="col-xs-12 col-sm-3 logo">
-                <a href="index.html"><img alt="Kute shop" src="/assets/images/logo/logo-black.png" /></a>
+                <a href="/"><img alt="Agenda FX" src="/assets/images/logo/logo-black.png" /></a>
             </div>
             <div class="col-xs-7 col-sm-6 header-search-box">
                 <form class="form-inline">
@@ -78,7 +78,7 @@
                 </form>
             </div>
             <div id="cart-block" class="col-xs-5 col-sm-3 shopping-cart-box">
-                <a class="cart-link" href="order.html">
+                <a class="cart-link" href="/cart">
                     <span class="title">Shopping cart</span>
                     <span class="total">{{ shop.length + (shop.length > 1 || shop.length === 0 ? " items" : " item") }} - Rp. {{ total }}</span>
                     <span class="notify notify-left">{{ shop.length }}</span>
@@ -90,7 +90,7 @@
                             <ul v-for="item in shop">
                                 <li class="product-info">
                                     <div class="p-left">
-                                        <a href="#" @click="removeFromCart(item.rowid)" class="remove_link"></a>
+                                        <a href="/" v-on:click.prevent="removeFromCart(item.rowid)" class="remove_link"></a>
                                         <a href="#">
                                         <img class="img-responsive" v-bind:src="'/' + item.img" />
                                         </a>
@@ -107,7 +107,7 @@
                             <span class="toal-price pull-right">Rp. {{ total }}</span>
                         </div>
                         <div class="cart-buttons">
-                            <a href="order.html" class="btn-check-out">Checkout</a>
+                            <a href="/cart" class="btn-check-out">Checkout</a>
                         </div>
                     </div>
                 </div>

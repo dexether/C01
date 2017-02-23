@@ -22,8 +22,6 @@ class Mod_authentication extends MY_Controller
         $redirect = $this->input->post('redirect');
         $this->form_validation->set_rules('login_user', 'Password', 'required');
         $this->form_validation->set_rules('login_password', 'Password', 'required|callback_check_login');
-        var_dump($this->form_validation->run($this));
-        var_dump(validation_errors());
         if ($this->form_validation->run($this) == false) {
             $this->index();
         } else {

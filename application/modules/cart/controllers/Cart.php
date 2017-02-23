@@ -5,11 +5,17 @@ class Cart extends MY_Controller {
     parent::__construct();
     $this->load->library('cart');
   }
-  public function index()
+  public function cart_view()
   {
-    $this->cart->destroy();
-    var_dump($this->cart->contents());
+    $data['page'] = "category-page";
+    $data['content'] = "cart/cart_v";
+    $this->template->get_main($data);
   }
+  // public function index()
+  // {
+  //   $this->cart->destroy();
+  //   var_dump($this->cart->contents());
+  // }
   public function set_item()
   {
     $data = [];

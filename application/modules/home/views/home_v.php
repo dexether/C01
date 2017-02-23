@@ -114,7 +114,7 @@
                                                     <a title="Quick view" class="search" href="#"></a>
                                             </div>
                                             <div class="add-to-cart">
-                                                <a title="Add to Cart" href="#" @click="addToCart(<?= $value->id ?> , $event)">Add to Cart</a>
+                                                <a title="Add to Cart" href="#" v-on:click.prevent="addToCart(<?= $value->id ?> , $event)">Add to Cart</a>
                                             </div>
                                         </div>
                                         <div class="right-block">
@@ -183,7 +183,7 @@
                                                     <a title="Quick view" class="search" href="#"></a>
                                             </div>
                                             <div class="add-to-cart">
-                                                <a title="Add to Cart" href="#" @click="addToCart(<?= $value->id ?> , $event)">Add to Cart</a>
+                                                <a title="Add to Cart" href="#" v-on:click.prevent="addToCart(<?= $value->id ?> , $event)">Add to Cart</a>
                                             </div>
                                         </div>
                                         <div class="right-block">
@@ -252,7 +252,7 @@
                                                     <a title="Quick view" class="search" href="#"></a>
                                             </div>
                                             <div class="add-to-cart">
-                                                <a title="Add to Cart" href="#" @click="addToCart(<?= $value->id ?> , $event)">Add to Cart</a>
+                                                <a title="Add to Cart" href="#" v-on:click.prevent="addToCart(<?= $value->id ?> , $event)">Add to Cart</a>
                                             </div>
                                         </div>
                                         <div class="right-block">
@@ -321,7 +321,7 @@
                                                     <a title="Quick view" class="search" href="#"></a>
                                             </div>
                                             <div class="add-to-cart">
-                                                <a title="Add to Cart" href="#" @click="addToCart(<?= $value->id ?> , $event)">Add to Cart</a>
+                                                <a title="Add to Cart" href="#" v-on:click.prevent="addToCart(<?= $value->id ?> , $event)">Add to Cart</a>
                                             </div>
                                         </div>
                                         <div class="right-block">

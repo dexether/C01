@@ -17,7 +17,7 @@ $route['c/(:any)'] = 'mod_ecommerce_category/show_product/$1';
 // $route['c/(:any)/(:any)'] = 'Store/product/$1/$2';
 $route['c/(:any)/(:any)'] = 'mod_ecommerce_product/View_product/show_product/$1/$2';
 // $route['cart'] = 'Buy_sell/showMyCart';
-$route['cart'] = 'mod_ecommerce_cart/show_cart';
+$route['cart'] = 'cart/cart_view';
 
 // $route['cart/add/(:any)/(:num)'] = 'Buy_sell/addProductToChart/$1/$2';
 $route['cart/add/(:any)/(:num)'] = 'mod_ecommerce_cart/item_add/$1/$2';
@@ -32,7 +32,7 @@ $route['cart/checkout'] = 'mod_ecommerce_cart/item_checkout';
 $route['cart/(:any)/checkout'] = 'mod_ecommerce_cart/item_checkout_confirmation/$1';
 
 // $route['checkout'] = 'Buy_sell/itemCheckoutPay';
-$route['checkout'] = 'mod_ecommerce_cart/item_checkout_process';
+$route['checkout'] = 'checkout/CheckoutController/index';
 
 // $route['checkout/(:any)/success'] = 'Buy_sell/itemCheckoutSuccess/$1';
 $route['checkout/(:any)/success'] = 'mod_ecommerce_cart/item_checkout_success/$1';
