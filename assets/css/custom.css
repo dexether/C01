@@ -2,6 +2,9 @@
 Style by  : Tarikh Agustia
 Email     : agustia.tarikh150@gmail.com
 */
+.trademark-list-ul {
+  list-style: initial !important;
+}
 ul.brand-showcase-logo li {
   /*margin: 10px;*/
   padding: 10px;

@@ -369,7 +369,29 @@
                                 <a href="#"><img src="/assets/images/logo/imperium100x30.png" alt="trademark"></a>
                             </div>
                             <div class="trademark-desc">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                              <p>
+                                Otoritas Jasa Keuangan baru saja merilis daftar investasi bodong (penipuan).
+                                Jangan salah pilih investasi. Pilih yang dijamin oleh Pemerintah.
+                                Sejak tahun 2000, Askap Social sudah melayani jutaan investor dari seluruh Indonesia dengan mengantongi ijin :
+                              </p>
+
+                              <ul class="trademark-list-ul">
+                                <table>
+                                  <tr>
+                                    <td>-&nbsp;</td>
+                                    <td>BAPPEBTI : Surat Ijin No. 05/BAPPEBTI/SI/XII/2000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>-&nbsp;</td>
+                                    <td>KBI : Sertifikat Kliring Berjangka Indonesia No. 01/AK-KJBK/XII/2000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>-&nbsp;</td>
+                                    <td>JFX : Nomor persetujuan anggota bursa No. SPAB-001/BBJ/09/00</td>
+                                  </tr>
+                                </table>
+                              </ul>
+
                             </div>
                             <a href="#" class="trademark-link">Lebih Lanjut tentang Askap Imperium</a>
                         </div>
