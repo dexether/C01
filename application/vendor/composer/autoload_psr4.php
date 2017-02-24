@@ -13,6 +13,7 @@ return array(
     'O2System\\Gears\\' => array($vendorDir . '/o2system/o2gears/src'),
     'O2System\\CURL\\' => array($vendorDir . '/o2system/o2curl/src'),
     'Illuminate\\Support\\' => array($vendorDir . '/illuminate/support'),
+    'Illuminate\\Events\\' => array($vendorDir . '/illuminate/events'),
     'Illuminate\\Database\\' => array($vendorDir . '/illuminate/database'),
     'Illuminate\\Contracts\\' => array($vendorDir . '/illuminate/contracts'),
     'Illuminate\\Container\\' => array($vendorDir . '/illuminate/container'),

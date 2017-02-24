@@ -12,6 +12,7 @@
                         <h3>Buat Akun</h3>
                         <p>Mohon isi Form dibawah ini untuk mendaftar.</p>
                         <?php echo form_open('auth/signup'); ?>
+                        <?php echo form_hidden('redirect', $this->input->get('redirect')) ?>
                         <div class="form-group">
                           <label for="full_name">Nama Lengkap</label>
                           <input id="full_name" name="full_name" type="text" class="form-control" placeholder="Nama Lengkap" value="<?= set_value('full_name') ?>">
@@ -43,6 +44,7 @@
                 <div class="col-sm-6">
                     <div class="box-authentication">
                       <?php echo form_open('auth') ?>
+                        <?php echo form_hidden('redirect', $this->input->get('redirect')) ?>
                         <h3>Sudah punya akun AgendaFX?</h3>
                         <label for="login_user">Alamat Email</label>
                         <input id="login_user" name="login_user" type="text" class="form-control" value="">

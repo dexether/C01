@@ -51,20 +51,6 @@ class BelongsToMany extends Relation {
 	protected $pivotWheres = [];
 
 	/**
-	 * The custom pivot table column for the created_at timestamp.
-	 *
-	 * @var array
-	 */
-	protected $pivotCreatedAt;
-
-	/**
-	 * The custom pivot table column for the updated_at timestamp.
-	 *
-	 * @var array
-	 */
-	protected $pivotUpdatedAt;
-
-	/**
 	 * Create a new belongs to many relationship instance.
 	 *
 	 * @param  \Illuminate\Database\Eloquent\Builder  $query
@@ -324,7 +310,9 @@ class BelongsToMany extends Relation {
 	{
 		$query->select(new Expression('count(*)'));
 
-		$query->from($this->table.' as '.$hash = $this->getRelationCountHash());
+		$tablePrefix = $this->query->getQuery()->getConnection()->getTablePrefix();
+
+		$query->from($this->table.' as '.$tablePrefix.$hash = $this->getRelationCountHash());
 
 		$key = $this->wrap($this->getQualifiedParentKeyName());
 
@@ -641,7 +629,7 @@ class BelongsToMany extends Relation {
 	{
 		if (is_null($instance = $this->where($attributes)->first()))
 		{
-			$instance = $this->related->newInstance($attributes);
+			$instance = $this->related->newInstance();
 		}
 
 		return $instance;
@@ -1141,30 +1129,7 @@ class BelongsToMany extends Relation {
 	 */
 	public function withTimestamps($createdAt = null, $updatedAt = null)
 	{
-		$this->pivotCreatedAt = $createdAt;
-		$this->pivotUpdatedAt = $updatedAt;
-
-		return $this->withPivot($this->createdAt(), $this->updatedAt());
-	}
-
-	/**
-	 * Get the name of the "created at" column.
-	 *
-	 * @return string
-	 */
-	public function createdAt()
-	{
-		return $this->pivotCreatedAt ?: $this->parent->getCreatedAtColumn();
-	}
-
-	/**
-	 * Get the name of the "updated at" column.
-	 *
-	 * @return string
-	 */
-	public function updatedAt()
-	{
-		return $this->pivotUpdatedAt ?: $this->parent->getUpdatedAtColumn();
+		return $this->withPivot($createdAt ?: $this->createdAt(), $updatedAt ?: $this->updatedAt());
 	}
 
 	/**

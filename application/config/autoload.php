@@ -83,7 +83,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url','cookie' , 'seo' , 'currency' , 'header_assets');
+$autoload['helper'] = array('url','cookie' , 'seo' , 'currency' , 'header_assets', 'form');
 
 /*
 | -------------------------------------------------------------------
@@ -127,4 +127,7 @@ $autoload['language'] = array('message');
 |	$autoload['model'] = array('first_model' => 'first');
 */
 // $autoload['model'] = array();
-$autoload['models'] = array('locations_model');
+$autoload['model'] = array(
+
+  'Address'
+);

@@ -82,3 +82,8 @@ $route['auth/logout']['get'] = 'mod_authentication/logout';
 $route['auth/activation']['get'] = 'mod_authentication/activation_user';
 $route['auth/activation/resend']['get'] = 'mod_authentication/activation_resend';
 $route['auth/activation/resend']['post'] = 'mod_authentication/activation_resend_post';
+
+$route['address/new/(:num)'] = 'checkout/CheckoutController/postAddress/$1';
+
+/* == VueJS API == */
+$route['address/api/list/(:num)'] = 'address/AddressController/apiGetAddress/$1';

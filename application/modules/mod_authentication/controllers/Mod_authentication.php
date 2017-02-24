@@ -25,8 +25,7 @@ class Mod_authentication extends MY_Controller
         if ($this->form_validation->run($this) == false) {
             $this->index();
         } else {
-            // die('Register Compleate');
-            // modules::run('log/create', $this->input->post('username'), 'Username '.$this->input->post('username').' login with password '.$this->input->post('password').' success', true);
+          
             redirect(($redirect != NULL) ? $redirect : "/");
 
         }

@@ -15,13 +15,18 @@ var vm = new Vue({
     items: [],
     shop: [],
     showCart: false,
-    verified: false
+    verified: false,
+    address: [],
+    displayAddress : ""
   },
   mounted: function () {
     this.getUsers();
+    this.fetchAddress();
   },
   ready: function () {
     this.getUsers();
+    this.fetchAddress();
+
   },
   computed: {
     total() {
@@ -33,6 +38,21 @@ var vm = new Vue({
     }
   },
   methods: {
+    fetchSelectedAddress(key)
+    {
+      console.log(key);
+      // return $this.address.key;
+    },
+    fetchAddress: function()
+    {
+      var aecodeid = document.getElementById("aecodeid").value;
+      var link = '/address/api/list/' + aecodeid;
+      this.$http.get(link).then(function(response){
+          this.address = response.data;
+          console.log(response.data);
+      }, function(error){
+      });
+    },
     getUsers: function(){
       var link = '/cart/set_item';
       this.$http.get(link).then(function(response){
