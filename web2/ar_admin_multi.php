@@ -32,24 +32,24 @@ if (isset($_POST['postmode'])) {
 if (isset($_GET['postmode'])) {
 	$postmode = $_GET['postmode'];
 }
-/*$query = "SELECT 
+/*$query = "SELECT
 mlm.`ACCNO`,
 mlm_payment.`Status`,
 mlm_bonus_settings.`description`,
 mlm_bonus_settings.`lv`,
-mlm_bonus_settings.`amount` 
+mlm_bonus_settings.`amount`
 FROM
 mlm,
 mlm_payment,
-mlm_bonus_settings 
-WHERE mlm.`ACCNO` = mlm_payment.`Account` 
+mlm_bonus_settings
+WHERE mlm.`ACCNO` = mlm_payment.`Account`
 -- AND mlm.`ACCNO` = '160411102'
-AND mlm_payment.`PayFor` = 'PV:$date' 
-AND mlm_payment.`Status` = '2' 
+AND mlm_payment.`PayFor` = 'PV:$date'
+AND mlm_payment.`Status` = '2'
 AND mlm.`group_play` = mlm_bonus_settings.`group_play`";*/
 if($postmode == "doit"){
 	storeToCronLogs('multi');
-	$query = "SELECT 
+	$query = "SELECT
 	mlm.`ACCNO`,
 	mlm_payment.`Status`,
 	mlm_bonus_settings.`description`,
@@ -61,12 +61,11 @@ if($postmode == "doit"){
 	mlm,
 	client_aecode,
 	mlm_payment,
-	mlm_bonus_settings 
+	mlm_bonus_settings
 	WHERE mlm.`ACCNO` = mlm_payment.`Account`
 	AND mlm_payment.`aecode` = client_aecode.`aecode`
 	AND mlm.`ACCNO` NOT IN (SELECT mlm_bonus_logs.`account` FROM mlm_bonus_logs WHERE mlm_bonus_logs.`bonus_type` = 'multi' AND LEFT(date_receipt, 7) = '$date2' )
-	AND mlm_payment.`PayFor` = 'PV:$date' 
-	AND mlm_payment.`Status` = '2' 
+	AND mlm_payment.`Status` = '2'
 	AND mlm.`group_play` = mlm_bonus_settings.`group_play` ";
 	$result = $DB->execresultset($query);
 	/*var_dump($result);
@@ -82,17 +81,17 @@ if($postmode == "doit"){
 		$account_lv1_email = $rows['email'];
 		$account_lv1_name = $rows['name'];
 		$lv = $rows['lv'];
-		$query = "SELECT 
+		$query = "SELECT
 		mlm.`ACCNO`,
 		mlm_bonus_settings.`amount`
 		FROM
 		mlm,
 		mlm_payment,
 		mlm_bonus_settings
-		WHERE mlm.`Upline` = '$account_lv1' 
+		WHERE mlm.`Upline` = '$account_lv1'
 		AND mlm_payment.`Account` = mlm.`ACCNO`
-		AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
-		AND mlm_payment.`PayFor` = 'PV:$date' 
+		AND mlm.`group_play` = mlm_bonus_settings.`group_play`
+		AND mlm_payment.`PayFor` = 'PV:$date'
 		AND mlm_payment.`Status` = '2'  ";
 		$total_lv1 = 0;
 		$total_lv5_has = 0;
@@ -105,17 +104,17 @@ if($postmode == "doit"){
 		foreach($result2 as $rows2){
 			$account_lv2 = $rows2['ACCNO'];
 			$total_lv1 = $total_lv1 + $rows2['amount'];
-			$query = "SELECT 
+			$query = "SELECT
 			mlm.`ACCNO`,
 			mlm_bonus_settings.`amount`
 			FROM
 			mlm,
 			mlm_payment,
 			mlm_bonus_settings
-			WHERE mlm.`Upline` = '$account_lv2' 
+			WHERE mlm.`Upline` = '$account_lv2'
 			AND mlm_payment.`Account` = mlm.`ACCNO`
-			AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
-			AND mlm_payment.`PayFor` = 'PV:$date' 
+			AND mlm.`group_play` = mlm_bonus_settings.`group_play`
+			AND mlm_payment.`PayFor` = 'PV:$date'
 			AND mlm_payment.`Status` = '2'  ";
 			$total_lv2 = 0;
 			$result3 = $DB->execresultset($query);
@@ -125,17 +124,17 @@ if($postmode == "doit"){
 			foreach($result3 as $rows3) {
 				$total_lv2 = $total_lv2 + $rows3['amount'];
 				$account_lv3 = $rows3['ACCNO'];
-				$query = "SELECT 
+				$query = "SELECT
 				mlm.`ACCNO`,
 				mlm_bonus_settings.`amount`
 				FROM
 				mlm,
 				mlm_payment,
 				mlm_bonus_settings
-				WHERE mlm.`Upline` = '$account_lv3' 
+				WHERE mlm.`Upline` = '$account_lv3'
 				AND mlm_payment.`Account` = mlm.`ACCNO`
-				AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
-				AND mlm_payment.`PayFor` = 'PV:$date' 
+				AND mlm.`group_play` = mlm_bonus_settings.`group_play`
+				AND mlm_payment.`PayFor` = 'PV:$date'
 				AND mlm_payment.`Status` = '2'  ";
 				$result4 = $DB->execresultset($query);
 				$total_lv3  = 0;
@@ -144,17 +143,17 @@ if($postmode == "doit"){
 					$total_lv3 = $total_lv3 + $rows4['amount'];
 					// var_dump($total_lv3);
 					$account_lv4 = $rows4['ACCNO'];
-					$query = "SELECT 
+					$query = "SELECT
 					mlm.`ACCNO`,
 					mlm_bonus_settings.`amount`
 					FROM
 					mlm,
 					mlm_payment,
 					mlm_bonus_settings
-					WHERE mlm.`Upline` = '$account_lv4' 
+					WHERE mlm.`Upline` = '$account_lv4'
 					AND mlm_payment.`Account` = mlm.`ACCNO`
-					AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
-					AND mlm_payment.`PayFor` = 'PV:$date' 
+					AND mlm.`group_play` = mlm_bonus_settings.`group_play`
+					AND mlm_payment.`PayFor` = 'PV:$date'
 					AND mlm_payment.`Status` = '2'  ";
 					$result5 = $DB->execresultset($query);
 					$total_lv4 = 0;
@@ -163,17 +162,17 @@ if($postmode == "doit"){
 						$total_lv4 = $total_lv4 + $rows5['amount'];
 						// var_dump($total_lv4);
 						$account_lv5 = $rows5['ACCNO'];
-						$query = "SELECT 
+						$query = "SELECT
 						mlm.`ACCNO`,
 						mlm_bonus_settings.`amount`
 						FROM
 						mlm,
 						mlm_payment,
 						mlm_bonus_settings
-						WHERE mlm.`Upline` = '$account_lv5' 
+						WHERE mlm.`Upline` = '$account_lv5'
 						AND mlm_payment.`Account` = mlm.`ACCNO`
-						AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
-						AND mlm_payment.`PayFor` = 'PV:$date' 
+						AND mlm.`group_play` = mlm_bonus_settings.`group_play`
+						AND mlm_payment.`PayFor` = 'PV:$date'
 						AND mlm_payment.`Status` = '2'  ";
 						$result6 = $DB->execresultset($query);
 						$total_lv5 = 0;
@@ -182,17 +181,17 @@ if($postmode == "doit"){
 							$total_lv5 = $total_lv5 + $rows6['amount'];
 							// echo $total_lv5;
 							$account_lv6 = $rows6['ACCNO'];
-							$query = "SELECT 
+							$query = "SELECT
 							mlm.`ACCNO`,
 							mlm_bonus_settings.`amount`
 							FROM
 							mlm,
 							mlm_payment,
 							mlm_bonus_settings
-							WHERE mlm.`Upline` = '$account_lv6' 
+							WHERE mlm.`Upline` = '$account_lv6'
 							AND mlm_payment.`Account` = mlm.`ACCNO`
-							AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
-							AND mlm_payment.`PayFor` = 'PV:$date' 
+							AND mlm.`group_play` = mlm_bonus_settings.`group_play`
+							AND mlm_payment.`PayFor` = 'PV:$date'
 							AND mlm_payment.`Status` = '2'  ";
 							$result7 = $DB->execresultset($query);
 							$total_lv6 = 0;
@@ -209,13 +208,13 @@ if($postmode == "doit"){
 					$total_lv4_has = $total_lv4_has + $total_lv4;
 
 				}
-				
+
 
 				$total_lv3_has = $total_lv3_has + $total_lv3;
 			}
 
 			// echo "<br>BONUS FOR LV 1 FOR - ".$account_lv1 . " IS " . $total_lv2;
-			$total_lv2_has = $total_lv2_has + $total_lv2;	
+			$total_lv2_has = $total_lv2_has + $total_lv2;
 		}
 
 		switch ($lv) {
@@ -238,7 +237,7 @@ if($postmode == "doit"){
 			$total = ($total_lv1 + $total_lv2_has + $total_lv3_has + $total_lv4_has + $total_lv5_has + $total_lv6_has) * 0.03;
 			//TradeLogs("ad_admin_multi-175 : ".$total_lv1 . " " . $total_lv2_has. " ".$total_lv3_has. " ".$total_lv4_has);
 			break;
-			
+
 			default:
 			$total = 0;
 			break;
@@ -292,7 +291,7 @@ foreach($result as $rows) {
 				$DB->execonly($que);
 			}
 			// $total = $total_lv2_has + $total_lv1;
-			// Udah Didapet Total Untuk setiap accountnnya 
+			// Udah Didapet Total Untuk setiap accountnnya
 			// Tinggal dimasukkan ke E-Wallet
 
 			if($debug == "yes") {
@@ -309,17 +308,17 @@ foreach($result as $rows) {
 function checkchild($account){
 	global $DB;
 	$date = date('Ym', time());
-	$query = "SELECT 
+	$query = "SELECT
 	mlm.`ACCNO`,
 	mlm_bonus_settings.`amount`
 	FROM
 	mlm,
 	mlm_payment,
 	mlm_bonus_settings
-	WHERE mlm.`Upline` = '$account' 
+	WHERE mlm.`Upline` = '$account'
 	AND mlm_payment.`Account` = mlm.`ACCNO`
-	AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
-	AND mlm_payment.`PayFor` = 'PV:$date' 
+	AND mlm.`group_play` = mlm_bonus_settings.`group_play`
+	AND mlm_payment.`PayFor` = 'PV:$date'
 	AND mlm_payment.`Status` = '2'  ";
 	$result = $DB->execresultset($query);
 	$hasil = array();
@@ -405,7 +404,7 @@ function sendEmail($to, $subject, $body, $module) {
 	email_subject = '$subject',
 	email_body = '$body',
 	timesend = '1970-01-31 00:00:00',
-	module = '$module'    
+	module = '$module'
 	";
 	$DB->execonly($query);
 }

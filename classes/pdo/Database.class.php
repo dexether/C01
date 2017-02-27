@@ -1,10 +1,11 @@
 <?php
 // define('root', $_SERVER['DOCUMENT_ROOT']);
-require root.'/vendor/autoload.php';
+require_once root.'/vendor/autoload.php';
 
 class Database
 {
     public $error_msg;
+    public $db;
     public function __construct()
     {
         require root.'/_settings/config.php';
@@ -23,6 +24,8 @@ class Database
                 ),
             );
         new \Pixie\Connection('mysql', $config, 'QB');
+        $connection = new \Pixie\Connection('mysql', $config);
+        $this->db =  new \Pixie\QueryBuilder\QueryBuilderHandler($connection);
     }
     public function error()
     {

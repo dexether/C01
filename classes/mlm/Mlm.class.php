@@ -1,10 +1,15 @@
 <?php
 
 define('root', $_SERVER['DOCUMENT_ROOT']);
-require root.'/classes/pdo/Database.class.php';
+require_once root.'/classes/pdo/Database.class.php';
 class Mlm extends Database
 {
     public $error_msg;
+    public $family_tree;
+    public function __construct()
+    {
+      parent::__construct();
+    }
     public function get_my_account($email)
     {
       $query = QB::table('client_aecode')->select(['client_aecode.aecodeid', 'accountname'])
@@ -173,5 +178,77 @@ class Mlm extends Database
       $query = QB::table('client_aecode')->select(['aecode' ,'aecodeid' ,'name' ,'email'])
       ->where('email' , $email);
       return $query->first();
+    }
+    public function google_family_tree($username , $isadmin)
+    {
+      if ($isadmin == false) {
+        $data = $this->family_tree($username);
+      }else{
+        $data = $this->family_tree_all();
+      }
+      foreach ($data as $key => $value) {
+        if ($value->suspend == true) {
+          $gabungan[] = [
+            [
+              "v" => $value->ACCNO,
+              "f" => "<div id=".$value->ACCNO." style='color : red; width: 100%;'>".$value->ACCNO."<br/><strong>".$value->name."</strong><p>SUSPENDED ACCOUNT</p></div>"
+            ],
+            $value->Upline , ""
+          ];
+        }else{
+          $gabungan[] = [
+            [
+              "v" => $value->ACCNO,
+              "f" =>  $value->ACCNO . "<div id=".$value->ACCNO."><strong>".$value->name."</strong></div>"
+            ],
+            $value->Upline , ""
+          ];
+        }
+      }
+      return $gabungan;
+    }
+    public function family_tree_all()
+    {
+      $this->family_tree = [];
+      $data = $this->db->table('mlm')->select(['ACCNO', 'Upline' , 'client_aecode.name' , 'client_accounts.suspend' , 'client_aecode.foto'])
+      ->join('client_accounts', 'mlm.ACCNO', '=' , 'client_accounts.accountname')
+      ->join('client_aecode', 'client_accounts.aecodeid' , '=' , 'client_aecode.aecodeid')
+      ->get();
+      return $data;
+    }
+    public function family_tree($username)
+    {
+      $this->family_tree = [];
+      $data = $this->db->table('mlm')->select(['ACCNO', 'Upline' , 'client_aecode.name' , 'client_accounts.suspend' , 'client_aecode.foto'])
+      ->join('client_accounts', 'mlm.ACCNO', '=' , 'client_accounts.accountname')
+      ->join('client_aecode', 'client_accounts.aecodeid' , '=' , 'client_aecode.aecodeid')
+      ->where('client_aecode.aecode' , '=' , $username)
+      ->get();
+      array_push($this->family_tree, $data);
+      foreach ($data as $key => $account) {
+        $this->family_tree_loop($account->ACCNO);
+      }
+      foreach($this->family_tree as $key => $tree)
+      {
+        foreach ($tree as $key2 => $list) {
+          $hasil[] = $list;
+        }
+      }
+      return $hasil;
+    }
+    public function family_tree_loop($upline)
+    {
+      $data = $this->db->table('mlm')->select(['ACCNO', 'Upline' , 'client_aecode.name' , 'client_accounts.suspend' , 'client_aecode.foto'])
+      ->join('client_accounts', 'mlm.ACCNO', '=' , 'client_accounts.accountname')
+      ->join('client_aecode', 'client_accounts.aecodeid' , '=' , 'client_aecode.aecodeid')
+      ->where('mlm.Upline' , '=' , $upline)
+      ->where('client_accounts.suspend' , '=' , FALSE)
+      ->get();
+      if (count($data) > 0) {
+        array_push($this->family_tree, $data);
+      }
+      foreach ($data as $key => $account) {
+        $this->family_tree_loop($account->ACCNO);
+      }
     }
 }

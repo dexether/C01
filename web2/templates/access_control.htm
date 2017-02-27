@@ -1,0 +1,149 @@
+<script src="custom/sweetalert/dist/sweetalert-dev.js"></script>
+<link rel="stylesheet" href="custom/sweetalert/dist/sweetalert.css">
+<style media="screen">
+    .treeview {
+        margin: 10px 0 0 20px;
+    }
+
+    ul {
+        list-style: none;
+    }
+</style>
+<div id="main_content" class="content">
+    <div class="page-heading">
+        <h1><i class="icon-vcard"></i>Access Control</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12 portlets">
+            <div class="widget">
+                <div class="widget-header ">
+                    <h2><strong>Manage Access & Control</strong></h2>
+                </div>
+                <div class="widget-content padding">
+                    <div class="alert alert-warning">
+                        <strong>NOTE :</strong> This module Function for Prevent User for Accesing the Module and Set Limitation
+                    </div>
+                    <form class="" action="#" method="post" name="grant-form" enctype="multipart/form-data">
+                        <input type="hidden" name="token" value="{$token}">
+                        <div class="form-group">
+                            <label for="users">Select user</label>
+                            <select class="form-control" name="users" id="users">
+                              {foreach from=$users_list item=row}
+                              <option value="{$row->userid}">{$row->email}</option>
+                              {/foreach}
+                            <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="access">Select Access</label>
+                            <select class="form-control" name="access" id="access">
+                            {foreach from=$groups item=row}
+                            <option value="{$row->groupid}">{$row->description}</option>
+                            {/foreach}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Grant module Access</label>
+                            <div class="acidjs-css3-treeview">
+                                <ul class="treeview">
+                                    <li>
+                                        {$apex->get_apex_menu()}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-warning" type="submit" name="button">Grant Access</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+        // Form Submit
+        $('form[name=grant-form]').submit(function(event){
+          event.preventDefault();
+          $data = $(this).serializeArray();
+          $.ajax({
+            url : "access_control_do.php",
+            data: $data,
+            dataType: "JSON",
+            type: 'POST',
+            success: function(response)
+            {
+              swal(response.status, response.msg, response.status);
+            },
+            error: function()
+            {
+              swal("Stop", "Something went wrong, Call admin", "error");
+            }
+          });
+        });
+        $('input[type="checkbox"]').change(checkboxChanged);
+
+        function checkboxChanged() {
+            var $this = $(this),
+                checked = $this.prop("checked"),
+                container = $this.parent(),
+                siblings = container.siblings();
+
+            container.find('input[type="checkbox"]')
+                .prop({
+                    indeterminate: false,
+                    checked: checked
+                })
+                .siblings('label')
+                .removeClass('custom-checked custom-unchecked custom-indeterminate')
+                .addClass(checked ? 'custom-checked' : 'custom-unchecked');
+
+            // checkSiblings(container, checked);
+        }
+
+        function checkSiblings($el, checked) {
+            var parent = $el.parent().parent(),
+                all = true,
+                indeterminate = false;
+
+            $el.siblings().each(function() {
+                return all = ($(this).children('input[type="checkbox"]').prop("checked") === checked);
+            });
+
+            if (all && checked) {
+                parent.children('input[type="checkbox"]')
+                    .prop({
+                        indeterminate: false,
+                        checked: checked
+                    })
+                    .siblings('label')
+                    .removeClass('custom-checked custom-unchecked custom-indeterminate')
+                    .addClass(checked ? 'custom-checked' : 'custom-unchecked');
+
+                checkSiblings(parent, checked);
+            } else if (all && !checked) {
+                indeterminate = parent.find('input[type="checkbox"]:checked').length > 0;
+
+                parent.children('input[type="checkbox"]')
+                    .prop("checked", checked)
+                    .prop("indeterminate", indeterminate)
+                    .siblings('label')
+                    .removeClass('custom-checked custom-unchecked custom-indeterminate')
+                    .addClass(indeterminate ? 'custom-indeterminate' : (checked ? 'custom-checked' : 'custom-unchecked'));
+
+                checkSiblings(parent, checked);
+            } else {
+                $el.parents("li").children('input[type="checkbox"]')
+                    .prop({
+                        indeterminate: true,
+                        checked: false
+                    })
+                    .siblings('label')
+                    .removeClass('custom-checked custom-unchecked custom-indeterminate')
+                    .addClass('custom-indeterminate');
+            }
+        }
+      });
+</script>

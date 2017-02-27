@@ -23,19 +23,45 @@ if (isset($_GET['postmode'])) {
 }
 
 $_SESSION['page'] = 'transfer_funds';
+if ($user->groupid == 9) {
+  $filter_account = "";
+}else{
+  $filter_account = "AND client_aecode.`aecode` = '$user->username'";
+}
 
-$query = "SELECT 
+$query = "SELECT
 client_accounts.`accountname`,
-mlm_ewallet.`balance` 
+mlm_ewallet.`balance`
 FROM
 client_aecode,
 client_accounts,
-mlm_ewallet 
-WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid` 
-AND mlm_ewallet.balance > 0 
+mlm_ewallet
+WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
+AND mlm_ewallet.balance > 0
 AND client_accounts.`suspend` = '0'
 AND mlm_ewallet.`account` = client_accounts.`accountname`
-AND client_aecode.`aecode` = '$user->username' ";
+$filter_account
+";
+$account1 = $DB->execresultset($query);
+$allaccounts2 = array();
+foreach($account1 as $key => $rows) {
+    $allaccounts2[$key] = $rows;
+    $allaccounts2[$key]['wallet'] = "E - Wallet";
+}
+
+$query = "SELECT
+client_accounts.`accountname`,
+mlm_ewallet.`balance`
+FROM
+client_aecode,
+client_accounts,
+mlm_ewallet
+WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
+AND mlm_ewallet.balance > 0
+AND client_accounts.`suspend` = '0'
+AND mlm_ewallet.`account` = client_accounts.`accountname`
+AND client_aecode.`aecode` = '$user->username'
+";
 $account1 = $DB->execresultset($query);
 $allaccounts = array();
 foreach($account1 as $key => $rows) {
@@ -44,27 +70,31 @@ foreach($account1 as $key => $rows) {
 }
 $template->assign("allaccounts", $allaccounts);
 
-
-$query = "SELECT 
-client_accounts.`accountname` 
+$query = "SELECT
+client_accounts.`accountname`
 FROM
 client_aecode,
 client_accounts,
-mlm_goldsaving 
-WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid` 
+mlm_goldsaving
+WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
 AND client_accounts.`suspend` = '0'
-AND mlm_goldsaving.`account` = client_accounts.`accountname` 
-AND client_aecode.`aecode` = '$user->username'";
+AND mlm_goldsaving.`account` = client_accounts.`accountname`
+$filter_account";
 $account1 = $DB->execresultset($query);
+
 $toaccounts = array();
 foreach($account1 as $key => $rows) {
     $toaccounts[$key] = $rows;
     $toaccounts[$key]['wallet'] = "Gold Saving";
 }
-$all = array_merge($allaccounts, $toaccounts);
+if ($user->groupid == 9) {
+  $all = array_merge($allaccounts2, $toaccounts);
+}else{
+  $all = array_merge($allaccounts, $toaccounts);
+}
 $template->assign("alls", $all);
 
-$query = "SELECT 
+$query = "SELECT
 mlm_transaction.`account_destination`,
 mlm_transaction.`account_from`,
 mlm_transaction.`amount`,
@@ -74,11 +104,11 @@ mlm_transaction.`status`
 FROM
 mlm_transaction,
 client_accounts,
-client_aecode 
+client_aecode
 WHERE mlm_transaction.`account_from` = client_accounts.`accountname`
 AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
-AND client_aecode.`aecode` = '$user->username'
-AND mlm_transaction.`type_transaction` = 'transfer'";
+AND mlm_transaction.`type_transaction` = 'transfer'
+$filter_account";
 $result = $DB->execresultset($query);
 $template->assign("request", $result);
 $template->display("transfer_funds.htm");

@@ -2,6 +2,9 @@
 include_once("$_SERVER[DOCUMENT_ROOT]/includes/functions.php");
 include_once("$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php");
 include_once("includes/wr_tools.php");
+require_once dirname(__FILE__) . '../../classes/apexregent/apexregent.class.php';
+$apex = New Apexregent();
+$goldsaving_status = $apex->goldsaving_status();
 $var_to_pass = null;
 global $user;
 global $template;
@@ -57,9 +60,6 @@ if ($postmode == "doit") {
 	foreach($result as $rows) {
 		$accounts = $rows['accountname'];
 		$data = hitungrqb($accounts);
-		var_dump($data);
-		// die();
-
 		$tglbln = date('Y-m', time());
 		if ($data['layak'] != "no") {
 			$query = "SELECT id FROM mlm_bonus_logs WHERE account = '$data[account]' AND bonus_type = 'rqb' AND LEFT(date_receipt, 7) = '$tglbln'";
@@ -70,27 +70,49 @@ if ($postmode == "doit") {
 				$hasils[] = $has;
 			}
 			if (empty($hasils)) {
+				if ($goldsaving_status == true) {
+					$iden = getIdentitas($data['account']);
+					storeToWallet($data['account'], $data['topay']['total']);
+					bonusLogs($data['account'], 'rqb', $data['topay']['total'], 'This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) ');
+					$to = $iden['email'];
+					$subject = "Congratulations, you have got a bonus";
+					$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
+					$body = $body . "Dear ".$iden['name'].",<br>";
+					$body = $body . " <br>";
+					$body = $body . "Congratulations, you have earned <b>RANK QUALIFICATION BONUS (R.Q.B)</b> bonus of USD ".number_format($data['topay']['total'], 2)." <br>";
+					$body = $body . "This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) <br>";
+					$body = $body . " <br>";
+					$body = $body . "You may login to your APR program account via our website at ".$companys['companyurl']." <br>";
+					$body = $body . " <br>";
+					$body = $body . " <br>";
+					$body = $body . "Thank you,<br>";
+					$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+					$body = $body . $companys['long_address'];
+					$body = $body . " Email : ".$companys['email']." <br>";
+					$body = $body . " ".$companys['companyurl']." <br>";
+					sendEmail($to, $subject, $body, 'ar_admin_rqb');
+				}else{
+					$iden = getIdentitas($data['account']);
+					storeToWallet($data['account'], $data['topay']['total']);
+					bonusLogs($data['account'], 'rqb', $data['topay']['total'], 'You got <b>RANK QUALIFICATION BONUS (R.Q.B)</b> Amounted USD ' . number_format($data['topay']['total'] , 2));
+					$to = $iden['email'];
+					$subject = "Congratulations, you have got a bonus";
+					$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
+					$body = $body . "Dear ".$iden['name'].",<br>";
+					$body = $body . " <br>";
+					$body = $body . "Congratulations, you have earned <b>RANK QUALIFICATION BONUS (R.Q.B)</b> bonus of USD ".number_format($data['topay']['total'], 2)." <br>";
+					$body = $body . " <br>";
+					$body = $body . "You may login to your APR program account via our website at ".$companys['companyurl']." <br>";
+					$body = $body . " <br>";
+					$body = $body . " <br>";
+					$body = $body . "Thank you,<br>";
+					$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+					$body = $body . $companys['long_address'];
+					$body = $body . " Email : ".$companys['email']." <br>";
+					$body = $body . " ".$companys['companyurl']." <br>";
+					sendEmail($to, $subject, $body, 'ar_admin_rqb');
+				}
 
-				$iden = getIdentitas($data['account']);
-				storeToWallet($data['account'], $data['topay']['total']);
-				bonusLogs($data['account'], 'rqb', $data['topay']['total'], 'This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) ');
-				$to = $iden['email'];
-				$subject = "Congratulations, you have got a bonus";
-				$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
-				$body = $body . "Dear ".$iden['name'].",<br>";
-				$body = $body . " <br>";
-				$body = $body . "Congratulations, you have earned <b>RANK QUALIFICATION BONUS (R.Q.B)</b> bonus of USD ".number_format($data['topay']['total'], 2)." <br>";
-				$body = $body . "This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) <br>";
-				$body = $body . " <br>";
-				$body = $body . "You may login to your APR program account via our website at ".$companys['companyurl']." <br>";
-				$body = $body . " <br>";
-				$body = $body . " <br>";
-				$body = $body . "Thank you,<br>";
-				$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
-				$body = $body . $companys['long_address'];
-				$body = $body . " Email : ".$companys['email']." <br>";
-				$body = $body . " ".$companys['companyurl']." <br>";
-				sendEmail($to, $subject, $body, 'ar_admin_rqb');
 
 			}else{
 			}
@@ -148,10 +170,10 @@ function getIdentitas($account) {
 }
 
 function hitungrqb($account) {
-	// $layak = "no";
+	$layak = "no";
 	// $tglpv = "PV:".date("Ym", time());
 	// $gvl = array();
-	// global $DB;
+	global $DB;
 	// $query = "SELECT
 	// mlm.`ACCNO`,
 	// mlm_payment.`Status`,
@@ -174,22 +196,35 @@ function hitungrqb($account) {
 	// // var_dump(count($result));
 	// if(count($result) != 0){
 
+		// $query = "SELECT
+		// mlm.`ACCNO`,
+		// mlm_payment.`Status`,
+		// mlm_bonus_settings.`description`,
+		// mlm_bonus_settings.`amount`
+		// FROM
+		// mlm,
+		// mlm_payment,
+		// mlm_bonus_settings
+		// WHERE mlm.`Upline` = '$account'
+		// AND mlm.`ACCNO` = mlm_payment.`Account`
+		// AND mlm_payment.`PayFor` = '$tglpv'
+		// AND mlm_payment.`Status` = '2'
+		// AND mlm.`group_play` = mlm_bonus_settings.`group_play`
+		// ORDER BY mlm_bonus_settings.`amount` DESC LIMIT 0,3";
+
 		$query = "SELECT
-		mlm.`ACCNO`,
-		mlm_payment.`Status`,
-		mlm_bonus_settings.`description`,
-		mlm_bonus_settings.`amount`
-		FROM
-		mlm,
-		mlm_payment,
-		mlm_bonus_settings
-		WHERE mlm.`Upline` = '$account'
-		AND mlm.`ACCNO` = mlm_payment.`Account`
-		AND mlm_payment.`PayFor` = '$tglpv'
-		AND mlm_payment.`Status` = '2'
-		AND mlm.`group_play` = mlm_bonus_settings.`group_play`
-		ORDER BY mlm_bonus_settings.`amount` DESC LIMIT 0,3";
-		var_dump($query);
+						  mlm.`ACCNO`,
+						  mlm_bonus_settings.`description`,
+						  mlm_bonus_settings.`amount`
+						FROM
+						  mlm,
+						  mlm_bonus_settings,
+						  client_accounts
+						WHERE mlm.`Upline` = '$account'
+						AND mlm.`ACCNO` = client_accounts.`accountname`
+						  AND mlm.`group_play` = mlm_bonus_settings.`group_play`
+						  AND client_accounts.`suspend` = FALSE
+						ORDER BY mlm_bonus_settings.`amount` DESC";
 		$result = $DB->execresultset($query);
 		$hitung = count($result);
 		if ($hitung >= 3) {
@@ -199,7 +234,9 @@ function hitungrqb($account) {
 			foreach($result as $key => $rows) {
 				$max_gv[$rows['ACCNO']] = $rows['amount'];
 				$gvl_down = $gvl_down + $rows['amount'];
+				$total_gv = @$total_gv + $rows['amount'];
 			}
+			// var_dump($gvl_down);
 			$maxs = array_keys($max_gv, max($max_gv));
 			$maxs_final = $maxs[0];
 			$gvl['account'] = $maxs_final;
@@ -209,7 +246,7 @@ function hitungrqb($account) {
 			(amount * (ql/100)) AS total
 			FROM
 			mlm_rqb_settings
-			WHERE mlm_rqb_settings.`amount` < '1000'
+			WHERE mlm_rqb_settings.`amount` < '$total_gv'
 			ORDER BY mlm_rqb_settings.`amount` DESC
 			LIMIT 0, 1 ";
 			$result = $DB->execresultset($query);
@@ -224,7 +261,6 @@ function hitungrqb($account) {
 		}
 	// }
 	$gvl['layak'] = $layak;
-
 	return $gvl;
 }
 function sendEmail($to, $subject, $body, $module) {
@@ -261,7 +297,7 @@ function getBalance($account) {
 }
 function storeToWallet($account, $amount) {
 	global $DB;
-	$wallet = $amount * 0.7;
+	$wallet = $amount;
 	$GoldSaving = $amount * 0.3;
 	$balancealls = getBalance($account);
 	$wallet_final = $balancealls['ewallet']['balance'] + $wallet;
@@ -277,9 +313,9 @@ function storeToWallet($account, $amount) {
     // tradeLogConstruct("ar_admin_wcd- 94 : ". $query);
 	$DB->execonly($query);
 
-	$query = "UPDATE mlm_goldsaving SET balance = '$GoldSaving_final', balance_prev = '$balance_prev_gold', lastupdate = NOW(), lastupdate_prev = '$prev_time_gold' WHERE account = '$account' ";
-    // tradeLogConstruct("ar_admin_wcd- 94 : ". $query);
-	$DB->execonly($query);
+	// $query = "UPDATE mlm_goldsaving SET balance = '$GoldSaving_final', balance_prev = '$balance_prev_gold', lastupdate = NOW(), lastupdate_prev = '$prev_time_gold' WHERE account = '$account' ";
+  //   // tradeLogConstruct("ar_admin_wcd- 94 : ". $query);
+	// $DB->execonly($query);
 
 	return 0;
 }
