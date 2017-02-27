@@ -240,7 +240,7 @@
                         <div class="tab-container">
                             <!-- tab product -->
                             <div class="tab-panel active" id="tab-4">
-                                <ul class="product-list owl-carousel" data-dots="false" data-loop="true" data-nav = "true" data-margin = "0" data-autoplayTimeout="1000" data-autoplayHoverPause = "true" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":4}}'>
+                                <ul class="product-list owl-carousel" data-dots="false" data-loop="false" data-nav = "true" data-margin = "0" data-autoplayTimeout="1000" data-autoplayHoverPause = "true" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":4}}'>
                                   <?php foreach (modules::run('floor/get_product' , 'forex-education') as $key => $value): ?>
                                     <li>
                                         <div class="left-block">
@@ -398,7 +398,7 @@
                         <div class="col-xs-12 col-sm-8 trademark-product">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 product-item">
-                                  <img src="http://lorempixel.com/600/300/city/" alt="" class="img-responsive" />
+                                  <img src="/assets/images/banner/broker/askap.jpg" alt="Askap Imperium" class="img-responsive" />
                                 </div>
                             </div>
                         </div>
