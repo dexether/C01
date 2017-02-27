@@ -27,17 +27,9 @@
 <div id="header" class="header">
     <div class="top-header">
         <div class="container">
-            <div class="nav-top-links">
+            <div class="nav-top-links hidden-xs">
                 <a class="first-item" href="#"><img alt="phone" src="/assets/images/phone.png" />xxx-xxxx-xxxx</a>
                 <a href="#"><img alt="email" src="/assets/images/email.png" />Contact us today!</a>
-            </div>
-            <div class="language ">
-                <div class="dropdown">
-                      <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                      <img alt="email" src="<?= base_url('assets/images/Indonesia-flag.png') ?>" width="20" />Indonesia
-
-                      </a>
-                </div>
             </div>
             <div id="user-info-top" class="user-info pull-right">
                 <div class="dropdown">
@@ -293,7 +285,7 @@
                         <li><a href="#" >Support</a></li>
                     </ul>
                 </div>
-                <p class="text-center">Copyrights &#169; 2016 AgendaFX.</p>
+                <p class="text-center">Copyrights &#169; 2017 AgendaFX.</p>
             </div><!-- /#footer-menu-box -->
         </div>
 </footer>
