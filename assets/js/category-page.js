@@ -8,7 +8,6 @@ Number.prototype.formatMoney = function(c, d, t) {
         j = (j = i.length) > 3 ? j % 3 : 0;
     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
-
 var vm = new Vue({
     el: "#app",
     data: {
@@ -16,8 +15,11 @@ var vm = new Vue({
         shop: [],
         showCart: false,
         verified: false,
+        tempListOngkir: [],
         address: [],
-        displayAddress: ""
+        listOngkir: [],
+        ongkir: 0,
+        displayAddress: "",
     },
     mounted: function() {
         this.getUsers();
@@ -29,18 +31,37 @@ var vm = new Vue({
 
     },
     computed: {
+        computedAddress() {
+            return this.tempListOngkir;
+        },
+        totalNumber() {
+            var total = 0;
+            for (var i = 0; i < this.shop.length; i++) {
+                total += this.shop[i].subtotal;
+            }
+            return total;
+        },
         total() {
             var total = 0;
             for (var i = 0; i < this.shop.length; i++) {
                 total += this.shop[i].subtotal;
             }
             return (total).formatMoney(2, '.', ',');
+        },
+        subtotalCheckout() {
+            var subtotal = 0;
+
+            subtotal = this.totalNumber + this.ongkir;
+            return subtotal;
         }
     },
     methods: {
-        fetchSelectedAddress(key) {
-            console.log(key);
-            // return $this.address.key;
+        fetchSelectedOngkir: function(event) {
+            this.ongkir = this.listOngkir[event.target.value].harga_akhir;
+        },
+        fetchSelectedAddress: function(event) {
+            this.displayAddress = this.address[event.target.value];
+            this.fetchOngkir(this.displayAddress.city_id);
         },
         fetchAddress: function() {
             var aecodeid_id = document.getElementById("aecodeid");
@@ -53,7 +74,7 @@ var vm = new Vue({
                 var link = '/address/api/list/' + aecodeid;
                 this.$http.get(link).then(function(response) {
                     this.address = response.data;
-                    console.log(response.data);
+                    // this.fetchOngkir();
                 }, function(error) {});
             }
         },
@@ -71,6 +92,19 @@ var vm = new Vue({
                 // this.shop.push(response.data);
                 this.getUsers();
             }, function(error) {});
+        },
+        fetchOngkir: function(city_id) {
+            // POST /someUrl
+            var data = this.shop;
+
+            this.$http.post('/ongkir/post/api/' + city_id, data, {
+                emulateJSON: false
+            }).then(function(response) {
+                this.listOngkir = response.data;
+            });
+        },
+        getBuyerDefaultAddress: function() {
+            // /address/addresscontroller/getUserDefaultAddress/1066
         },
         removeFromCart(item) {
             var link = '/cart/remove_item/' + item;

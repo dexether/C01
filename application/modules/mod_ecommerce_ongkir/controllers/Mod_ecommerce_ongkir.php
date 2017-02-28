@@ -22,44 +22,36 @@ class Mod_ecommerce_ongkir extends MY_Controller
         }
         echo json_encode($datakotas, JSON_PRETTY_PRINT);
     }
-    public function getOngkos($provinsi, $kota, $invoice = 'AGFX2016102101392569')
+    public function getOngkos($origin, $destination, $weight, $courier = "jne")
     {
-        // Pilih Harga dan Orangnya
-      // 152 jakarta Pusat
-        $this->db->select('master_invoice.invoice, master_product.prod_name, client_aecode.name, email, client_aecode_address.city_id, master_product.prod_weight');
-        $this->db->from('master_invoice');
-        $this->db->join('master_cart', 'master_invoice.invoice = master_cart.invoice');
-        $this->db->join('master_product', 'master_cart.id_prod = master_product.id');
-        $this->db->join('client_aecode', 'master_product.aecodeid = client_aecode.aecodeid');
-        $this->db->join('client_aecode_address', 'client_aecode.aecodeid = client_aecode_address.aecodeid', 'left');
-        $this->db->group_by('client_aecode.aecodeid');
-        $this->db->where('master_invoice.invoice', $invoice);
-        $get = $this->db->get();
-
-        foreach ($get->result() as $key => $value) {
-            $kota_pengririm = ($value->city_id == null) ? 152 : $value->city_id;
-        // var_dump($kota);
-        $cities[] = $this->rajaongkir->cost($kota_pengririm, $kota, $value->prod_weight, 'jne');
+      $data = json_decode($this->rajaongkir->cost($origin, $destination, $weight, $courier));
+      $i = 0;
+      foreach ($data->rajaongkir->results as $key => $value) {
+        $courier_name = $value->name;
+        foreach ($value->costs as $key2 => $costs) {
+            $cost_array = (array) $costs;
+            $result[$i] = $cost_array;
+            $result[$i]['harga'] = $cost_array['cost'][0]->value;
+            // var_dump($costs);
+            $i++;
         }
-      // var_dump(json_decode($cities));
-      $ongkir = array();
-      foreach ($cities as $key => $value) {
-          $decode = json_decode($value);
-
-          foreach ($decode->rajaongkir->results as $results):
-
-            foreach ($results->costs as $costs):
-              // var_dump($costs);
-              $ongkir_int = $costs->cost[0]->value;
-              $test[$costs->service] = @$test[$costs->service] + $ongkir_int;
-
-              $ongkir[$costs->service] = @$ongkir[$costs->service] + $ongkir_int;
-            endforeach;
-
-          endforeach;          
       }
-        echo json_encode($ongkir, JSON_PRETTY_PRINT);
-      // origin=501&destination=114&weight=1700&courier=jne
-      // $cities = $this->rajaongkir->cost($kota, $destination, $weight, $courier);
+      return $result;
+    }
+    public function getPostApi($city_id , $courier = "jne")
+    {
+      $hasil_akhir = 0;
+      $data = json_decode($GLOBALS['HTTP_RAW_POST_DATA']);
+      foreach($data as $key => $value):
+        $destiny = $this->getOngkos($value->city_id, $city_id, 1.00);
+        foreach($destiny as $row):
+          $data_hasil[$row['service']]['service'] = $row['service'];
+          $data_hasil[$row['service']]['description'] = $row['description'];
+          $data_hasil[$row['service']]['harga_akhir'] = @$data_hasil[$row['service']]['harga_akhir'] + $row['harga'];
+        endforeach;
+      endforeach;
+      $this->output
+        ->set_content_type('application/json')
+        ->set_output(json_encode($data_hasil, JSON_PRETTY_PRINT));
     }
 }

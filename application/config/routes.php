@@ -87,3 +87,5 @@ $route['address/new/(:num)'] = 'checkout/CheckoutController/postAddress/$1';
 
 /* == VueJS API == */
 $route['address/api/list/(:num)'] = 'address/AddressController/apiGetAddress/$1';
+$route['ongkir/post/api/(:num)'] = "Mod_ecommerce_ongkir/getPostApi/$1";
+$route['ongkir/api/(:num)/(:num)/(:any)'] = "Mod_ecommerce_ongkir/getOngkos/$1/$2/$3";
