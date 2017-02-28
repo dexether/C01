@@ -11,5 +11,20 @@ class AddressController extends MY_Controller
     header('Content-Type: application/json');
     echo json_encode($datasource , JSON_PRETTY_PRINT);
   }
+  public function getUserDefaultAddress($aecodeid)
+  {
+    $data = Address::where('aecodeid' , $aecodeid)->first();
+    if($data != null)
+    {
+      $this->output
+        ->set_content_type('application/json')
+        ->set_output(json_encode($data, JSON_PRETTY_PRINT));
+    }else{
+    $data = [];
+    $this->output
+      ->set_content_type('application/json')
+      ->set_output(json_encode($data, JSON_PRETTY_PRINT));
+    }
+  }
 }
 ?>

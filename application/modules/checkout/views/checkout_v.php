@@ -28,8 +28,9 @@ add_js(base_url('assets/js/checkout.js'));
                     <div class="form-group row no-gutters">
                       <label class="control-label col-sm-2 pull-left" for="email">Alamat : </label>
                       <div class="col-sm-9">
-                        <select class="form-control" name="address" v-model="fetchSelectedAddress()">
-                          <option v-for="row in address">
+                        <select class="form-control" name="address" @change.prevent="fetchSelectedAddress">
+                          <option selected>-- pilih alamat --</option>
+                          <option v-for="row, index in address" :value="index">
                            {{ row.receiver_name }} - {{ row.address }}
                          </option>
                         </select>
@@ -41,9 +42,15 @@ add_js(base_url('assets/js/checkout.js'));
                     <div class="form-group row">
                       <label class="control-label col-sm-2" for="email"></label>
                       <div class="col-sm-10">
-                        <p class="border-dash">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+                        <div class="border-dash" v-if="displayAddress != ''">
+                          <strong>Nama : {{ displayAddress.receiver_name }}</strong>
+                          <p>
+                          Telp = {{ displayAddress.telphone_number }}
+                          </p>
+                          <p>
+                          {{ displayAddress.address }}
+                          </p>
+                        </div>
 
                       </div>
                     </div>
@@ -61,19 +68,21 @@ add_js(base_url('assets/js/checkout.js'));
                       <form class="form-horizontal">
                         <div class="form-group row no-gutters">
                           <label class="control-label col-sm-2 pull-left">Barang : </label>
-                          <div class="col-sm-9">
-                            <div class="row">
-                              <div class="col-sm-3">
-                                <img src="http://placehold.it/350x350" />
-                              </div>
-                              <div class="col-sm-9">
-                                Paling Murah Jas Hujan AXIO EUROPE Best Quality khusus XXXL
-                                <div class="">
-                                  Rp. 123456
+                          <div class="col-sm-9" >
+                            <div class="checkout-product-list" v-for="row in shop">
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <img :src="'/' + row.img" />
+                                </div>
+                                <div class="col-sm-9">
+                                  {{ row.name }}
+                                  <div class="">
+                                    Rp. {{  (row.subtotal).formatMoney(2, '.', ',') }}
+                                  </div>
                                 </div>
                               </div>
+                              <br/>
                             </div>
-                            <br>
                           </div>
                         </div>
                         <div class="form-group row no-gutters">
@@ -85,8 +94,11 @@ add_js(base_url('assets/js/checkout.js'));
                         <div class="form-group row no-gutters">
                           <label class="control-label col-sm-2 pull-left">Jasa Pengiriman : </label>
                           <div class="col-sm-9">
-                            <select name="" class="form-control">
-                              <option value=""></option>
+                            <select name="" class="form-control" @change.prevent="fetchSelectedOngkir">
+                              <option selected >-- pilih pengiriman --</option>
+                              <option v-for="row, index in listOngkir" :value="index">
+                                {{ row.description }} - Rp. {{ (row.harga_akhir).formatMoney(2, '.', ',') }}
+                              </option>
                             </select>
                           </div>
                         </div>
@@ -97,15 +109,15 @@ add_js(base_url('assets/js/checkout.js'));
                               <tbody>
                                 <tr>
                                   <td>Harga Barang</td>
-                                  <td style="text-align: right;">&nbsp;</td>
+                                  <td style="text-align: right;">Rp. {{ total }}</td>
                                 </tr>
                                 <tr>
                                   <td>Biaya Kirim</td>
-                                  <td style="text-align: right;">Rp. 2000</td>
+                                  <td style="text-align: right;">Rp. {{ (ongkir).formatMoney(2, '.', ',') }}</td>
                                 </tr>
                                 <tr>
                                   <td>Subtotal</td>
-                                  <td style="text-align: right;">Rp.</td>
+                                  <td style="text-align: right;"><strong>Rp. {{ (subtotalCheckout).formatMoney(2, '.', ',') }}</strong></td>
                                 </tr>
                               </tbody>
                             </table>
@@ -125,19 +137,19 @@ add_js(base_url('assets/js/checkout.js'));
                     <tbody>
                       <tr>
                         <td>Harga Barang</td>
-                        <td style="text-align: right;">&nbsp;</td>
+                        <td style="text-align: right;">Rp. {{ total }}</td>
                       </tr>
                       <tr>
                         <td>Biaya Kirim</td>
-                        <td style="text-align: right;">Rp. 2000</td>
+                        <td style="text-align: right;">Rp. {{ (ongkir).formatMoney(2, '.', ',') }}</td>
                       </tr>
                       <tr>
                         <td>Subtotal</td>
-                        <td style="text-align: right;">Rp.</td>
+                        <td style="text-align: right;">Rp. {{ (subtotalCheckout).formatMoney(2, '.', ',') }}</td>
                       </tr>
                       <tr>
                         <td>Total Belanja</td>
-                        <td style="text-align: right;">Rp.</td>
+                        <td style="text-align: right;">Rp. {{ (subtotalCheckout).formatMoney(2, '.', ',') }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -220,3 +232,7 @@ add_js(base_url('assets/js/checkout.js'));
     </div>
   </div>
 </div>
+<script>
+fbq('track', 'InitiateCheckout');
+fbq('track', 'AddPaymentInfo');
+</script>

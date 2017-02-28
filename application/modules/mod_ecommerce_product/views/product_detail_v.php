@@ -194,3 +194,9 @@ add_js('/assets/lib/fancyBox/jquery.fancybox.js');
          <!-- ./row-->
      </div>
  </div>
+ <script>
+ fbq('track', 'ViewContent', {
+   value: <?= $product->prod_price ?>,
+   currency: 'IDR'
+ });
+ </script>

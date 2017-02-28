@@ -61,3 +61,6 @@
         </div>
     </div>
 </div>
+<script>
+fbq('track', 'CompleteRegistration');
+</script>
