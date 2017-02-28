@@ -33,9 +33,8 @@ $route['cart/(:any)/checkout'] = 'mod_ecommerce_cart/item_checkout_confirmation/
 
 // $route['checkout'] = 'Buy_sell/itemCheckoutPay';
 $route['checkout'] = 'checkout/CheckoutController/index';
+$route['checkout/payment'] = 'checkout/CheckoutController/postCheckout';
 
-// $route['checkout/(:any)/success'] = 'Buy_sell/itemCheckoutSuccess/$1';
-$route['checkout/(:any)/success'] = 'mod_ecommerce_cart/item_checkout_success/$1';
 
 // $route['about-us'] = 'Store/AboutUs';
 $route['about-us'] = 'mod_ecommerce_page/about_us';

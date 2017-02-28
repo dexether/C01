@@ -128,6 +128,7 @@ $autoload['language'] = array('message');
 */
 // $autoload['model'] = array();
 $autoload['model'] = array(
-
-  'Address'
+  'Address',
+  'Order',
+  'OrderDetails'
 );

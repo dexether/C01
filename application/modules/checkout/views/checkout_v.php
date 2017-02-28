@@ -18,13 +18,14 @@ add_js(base_url('assets/js/checkout.js'));
                 <li><span>04. Shipping</span></li>
                 <li><span>05. Payment</span></li>
             </ul>
+            <?php echo form_open('/checkout/payment' , ['class' => 'form-horizontal']) ?>
             <div class="row">
               <div class="col-sm-8">
                 <div class="heading-counter warning card card-1">
                   <div class="alert alert-warning">
                     Data Anda selalu rahasia dan hanya akan kami beritahukan kepada Penjual.
                   </div>
-                  <form class="form-horizontal">
+
                     <div class="form-group row no-gutters">
                       <label class="control-label col-sm-2 pull-left" for="email">Alamat : </label>
                       <div class="col-sm-9">
@@ -45,7 +46,8 @@ add_js(base_url('assets/js/checkout.js'));
                         <div class="border-dash" v-if="displayAddress != ''">
                           <strong>Nama : {{ displayAddress.receiver_name }}</strong>
                           <p>
-                          Telp = {{ displayAddress.telphone_number }}
+                          <input type="hidden" name="selected_address" :value="displayAddress.address_id">
+                          Telp : {{ displayAddress.telphone_number }}
                           </p>
                           <p>
                           {{ displayAddress.address }}
@@ -54,7 +56,7 @@ add_js(base_url('assets/js/checkout.js'));
 
                       </div>
                     </div>
-                  </form>
+
                   <br>
                   <div class="" id="app-vue">
 
@@ -88,7 +90,7 @@ add_js(base_url('assets/js/checkout.js'));
                         <div class="form-group row no-gutters">
                           <label class="control-label col-sm-2 pull-left">Catatan untuk Penjual : </label>
                           <div class="col-sm-9">
-                            <textarea class="form-control" name="name" rows="3" cols="10" placeholder="Untuk Penjual : Warna, Ukuran jumlah"></textarea>
+                            <textarea class="form-control" name="catatan_penjual" rows="3" cols="10" placeholder="Untuk Penjual : Warna, Ukuran jumlah"></textarea>
                           </div>
                         </div>
                         <div class="form-group row no-gutters">
@@ -138,10 +140,12 @@ add_js(base_url('assets/js/checkout.js'));
                       <tr>
                         <td>Harga Barang</td>
                         <td style="text-align: right;">Rp. {{ total }}</td>
+                        <input type="hidden" name="harga_barang" :value="totalNumber">
                       </tr>
                       <tr>
                         <td>Biaya Kirim</td>
                         <td style="text-align: right;">Rp. {{ (ongkir).formatMoney(2, '.', ',') }}</td>
+                        <input type="hidden" name="ongkir" :value="ongkir">
                       </tr>
                       <tr>
                         <td>Subtotal</td>
@@ -150,13 +154,15 @@ add_js(base_url('assets/js/checkout.js'));
                       <tr>
                         <td>Total Belanja</td>
                         <td style="text-align: right;">Rp. {{ (subtotalCheckout).formatMoney(2, '.', ',') }}</td>
+                        <input type="hidden" name="total" :value="subtotalCheckout">
                       </tr>
                     </tbody>
                   </table>
-                  <button class="btn btn-block btn-lg btn-success" type="button" name="button">Pilih Metode Pembayaran</button>
+                  <button class="btn btn-block btn-lg btn-success" type="submit" name="button">Pilih Metode Pembayaran</button>
                 </div>
               </div>
             </div>
+            </form>
         </div>
     </div>
 </div>

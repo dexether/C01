@@ -6,7 +6,9 @@
         "php": ">=5.2.4",
         "illuminate/database": "5.0.28",
         "illuminate/events": "5.0.28",
-        "steevenz/rajaongkir": "^1.2"
+        "steevenz/rajaongkir": "^1.2",
+        "nesbot/carbon": "~1.18"
+
     },
     "require-dev": {
         "mikey179/vfsStream": "1.1.*"
