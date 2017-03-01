@@ -63,6 +63,7 @@ class CheckoutController extends AuthController
         $order->save();
 
         $order_id = $order->id;
+        $invoice_id = $order->order_number;
 
         foreach ($this->cart->contents() as $key => $cart) {
           $detail = new OrderDetails;
@@ -72,6 +73,7 @@ class CheckoutController extends AuthController
           $detail->quantity = $cart['qty'];
           $detail->save();
         }
+        redirect('payment/purchases/new/?invoice_id=' . $invoice_id . '&user_step=choose_payment');
     }
   }
 }

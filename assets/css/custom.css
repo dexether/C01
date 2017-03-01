@@ -77,3 +77,14 @@ ul.brand-showcase-logo li {
   border-radius: 2px 2px 0 0;
   padding: 0 12px;
 }
+#listed {
+  list-style-type: square !important;
+  list-style: decimal;
+  list-style-position: inside;
+}
+.button-payment {
+  padding: 5px;
+}
+.panel-heading {
+  font-weight: bold;
+}
