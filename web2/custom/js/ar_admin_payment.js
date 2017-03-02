@@ -26,7 +26,8 @@ var ar_admin_payment_JS = function() {
                 }
             });
         },
-        admin_confirm_modal: function(IDpay, status, amount) {
+        admin_confirm_modal: function(IDpay, status, amount, thisnya) {
+            $(thisnya).hide();
             var url = "ar_admin_payment_table.php";
             var data = {
                 postmode: 'yes',
@@ -49,7 +50,7 @@ var ar_admin_payment_JS = function() {
 
             $('#ajax-loadings').html('<img class="img image-responsive" src="images/loading/spin.gif">');
             var url = "ar_admin_payment_table.php";
-            var data = {date: date, type: type, status: status, postmode: 'querys'};
+            var data = { date: date, type: type, status: status, postmode: 'querys' };
             $.ajax({
                 url: url,
                 data: data,
