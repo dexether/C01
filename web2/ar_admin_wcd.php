@@ -52,7 +52,7 @@ if ($postmode == "export") {
 
 }elseif ($postmode == "doit") {
 	storeToCronLogs('wcd');
-	
+
 	$query = "SELECT
   mlm_wcd.`account`,
   mlm_wcd.`last_pay`,
@@ -77,8 +77,6 @@ WHERE mlm_wcd.status = '1'
   AND mlm.`group_play` = mlm_bonus_settings.`group_play`
   AND mlm.`companyconfirm` = '2'
   AND mlm_wcd.`next_pay` <= DATE(NOW())";
-  var_dump($query);
-  die();
 	$wcd_day = $apex->bonus_setting()->AR_WCD_DAY;
 
 	// tradeLogConstruct("ar_admin_wcd- 75 : ". $query);
