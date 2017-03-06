@@ -74,6 +74,7 @@ var imp_comm_JS = function() {
                         var subtotal = imp_comm_JS.changetorp(total);
                         $.each(anony, function(key, value) {
                             for (var i = 0; i < value.length; i++) {
+                                console.log(value[i].lots);
                                 tr = $('<tr/>');
                                 tr.append("<td>" + value[i].LOGIN + "</td>");
                                 tr.append("<td>" + value[i].aliases + "</td>");
