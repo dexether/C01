@@ -1,3 +1,6 @@
+<?php
+add_js(base_url('assets/js/home.js'));
+?>
 <!-- Home slideder-->
 <div id="home-slider">
     <div class="container">
@@ -352,79 +355,12 @@
         <h2 class="brand-showcase-title">
             Joined Brokers
         </h2>
-        <div class="brand-showcase-box">
-            <ul class="brand-showcase-logo owl-carousel" data-loop="true" data-nav = "true" data-dots="false" data-margin = "1" data-autoplayTimeout="1000" data-autoplayHoverPause = "true" data-responsive='{"0":{"items":2},"600":{"items":5},"1000":{"items":8}}'>
-                <li data-tab="showcase-1" class="item active">
-                  ASKAP IMPERIUM
-                </li>
-                <li data-tab="showcase-1" class="item">
-                  OTHER BROKER
-                </li>
-            </ul>
-            <div class="brand-showcase-content">
-                <div class="brand-showcase-content-tab active" id="showcase-1">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-4 trademark-info">
-                            <div class="trademark-logo">
-                                <a href="#"><img src="/assets/images/logo/imperium100x30.png" alt="trademark"></a>
-                            </div>
-                            <div class="trademark-desc">
-                              <p>
-                                Otoritas Jasa Keuangan baru saja merilis daftar investasi bodong (penipuan).
-                                Jangan salah pilih investasi. Pilih yang dijamin oleh Pemerintah.
-                                Sejak tahun 2000, Askap Social sudah melayani jutaan investor dari seluruh Indonesia dengan mengantongi ijin :
-                              </p>
-
-                              <ul class="trademark-list-ul">
-                                <table>
-                                  <tr>
-                                    <td>-&nbsp;</td>
-                                    <td>BAPPEBTI : Surat Ijin No. 05/BAPPEBTI/SI/XII/2000</td>
-                                  </tr>
-                                  <tr>
-                                    <td>-&nbsp;</td>
-                                    <td>KBI : Sertifikat Kliring Berjangka Indonesia No. 01/AK-KJBK/XII/2000</td>
-                                  </tr>
-                                  <tr>
-                                    <td>-&nbsp;</td>
-                                    <td>JFX : Nomor persetujuan anggota bursa No. SPAB-001/BBJ/09/00</td>
-                                  </tr>
-                                </table>
-                              </ul>
-
-                            </div>
-                            <a href="#" class="trademark-link">Lebih Lanjut tentang Askap Imperium</a>
-                        </div>
-                        <div class="col-xs-12 col-sm-8 trademark-product">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 product-item">
-                                  <img src="/assets/images/banner/broker/askap.jpg" alt="Askap Imperium" class="img-responsive" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="brand-showcase-content-tab" id="showcase-2">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-4 trademark-info">
-                            <div class="trademark-logo">
-                                <a href="#"><img src="/assets/images/logo/imperium100x30.png" alt="trademark"></a>
-                            </div>
-                            <div class="trademark-desc">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </div>
-                            <a href="#" class="trademark-link">Lebih Lanjut tentang Askap Imperium</a>
-                        </div>
-                        <div class="col-xs-12 col-sm-8 trademark-product">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 product-item">
-                                  <img src="http://lorempixel.com/600/300/city/" alt="" class="img-responsive" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="joined-broker" style="margin-top : 10px;">
+            <div><a href="http://www.askapimperium.com/" target="_blank"><img src="/assets/images/logo/imperium200x60.png"/></a></div>
+            <div><a href="http://fbspremium.com" target="_blank"><img src="/assets/images/logo/fbs.png"/></a></div>
+            <div><a href="http://Mtradingfx.com" target="_blank"><img src="/assets/images/logo/mtrading.png"/></a></div>
+            <div><a href="http://hfxpremium.com" target="_blank"><img src="/assets/images/logo/hotforex.png"/></a></div>
+            <div><a href="http://fullertrade.com" target="_blank"><img src="/assets/images/logo/fulleton.png"/></a></div>            
         </div>
     </div>
 </div>

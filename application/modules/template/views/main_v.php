@@ -41,6 +41,11 @@
 <body class="<?= (isset($page)) ? $page : "home"; ?>">
 <div id="app">
 <!-- HEADER -->
+<?php foreach ($notpayed as $key => $value): ?>
+  <div class="announcement-warning text-center">
+    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>&nbsp;&nbsp;<strong>Segera lakukan pembayaran sebesar <?= $value->amountWithRp ?> sebelum <?= $value->expired_at; ?>.</strong> Selengkapnya lihat <a href="/payment/invoice/<?= $value->id ?>">di sini</a>
+  </div>
+<?php endforeach; ?>
 <div id="header" class="header">
     <div class="top-header">
         <div class="container">
@@ -71,7 +76,7 @@
     <div class="container main-header">
         <div class="row">
             <div class="col-xs-12 col-sm-3 logo">
-                <a href="/"><img alt="Agenda FX" src="/assets/images/logo/logo-black.png" /></a>
+                <a href="/"><img alt="Agenda FX" src="/assets/images/logo/logo-agenda-transparent.png" /></a>
             </div>
             <div class="col-xs-7 col-sm-6 header-search-box">
                 <form class="form-inline">
@@ -213,7 +218,7 @@
             <div id="introduce-box" class="row">
                 <div class="col-md-3">
                     <div id="address-box">
-                        <a href="#"><img src="/assets/images/logo/logo-black.png" alt="" /></a>
+                        <a href="#"><img src="/assets/images/logo/logo-agenda-transparent.png" alt="" /></a>
                         <div id="address-list">
                             <div class="tit-name">Address:</div>
                             <div class="tit-contain">Ruko H5 Pasar Laris Palm Paradise, Pegadungan Jakarta Barat</div>

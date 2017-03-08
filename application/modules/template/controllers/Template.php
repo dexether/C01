@@ -8,7 +8,7 @@ class Template extends MY_Controller
     }
     public function get_main($data = null)
     {
-      $this->output->set_meta('description', 'AgendaFX');
+      $data['notpayed'] = Order::notPayed($this->session->userdata('aecodeid'))->get();
       $this->load->view('main_v', $data);
     }
 }

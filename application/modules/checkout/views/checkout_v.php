@@ -158,7 +158,8 @@ add_js(base_url('assets/js/checkout.js'));
                       </tr>
                     </tbody>
                   </table>
-                  <button class="btn btn-block btn-lg btn-success" type="submit" name="button">Pilih Metode Pembayaran</button>
+                  <button class="btn btn-block btn-lg btn-success" type="submit" name="button" v-if="displayAddress && ongkir != 0">Pilih Metode Pembayaran</button>
+                  <button class="btn btn-block btn-lg btn-success" type="submit" name="button" disabled v-else>{{ displayAddress.lenght }} Pilih Metode Pembayaran</button>
                 </div>
               </div>
             </div>

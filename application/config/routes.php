@@ -92,3 +92,4 @@ $route['ongkir/api/(:num)/(:num)/(:any)'] = "Mod_ecommerce_ongkir/getOngkos/$1/$
 
 /** Payemetn **/
 $route['payment/purchases/new'] = "payment/PaymentController/index";
+$route['payment/purchases/(:any)/confirmation'] = "payment/PaymentController/confirmation/$1";

@@ -59,7 +59,7 @@
               </tr>
             </table>
             <div class="button-payment">
-              <button type="submit" name="button" class="btn btn-success btn-block">Bayar</button>
+              <a href="/payment/purchases/<?= $payments->order_number ?>/confirmation" class="btn btn-success btn-block">Bayar</a>
             </div>
           </div>
         </div>

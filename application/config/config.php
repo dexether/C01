@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 require('_settings/config.php');
 date_default_timezone_set('Asia/Jakarta');
+setlocale(LC_ALL, 'id-ID');
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

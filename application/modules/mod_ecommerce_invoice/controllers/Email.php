@@ -8,6 +8,10 @@ class Email extends MY_Controller
     }
     public function get_email_invoice($invoice)
     {
+        return "true";
+    }
+    public function get_email_invoice2($invoice)
+    {
         $this->db->select('client_aecode.name, master_invoice.unix_price');
         $this->db->from('master_invoice');
         $this->db->join('master_cart', 'master_invoice.invoice = master_cart.invoice');
@@ -17,6 +21,6 @@ class Email extends MY_Controller
         foreach ($get as $key => $rows):
         $get_data = $rows;
         endforeach;
-        $this->load->view('api/invoce_email', array('data' => $get_data));
+        return $this->load->view('api/invoce_email', array('data' => $get_data), true);
     }
 }

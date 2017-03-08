@@ -64,7 +64,7 @@
                                 <td colspan="2" rowspan="2"></td>
                                 <td colspan="3"><strong>Total</strong></td>
                                 <td colspan="2">Rp. {{ total }}</td>
-                                <input type="text" id="total" name="total" :value="totalNumber">
+                                <input type="hidden" id="total" name="total" :value="totalNumber">
                             </tr>
                         </tfoot>
                     </table>

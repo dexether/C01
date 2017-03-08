@@ -54,7 +54,9 @@ class CheckoutController extends AuthController
         $order = new Order;
         $order->order_number = $invoice;
         $order->cmd = 9;
+        $order->unix = rand(100, 299);
         $order->order_date = Carbon::now();
+        $order->expired_at = new Carbon('+10 Hour');
         $order->address_id = $this->input->post('selected_address');
         $order->amount = $this->input->post('harga_barang');
         $order->aecodeid = $this->session->userdata('aecodeid');
