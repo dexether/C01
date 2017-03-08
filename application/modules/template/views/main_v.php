@@ -18,6 +18,7 @@
     <script type="text/javascript" src="/assets/js/vue.js"></script>
     <script src="/assets/js/vue-resource.min.js"></script>
     <?= (isset($meta) ? meta_tags($meta) : meta_tags());?>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
     <meta name="google-site-verification" content="FggMHXkLtoP9I5hAfGbHJFrVrr9pkynEpzw37v8BP3E" />
     <!-- Google rechatpcha -->
     <script src='https://www.google.com/recaptcha/api.js?hl=id'></script>
