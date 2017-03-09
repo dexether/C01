@@ -9,6 +9,6 @@ class Latihan extends MY_Controller
   }
   public function index()
   {
-    $this->email->get_email_invoice(11);
+      $this->template->get_user_dashboard();
   }
 }

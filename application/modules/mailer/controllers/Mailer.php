@@ -49,7 +49,7 @@ class Mailer extends MY_Controller
           'email_to' => $to,
           'email_cc' => $cc,
           'email_subject' => $subject,
-          'email_body' => base64_encode($body)
+          'email_body' => $body
         ];
         $do = $this->db->insert('email', $data);
         return $do;

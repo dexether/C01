@@ -11,4 +11,10 @@ class Template extends MY_Controller
       $data['notpayed'] = Order::notPayed($this->session->userdata('aecodeid'))->get();
       $this->load->view('main_v', $data);
     }
+    public function get_user_dashboard()
+    {
+        $data['content'] = "template/dashboard_user_v";
+        $data['page'] = "category-page";
+        $this->get_main($data);
+    }
 }

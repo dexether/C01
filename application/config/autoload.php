@@ -130,5 +130,6 @@ $autoload['language'] = array('message');
 $autoload['model'] = array(
   'Address',
   'Order',
-  'OrderDetails'
+  'OrderDetails',
+  'Client_aecode'
 );

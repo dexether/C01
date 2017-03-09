@@ -7,7 +7,8 @@
         "illuminate/database": "5.0.28",
         "illuminate/events": "5.0.28",
         "steevenz/rajaongkir": "^1.2",
-        "nesbot/carbon": "~1.18"
+        "nesbot/carbon": "~1.18",
+        "phpmailer/phpmailer": "^5.2"
 
     },
     "require-dev": {

@@ -75,6 +75,10 @@ class CheckoutController extends AuthController
           $detail->quantity = $cart['qty'];
           $detail->save();
         }
+        $this->load->module('mod_ecommerce_invoice/email');
+        $body = $this->email->get_email_invoice($invoice_id);
+        $email = $this->session->userdata('email');
+        modules::run('mailer/send', $email , "Mohon lengkapi pembayaran anda !" , $body);
         redirect('payment/purchases/new/?invoice_id=' . $invoice_id . '&user_step=choose_payment');
     }
   }

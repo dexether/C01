@@ -29,4 +29,8 @@ class Order extends Eloquent
     {
       return $query->where('paid', '=', false)->where('expired_at' , '>=', Carbon::now())->where('aecodeid' , $aecodeid);
     }
+    public function client_aecode()
+    {
+      return $this->belongsTo('client_aecode' , 'aecodeid');
+    }
 }

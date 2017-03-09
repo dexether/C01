@@ -2,31 +2,34 @@
 Style by  : Tarikh Agustia
 Email     : agustia.tarikh150@gmail.com
 */
-.trademark-list-ul {
-  list-style: initial !important;
-}
-ul.brand-showcase-logo li {
-  /*margin: 10px;*/
-  padding: 10px;
-  font-size: 1em;
-  font-weight: bolder;
-  color: red !important;
-}
-.no-gutters {
-  margin-right: 0;
-  margin-left: 0;
 
-  > .col,
-  > [class*="col-"] {
-    padding-right: 0;
-    padding-left: 0;
-  }
+.trademark-list-ul {
+    list-style: initial !important;
 }
+
+ul.brand-showcase-logo li {
+    /*margin: 10px;*/
+    padding: 10px;
+    font-size: 1em;
+    font-weight: bolder;
+    color: red !important;
+}
+
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+    >.col,
+    >[class*="col-"] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
 .border-dash {
-  box-sizing: border-box;
-  border: 1px dashed #ddd;
-  border-radius: 2px;
-  padding: 15px 20px
+    box-sizing: border-box;
+    border: 1px dashed #ddd;
+    border-radius: 2px;
+    padding: 15px 20px
 }
 
 .card {
@@ -60,34 +63,40 @@ ul.brand-showcase-logo li {
 .card-5 {
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
+
 .border {
-  box-sizing: border-box;
-  border: 1px solid #ddd;
-  border-radius: 2px;
-  padding: 15px 20px
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    padding: 15px 20px
 }
+
 .border-header {
-  box-sizing: border-box;
-  border: 1px solid #ddd;
-  border-radius: 2px;
-  font-size: 13px;
-  min-height: 32px;
-  line-height: 32px;
-  background: #f9f9f9;
-  border-radius: 2px 2px 0 0;
-  padding: 0 12px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    font-size: 13px;
+    min-height: 32px;
+    line-height: 32px;
+    background: #f9f9f9;
+    border-radius: 2px 2px 0 0;
+    padding: 0 12px;
 }
+
 #listed {
-  list-style-type: square !important;
-  list-style: decimal;
-  list-style-position: inside;
+    list-style-type: square !important;
+    list-style: decimal;
+    list-style-position: inside;
 }
+
 .button-payment {
-  padding: 5px;
+    padding: 5px;
 }
+
 .panel-heading {
-  font-weight: bold;
+    font-weight: bold;
 }
+
 .c-tooltip__pointer {
     position: absolute;
     width: 0;
@@ -95,6 +104,7 @@ ul.brand-showcase-logo li {
     border-style: solid;
     border-color: transparent;
 }
+
 .c-tooltip.c-tooltip--bottom .c-tooltip__pointer {
     top: 0;
     left: 50%;
@@ -102,6 +112,7 @@ ul.brand-showcase-logo li {
     border-width: 0 6px 6px;
     border-bottom-color: #333;
 }
+
 .c-tooltip__content {
     background-color: #333;
     max-width: 336px;
@@ -110,13 +121,16 @@ ul.brand-showcase-logo li {
     color: #fff;
     border-radius: 2px;
 }
+
 .c-tooltip.c-tooltip--bottom {
     margin-top: 3px;
     padding: 6px 0;
 }
+
 .u-pad-bottom--0 {
     padding-bottom: 0px !important;
 }
+
 .c-tooltip {
     font-size: 12px;
     line-height: 1.4;
@@ -125,49 +139,103 @@ ul.brand-showcase-logo li {
     display: inline-block;
     word-wrap: break-word;
 }
+
 .payment-confirmation-footer-rekening {
-  /*border: solid 1px;*/
-  margin-top: 5px;
-  box-sizing: border-box;
-  padding: 10px;
-  background-color: white;
+    /*border: solid 1px;*/
+    margin-top: 5px;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: white;
 }
+
 .payment-confirmation-footer-text {
-  margin-top: 10px;
-  margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
+
 .detail-transfer>span {
-  font-size: 22px;
-  font-weight: bold;
+    font-size: 22px;
+    font-weight: bold;
 }
+
 .paymnet-invoice {
-  margin-top: 30px;
+    margin-top: 30px;
 }
+
 .paymnet-invoice-number {
-  font-size: 25px;
-  font-weight: bold;
-  color: rgb(237, 26, 89);
-  padding: 5px;
-  background-color: rgb(158, 158, 158);
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(237, 26, 89);
+    padding: 5px;
+    background-color: rgb(158, 158, 158);
 }
+
 .clipboard {
-  cursor: pointer;
-  border-bottom: 1px dotted #000;
-  text-decoration: none;
-  width: auto;
-  display: inline;
+    cursor: pointer;
+    border-bottom: 1px dotted #000;
+    text-decoration: none;
+    width: auto;
+    display: inline;
 }
+
 .announcement-warning {
-  font-size: 14px;
-  line-height: 1.4;
-  background-color: #fff7e2;
-  position: relative;
-  display: block;
-  padding: 12px 18px;
-  color: #8b6f32;
-  border: 1px solid #e6b138;
-  border-radius: 2px;
+    font-size: 14px;
+    line-height: 1.4;
+    background-color: #fff7e2;
+    position: relative;
+    display: block;
+    padding: 12px 18px;
+    color: #8b6f32;
+    border: 1px solid #e6b138;
+    border-radius: 2px;
 }
+
 .fa-exclamation-circle {
-  margin-left: 100px;
+    margin-left: 100px;
+}
+
+.nav-left {
+    padding: 10px;
+}
+
+.nav-left.nav-left-list {
+    /*font-size: 14px;*/
+}
+
+.nav-left-list>li {
+    margin: 0 0 15px 0;
+    font-size: 14px;
+}
+
+.nav-left-list>li:hover {
+    color: dodgerblue !important;
+    /*font-weight: bold;*/
+}
+
+.nav-left-item.active {
+    border-right: solid;
+    border-width: 3px;
+    border-color: dodgerblue;
+    font-weight: bold;
+}
+
+li.nav-left-item>a:hover {
+    -webkit-transition: 1s;
+    color: dodgerblue !important;
+}
+
+li.nav-left-item.active>a {
+    color: dodgerblue !important;
+}
+
+.nav-left-divider {
+    background-color: #bfc4cc;
+    height: 1px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    overflow: hidden;
+}
+
+.content-dashboard {
+    margin-left: 15px;
 }
