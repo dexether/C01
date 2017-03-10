@@ -19,7 +19,7 @@ var vm = new Vue({
         address: [],
         listOngkir: [],
         ongkir: 0,
-        displayAddress: "",
+        displayAddress: ""
     },
     mounted: function() {
         this.getUsers();

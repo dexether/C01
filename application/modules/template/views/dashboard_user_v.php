@@ -1,8 +1,8 @@
 <div class="columns-container">
     <div class="container" id="columns">
       <div class="row">
-        <div class="col-lg-2">
-            <nav class="nav-left">
+        <div class="col-lg-2" id="user-sidebar">
+            <nav class="nav-left" >
                 <ul class="nav-left-list">
                     <li class="nav-left-item active"><a href="#">Ringkasan Akun</a></li>
                     <li class="nav-left-item"><a href="#">Barang Dijual</a></li>
@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-10">
             <div class="content-dashboard">
-                
+                <?php echo (isset($contentDashboard)) ? $this->load->view($contentDashboard) : ""; ?>
             </div>
         </div>
       </div>

@@ -7,17 +7,6 @@ if (!defined('BASEPATH')) {
 
 class Format
 {
-    public function __construct()
-    {
-
-    }
-
-    public function set_rp($number = 0)
-    {
-        $data = number_format($number);
-
-        return "Rp. " . $data;
-    }
     public function seoUrl($string)
     {
         //Lower case everything
