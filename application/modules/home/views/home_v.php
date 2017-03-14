@@ -355,12 +355,213 @@ add_js(base_url('assets/js/home.js'));
         <h2 class="brand-showcase-title">
             Joined Brokers
         </h2>
-        <div class="joined-broker" style="margin-top : 10px;">
-            <div><a href="http://www.askapimperium.com/" target="_blank"><img src="/assets/images/logo/imperium200x60.png"/></a></div>
-            <div><a href="http://fbspremium.com" target="_blank"><img src="/assets/images/logo/fbs.png"/></a></div>
-            <div><a href="http://Mtradingfx.com" target="_blank"><img src="/assets/images/logo/mtrading.png"/></a></div>
-            <div><a href="http://hfxpremium.com" target="_blank"><img src="/assets/images/logo/hotforex.png"/></a></div>
-            <div><a href="http://fullertrade.com" target="_blank"><img src="/assets/images/logo/fulleton.png"/></a></div>            
+        <div class="joined-brokers" style="margin-top : 10px;">
+            <!-- <div><a href="" target="_blank"></a></div>
+            <div><a href="http://Mtradingfx.com" target="_blank"></a></div>
+            <div><a href="http://hfxpremium.com" target="_blank"></a></div>
+            <div><a href="http://fullertrade.com" target="_blank"></a></div> -->
+            <div class="row">
+        			<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      					<div class="panel price panel-red">
+      						<div class="panel-heading text-center">
+      						<img src="/assets/images/logo/imperium200x60.png"/>
+      						</div>
+      						<ul class="list-group list-group-flush text-center">
+      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $500 </li>
+      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Mini Lot 0.1 Lot </li>
+      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Spread Start from 2.3 Point </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> STP Broker </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> 100% No Requote - Guarantee </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage 1:100 </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Commision $3/0.1 Lot </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Floating & Fix Rate $1 = Rp 10.000 </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Fast Deposit & Withdrawal </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> 24/5 Service </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Free Education & Consultation </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Free Coffee Break </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> ABC System bonus </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Copy Trade </li>
+      						</ul>
+      						<div class="panel-footer">
+      							<a class="btn btn-lg btn-block btn-danger" href="http://www.askapimperium.com/">Buka Akun !</a>
+      						</div>
+      					</div>
+    				  </div>
+              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      					<div class="panel price panel-red">
+      						<div class="panel-heading text-center">
+      						<img src="/assets/images/logo/fbs.png"/>
+      						</div>
+      						<ul class="list-group list-group-flush text-center">
+      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $1 (Cent) </li>
+      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.001 Lot (Cent) </li>
+      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start form 0.2 pips </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> No Swap Fee </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> STP Broker </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> No Requote </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:3000 </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Commision start from $0/Lot </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Floating & Fix Rate $1 = Rp 10.000 </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Anti Loss Insurance  </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Bonus Deposit $123 </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Local </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Copy Trade </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+      						</ul>
+      						<div class="panel-footer">
+      							<a class="btn btn-lg btn-block btn-danger" href="#">Buka Akun !</a>
+      						</div>
+      					</div>
+    				  </div>
+              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      					<div class="panel price panel-red">
+      						<div class="panel-heading text-center">
+      						   <img src="/assets/images/logo/mtrading.png"/>
+      						</div>
+      						<ul class="list-group list-group-flush text-center">
+      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $10 Standard & $500 Pro </li>
+      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.01 Lot </li>
+      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start form 2 pips </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> No Swap Fee </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Instant & STP Broker </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Requote (Standard), No Requote (Pro) </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:1000 </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Commision $0/Lot (Standard), $10/Lot (Pro) </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Floating Rate </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Local  </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Copy Trade </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Autochartist </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+      						</ul>
+      						<div class="panel-footer">
+      							<a class="btn btn-lg btn-block btn-danger" href="#">Buka Akun !</a>
+      						</div>
+      					</div>
+    				  </div>
+              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      					<div class="panel price panel-red">
+      						<div class="panel-heading text-center">
+      						   <img src="/assets/images/logo/hotforex.png"/>
+      						</div>
+      						<ul class="list-group list-group-flush text-center">
+      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $5  </li>
+      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.01 Lot  </li>
+      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start form 1 pips </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> No Swap Fee </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Market Execution </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:1000 </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Commision $0/Lot  </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Floating Rate </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Local </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+      						</ul>
+      						<div class="panel-footer">
+      							<a class="btn btn-lg btn-block btn-danger" href="#">Buka Akun !</a>
+      						</div>
+      					</div>
+    				  </div>
+    			</div>
+          <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+              <div class="panel price panel-red">
+                <div class="panel-heading text-center">
+                   <img src="/assets/images/logo/fulleton.png"/>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $100  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.01 Lot   </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread Variable </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Market Execution </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:500 </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Commision $0/Lot  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Floating Rate </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Local </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Robotic Copy Trade </li>
+
+                </ul>
+                <div class="panel-footer">
+                  <a class="btn btn-lg btn-block btn-danger" href="#">Buka Akun !</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+              <div class="panel price panel-red">
+                <div class="panel-heading text-center">
+                   <img src="/assets/images/logo/comming-soon-broker.png"/>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+
+                </ul>
+                <div class="panel-footer">
+
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+              <div class="panel price panel-red">
+                <div class="panel-heading text-center">
+                   <img src="/assets/images/logo/comming-soon-broker.png"/>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+
+                </ul>
+                <div class="panel-footer">
+
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+              <div class="panel price panel-red">
+                <div class="panel-heading text-center">
+                   <img src="/assets/images/logo/comming-soon-broker.png"/>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                </ul>
+                <div class="panel-footer">
+
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
 </div>
