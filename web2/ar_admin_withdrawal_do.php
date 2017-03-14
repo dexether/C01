@@ -1,4 +1,5 @@
 <?php
+
 include_once "$_SERVER[DOCUMENT_ROOT]/includes/functions.php";
 include_once "$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php";
 require_once "$_SERVER[DOCUMENT_ROOT]/classes/security.csrf.php";
