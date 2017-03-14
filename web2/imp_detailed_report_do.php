@@ -83,28 +83,37 @@ WHERE mt_database.`alias` LIKE '%askap%'
    $hasil = $DB->execresultset($query);
    foreach ($hasil as $key => $value) {
       $meta  = $value['mt4dt'];
-      $query = "SELECT
-  " . $meta . ".`mt4_trades`.`LOGIN`,
-  " . $meta . ".`mt4_users`.`NAME`,
-  (SUM(VOLUME) / 100) AS lots
-FROM
-  " . $meta . ".`mt4_trades`,
-   " . $meta . ".`mt4_users`
-WHERE " . $meta . ".`mt4_trades`.`LOGIN` = " . $meta . ".`mt4_users`.`LOGIN`
-AND CMD IN ('1', '0')
-AND " . $meta . ".`mt4_trades`.`LOGIN` NOT IN
-  (SELECT
-    mt4login
-  FROM
-    mlm2)
-  AND " . $meta . ".`mt4_trades`.`CLOSE_TIME` BETWEEN '$periode_start'
-  AND '$periode_end'
-GROUP BY " . $meta . ".`mt4_trades`.`LOGIN` ;
-
- ";
-// TradeLogUnderConstruct_Secure($query);
+      // $query = "SELECT
+      //           " . $meta . ".`mt4_trades`.`LOGIN`,
+      //           " . $meta . ".`mt4_users`.`NAME`,
+      //           (SUM(VOLUME) / 100) AS lots
+      //         FROM
+      //           " . $meta . ".`mt4_trades`,
+      //            " . $meta . ".`mt4_users`
+      //         WHERE " . $meta . ".`mt4_trades`.`LOGIN` = " . $meta . ".`mt4_users`.`LOGIN`
+      //         AND CMD IN ('1', '0')
+      //         AND " . $meta . ".`mt4_trades`.`LOGIN` NOT IN
+      //           (SELECT
+      //             mt4login
+      //           FROM
+      //             mlm2)
+      //           AND " . $meta . ".`mt4_trades`.`CLOSE_TIME` BETWEEN '$periode_start'
+      //           AND '$periode_end'
+      //         GROUP BY " . $meta . ".`mt4_trades`.`LOGIN`";
+              $query = "SELECT
+                        " . $meta . ".`mt4_users`.`LOGIN`,
+                        " . $meta . ".`mt4_users`.`NAME`
+                      FROM
+                        " . $meta . ".`mt4_users`
+                      WHERE " . $meta . ".`mt4_users`.`LOGIN` NOT IN
+                        (SELECT
+                          mt4login
+                        FROM
+                          mlm2)
+                      GROUP BY " . $meta . ".`mt4_users`.`LOGIN`";
       $result3   = $DB->execresultset($query);
       // $anonydata = array();
+
       foreach ($result3 as $key => $row) {
          $query  = "SELECT amount FROM imp_manage_schema WHERE mt4dt = '" . $value['mt4dt'] . "' AND bonus_for = 'nasabah' ORDER BY level ASC LIMIT 0,1";
          $hasil2 = $DB->execresultset($query);
@@ -112,8 +121,28 @@ GROUP BY " . $meta . ".`mt4_trades`.`LOGIN` ;
             $lot_amount = $value2['amount'];
          }
 
+         //Checkin for lots
+         $query_lot = "SELECT
+                   " . $meta . ".`mt4_trades`.`LOGIN`,
+                   " . $meta . ".`mt4_users`.`NAME`,
+                   (SUM(VOLUME) / 100) AS lots
+                 FROM
+                   " . $meta . ".`mt4_trades`,
+                    " . $meta . ".`mt4_users`
+                 WHERE " . $meta . ".`mt4_trades`.`LOGIN` = " . $meta . ".`mt4_users`.`LOGIN`
+                 AND CMD IN ('1', '0')
+                 AND " . $meta . ".`mt4_trades`.`LOGIN` = '$row[LOGIN]'
+                   AND " . $meta . ".`mt4_trades`.`CLOSE_TIME` BETWEEN '$periode_start'
+                   AND '$periode_end'
+                 GROUP BY " . $meta . ".`mt4_trades`.`LOGIN`";
+         $result_lot = $DB->execresultset($query_lot);
+         $lot_value = 0;
+         foreach ($result_lot as $lot_key => $lot_val) {
+           $lot_value = $lot_val['lots'];
+         }
          $anonydata[$value['mt4dt']][$key]               = $row;
          $anonydata[$value['mt4dt']][$key]['aliases']    = $value['alias'];
+         $anonydata[$value['mt4dt']][$key]['lots']       = $lot_value;
          $anonydata[$value['mt4dt']][$key]['lot_amount'] = $lot_amount;
          $anonydata[$value['mt4dt']][$key]['periode']    = date_format(date_create($periode_start), 'd, M') . " s/d " . date_format(date_create($periode_end), 'd, M') . " " . $tahun;
          // TradeLogUnderConstruct_Secure($value['mt4dt']. " : " . $key);

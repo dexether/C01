@@ -1,6 +1,17 @@
 {
+    "description" : "The CodeIgniter framework",
+    "name" : "codeigniter/framework",
+    "license": "MIT",
     "require": {
+        "php": ">=5.2.4",
+        "illuminate/database": "5.0.28",
+        "illuminate/events": "5.0.28",
         "steevenz/rajaongkir": "^1.2",
-        "illuminate/database": "^5.0"
+        "nesbot/carbon": "~1.18",
+        "phpmailer/phpmailer": "^5.2"
+
+    },
+    "require-dev": {
+        "mikey179/vfsStream": "1.1.*"
     }
 }

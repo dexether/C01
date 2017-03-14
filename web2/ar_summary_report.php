@@ -27,6 +27,13 @@ $_SESSION['page'] = 'ar_summary_report';
 /*====================================
 =            Start Coding            =
 ====================================*/
+
+if(!$user->groupid == "9")
+{
+    $filter_admin = "AND client_aecode.aecode = '$user->username'";
+}else{
+    $filter_admin = "";
+}
 $query = "SELECT
 client_aecode.email,
 client_aecode.name,
@@ -41,7 +48,8 @@ mlm_bonus_settings
 WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
 AND mlm.`group_play` = mlm_bonus_settings.`group_play`
 AND client_accounts.`accountname` = mlm.`ACCNO`
-AND client_aecode.aecode = '$user->username'";
+$filter_admin
+";
 //TradeLogTreView("TreViewDetail-82:" . $query);
 $dataACCNO = array();
 $rows = $DB->execresultset($query);
@@ -49,7 +57,6 @@ foreach ($rows as $row) {
     //TradeLogTreView("TreView-83:".$row['ACCNO']);
     $dataACCNO[] = $row;
 }
-var_dump($rows);
 /*=====  End of Start Coding  ======*/
 
 $bonuslogs = array();

@@ -8,7 +8,13 @@ class Template extends MY_Controller
     }
     public function get_main($data = null)
     {
-      $this->output->set_meta('description', 'AgendaFX');
+      $data['notpayed'] = Order::notPayed($this->session->userdata('aecodeid'))->get();
       $this->load->view('main_v', $data);
+    }
+    public function get_user_dashboard($data = null)
+    {
+        $data['content'] = "template/dashboard_user_v";
+        $data['page'] = "category-page";
+        $this->get_main($data);
     }
 }

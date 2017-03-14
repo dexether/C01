@@ -7,17 +7,6 @@ if (!defined('BASEPATH')) {
 
 class Format
 {
-    public function __construct()
-    {
-
-    }
-
-    public function set_rp($number = 0)
-    {
-        $data = number_format($number);
-
-        return "Rp. " . $data;
-    }
     public function seoUrl($string)
     {
         //Lower case everything
@@ -52,5 +41,19 @@ class Format
         $string = preg_replace("/[^a-z0-9._\s-]/", "-", $string);
         $string = preg_replace("/[\s_]/", "-", $string);
         return $string;
+    }
+    public function rating($star)
+    {
+      $html = "";
+      for ($i= 1; $i < 6; $i++) {
+        if ($star >= $i):
+          $html .= '<i class="fa fa-star"></i>'."\n";
+        elseif($i - $star == 0.5):
+          $html .= '<i class="fa fa-star-half-o"></i>'."\n";
+        else:
+          $html .= '<i class="fa fa-star-o"></i>'."\n";
+        endif;
+      }
+      return $html;
     }
 }

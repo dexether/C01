@@ -18,7 +18,7 @@
                                                                 </td>
                                                                 <td align="left" style="padding:0;margin:0;font-size:0;line-height:0" valign="middle">
                                                                     <a href="<?php echo base_url(); ?>" target="_blank">
-                                                                        <img alt="<?php echo $this->config->item('APP_NAME'); ?>" height="50px" src="<?php echo base_url() ?>assets/img/logo-w.png"/>
+                                                                        <img alt="<?php echo $this->config->item('APP_NAME'); ?>" height="50px" src="/assets/images/logo/logo-agenda-transparent.png"/>
                                                                     </a>
                                                                 </td>
                                                                 <td width="30">
@@ -41,7 +41,7 @@
                                                                 </td>
                                                                 <td align="center">
                                                                     <h1 style="font-family:HelveticaNeue-Light,arial,sans-serif;font-size:48px;color:#404040;line-height:48px;font-weight:bold;margin:0;padding:0">
-                                                                        <?php echo $this->lang->line('invoice_title'); ?>
+                                                                        Silahkan Lengkapi Pembayaran Anda
                                                                     </h1>
                                                                 </td>
                                                                 <td width="25">
@@ -54,8 +54,8 @@
                                                             <tr>
                                                                 <td align="center" colspan="5">
                                                                     <p style="color:#404040;font-size:16px;line-height:24px;font-weight:lighter;padding:0;margin:0">
-                                                                        Hai <?php echo $data->name; ?>,
-                                                                        <?php echo $this->lang->line('invoice_desc'); ?> <?php echo $this->config->item('APP_TITLE'). $this->lang->line('invoice_desc1') ?>
+                                                                        Hai <strong><?php echo $data->client_aecode->name; ?></strong>,
+                                                                        Terima kasih atas kepercayaanmu telah berbelanja di AgendaFX. Mohon segera lakukan pembayaran Sebesar. Silahkan lakukan Pembayaran pada Rekening AgendaFX dan lakukan konfirmasi
                                                                     </p>
                                                                 </td>
                                                             </tr>
@@ -68,7 +68,7 @@
                                                                                     <td align="center" style="margin:0;text-align:center">
                                                                                         <a href="#" style="font-size:21px;line-height:22px;text-decoration:none;color:#ffffff;font-weight:bold;border-radius:2px;background-color:#0096d3;padding:14px 40px;display:block;letter-spacing:1.2px">
                                                                                             <?php
-                                                                                            echo $this->format->set_rp($data->unix_price);
+                                                                                            echo $data->amountWithRp;
                                                                                             ?>
                                                                                         </a>
                                                                                     </td>
@@ -97,8 +97,8 @@
                                                             </tr>
                                                             <tr align="center">
                                                               <td colspan="3" height="30"><table width="200" align="center">
-                                                                <tr>
-                                                                  <td colspan="2"><img src="<?php echo base_url() ?>assets/logo/atm_bca.gif"></td>
+                                                                <tr align="center">
+                                                                  <td colspan="2"><img src="<?php echo base_url() ?>assets/images/logo/logo-bca.gif"></td>
                                                                 </tr>
                                                                 <tr>
                                                                   <td style="text-align: center">No rek</td>

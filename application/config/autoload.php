@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database');
+$autoload['libraries'] = array('database' , 'format' , 'session');
 
 /*
 | -------------------------------------------------------------------
@@ -83,7 +83,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url','cookie');
+$autoload['helper'] = array('url','cookie' , 'seo' , 'currency' , 'header_assets', 'form');
 
 /*
 | -------------------------------------------------------------------
@@ -97,7 +97,7 @@ $autoload['helper'] = array('url','cookie');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
+$autoload['config'] = array('seo_config' , 'header_assets' , 'google', 'rest');
 
 /*
 | -------------------------------------------------------------------
@@ -127,4 +127,9 @@ $autoload['language'] = array('message');
 |	$autoload['model'] = array('first_model' => 'first');
 */
 // $autoload['model'] = array();
-$autoload['models'] = array('locations_model');
+$autoload['model'] = array(
+  'Address',
+  'Order',
+  'OrderDetails',
+  'Client_aecode'
+);
