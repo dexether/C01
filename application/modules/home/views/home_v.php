@@ -384,7 +384,7 @@ add_js(base_url('assets/js/home.js'));
                     <li class="list-group-item"><i class="icon-ok text-danger"></i> Copy Trade </li>
       						</ul>
       						<div class="panel-footer">
-      							<a class="btn btn-lg btn-block btn-danger" href="http://www.askapimperium.com/">Buka Akun !</a>
+      							<a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://www.askapimperium.com/">Buka Akun !</a>
       						</div>
       					</div>
     				  </div>
@@ -411,7 +411,7 @@ add_js(base_url('assets/js/home.js'));
                     <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
       						</ul>
       						<div class="panel-footer">
-      							<a class="btn btn-lg btn-block btn-danger" href="#">Buka Akun !</a>
+      							<a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://fbspremium.com">Buka Akun !</a>
       						</div>
       					</div>
     				  </div>
@@ -437,7 +437,7 @@ add_js(base_url('assets/js/home.js'));
                     <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
       						</ul>
       						<div class="panel-footer">
-      							<a class="btn btn-lg btn-block btn-danger" href="#">Buka Akun !</a>
+      							<a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://Mtradingfx.com">Buka Akun !</a>
       						</div>
       					</div>
     				  </div>
@@ -464,7 +464,7 @@ add_js(base_url('assets/js/home.js'));
                     <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
       						</ul>
       						<div class="panel-footer">
-      							<a class="btn btn-lg btn-block btn-danger" href="#">Buka Akun !</a>
+      							<a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://hfxpremium.com">Buka Akun !</a>
       						</div>
       					</div>
     				  </div>
@@ -486,33 +486,36 @@ add_js(base_url('assets/js/home.js'));
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Floating Rate </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Local </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Robotic Copy Trade </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;<br>&nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
 
                 </ul>
                 <div class="panel-footer">
-                  <a class="btn btn-lg btn-block btn-danger" href="#">Buka Akun !</a>
+                  <a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://fullertrade.com">Buka Akun !</a>
                 </div>
               </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
               <div class="panel price panel-red">
                 <div class="panel-heading text-center">
-                   <img src="/assets/images/logo/comming-soon-broker.png"/>
+                   <img src="/assets/images/logo/fx-pro.png"/>
                 </div>
                 <ul class="list-group list-group-flush text-center">
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;  </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i>Minimum Deposit $100</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.01 Lot  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start form 0.6 pips</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> No Swap Fee </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Market Execution</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:500</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Commission $0/Lot  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Floating Rate </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Local </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> 4 Trading Platform (MT4, MT5, CTrader, FxPro Markets) </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> PAMM Account </li>
                 </ul>
                 <div class="panel-footer">
-
+                  <a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://fxp-premium.com">Buka Akun !</a>
                 </div>
               </div>
             </div>
