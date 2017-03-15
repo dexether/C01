@@ -9,3 +9,4 @@ application/cache/*
 application/logs/*
 application/vendor/
 !application/logs/index.html
+web2/images/users/*
