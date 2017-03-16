@@ -15,7 +15,7 @@
                       <tbody>
                        <tr>
                          <td width="30"></td>
-                         <td align="left" valign="middle" style="padding:0;margin:0;font-size:0;line-height:0"><a href="http://www.<?php echo $this->config->item('APP_NAME'); ?>.com/" target="_blank"> <img alt="<?php echo $this->config->item('APP_NAME'); ?>" height="50px" src="<?php echo base_url() ?>assets/img/logo-w.png"/></a></td>
+                         <td align="left" valign="middle" style="padding:0;margin:0;font-size:0;line-height:0"><a href="http://www.<?php echo $this->config->item('APP_NAME'); ?>.com/" target="_blank"> <img alt="<?php echo $this->config->item('APP_NAME'); ?>" height="50px" src="<?php echo base_url() ?>assets/images/logo/logo-agenda-transparent.png"/></a></td>
                          <td width="30"></td>
                        </tr>
                      </tbody>
@@ -42,7 +42,7 @@
                      <p style="color:#404040;font-size:16px;line-height:22px;font-weight:lighter;padding:0;margin:0">
                       Terimakasih Telah melakukan Konfirmasi pembayaran Anda, Nampaknya kami belum bisa mengkonfirmasi pembayaran anda saat ini, silahkan konfirmasi ulang pembayaran anda dengan bukti pembayaran yang sah dan valid. Terimakasih</p>
 											<br/>
-											Invoice Number : <a href="#"><?php echo $invoice ?></a>
+											Invoice Number : <a href="<?= base_url('/payment/invoices/'. $invoice); ?>"><?php echo $invoice ?></a>
 										</br/>
                     </td>
 
@@ -56,7 +56,7 @@
                         <table align="center" cellpadding="0" cellspacing="0" style="font-family:HelveticaNeue-Light,Arial,sans-serif;margin:0 auto;padding:0">
                           <tbody>
                            <tr>
-                            <td align="center" style="margin:0;text-align:center"><a href="<?php echo base_url() ?>" style="font-size:21px;line-height:22px;text-decoration:none;color:#ffffff;font-weight:bold;border-radius:2px;background-color:#0096d3;padding:14px 40px;display:block;letter-spacing:1.2px" target="_blank">Visit website!</a></td>
+                            <td align="center" style="margin:0;text-align:center"><a href="<?= base_url('/payment/invoices/'); ?>" style="font-size:21px;line-height:22px;text-decoration:none;color:#ffffff;font-weight:bold;border-radius:2px;background-color:#0096d3;padding:14px 40px;display:block;letter-spacing:1.2px" target="_blank">Visit website!</a></td>
                           </tr>
                         </tbody>
                       </table>

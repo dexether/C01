@@ -5,27 +5,27 @@ class Mod_ecommerce_payment extends Auth_area
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Shop_model', 'basicmodel');
-        $this->load->helper('form');
-        $this->load->helper('url');
-        date_default_timezone_set('Asia/Jakarta');
-        $this->load->library('nativesession');
-        $this->load->library('format');
+        // $this->load->model('Shop_model', 'basicmodel');
+        // $this->load->helper('form');
+        // $this->load->helper('url');
+        // date_default_timezone_set('Asia/Jakarta');
+        // // $this->load->library('nativesession');
+        // $this->load->library('format');
     }
     public function secureGetImage()
     {
-        $location = $this->input->get('callback');
-      // $file = file_get_contents('/home/theprogrammer/Pictures/a.jpg');
-      // header('Content-type: image/jpeg');
-      // echo $file;
-      // exit;
+    //     $location = $this->input->get('callback');
+    //   // $file = file_get_contents('/home/theprogrammer/Pictures/a.jpg');
+    //   // header('Content-type: image/jpeg');
+    //   // echo $file;
+    //   // exit;
 
-        $file = base64_decode($location);
-        echo $file;
-        ob_end_clean();
-        $imgData = getimagesize($file);
-        header('Content-type: image/jpeg');
-        readfile($file);
+    //     $file = base64_decode($location);
+    //     echo $file;
+    //     ob_end_clean();
+    //     $imgData = getimagesize($file);
+    //     header('Content-type: image/jpeg');
+    //     readfile($file);
     }
     public function userPaymentTransaction()
     {

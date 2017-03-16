@@ -15,7 +15,7 @@
                       <tbody>
                        <tr>
                          <td width="30"></td>
-                         <td align="left" valign="middle" style="padding:0;margin:0;font-size:0;line-height:0"><a href="http://www.<?php echo $this->config->item('APP_NAME'); ?>.com/" target="_blank"> <img alt="<?php echo $this->config->item('APP_NAME'); ?>" height="50px" src="<?php echo base_url() ?>assets/img/logo-w.png"/></a></td>
+                         <td align="left" valign="middle" style="padding:0;margin:0;font-size:0;line-height:0"><a href="http://www.<?php echo $this->config->item('APP_NAME'); ?>.com/" target="_blank"> <img alt="<?php echo $this->config->item('APP_NAME'); ?>" height="50px" src="<?php echo base_url() ?>assets/images/logo/logo-agenda-transparent.png"/></a></td>
                          <td width="30"></td>
                        </tr>
                      </tbody>

@@ -56,18 +56,21 @@ if ($error != 'error') {
 
 
             $query = "SELECT
-                invoice,
-                timeupdate,
-                unix_price,
-                cmd_alias,
-                master_invoice.upload_file,
-                master_invoice.cmd
+              order_number as invoice,
+              updated_at,
+              unix as unix_price,
+              (unix + amount) as amountFinal,
+              cmd_alias,
+              amount,
+              orders.proof AS upload_file,
+              orders.cmd,
+              updated_at as timeupdate
               FROM
-                master_invoice
-                LEFT JOIN master_cmd
-                  ON master_invoice.`cmd` = master_cmd.`cmd`
-              WHERE master_invoice.cmd = '$cmd'
-                AND timeupdate BETWEEN '$from'
+                orders 
+                LEFT JOIN master_cmd 
+                  ON orders.`cmd` = master_cmd.`cmd` 
+              WHERE orders.cmd = '$cmd'
+                AND updated_at BETWEEN '$from'
                 AND '$to' ";
             $result = $DB->execresultset($query);
             $payment_data = array();
@@ -75,7 +78,6 @@ if ($error != 'error') {
               # code...
               $payment_data[] = $value;
             }
-            // print_r($query);
             if(!empty($payment_data)):
               foreach ($payment_data as $key => $value) {
 
@@ -121,7 +123,7 @@ if ($error != 'error') {
                   </td>
                   <td>
                   '.
-                  $value['unix_price']
+                  $value['amountFinal']
                   .'
                   </td>
                   <td>
@@ -154,7 +156,7 @@ if ($error != 'error') {
               $error   = "success";
               $subject = "Success Approved";
               $msg     = "Email Approved was send";
-              $update = "UPDATE master_invoice SET cmd = '11', timeupdate = NOW()  WHERE invoice = '$invoice'";
+              $update = "UPDATE orders SET cmd = '11', updated_at = NOW()  WHERE order_number = '$invoice'";
               // tradeLogs($update);
               $DB->execonly($update);
 
@@ -163,18 +165,17 @@ if ($error != 'error') {
                 client_aecode.`name`,
                 client_aecode.`email`
               FROM
-                master_invoice,
-                master_cart,
+                orders,
                 client_aecode
-              WHERE master_invoice.`invoice` = master_cart.`invoice`
-              AND master_cart.`aecodeid` = client_aecode.`aecodeid`
-              AND master_invoice.`invoice` = '$invoice'";
+              WHERE orders.`aecodeid` = client_aecode.`aecodeid`
+              AND orders.`order_number` = '$invoice'";
               $result = $DB->execresultset($query);
               foreach ($result as $key => $value) {
                 # code...
                 $data = $value;
               }
               $body = file_get_contents($base_url.'/api/sendEmailAfterApprove/'.$invoice);
+              
               sendEmail($data['email'], "Pembayaran anda telah kami konfirmasi", $body, "mall_payment_do.php");
             }elseif($postmode == "reject"){
                 $invoice = @$_POST['invoice'];
@@ -182,27 +183,28 @@ if ($error != 'error') {
                 $error   = "success";
                 $subject = "Success Reject";
                 $msg     = "Email Rejection was send";
-                $update = "UPDATE master_invoice SET cmd = '9', timeupdate = NOW() WHERE invoice = '$invoice'";
+                $update = "UPDATE orders SET cmd = '9', updated_at = NOW() WHERE order_number = '$invoice'";
                 // tradeLogs($update);
                 $DB->execonly($update);
 
                 // Send Email
-                $query = "SELECT
+                $query = "SELECT 
                   client_aecode.`name`,
-                  client_aecode.`email`
+                  client_aecode.`email` 
                 FROM
-                  master_invoice,
-                  master_cart,
-                  client_aecode
-                WHERE master_invoice.`invoice` = master_cart.`invoice`
-                AND master_cart.`aecodeid` = client_aecode.`aecodeid`
-                AND master_invoice.`invoice` = '$invoice'";
+                  orders,
+                  orderdetails,
+                  client_aecode 
+                WHERE orders.`id` = orderdetails.`orders_id`
+                  AND orders.`aecodeid` = client_aecode.`aecodeid` 
+                AND orders.`order_number` = '$invoice'";
                 $result = $DB->execresultset($query);
                 foreach ($result as $key => $value) {
                   # code...
                   $data = $value;
                 }
                 $body = file_get_contents($base_url.'/api/sendEmailAfterReject/'.$invoice);
+                
                 sendEmail($data['email'], "Pembayaran anda tidak dapat kami konfirmasi", $body, "mall_payment_do.php");
               }elseif($postmode == "send"){
                 $invoice = @$_POST['invoice'];

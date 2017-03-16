@@ -2,7 +2,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Api extends CI_Controller
+class Api extends MY_Controller
 {
 
     public function __construct()
@@ -14,7 +14,7 @@ class Api extends CI_Controller
         $this->load->helper('url');
         date_default_timezone_set('Asia/Jakarta');
         // $this->load->library('session');
-        $this->load->library('nativesession');
+        // $this->load->library('nativesession');
         $this->load->library('format');
         // if (!$this->nativesession->getObject('username')) {
         //     # code...

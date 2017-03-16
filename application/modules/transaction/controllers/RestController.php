@@ -1,6 +1,6 @@
 <?php
 use Carbon\Carbon;
-class RestController extends AuthController
+class RestController extends MY_Controller
 {
     public function index()
     {
@@ -16,5 +16,16 @@ class RestController extends AuthController
         return $this->output
         ->set_content_type('application/json')
         ->set_output(json_encode($orders , JSON_PRETTY_PRINT));
+    }
+    public function getImages()
+    {
+        $image = base64_decode($this->input->get('callback'));
+        $imageExt = pathinfo($image);
+        header('Content-Type:image/jpg');
+        readfile($image);
+    }
+    public function sendEmailAfterReject($invoice){
+
+        $this->load->view('api/sendemailafterreject', array("invoice" => $invoice));
     }
 }

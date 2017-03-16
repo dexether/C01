@@ -5,7 +5,7 @@ use Carbon\Carbon;
 class Order extends Eloquent
 {
     // protected $table = 'Orders';
-    
+
     public function getExpiredAtAttribute($value)
     {
       return Carbon::parse($value)->formatLocalized('%A %d %B %Y Pukul %H:%M WIB');
@@ -32,5 +32,9 @@ class Order extends Eloquent
     public function client_aecode()
     {
       return $this->belongsTo('client_aecode' , 'aecodeid');
+    }
+    public function command()
+    {
+      return $this->belongsTo('cmd', 'cmd');
     }
 }

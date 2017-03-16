@@ -48,7 +48,8 @@ $route['help/how-to-buy'] = 'mod_ecommerce_page/how_to_buy_product';
 
 // $route['email/adminapprove/'] = 'api/sendEmailAfterApprove';
 $route['email/invoice/(:any)'] = 'mod_ecommerce_invoice/email/get_email_invoice/$1';
-$route['api/images'] = 'mod_ecommerce_payment/secureGetImage';
+$route['api/images'] = 'transaction/RestController/getImages';
+$route['api/sendEmailAfterReject/(:any)'] = 'transaction/RestController/sendEmailAfterReject/$1';
 
 /* End of API */
 $route['myproduct'] = 'mod_ecommerce_product/list_product';
@@ -89,10 +90,14 @@ $route['address/api/list/(:num)'] = 'address/AddressController/apiGetAddress/$1'
 $route['ongkir/post/api/(:num)'] = "Mod_ecommerce_ongkir/getPostApi/$1";
 $route['ongkir/api/(:num)/(:num)/(:any)'] = "Mod_ecommerce_ongkir/getOngkos/$1/$2/$3";
 
-
+// User Dashboard
 /** Payemetn **/
 $route['payment/purchases/new'] = "payment/PaymentController/index";
 $route['payment/purchases/(:any)/confirmation'] = "payment/PaymentController/confirmation/$1";
 $route['payment/invoices'] = 'transaction/transactionController/index';
-
+$route['account/bankaccount'] = 'account/AccountBankController/index';
+$route['account/bankaccount/new']['get'] = 'account/AccountBankController/createView';
+$route['account/bankaccount/new']['post'] = 'account/AccountBankController/createPost';
+$route['account/setting'] = 'account/AccountSettingController/index';
+$route['payment/invoices/userconfirmation']['post'] = 'transaction/transactionController/userConfirmation';
 $route['api/transaction'] = 'transaction/RestController/index';

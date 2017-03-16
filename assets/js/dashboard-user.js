@@ -17,4 +17,14 @@ $(function() {
         }
     });
 
+    var $input = $('.datepicker').pickadate({
+        format: "yyyy-mm-dd"
+    });
 });
+
+function showConfirmationModal(invoice) {
+    var $modal = $("#danger");
+    $('.ajax-invoice-number').html(invoice);
+    $('input[name=order_number]').val(invoice);
+    $modal.modal('toggle');
+}

@@ -13,6 +13,10 @@ class Template extends MY_Controller
     }
     public function get_user_dashboard($data = null)
     {
+        if(!isset($data['du_menu'])):
+          $data['du_menu'] = "du_dashbard";
+        endif;
+        $data['du_menu'];
         $data['content'] = "template/dashboard_user_v";
         $data['page'] = "category-page";
         $this->get_main($data);

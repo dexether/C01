@@ -4,7 +4,7 @@
         <div class="col-lg-2" id="user-sidebar">
             <nav class="nav-left" >
                 <ul class="nav-left-list">
-                    <li class="nav-left-item active"><a href="#">Ringkasan Akun</a></li>
+                    <li class="nav-left-item <?= ($du_menu === 'du_dashbard') ? 'active' : ''; ?>"><a href="#">Ringkasan Akun</a></li>
                     <li class="nav-left-item"><a href="#">Barang Dijual</a></li>
                     <li class="nav-left-item"><a href="#">Barang Tidak Dijual</a></li>
                     <li class="nav-left-item"><a href="#">Barang Draf</a></li>
@@ -13,14 +13,14 @@
                     <li class="nav-left-item"><a href="#">Barang Favorit</a></li>
                     <li class="nav-left-item"><a href="#">langganan</a></li>
                     <li class="nav-left-divider"></li>
-                    <li class="nav-left-item"><a href="#">Transaksi</a></li>
+                    <li class="nav-left-item <?= ($du_menu === 'du_transaction') ? 'active' : ''; ?>"><a href="/payment/invoices">Transaksi</a></li>
                     <li class="nav-left-item"><a href="#">Feedback</a></li>
                     <li class="nav-left-divider"></li>
                     <li class="nav-left-item"><a href="#">Pesan</a></li>
-                    <li class="nav-left-item"><a href="#">Pengaturan</a></li>
+                    <li class="nav-left-item <?= ($du_menu === 'du_config') ? 'active' : ''; ?>"><a href="/account/setting">Pengaturan</a></li>
                     <li></li>
                 </ul>
-            </nav>   
+            </nav>
         </div>
         <div class="col-lg-10">
             <div class="content-dashboard">
