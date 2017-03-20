@@ -101,3 +101,4 @@ $route['account/bankaccount/new']['post'] = 'account/AccountBankController/creat
 $route['account/setting'] = 'account/AccountSettingController/index';
 $route['payment/invoices/userconfirmation']['post'] = 'transaction/transactionController/userConfirmation';
 $route['api/transaction'] = 'transaction/RestController/index';
+$route['payment/selling'] = 'transaction/transactionSellingController/index';

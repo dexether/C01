@@ -250,7 +250,7 @@ if ($errno == 0) {
 						$body = $body . " ".$companys['companyurl']." <br>";
 
 						sendEmail($to, $subject, $body , 'ar_subadmin_link');
-						bonusLogs($data[$a], 'wdd', $uplinenya['bw'], 'you got Withdrawal Commision bonus From '.$acc_from.' amounted '.$uplinenya['bw'].'');
+						bonusLogs($data[$a], 'wdd', $uplinenya['bw'], 'you got Withdrawal Commision (3%) bonus From '.$acc_from.' amounted '.$uplinenya['bw'].'');
 					}
 					
 				}

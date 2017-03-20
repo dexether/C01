@@ -132,5 +132,6 @@ $autoload['model'] = array(
   'Order',
   'OrderDetails',
   'Client_aecode',
-  'Cmd'
+  'Cmd',
+  'Product'
 );

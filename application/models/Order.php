@@ -33,6 +33,10 @@ class Order extends Eloquent
     {
       return $this->belongsTo('client_aecode' , 'aecodeid');
     }
+    public function OrderDetails()
+    {
+      return $this->hasMany('OrderDetails' , 'orders_id');
+    }
     public function command()
     {
       return $this->belongsTo('cmd', 'cmd');
