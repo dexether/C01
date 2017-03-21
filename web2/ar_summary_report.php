@@ -27,12 +27,12 @@ $_SESSION['page'] = 'ar_summary_report';
 /*====================================
 =            Start Coding            =
 ====================================*/
-
-if(!$user->groupid == "9")
+if($user->groupid == "9")
 {
-    $filter_admin = "AND client_aecode.aecode = '$user->username'";
-}else{
     $filter_admin = "";
+    
+}else{
+    $filter_admin = "AND client_aecode.aecode = '$user->username'";
 }
 $query = "SELECT
 client_aecode.email,
