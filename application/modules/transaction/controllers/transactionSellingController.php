@@ -14,7 +14,7 @@ class transactionSellingController extends AuthController
 
             });
         })->get();
-        var_dump($orders);
+        // var_dump($orders);
         $data['du_menu'] = "du_transaction";
         $data['contentDashboard'] = "transaction/transaction_selling_v";
         $this->template->get_user_dashboard($data);

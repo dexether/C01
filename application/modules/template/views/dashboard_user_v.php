@@ -2,6 +2,7 @@
     <div class="container" id="columns">
       <div class="row">
         <div class="col-lg-2" id="user-sidebar">
+            <a href="/product/new/?from=user_dashboard" class="btn btn-block btn-primary btn-outline">Jual Barang</a>
             <nav class="nav-left" >
                 <ul class="nav-left-list">
                     <li class="nav-left-item <?= ($du_menu === 'du_dashbard') ? 'active' : ''; ?>"><a href="#">Ringkasan Akun</a></li>

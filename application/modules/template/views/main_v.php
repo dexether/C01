@@ -60,7 +60,7 @@
                     <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span><?= ($this->session->login) ? "Selamat Datang, " . $this->session->name : "My Account"; ?></span></a>
                     <ul class="dropdown-menu mega_dropdown" role="menu">
                       <?php if ($this->session->login): ?>
-                        <li><a href="/account/invoices">My Dashboard</a></li>
+                        <li><a href="/payment/invoices">My Dashboard</a></li>
                         <li><a href="/auth/logout">Logout</a></li>
                       <?php else: ?>
                         <li><a href="/auth">Login</a></li>
@@ -164,7 +164,7 @@
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
-                                    <li class="active"><a href="#">Partnertship</a></li>
+                                    <li class=""><a href="#">Partnertship</a></li>
                                     <li class=""><a href="#">Became Seller</a></li>
                                     <li class=""><a href="#">Affiliate</a></li>
                                     <li class=""><a href="#">Workshop</a></li>
@@ -173,6 +173,7 @@
                                       <li class=""><a href="/auth">Login</a></li>
                                     <?php else: ?>
                                       <li class=""><a href="/auth/logout">Logout</a></li>
+                                      <li class=""><a href="/product/new/?from=home_nav">Jual Barang</a></li>
                                     <?php endif; ?>
 
                                 </ul>
@@ -317,6 +318,7 @@
 <a href="#" class="scroll_top" title="Scroll to Top" style="display: inline;">Scroll</a>
 <!-- Script-->
 <script type="text/javascript" src="/assets/lib/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/assets/lib/select2/js/select2.min.js"></script>
 <script type="text/javascript" src="/assets/lib/jquery.bxslider/jquery.bxslider.min.js"></script>

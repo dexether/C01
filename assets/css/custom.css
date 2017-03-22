@@ -312,63 +312,137 @@ h1.transaction {
     margin-top: 5px;
     font-weight: bold;
 }
+
 .modal-header-success {
-    color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
+    color: #fff;
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee;
     background-color: #5cb85c;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
-     border-top-left-radius: 5px;
-     border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
+
 .modal-header-warning {
-	color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
+    color: #fff;
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee;
     background-color: #f0ad4e;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
-     border-top-left-radius: 5px;
-     border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
+
 .modal-header-danger {
-	color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
+    color: #fff;
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee;
     background-color: #d9534f;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
-     border-top-left-radius: 5px;
-     border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
+
 .modal-header-info {
-    color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
+    color: #fff;
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee;
     background-color: #5bc0de;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
-     border-top-left-radius: 5px;
-     border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
+
 .modal-header-primary {
-	color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
+    color: #fff;
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee;
     background-color: #428bca;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
-     border-top-left-radius: 5px;
-     border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: inherit;
+    transition: all .5s;
+}
+
+.btn-primary.btn-outline {
+    color: #428bca;
+}
+
+.btn-success.btn-outline {
+    color: #5cb85c;
+}
+
+.btn-info.btn-outline {
+    color: #5bc0de;
+}
+
+.btn-warning.btn-outline {
+    color: #f0ad4e;
+}
+
+.btn-danger.btn-outline {
+    color: #d9534f;
+}
+
+.btn-primary.btn-outline:hover,
+.btn-success.btn-outline:hover,
+.btn-info.btn-outline:hover,
+.btn-warning.btn-outline:hover,
+.btn-danger.btn-outline:hover {
+    color: #fff;
+}
+
+form>legend {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: #bfc4cc;
+}
+
+.vertical-alignment-helper {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width: inherit;
+    height: inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+}
+
+.img-selected-active {
+    box-shadow: 0px 0px 20px 0px rgba(81, 203, 238, 1);
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid rgba(81, 203, 238, 1);
 }

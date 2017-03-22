@@ -57,7 +57,7 @@ $route['myproduct/(:any)'] = 'mod_ecommerce_product/list_product/$1';
 
 $route['product/delete/(:any)'] = 'mod_ecommerce_product/product_edit/deleteProduct/$1';
 /* Create Product */
-$route['product/new'] = 'mod_ecommerce_product/sell_product';
+// $route['product/new'] = 'mod_ecommerce_product/sell_product';
 $route['product/upload'] = 'mod_ecommerce_product/mod_ecommerce_product_upload/secureSaveUploadedImages';
 $route['product/success/(:any)'] = 'mod_ecommerce_product/product_add_success/$1';
 $route['product/edit/(:any)'] = 'mod_ecommerce_product/product_edit/editProductByUsers/$1';
@@ -90,6 +90,9 @@ $route['address/api/list/(:num)'] = 'address/AddressController/apiGetAddress/$1'
 $route['ongkir/post/api/(:num)'] = "Mod_ecommerce_ongkir/getPostApi/$1";
 $route['ongkir/api/(:num)/(:num)/(:any)'] = "Mod_ecommerce_ongkir/getOngkos/$1/$2/$3";
 
+
+$route['product/new']['get'] = 'product/ProductUploadController/index';
+$route['product/new']['post'] = 'product/ProductUploadController/postUpload';
 // User Dashboard
 /** Payemetn **/
 $route['payment/purchases/new'] = "payment/PaymentController/index";
@@ -102,3 +105,7 @@ $route['account/setting'] = 'account/AccountSettingController/index';
 $route['payment/invoices/userconfirmation']['post'] = 'transaction/transactionController/userConfirmation';
 $route['api/transaction'] = 'transaction/RestController/index';
 $route['payment/selling'] = 'transaction/transactionSellingController/index';
+
+$route['product/images/upload'] = 'product/ProductImagesUploadController';
+
+$route['api/product/images/(:num)']['get'] = 'product/ProductImagesUploadController/apiImagesContent/$1';
