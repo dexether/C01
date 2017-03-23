@@ -11,7 +11,7 @@ class ProductImagesUploadController extends AuthController
     public function index()
     {
         $config['upload_path']          = 'assets/img/product/';
-        $config['allowed_types']        = 'gif|jpg|png';
+        $config["allowed_types"]        = "*";
         $config['max_size']             = 1000;
 
         $this->load->library('upload', $config);
@@ -52,5 +52,16 @@ class ProductImagesUploadController extends AuthController
         $images = Product::find($product_id);
         $images = $images->ProductImages; 
         $this->load->view('ApiProductImagesView', ['images' => $images]);
+    }
+    public function setPrimaryImages()
+    {
+        $images_id = $this->input->post('images_id');
+        $product_id = $this->input->post('product_id');
+        
+        $img = ProductImages::find($images_id);
+        $img->image_type = "primary";
+        $img->save();
+        $this->session->set_flashdata('success', 'Sukses menambahkan Barang ke Akun anda');
+        return redirect('/account/myproduct/');
     }
 }

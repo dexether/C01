@@ -76,7 +76,7 @@ add_js('/assets/lib/fancyBox/jquery.fancybox.js');
                              </ul>
                              <div class="tab-container">
                                  <div id="product-detail" class="tab-panel active">
-                                     <?php echo $product->prod_desc_long; ?>
+                                     <?php echo nl2br($product->prod_desc_long); ?>
                                  </div>
                                  <div id="information" class="tab-panel">
                                      <table class="table table-bordered">

@@ -103,9 +103,12 @@ $route['account/bankaccount/new']['get'] = 'account/AccountBankController/create
 $route['account/bankaccount/new']['post'] = 'account/AccountBankController/createPost';
 $route['account/setting'] = 'account/AccountSettingController/index';
 $route['payment/invoices/userconfirmation']['post'] = 'transaction/transactionController/userConfirmation';
-$route['api/transaction'] = 'transaction/RestController/index';
 $route['payment/selling'] = 'transaction/transactionSellingController/index';
 
 $route['product/images/upload'] = 'product/ProductImagesUploadController';
+$route['product/images/setprimary'] = 'product/ProductImagesUploadController/setPrimaryImages'; 
+
 
 $route['api/product/images/(:num)']['get'] = 'product/ProductImagesUploadController/apiImagesContent/$1';
+$route['api/product/name/rule'] = 'product/ProductRESTController/checkName';
+$route['api/transaction'] = 'transaction/RestController/index';

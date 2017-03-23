@@ -1,10 +1,11 @@
+var $productid;
+
 Dropzone.autoDiscover = false;
-// $("#dropzoneupload").dropzone({ url: "/file/post" });
 var myDropzone = new Dropzone("div#dropzoneupload", {
     url: "/product/images/upload/?from=new_product",
     paramName: "file",
     maxFilesize: 1,
-    acceptedFiles: "image/*",
+    acceptedFiles: "image/png",
     autoProcessQueue: false,
     addRemoveLinks: true,
     uploadMultiple: true,
@@ -15,7 +16,6 @@ myDropzone.on('success', function(file, res) {
 });
 
 $(document).ready(function() {
-    console.log('start');
     $('#productUploadForm').formValidation({
         framework: 'bootstrap',
         icon: {
@@ -25,18 +25,25 @@ $(document).ready(function() {
         },
         fields: {
             product_name: {
+                threshold: 3,
                 validators: {
                     notEmpty: {
                         message: 'Nama barang harus diisi'
                     },
                     stringLength: {
                         min: 6,
-                        max: 30,
-                        message: 'Nama barang minimal 6 huruf'
+                        max: 60,
+                        message: 'Nama barang minimal 6 huruf maksimal 60 huruf'
                     },
                     regexp: {
                         regexp: /^[a-zA-Z0-9_\.\s]+$/,
-                        message: 'The username can only consist of alphabetical, number, dot and underscore'
+                        message: 'The Nama barang can only consist of alphabetical, number, dot and underscore'
+                    },
+                    remote: {
+                        message: 'Nama Produk Sudah diambil',
+                        url: '/api/product/name/rule',
+                        type: 'GET',
+                        delay: 500 // Send Ajax request every 2 seconds
                     }
                 }
             },
@@ -70,18 +77,16 @@ $(document).ready(function() {
             }
         }
     }).on('success.form.fv', function(e) {
-        // Prevent form submission
         e.preventDefault();
 
-        // Some instances you can use are
         var $form = $(e.target), // The form instance
             fv = $(e.target).data('formValidation'); // FormValidation instance
-        // console.log($form.serializeArray())
         $.ajax({
             url: "/product/new",
             data: $form.serializeArray(),
             type: "POST",
         }).done(function(response) {
+            $productid = response.id;
             uploadMultipleImages(response);
         });
 
@@ -100,17 +105,13 @@ function callModalAndChooseImages(response) {
         keyboard: false
     });
     $('#myModal').on('shown.bs.modal', function(e) {
-        // console.log(product_id);
-        // console.log(response);
         var $url = '/api/product/images/' + product_id;
         $('.modal-body').load($url, function() {
-            console.log('Modal loaded ..');
             $('.img-selected').click(function(e) {
                 e.preventDefault();
                 $('#eachImagesUploaded').parent().find('img').removeClass('img-selected-active');
                 $(this).addClass('img-selected-active');
                 selectedImages = $(this).data('id');
-                console.log(selectedImages);
             });
         });
     })
@@ -118,23 +119,13 @@ function callModalAndChooseImages(response) {
 }
 
 function setPrimaryImages() {
-    // console.log(selectedImages)
-    // $(this).button('loading');
-    var $this = $(this);
-    $this.button('loading');
-    // $.ajax({
-    //     url: '/product/images/setprimary',
-    //     type: 'POST',
-    //     dataType: 'JSON',
-    //     data: {
-    //         '_token': $.cookie('token'),
-    //         'images_id': selectedImages
-    //     }
-    // }).done(function(response) {
-    //     console.log(response)
-    // }).error(function() {
+    var $button = $('#btn-jual');
+    $('input[name=images_id]').val(selectedImages);
+    $('input[name=product_id]').val($productid);
+    var $form = $('#form-ajax');
+    $button.button('loading');
 
-    // });
+    $form.submit();
 }
 
 function uploadMultipleImages(response) {
