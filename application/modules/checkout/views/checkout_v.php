@@ -74,7 +74,7 @@ add_js(base_url('assets/js/checkout.js'));
                             <div class="checkout-product-list" v-for="row in shop">
                               <div class="row">
                                 <div class="col-sm-3">
-                                  <img :src="'/' + row.img" />
+                                  <img :src=" row.img" />
                                 </div>
                                 <div class="col-sm-9">
                                   {{ row.name }}

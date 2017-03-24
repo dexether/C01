@@ -143,7 +143,7 @@
                             <div class="product-container">
                                 <div class="left-block">
                                     <a href="<?php echo base_url('/c/'.$product->cat_name . '/' . $product->prod_name)  ?>">
-                                        <img class="img-responsive" style="height : 247px;" alt="product" src="<?= base_url($product->prod_images) ?>" />
+                                        <img class="img-responsive" style="height : 247px;" alt="product" src="<?= modules::run('product/ProductRESTController/getPrimaryImages', $product->id, true) ?>" />
                                     </a>
                                     <div class="quick-view">
                                       <a title="Add to my wishlist" class="heart" href="#"></a>

@@ -38,7 +38,7 @@
                         <tbody>
                             <tr v-for="item in shop">
                                 <td class="cart_product">
-                                    <a href="#"><img v-bind:src="'/' + item.img" alt="Product"></a>
+                                    <a href="#"><img v-bind:src="item.img" alt="Product"></a>
                                 </td>
                                 <td class="cart_description">
                                     <p class="product-name"><a href="#"> {{ item.name}} </a></p>

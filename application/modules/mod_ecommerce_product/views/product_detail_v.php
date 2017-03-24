@@ -15,7 +15,7 @@ add_js('/assets/lib/fancyBox/jquery.fancybox.js');
                                  <!-- product-imge-->
                                  <div class="product-image">
                                      <div class="product-full">
-                                         <img id="product-zoom" src='<?= base_url($product->prod_images) ?>' data-zoom-image="<?= base_url($product->prod_images) ?>"/>
+                                         <img id="product-zoom" src='<?= modules::run('product/ProductRESTController/getPrimaryImages', $product->id, false) ?>' data-zoom-image="<?= modules::run('product/ProductRESTController/getPrimaryImages', $product->id , false) ?>"/>
                                      </div>
                                  </div>
                                  <!-- product-imge-->
@@ -28,13 +28,10 @@ add_js('/assets/lib/fancyBox/jquery.fancybox.js');
                                      </div>
                                      <div class="comments-advices">
                                          <a href="#">Berdasarkan 3 Review</a>
-                                         <!-- <a href="#"><i class="fa fa-pencil"></i> write a review</a> -->
                                      </div>
                                  </div>
                                  <div class="product-price-group">
                                      <span class="price">Rp. <?= number_format($product->prod_price) ?></span>
-                                     <!-- <span class="old-price">$52.00</span>
-                                     <span class="discount">-30%</span> -->
                                  </div>
                                  <div class="info-orther">
                                      <p>Kode barang: #<?= $product->id; ?></p>
@@ -168,7 +165,7 @@ add_js('/assets/lib/fancyBox/jquery.fancybox.js');
                         <li>
                            <div class="products-block-left">
                              <a href="<?= base_url('c/' . $value->cat_name . '/' . $value->prod_name) ?>">
-                               <img src="<?= base_url($value->prod_images);?>" alt="<?= $value->prod_alias ?>">
+                               <img src="<?= modules::run('product/ProductRESTController/getPrimaryImages', $value->id, true) ?>">
                              </a>
                            </div>
                            <div class="products-block-right">

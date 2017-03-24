@@ -112,3 +112,4 @@ $route['product/images/setprimary'] = 'product/ProductImagesUploadController/set
 $route['api/product/images/(:num)']['get'] = 'product/ProductImagesUploadController/apiImagesContent/$1';
 $route['api/product/name/rule'] = 'product/ProductRESTController/checkName';
 $route['api/transaction'] = 'transaction/RestController/index';
+$route['api/product/images/primary/(:num)'] = 'product/ProductRESTController/getPrimaryImages/$1';

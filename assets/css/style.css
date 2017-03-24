@@ -3891,6 +3891,7 @@ span.notify-right {
     border: 1px solid #eaeaea;
     overflow: hidden;
     padding-bottom: 10px;
+    min-height: 350px;
 }
 
 .product-list .info-orther {

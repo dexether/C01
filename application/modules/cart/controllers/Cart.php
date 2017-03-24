@@ -24,7 +24,7 @@ class Cart extends MY_Controller {
         'rowid' => $key,
         'name' => $value['name'],
         'url' => $value['name'],
-        'img' => $value['img'],
+        'img' => modules::run('product/ProductRESTController/getPrimaryImages', $value['id'], true),
         'city_id' => $value['city_id'],
         'weight' => $value['weight'],
         'price' => (float) $value['price'],

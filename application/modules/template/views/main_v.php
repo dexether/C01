@@ -108,7 +108,7 @@
                                     <div class="p-left">
                                         <a href="/" v-on:click.prevent="removeFromCart(item.rowid)" class="remove_link"></a>
                                         <a href="#">
-                                        <img class="img-responsive" v-bind:src="'/' + item.img" />
+                                        <img class="img-responsive" v-bind:src="item.img" />
                                         </a>
                                     </div>
                                     <div class="p-right">
