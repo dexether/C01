@@ -41,7 +41,7 @@ class Mod_ecommerce_ongkir extends MY_Controller
     public function getPostApi($city_id , $courier = "jne")
     {
       $hasil_akhir = 0;
-      $data = json_decode($GLOBALS['HTTP_RAW_POST_DATA']);
+      $data = json_decode(file_get_contents('php://input'));
       foreach($data as $key => $value):
         $destiny = $this->getOngkos($value->city_id, $city_id, 1.00);
         foreach($destiny as $row):
