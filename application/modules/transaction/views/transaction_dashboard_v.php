@@ -101,7 +101,7 @@ add_js(base_url('assets/lib/pickerdate/compressed/translations/id_ID.js'));
                             </div>
                             <input type="hidden" name="order_number" />
                         </div>
-                        <?php if (!$bankAccounts->all()): ?>
+                        <?php if ($bankAccounts->all()): ?>
                         <div class="form-group">
                             <label for="payment_date" class="control-label">Tanggal Pembayaran</label>
                             <input type="text" name="payment_date" class="form-control datepicker" value="">
@@ -141,7 +141,7 @@ add_js(base_url('assets/lib/pickerdate/compressed/translations/id_ID.js'));
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                        <?php if (!$bankAccounts->all()): ?>
+                        <?php if ($bankAccounts->all()): ?>
                             <button type="submit" class="btn btn-success pull-right" >Konfirmasi</button>
                         <?php else: ?>
                             <a href="/account/bankaccount" class="btn btn-success">Lengkapi Data</a>

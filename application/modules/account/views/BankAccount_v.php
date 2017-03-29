@@ -32,7 +32,7 @@
                         <td><?= $row->bank->bank_name ?></td>
                       </tr>
                     <?php endforeach; ?>
-                    <?php if (!$BankAccounts->all()): ?>
+                    <?php if (!($BankAccounts->all())): ?>
                       <tr>
                         <td colspan="5" class="text-center">Anda belum mendaftarkan rekening Bank</td>
                       </tr>
