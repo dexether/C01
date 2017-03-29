@@ -1,6 +1,6 @@
 <?php
 
-class ProductRESTController extends AuthController
+class ProductRESTController extends MY_Controller
 {
     public function __construct()
     {
