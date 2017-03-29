@@ -572,7 +572,7 @@ add_js(base_url('assets/js/home.js'));
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
               <div class="panel price panel-red">
                 <div class="panel-heading text-center">
-                   <img src="/assets/images/logo/octafx.jpg"/>
+                   <img src="/assets/images/logo/octafxnew.png"/>
                 </div>
                 <ul class="list-group list-group-flush text-center">
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $100</li>
