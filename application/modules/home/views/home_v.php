@@ -503,16 +503,16 @@ add_js(base_url('assets/js/home.js'));
                 <ul class="list-group list-group-flush text-center">
                   <li class="list-group-item"><i class="icon-ok text-danger"></i>Minimum Deposit $100</li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.01 Lot  </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start form 0.6 pips</li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> No Swap Fee </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Market Execution</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start from 0.1 pips (cTrader)</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Islamic Account </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Market Execution </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:500</li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade  </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Commission $0/Lot  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Commission $0/Lot & $9/Lot (cTrader)  </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Floating Rate </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Local </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> 4 Trading Platform (MT4, MT5, CTrader, FxPro Markets) </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> PAMM Account </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Lokal </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> 4 Trading Platform (MT4, MT5, cTrader, FxPro Markets) </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Autochartist & Trading Central </li>
                 </ul>
                 <div class="panel-footer">
                   <a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://fxp-premium.com">Buka Akun !</a>
@@ -522,7 +522,79 @@ add_js(base_url('assets/js/home.js'));
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
               <div class="panel price panel-red">
                 <div class="panel-heading text-center">
-                   <img src="/assets/images/logo/comming-soon-broker.png"/>
+                   <img src="/assets/images/logo/sagafx.png"/>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $100 </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.1 Lot </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start from 2 pips </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Fix Rate $1 = Rp 10.000</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Commision $3/0.1 Lot </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Lokal </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                </ul>
+                <div class="panel-footer">
+                    <a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://sagafx.com/auth/create/SagaPremium">Buka Akun !</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+              <div class="panel price panel-red">
+                <div class="panel-heading text-center">
+                   <img src="/assets/images/logo/xm.png"/>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $5 </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.01 Lot </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start from 0 pips</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Islamic Account </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:888 </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Commission start from $0</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Trading Platform (MT4, MT5, XM Webtrader) </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                </ul>
+                <div class="panel-footer">
+                    <a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://clicks.pipaffiliates.com/c?c=222516&l=id&p=0">Buka Akun !</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+              <div class="panel price panel-red">
+                <div class="panel-heading text-center">
+                   <img src="/assets/images/logo/octafx.jpg"/>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $100</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.01 Lot </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start from 0 pips</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Islamic Account </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Market Execution </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:500 </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Commission $0/Lot</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Trading Platform (MT4, MT5, cTrader) </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                </ul>
+                <div class="panel-footer">
+                    <a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://www.octafx.com/?refid=848342">Buka Akun !</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+              <div class="panel price panel-red">
+                <div class="panel-heading text-center">
+                   <img src="/assets/images/logo/comming-soon-broker-NEW.png"/>
                 </div>
                 <ul class="list-group list-group-flush text-center">
                   <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
@@ -535,7 +607,6 @@ add_js(base_url('assets/js/home.js'));
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-
                 </ul>
                 <div class="panel-footer">
 
@@ -545,7 +616,7 @@ add_js(base_url('assets/js/home.js'));
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
               <div class="panel price panel-red">
                 <div class="panel-heading text-center">
-                   <img src="/assets/images/logo/comming-soon-broker.png"/>
+                   <img src="/assets/images/logo/comming-soon-broker-NEW.png"/>
                 </div>
                 <ul class="list-group list-group-flush text-center">
                   <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
