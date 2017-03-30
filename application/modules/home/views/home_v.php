@@ -356,13 +356,9 @@ add_js(base_url('assets/js/home.js'));
             Joined Brokers
         </h2>
         <div class="joined-brokers" style="margin-top : 10px;">
-            <!-- <div><a href="" target="_blank"></a></div>
-            <div><a href="http://Mtradingfx.com" target="_blank"></a></div>
-            <div><a href="http://hfxpremium.com" target="_blank"></a></div>
-            <div><a href="http://fullertrade.com" target="_blank"></a></div> -->
-            <div class="row">
+          <div class="row">
         			<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-      					<div class="panel price panel-red">
+      					<div class="panel price panel-red same">
       						<div class="panel-heading text-center">
       						<img src="/assets/images/logo/imperium200x60.png"/>
       						</div>
@@ -389,7 +385,7 @@ add_js(base_url('assets/js/home.js'));
       					</div>
     				  </div>
               <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-      					<div class="panel price panel-red">
+      					<div class="panel price panel-red same">
       						<div class="panel-heading text-center">
       						<img src="/assets/images/logo/fbs.png"/>
       						</div>
@@ -416,7 +412,7 @@ add_js(base_url('assets/js/home.js'));
       					</div>
     				  </div>
               <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-      					<div class="panel price panel-red">
+      					<div class="panel price panel-red same">
       						<div class="panel-heading text-center">
       						   <img src="/assets/images/logo/mtrading.png"/>
       						</div>
@@ -525,12 +521,12 @@ add_js(base_url('assets/js/home.js'));
                    <img src="/assets/images/logo/sagafx.png"/>
                 </div>
                 <ul class="list-group list-group-flush text-center">
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $100 </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $200 </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.1 Lot </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start from 2 pips </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start from 3 pips </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Fix Rate $1 = Rp 10.000</li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Commision $3/0.1 Lot </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Commision $2/0,1 lot </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Lokal </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
