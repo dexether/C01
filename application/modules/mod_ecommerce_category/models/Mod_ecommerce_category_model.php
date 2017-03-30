@@ -17,7 +17,8 @@ class Mod_ecommerce_category_model extends CI_Model
     {
       $this->db->select('prod_name, master_product.id, prod_price , prod_desc , prod_images ,cat_name , prod_alias')->from('master_product')
       ->join('master_cat', 'master_product.id_cat = master_cat.id')
-      ->where('master_cat.cat_name' , $category_name);
+      ->where('master_cat.cat_name' , $category_name)
+      ->order_by('master_product.created_at', 'DESC');
       $this->db->limit($limit);
       $this->db->offset($offset);
       $data = $this->db->get();

@@ -25,7 +25,6 @@ class Mod_authentication extends MY_Controller
         if ($this->form_validation->run($this) == false) {
             $this->index();
         } else {
-          
             redirect(($redirect != NULL) ? $redirect : "/");
 
         }
