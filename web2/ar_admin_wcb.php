@@ -30,152 +30,98 @@ foreach($result as $rows) {
 if($postmode == "doit") {
 	storeToCronLogs('wcb');
 	$query = "SELECT
-	mlm_wcb.`account`,
-	mlm_wcb.`id`,
-	mlm_wcb.`registered`,
-	mlm_bonus_settings.`wcb`
+						  accountname
+						FROM
+						  client_accounts
+						WHERE client_accounts.`suspend` = '0'";
+	$hasil = $DB->execresultset($query);
+	foreach ($hasil as $key => $value) {
+		$query = "SELECT * FROM mlm WHERE mlm.`Upline` = '$value[accountname]' AND
+		mlm.companyconfirm = '2' AND
+							  (SELECT
+							    client_accounts.`suspend`
+							  FROM
+							    client_accounts
+							  WHERE accountname = mlm.`ACCNO`) = '0'
+							  AND mlm.`ACCNO` NOT IN
+							  (SELECT
+							    mlm_wcb.`account_downline`
+							  FROM
+							    mlm_wcb)";
+		$resultDownline = $DB->execresultset($query);
+		foreach ($resultDownline as $keyDownline => $valueDownlien) {
+			$query = "INSERT INTO mlm_wcb SET account = '$valueDownlien[Upline]', account_downline = '$valueDownlien[ACCNO]', is_pay = FALSE, created_at = NOW()";
+			$DB->execonly($query);
+		}
+	}
+
+	$query = "SELECT
+	  mlm_wcb.*,
+	  mlm.`group_play`,
+		mlm_bonus_settings.amount,
+		mlm_bonus_settings.wcb
 	FROM
-	mlm_wcb,
-	mlm,
-	client_accounts,
-	mlm_bonus_settings,
-	mlm_payment
-	WHERE mlm_wcb.`payment` = 0
-	AND mlm.ACCNO = client_accounts.accountname
-	AND mlm_wcb.`account` = mlm.`ACCNO`
-	AND client_accounts.suspend = false
-	AND mlm.`group_play` = mlm_bonus_settings.`group_play`
-	AND mlm.`ACCNO` = mlm_payment.`Account`
-	AND mlm_payment.`Status` = '2'
-	AND LENGTH(TRIM(BOTH ';' FROM registered)) - LENGTH(
-		REPLACE(
-			TRIM(BOTH ';' FROM registered),
-			';',
-			''
-			)
-	) + 1 = 4";
-	$result = $DB->execresultset($query);
+	  mlm_wcb
+	  LEFT JOIN mlm ON mlm.`ACCNO` = mlm_wcb.`account_downline`
+		LEFT JOIN mlm_bonus_settings ON mlm_bonus_settings.group_play = mlm.group_play
+	WHERE mlm_wcb.`is_pay` = FALSE";
+	$hasil = $DB->execresultset($query);
+	foreach ($hasil as $key => $value) {
+		$results[$value['account']][$value['group_play']][] = $value;
+	}
 
-
-	// Check IF PV
-	// foreach($result as $a){
-	// 	$downline1 = explode(';', $a['registered']);
-	// 	foreach($)
-	// }
-
-	foreach ($result as $key => $rows) {
-		$aidi = $rows['id'];
-		$downline1 = explode(';', $rows['registered']);
-		$reg = $rows['registered'];
-		$account = $rows['account'];
-		$wcb = $rows['wcb'];
-		$pecah = str_replace(';', ',', $reg);
-
-			$query = "SELECT
-			mlm.`ACCNO`,
-			mlm_bonus_settings.`description`,
-			mlm_bonus_settings.`amount`,
-			SUM(mlm_bonus_settings.`amount`) AS total
-			FROM
-			mlm,
-			mlm_bonus_settings
-			WHERE mlm.`ACCNO` IN ($pecah)
-			AND mlm.`group_play` = mlm_bonus_settings.`group_play`";
-			$result_total = $DB->execresultset($query);
-
-			$total_bonus = (double) $result_total[0]['total'] * ($wcb / 100);
-			/*var_dump($total_bonus);
-			var_dump($result_total[0]['total']);*/
-			// Store to wallets
-			if ($goldsaving_status == true) {
-				storeToWallet($account, $total_bonus);
-				// Store To Logs
-				bonusLogs($account, 'wcb', $total_bonus, 'This bonus split 70% Into E-Wallet and 30% into Gold Saving account');
-				// Get Indentitas
-				$iden = getIdentitas($account);
-				// Send Email
-				$subject = "Congratulations, you have got a bonus";
-				$to = $iden['email'];
-				$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
-				$body = $body . "Dear ".$iden['name'].",<br>";
-				$body = $body . " <br>";
-				$body = $body . "Congratulations, you have earned <b>WEALTH CLUB BONUS (W.C.B)</b> bonus of USD ".number_format($total_bonus, 2)." <br>";
-				$body = $body . "This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) <br>";
-				$body = $body . " <br>";
-				$body = $body . "You may login to your APR program account via our website at http://www.apexregent.com <br>";
-				$body = $body . " <br>";
-				$body = $body . " <br>";
-				$body = $body . "Thank you," . "<br>";
-				$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
-				$body = $body . $companys['long_address'];
-				$body = $body . " Email : ".$companys['email']." <br>";
-				$body = $body . " ".$companys['companyurl']." <br>";
-
-				sendEmail($to, $subject, $body , 'ar_admin_wcb');
-				// Update status
-				$query = "UPDATE mlm_wcb SET payment = '2', amount = '$total_bonus', PayDate = NOW() WHERE id = '$aidi'";
-				$DB->execonly($query);
-			}else{
-				storeToWallet($account, $total_bonus);
-				// Store To Logs
-				bonusLogs($account, 'wcb', $total_bonus, '<b>WEALTH CLUB BONUS (W.C.B)</b> bonus of USD '.number_format($total_bonus, 2));
-				// Get Indentitas
-				$iden = getIdentitas($account);
-				// Send Email
-				$subject = "Congratulations, you have got a bonus";
-				$to = $iden['email'];
-				$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
-				$body = $body . "Dear ".$iden['name'].",<br>";
-				$body = $body . " <br>";
-				$body = $body . "Congratulations, you have earned <b>WEALTH CLUB BONUS (W.C.B)</b> bonus of USD ".number_format($total_bonus, 2)." <br>";
-				$body = $body . " <br>";
-				$body = $body . "You may login to your APR program account via our website at http://www.apexregent.com <br>";
-				$body = $body . " <br>";
-				$body = $body . " <br>";
-				$body = $body . "Thank you," . "<br>";
-				$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
-				$body = $body . $companys['long_address'];
-				$body = $body . " Email : ".$companys['email']." <br>";
-				$body = $body . " ".$companys['companyurl']." <br>";
-				sendEmail($to, $subject, $body , 'ar_admin_wcb');
-				// Update status
-				$query = "UPDATE mlm_wcb SET payment = '2', amount = '$total_bonus', PayDate = NOW() WHERE id = '$aidi'";
-				$DB->execonly($query);
-			}
-
+	foreach ($results as $key2 => $row) {
+		foreach ($row as $key3 => $row3) {
+			if(count($row3) >= 3)
+				runWCB($row3);
+		}
 	}
 }
 
-function cekwcb($upline, $account) {
+function runWCB($row){
 	global $DB;
-	$query = "SELECT
-	mlm_wcb.`registered`
-	FROM
-	mlm_wcb
-	WHERE mlm_wcb.`account` = '$upline'
-	AND mlm_wcb.`payment` = 0
-	AND LENGTH(TRIM(BOTH ';' FROM regis
-		tered)) - LENGTH(
-REPLACE(
-	TRIM(BOTH ';' FROM registered),
-	';',
-	''
-	)
-) + 1 < 4";
-$result = $DB->execresultset($query);
-if (count($result) >= 1) {
-	$delimiter = $result[0]['registered'];
-	$pecah = explode(";", $delimiter);
-	array_push($pecah, $account);
-	$hasil = implode(';', $pecah);
-	$query = "UPDATE mlm_wcb SET registered = '$hasil' WHERE account = '$upline' ";
-	$DB->execonly($query);
-}else{
-	$query = "INSERT INTO mlm_wcb SET account = '$upline', registered = '0;$account', payment = '0'";
-	$DB->execonly($query);
-}
-}
+	$totalwcb = 0;
+	for ($i=0; $i < 3; $i++) {
+		$data = $row[$i];
+		$account = $data['account'];
+		$balance = getBalance($data['account']);
+		var_dump($data);
+		$totalwcb = $totalwcb + $data['amount'];
+		$pengali = $data['wcb'];
 
+		$queryUpdate = "UPDATE mlm_wcb SET is_pay = TRUE, pay_at = NOW() WHERE id = '$data[id]'";
+		$DB->execonly($queryUpdate);
+	}
+	$bonusWCB = $totalwcb * $pengali / 100;
+	bonusLogs($account, 'wcb', $bonusWCB, 'WEALTH CLUB BONUS (W.C.B) bonus of USD '.number_format($bonusWCB, 2));
+	storeToWallet($account, $bonusWCB);
+	WCBEmailSend($account, $bonusWCB);
+}
+function WCBEmailSend($account, $total_bonus){
+	global $DB;
+	$query = "SELECT * FROM usercompany LIMIT 1";
+	$hasil = $DB->execresultset($query);
+	foreach ($hasil as $key => $value) {
+		$companys = $value;
+	}
+	$iden = getIdentitas($account);
+	$subject = "Congratulations, you have got a bonus";
+	$to = $iden['email'];
+	$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
+	$body = $body . "Dear ".$iden['name'].",<br>";
+	$body = $body . " <br>";
+	$body = $body . "Congratulations, you have earned <b>WEALTH CLUB BONUS (W.C.B)</b> bonus of USD ".number_format($total_bonus, 2)." <br>";
+	$body = $body . " <br>";
+	$body = $body . "You may login to your APR program account via our website at http://www.apexregent.com <br>";
+	$body = $body . " <br>";
+	$body = $body . " <br>";
+	$body = $body . "Thank you," . "<br>";
+	$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+	$body = $body . $companys['long_address'];
+	$body = $body . " Email : ".$companys['email']." <br>";
+	$body = $body . " ".$companys['companyurl']." <br>";
+	sendEmail($to, $subject, $body , 'ar_admin_wcb');
+}
 function bonusLogs($account, $type, $amount, $comment) {
 	global $DB;
 	$query = "INSERT INTO mlm_bonus_logs SET account = '$account', bonus_type = '$type', amount = '$amount', comment = '$comment', date_receipt = NOW()";
@@ -224,7 +170,7 @@ function storeToWallet($account, $amount) {
 	// // tradeLogConstruct("ar_admin_wcd- 94 : ". $query);
 	// $DB->execonly($query);
 
-	return 0;
+	return true;
 }
 
 function tradeLogConstruct($msg) {

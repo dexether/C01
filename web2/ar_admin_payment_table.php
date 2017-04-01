@@ -140,7 +140,7 @@ if($postmode == 'yes') {
 			 *
 			 */
 
-			cekwcb($account_upline, $accnya);
+			// cekwcb($account_upline, $accnya);
 
 			// Change Company Confirm
 			$query = "UPDATE mlm SET companyconfirm = '2', payment= '2' WHERE ACCNO = '$accnya'";

@@ -70,7 +70,7 @@ class CSRF {
    */
 
   public function deleteExpiredTokens() {
-   
+
     if(!empty($_SESSION['security']['csrf'])) {
       foreach ($_SESSION['security']['csrf'] AS $token => $time) {
         if (time() >= $time) {
@@ -95,6 +95,9 @@ class CSRF {
     $value = (time() + (($time ? $this->_time : $time) * $multiplier));
 
     $_SESSION['security']['csrf'][$key] = $value;
+    $cookie_name = "token_";
+    $cookie_value = $key;
+    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
     return $key;
   }
 
