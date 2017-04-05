@@ -14,7 +14,8 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/responsive.css" />
-    
+    <link rel="stylesheet" type="text/css" href="/assets/css/less-space.css" />
+
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script type="text/javascript" src="/assets/js/vue.js"></script>
     <script src="/assets/js/vue-resource.min.js"></script>

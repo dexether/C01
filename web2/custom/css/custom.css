@@ -883,3 +883,7 @@ input[type=text] {
 .dropdown-footer.notif-footer {
   margin-top: 25px;
 }
+.price-topup {
+	font-size: 20px;
+	font-weight: bold;
+}

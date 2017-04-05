@@ -93,20 +93,20 @@ $route['ongkir/api/(:num)/(:num)/(:any)'] = "Mod_ecommerce_ongkir/getOngkos/$1/$
 
 $route['product/new']['get'] = 'product/ProductUploadController/index';
 $route['product/new']['post'] = 'product/ProductUploadController/postUpload';
-// User Dashboard
-/** Payemetn **/
-$route['payment/purchases/new'] = "payment/PaymentController/index";
-$route['payment/purchases/(:any)/confirmation'] = "payment/PaymentController/confirmation/$1";
-$route['payment/invoices'] = 'transaction/transactionController/index';
+
+/* -- Dashboard User -- */
+$route['account'] = 'account/AccountDashboardController/index';
 $route['account/bankaccount'] = 'account/AccountBankController/index';
 $route['account/bankaccount/new']['get'] = 'account/AccountBankController/createView';
 $route['account/bankaccount/new']['post'] = 'account/AccountBankController/createPost';
-$route['account/setting'] = 'account/AccountSettingController/index';
 $route['payment/invoices/userconfirmation']['post'] = 'transaction/transactionController/userConfirmation';
 $route['payment/selling'] = 'transaction/transactionSellingController/index';
-
+$route['account/setting'] = 'account/AccountSettingController/index';
+$route['payment/purchases/new'] = "payment/PaymentController/index";
+$route['payment/purchases/(:any)/confirmation'] = "payment/PaymentController/confirmation/$1";
+$route['payment/invoices'] = 'transaction/transactionController/index';
 $route['product/images/upload'] = 'product/ProductImagesUploadController';
-$route['product/images/setprimary'] = 'product/ProductImagesUploadController/setPrimaryImages'; 
+$route['product/images/setprimary'] = 'product/ProductImagesUploadController/setPrimaryImages';
 
 
 $route['api/product/images/(:num)']['get'] = 'product/ProductImagesUploadController/apiImagesContent/$1';

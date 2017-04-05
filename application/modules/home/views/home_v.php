@@ -360,7 +360,9 @@ add_js(base_url('assets/js/home.js'));
         			<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
       					<div class="panel price panel-red same">
       						<div class="panel-heading text-center">
-      						<img src="/assets/images/logo/imperium200x60.png"/>
+                    <a target="_blank" href="http://www.askapimperium.com/">
+                      <img src="/assets/images/logo/imperium200x60.png"/>
+                    </a>
       						</div>
       						<ul class="list-group list-group-flush text-center">
       							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $500 </li>
@@ -387,7 +389,9 @@ add_js(base_url('assets/js/home.js'));
               <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
       					<div class="panel price panel-red same">
       						<div class="panel-heading text-center">
-      						<img src="/assets/images/logo/fbs.png"/>
+                    <a target="_blank" href="http://fbspremium.com">
+                      <img src="/assets/images/logo/fbs.png"/>
+                    </a>
       						</div>
       						<ul class="list-group list-group-flush text-center">
       							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $1 (Cent) </li>
@@ -414,7 +418,9 @@ add_js(base_url('assets/js/home.js'));
               <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
       					<div class="panel price panel-red same">
       						<div class="panel-heading text-center">
-      						   <img src="/assets/images/logo/mtrading.png"/>
+                    <a target="_blank" href="http://Mtradingfx.com">
+                      <img src="/assets/images/logo/mtrading.png"/>
+                    </a>
       						</div>
       						<ul class="list-group list-group-flush text-center">
       							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $10 Standard & $500 Pro </li>
@@ -440,7 +446,9 @@ add_js(base_url('assets/js/home.js'));
               <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
       					<div class="panel price panel-red">
       						<div class="panel-heading text-center">
-      						   <img src="/assets/images/logo/hotforex.png"/>
+                    <a target="_blank" href="http://hfxpremium.com">
+                      <img src="/assets/images/logo/hotforex.png"/>
+                    </a>
       						</div>
       						<ul class="list-group list-group-flush text-center">
       							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $5  </li>
@@ -469,7 +477,9 @@ add_js(base_url('assets/js/home.js'));
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
               <div class="panel price panel-red">
                 <div class="panel-heading text-center">
-                   <img src="/assets/images/logo/fulleton.png"/>
+                  <a target="_blank" href="http://fullertrade.com">
+                    <img src="/assets/images/logo/fulleton.png"/>
+                  </a>
                 </div>
                 <ul class="list-group list-group-flush text-center">
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $100  </li>
@@ -494,7 +504,9 @@ add_js(base_url('assets/js/home.js'));
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
               <div class="panel price panel-red">
                 <div class="panel-heading text-center">
-                   <img src="/assets/images/logo/fx-pro.png"/>
+                  <a target="_blank" href="http://fxp-premium.com">
+                    <img src="/assets/images/logo/fx-pro.png"/>
+                  </a>
                 </div>
                 <ul class="list-group list-group-flush text-center">
                   <li class="list-group-item"><i class="icon-ok text-danger"></i>Minimum Deposit $100</li>
@@ -518,7 +530,9 @@ add_js(base_url('assets/js/home.js'));
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
               <div class="panel price panel-red">
                 <div class="panel-heading text-center">
-                   <img src="/assets/images/logo/sagafx.png"/>
+                  <a target="_blank" href="http://sagafx.com/auth/create/SagaPremium">
+                    <img src="/assets/images/logo/sagafx.png"/>
+                  </a>
                 </div>
                 <ul class="list-group list-group-flush text-center">
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $200 </li>
@@ -543,7 +557,9 @@ add_js(base_url('assets/js/home.js'));
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
               <div class="panel price panel-red">
                 <div class="panel-heading text-center">
-                   <img src="/assets/images/logo/xm.png"/>
+                  <a target="_blank" href="http://clicks.pipaffiliates.com/c?c=222516&l=id&p=0">
+                    <img src="/assets/images/logo/xm.png"/>
+                  </a>
                 </div>
                 <ul class="list-group list-group-flush text-center">
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $5 </li>
@@ -568,7 +584,9 @@ add_js(base_url('assets/js/home.js'));
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
               <div class="panel price panel-red">
                 <div class="panel-heading text-center">
-                   <img src="/assets/images/logo/octafxnew.png"/>
+                  <a target="_blank" href="http://www.octafx.com/?refid=848342">
+                    <img src="/assets/images/logo/octafxnew.png"/>
+                  </a>
                 </div>
                 <ul class="list-group list-group-flush text-center">
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $100</li>

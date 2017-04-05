@@ -4,7 +4,6 @@ add_js(base_url('assets/lib/pickerdate/compressed/picker.js'));
 add_js(base_url('assets/lib/pickerdate/compressed/legacy.js'));
 add_js(base_url('assets/lib/pickerdate/compressed/picker.date.js'));
 add_js(base_url('assets/lib/pickerdate/compressed/picker.time.js'));
-add_js(base_url('assets/js/dashboard-user.js'));
 add_js(base_url('assets/lib/pickerdate/compressed/translations/id_ID.js'));
 ?>
 <link href="/assets/lib/slim-image/slim/slim.min.css" rel="stylesheet">
