@@ -387,6 +387,35 @@ add_js(base_url('assets/js/home.js'));
       					</div>
     				  </div>
               <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                <div class="panel price panel-red">
+                  <div class="panel-heading text-center">
+                    <a target="_blank" href="http://clicks.pipaffiliates.com/c?c=222516&l=id&p=0">
+                      <img src="/assets/images/logo/xm.png"/>
+                    </a>
+                  </div>
+                  <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $5 </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.01 Lot </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start from 0 pips</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Islamic Account </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:888 </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Commission start from $0</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Trading Platform (MT4, MT5, XM Webtrader) </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  </ul>
+                  <div class="panel-footer">
+                      <a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://clicks.pipaffiliates.com/c?c=222516&l=id&p=0">Buka Akun !</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
       					<div class="panel price panel-red same">
       						<div class="panel-heading text-center">
                     <a target="_blank" href="http://fbspremium.com">
@@ -443,37 +472,35 @@ add_js(base_url('assets/js/home.js'));
       						</div>
       					</div>
     				  </div>
-              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-      					<div class="panel price panel-red">
-      						<div class="panel-heading text-center">
-                    <a target="_blank" href="http://hfxpremium.com">
-                      <img src="/assets/images/logo/hotforex.png"/>
-                    </a>
-      						</div>
-      						<ul class="list-group list-group-flush text-center">
-      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $5  </li>
-      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.01 Lot  </li>
-      							<li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start form 1 pips </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> No Swap Fee </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Market Execution </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:1000 </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Commision $0/Lot  </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Floating Rate </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Local </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
-      						</ul>
-      						<div class="panel-footer">
-      							<a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://hfxpremium.com">Buka Akun !</a>
-      						</div>
-      					</div>
-    				  </div>
     			</div>
           <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+              <div class="panel price panel-red">
+                <div class="panel-heading text-center">
+                  <a target="_blank" href="http://hfxpremium.com">
+                    <img src="/assets/images/logo/hotforex.png"/>
+                  </a>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $5  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.01 Lot  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start form 1 pips </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> No Swap Fee </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Market Execution </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:1000 </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Commision $0/Lot  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Floating Rate </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Local </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                </ul>
+                <div class="panel-footer">
+                  <a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://hfxpremium.com">Buka Akun !</a>
+                </div>
+              </div>
+            </div>
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
               <div class="panel price panel-red">
                 <div class="panel-heading text-center">
@@ -557,33 +584,6 @@ add_js(base_url('assets/js/home.js'));
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
               <div class="panel price panel-red">
                 <div class="panel-heading text-center">
-                  <a target="_blank" href="http://clicks.pipaffiliates.com/c?c=222516&l=id&p=0">
-                    <img src="/assets/images/logo/xm.png"/>
-                  </a>
-                </div>
-                <ul class="list-group list-group-flush text-center">
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $5 </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.01 Lot </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start from 0 pips</li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Islamic Account </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:888 </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Commission start from $0</li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Trading Platform (MT4, MT5, XM Webtrader) </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                </ul>
-                <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://clicks.pipaffiliates.com/c?c=222516&l=id&p=0">Buka Akun !</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-              <div class="panel price panel-red">
-                <div class="panel-heading text-center">
                   <a target="_blank" href="http://www.octafx.com/?refid=848342">
                     <img src="/assets/images/logo/octafxnew.png"/>
                   </a>
@@ -602,6 +602,28 @@ add_js(base_url('assets/js/home.js'));
                 </ul>
                 <div class="panel-footer">
                     <a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://www.octafx.com/?refid=848342">Buka Akun !</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+              <div class="panel price panel-red">
+                <div class="panel-heading text-center">
+                   <img src="/assets/images/logo/comming-soon-broker-NEW.png"/>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;</li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp;  </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                </ul>
+                <div class="panel-footer">
+
                 </div>
               </div>
             </div>
