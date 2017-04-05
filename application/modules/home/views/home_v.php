@@ -528,7 +528,7 @@ add_js(base_url('assets/js/home.js'));
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Fix Rate $1 = Rp 10.000</li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Commision $2/0,1 lot </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Lokal </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Requote </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>

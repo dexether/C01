@@ -11,13 +11,16 @@ global $template;
 global $themonth;
 global $mysql;
 global $DB;
+error_reporting(E_ALL);
+if(date('d') != 5):
+	die('CANNOT RUN THIS BONUS ON THIS DAY');
+endif;
 
 if (isset($user)) {
 	$user;
 }
 $user = $_SESSION['user'];
 $template->assign("user", $user);
-
 
 //TradeLogUnderConstruct_Secure("Profile-175-Get_PostMode:" . $_GET[postmode]);
 $postmode = '';
@@ -54,69 +57,57 @@ if ($postmode == "doit") {
 	client_aecode
 	WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
 	AND client_accounts.`suspend` = '0'
+	AND client_accounts.accountname != 'COMPANY'
 	";
 	$result = $DB->execresultset($query);
-	// var_dump($result);
 	foreach($result as $rows) {
 		$accounts = $rows['accountname'];
-		$data = hitungrqb($accounts);
-		$tglbln = date('Y-m', time());
-		if ($data['layak'] != "no") {
-			$query = "SELECT id FROM mlm_bonus_logs WHERE account = '$data[account]' AND bonus_type = 'rqb' AND LEFT(date_receipt, 7) = '$tglbln'";
-
-			$hasil = $DB->execresultset($query);
-			// var_dump($hasil);
-			foreach($hasil as $has) {
-				$hasils[] = $has;
-			}
-			if (empty($hasils)) {
-				if ($goldsaving_status == true) {
-					$iden = getIdentitas($data['account']);
-					storeToWallet($data['account'], $data['topay']['total']);
-					bonusLogs($data['account'], 'rqb', $data['topay']['total'], 'This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) ');
-					$to = $iden['email'];
-					$subject = "Congratulations, you have got a bonus";
-					$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
-					$body = $body . "Dear ".$iden['name'].",<br>";
-					$body = $body . " <br>";
-					$body = $body . "Congratulations, you have earned <b>RANK QUALIFICATION BONUS (R.Q.B)</b> bonus of USD ".number_format($data['topay']['total'], 2)." <br>";
-					$body = $body . "This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) <br>";
-					$body = $body . " <br>";
-					$body = $body . "You may login to your APR program account via our website at ".$companys['companyurl']." <br>";
-					$body = $body . " <br>";
-					$body = $body . " <br>";
-					$body = $body . "Thank you,<br>";
-					$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
-					$body = $body . $companys['long_address'];
-					$body = $body . " Email : ".$companys['email']." <br>";
-					$body = $body . " ".$companys['companyurl']." <br>";
-					sendEmail($to, $subject, $body, 'ar_admin_rqb');
-				}else{
-					$iden = getIdentitas($data['account']);
-					storeToWallet($data['account'], $data['topay']['total']);
-					bonusLogs($data['account'], 'rqb', $data['topay']['total'], 'You got <b>RANK QUALIFICATION BONUS (R.Q.B)</b> Amounted USD ' . number_format($data['topay']['total'] , 2));
-					$to = $iden['email'];
-					$subject = "Congratulations, you have got a bonus";
-					$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
-					$body = $body . "Dear ".$iden['name'].",<br>";
-					$body = $body . " <br>";
-					$body = $body . "Congratulations, you have earned <b>RANK QUALIFICATION BONUS (R.Q.B)</b> bonus of USD ".number_format($data['topay']['total'], 2)." <br>";
-					$body = $body . " <br>";
-					$body = $body . "You may login to your APR program account via our website at ".$companys['companyurl']." <br>";
-					$body = $body . " <br>";
-					$body = $body . " <br>";
-					$body = $body . "Thank you,<br>";
-					$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
-					$body = $body . $companys['long_address'];
-					$body = $body . " Email : ".$companys['email']." <br>";
-					$body = $body . " ".$companys['companyurl']." <br>";
-					sendEmail($to, $subject, $body, 'ar_admin_rqb');
-				}
-
-
+		$hasil = $apex->family_tree($accounts)->countRQB($accounts);
+		if($hasil):
+			$tglbln = date('Y-m', time());
+			if ($goldsaving_status == true) {
+				$iden = getIdentitas($accounts);
+				storeToWallet($accounts, $hasil);
+				bonusLogs($accounts, 'rqb', $hasil, 'This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) ');
+				$to = $iden['email'];
+				$subject = "Congratulations, you have got a bonus";
+				$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
+				$body = $body . "Dear ".$iden['name'].",<br>";
+				$body = $body . " <br>";
+				$body = $body . "Congratulations, you have earned <b>RANK QUALIFICATION BONUS (R.Q.B)</b> bonus of USD ".number_format($hasil, 2)." <br>";
+				$body = $body . "This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) <br>";
+				$body = $body . " <br>";
+				$body = $body . "You may login to your APR program account via our website at ".$companys['companyurl']." <br>";
+				$body = $body . " <br>";
+				$body = $body . " <br>";
+				$body = $body . "Thank you,<br>";
+				$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+				$body = $body . $companys['long_address'];
+				$body = $body . " Email : ".$companys['email']." <br>";
+				$body = $body . " ".$companys['companyurl']." <br>";
+				sendEmail($to, $subject, $body, 'ar_admin_rqb');
 			}else{
+				$iden = getIdentitas($accounts);
+				storeToWallet($accounts, $hasil);
+				bonusLogs($accounts, 'rqb', $hasil, 'You got <b>RANK QUALIFICATION BONUS (R.Q.B)</b> Amounted USD ' . number_format($hasil , 2));
+				$to = $iden['email'];
+				$subject = "Congratulations, you have got a bonus";
+				$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
+				$body = $body . "Dear ".$iden['name'].",<br>";
+				$body = $body . " <br>";
+				$body = $body . "Congratulations, you have earned <b>RANK QUALIFICATION BONUS (R.Q.B)</b> bonus of USD ".number_format($hasil, 2)." <br>";
+				$body = $body . " <br>";
+				$body = $body . "You may login to your APR program account via our website at ".$companys['companyurl']." <br>";
+				$body = $body . " <br>";
+				$body = $body . " <br>";
+				$body = $body . "Thank you,<br>";
+				$body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
+				$body = $body . $companys['long_address'];
+				$body = $body . " Email : ".$companys['email']." <br>";
+				$body = $body . " ".$companys['companyurl']." <br>";
+				sendEmail($to, $subject, $body, 'ar_admin_rqb');
 			}
-		}
+		endif;
 	}
 }
 /*=====  End of Section comment block  ======*/
@@ -170,62 +161,11 @@ function getIdentitas($account) {
 }
 
 function hitungrqb($account) {
-	$layak = "no";
-	// $tglpv = "PV:".date("Ym", time());
-	// $gvl = array();
-	global $DB;
-	// $query = "SELECT
-	// mlm.`ACCNO`,
-	// mlm_payment.`Status`,
-	// mlm_bonus_settings.`description`,
-	// mlm_bonus_settings.`amount`
-	// FROM
-	// mlm,
-	// mlm_payment,
-	// mlm_bonus_settings
-	// WHERE mlm_payment.`Account` = '$account'
-	// AND mlm.`ACCNO` = mlm_payment.`Account`
-	// AND mlm_payment.`PayFor` = '$tglpv'
-	// AND mlm_payment.`Status` = '2'
-	// AND mlm.`group_play` = mlm_bonus_settings.`group_play`";
-	// var_dump($query);
-	// $result = $DB->execresultset($query);
-	// if ($account == "COMPANY" || substr($account, 0, 4) == '9999') {
-	// 	$result = 2;
-	// }
-	// // var_dump(count($result));
-	// if(count($result) != 0){
-
-		// $query = "SELECT
-		// mlm.`ACCNO`,
-		// mlm_payment.`Status`,
-		// mlm_bonus_settings.`description`,
-		// mlm_bonus_settings.`amount`
-		// FROM
-		// mlm,
-		// mlm_payment,
-		// mlm_bonus_settings
-		// WHERE mlm.`Upline` = '$account'
-		// AND mlm.`ACCNO` = mlm_payment.`Account`
-		// AND mlm_payment.`PayFor` = '$tglpv'
-		// AND mlm_payment.`Status` = '2'
-		// AND mlm.`group_play` = mlm_bonus_settings.`group_play`
-		// ORDER BY mlm_bonus_settings.`amount` DESC LIMIT 0,3";
-
-		$query = "SELECT
-						  mlm.`ACCNO`,
-						  mlm_bonus_settings.`description`,
-						  mlm_bonus_settings.`amount`
-						FROM
-						  mlm,
-						  mlm_bonus_settings,
-						  client_accounts
-						WHERE mlm.`Upline` = '$account'
-						AND mlm.`ACCNO` = client_accounts.`accountname`
-						  AND mlm.`group_play` = mlm_bonus_settings.`group_play`
-						  AND client_accounts.`suspend` = FALSE
-						ORDER BY mlm_bonus_settings.`amount` DESC";
-		$result = $DB->execresultset($query);
+		$layak = "no";
+		global $DB;
+		$hasil = hitungSalesGroup($account);
+		var_dump($hasil);
+		die();
 		$hitung = count($result);
 		if ($hitung >= 3) {
 			$gv_upline = $result[0]['amount'];
@@ -263,6 +203,7 @@ function hitungrqb($account) {
 	$gvl['layak'] = $layak;
 	return $gvl;
 }
+$arrayOfAccount = [];
 function sendEmail($to, $subject, $body, $module) {
 	global $DB;
 	$timeupdate = date('Y-m-d H:i:s', strtotime('-1 hour'));

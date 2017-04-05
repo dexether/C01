@@ -122,4 +122,118 @@ class Apexregent extends Database
     ->limit($limit);
     return $data;
   }
+  private function __getUserLevelBonus($account)
+  {
+    $query = $this->db->table('mlm')
+    ->select(['mlm.ACCNO', 'lv'])
+    ->join('mlm_bonus_settings' , 'mlm_bonus_settings.group_play', '=', 'mlm.group_play', 'LEFT')
+    ->where('mlm.ACCNO' , '=', $account)->first();
+    return $query;
+  }
+  public function family_tree($username)
+  {
+    $this->family_tree = [];
+    $data = $this->db->table('mlm')->select(['ACCNO', 'Upline' , 'client_aecode.name' , 'client_accounts.suspend' , 'client_aecode.foto', 'mlm_bonus_settings.amount'])
+    ->join('client_accounts', 'mlm.ACCNO', '=' , 'client_accounts.accountname')
+    ->join('client_aecode', 'client_accounts.aecodeid' , '=' , 'client_aecode.aecodeid')
+    ->join('mlm_bonus_settings', 'mlm_bonus_settings.group_play', '=' , 'mlm.group_play')
+    ->where('mlm.ACCNO' , '=' , $username)
+    ->get();
+    array_push($this->family_tree, $data);
+    $userlevel = ($this->__getUserLevelBonus($username)->lv == null) ? 0 : $this->__getUserLevelBonus($username)->lv;
+    foreach ($data as $key => $account) {
+      $this->family_tree_loop($account->ACCNO, $userlevel);
+    }
+    $hasil = [];
+    foreach($this->family_tree as $key => $tree)
+    {
+      foreach ($tree as $key2 => $list) {
+        $hasil[] = $list;
+      }
+    }
+    $this->family_tree = $hasil;
+    return $this;
+  }
+  public function family_tree_loop($upline, $userlevel = 1 , $level = 1)
+  {
+    $data = $this->db->table('mlm')->select(['ACCNO', 'Upline' , 'client_aecode.name' , 'client_accounts.suspend' , 'client_aecode.foto', 'mlm_bonus_settings.amount'])
+    ->join('client_accounts', 'mlm.ACCNO', '=' , 'client_accounts.accountname')
+    ->join('client_aecode', 'client_accounts.aecodeid' , '=' , 'client_aecode.aecodeid')
+    ->join('mlm_bonus_settings', 'mlm_bonus_settings.group_play', '=' , 'mlm.group_play')
+    ->where('mlm.Upline' , '=' , $upline)
+    ->where('client_accounts.suspend' , '=' , FALSE)
+    ->get();
+    $res = [];
+    foreach ($data as $key => $value) {
+      $res[$key] = $value;
+      $res[$key]->level = $level;
+    }
+    $data = $res;
+    if (count($data) > 0) {
+      if($userlevel >= $level):
+        array_push($this->family_tree, $data);
+        $level = $level + 1;
+      endif;
+    }
+    if($userlevel >= $level):
+      foreach ($data as $key => $account) {
+        $this->family_tree_loop($account->ACCNO, $userlevel, $level);
+      }
+    endif;
+  }
+  public function countRQB($account)
+  {
+    $notPay = [];
+    $mustPay = [];
+    foreach($this->family_tree as $key => $row):
+      $q = $this->db->table('mlm_rqb_payed')
+      ->select('*')
+      ->where('account' , '=' , $account)
+      ->where('is_pay', '=', true);
+      if(!$q->get()):
+        $mustPay[] = $row;
+      else:
+        $notPay[] = $row;
+      endif;
+    endforeach;
+    return $this->__countGroupSales($mustPay, $account);
+  }
+  private function __countGroupSales($accounts, $account)
+  {
+    $total = 0;
+    foreach ($accounts as $key => $value) {
+      if($value->ACCNO != $account):
+        $total = $total + $value->amount;
+        $this->__RQBToDatabase($account, $value);
+      endif;
+    }
+    if(count($accounts) == 1)
+                return false;
+    if(empty($accounts))
+            return false;
+    return $this->__getRQBAmount($total);
+  }
+  private function __getRQBAmount($total)
+  {
+    $query = $this->db->table('mlm_rqb_settings')
+    ->where('amount', '<=', $total)
+    ->orderBy('amount', 'DESC')
+    ->limit(1)->first();
+    if($query == null)
+              return 1000 * 3 / 100;
+    $amount = $query->amount;
+    $ql = $query->ql;
+    return $amount * $ql / 100;
+  }
+  private function __RQBToDatabase($account, $downline)
+  {
+    $data = [
+      'account' => $account,
+      'account_downline' => $downline->ACCNO,
+      'level' => $downline->level,
+      'is_pay' => true,
+      'created_at' => date('Y-m-d H:i:s')
+    ];
+    $this->db->table('mlm_rqb_payed')->insert($data);
+  }
 }

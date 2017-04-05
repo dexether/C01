@@ -9,6 +9,9 @@ global $DB;
 require_once dirname(__FILE__) . '../../classes/apexregent/apexregent.class.php';
 $apex = New Apexregent();
 $goldsaving_status = $apex->goldsaving_status();
+if(date('d') != 5):
+	die('CANNOT RUN THIS BONUS ON THIS DAY');
+endif;
 //tradeLogConstruct("UnderConstruct.php-Line-9");
 /*
 $_SESSION['page'] = 'underconstruct';
@@ -93,8 +96,8 @@ function runWCB($row){
 		$DB->execonly($queryUpdate);
 	}
 	$bonusWCB = $totalwcb * $pengali / 100;
-	bonusLogs($account, 'wcb', $bonusWCB, 'WEALTH CLUB BONUS (W.C.B) bonus of USD '.number_format($bonusWCB, 2));
 	storeToWallet($account, $bonusWCB);
+	bonusLogs($account, 'wcb', $bonusWCB, 'WEALTH CLUB BONUS (W.C.B) bonus of USD '.number_format($bonusWCB, 2));
 	WCBEmailSend($account, $bonusWCB);
 }
 function WCBEmailSend($account, $total_bonus){
