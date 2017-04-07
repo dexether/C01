@@ -14,14 +14,12 @@ class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
         '0a463717c0df1c48194bc0b82a44e7b6' => __DIR__ . '/..' . '/o2system/o2glob/src/Glob.php',
         '9b8f4209f108bacffa0553ac7bfdf3f8' => __DIR__ . '/..' . '/o2system/o2curl/src/CURL.php',
         '6cf7a51e22fae982f4ad68611b038335' => __DIR__ . '/..' . '/steevenz/rajaongkir/src/Rajaongkir.php',
-        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Translation\\' => 30,
             'Stringy\\' => 8,
         ),
@@ -49,10 +47,6 @@ class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
-        ),
-        'Symfony\\Component\\VarDumper\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
         'Symfony\\Component\\Translation\\' => 
         array (
