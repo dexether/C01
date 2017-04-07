@@ -7,6 +7,6 @@ web2/cache/
 application/cache/*
 !application/cache/index.html
 application/logs/*
-application/vendor/
+application/vendor/*
 !application/logs/index.html
 web2/images/users/*
