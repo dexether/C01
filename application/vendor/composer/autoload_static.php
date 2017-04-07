@@ -7,19 +7,21 @@ namespace Composer\Autoload;
 class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
 {
     public static $files = array (
-        '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
         '34db133ee63d605f4b01a3475ceb7960' => __DIR__ . '/..' . '/o2system/o2gears/src/Gears.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '0a463717c0df1c48194bc0b82a44e7b6' => __DIR__ . '/..' . '/o2system/o2glob/src/Glob.php',
         '9b8f4209f108bacffa0553ac7bfdf3f8' => __DIR__ . '/..' . '/o2system/o2curl/src/CURL.php',
         '6cf7a51e22fae982f4ad68611b038335' => __DIR__ . '/..' . '/steevenz/rajaongkir/src/Rajaongkir.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Translation\\' => 30,
             'Stringy\\' => 8,
         ),
@@ -47,6 +49,10 @@ class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Component\\VarDumper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
         'Symfony\\Component\\Translation\\' => 
         array (

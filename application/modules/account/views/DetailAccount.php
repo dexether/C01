@@ -7,14 +7,17 @@
         <div class="dashboard-block card-1 lg-p-10">
           <div class="row">
             <div class="col-lg-3">
-              <h3 class="lg-m-10">Tarikh Agustia Ijudin</h3>
+              <h3 class="lg-m-10"><?= $this->session->name; ?></h3>
             </div>
             <div class="col-lg-4">
-              <p>Email : agustia.tarikh150@gmail.com</p>
-              <p>No. Telp : 085603051722</p>
+              <p>Email : <?= $this->session->email; ?></p>
+              <p>No. Telp : <?= $clientAddress->telphone_number ?></p>
             </div>
-            <div class="col-lg-4">
-              <p>Alamat : Ruko H5 Pasar Laris Palm Paradis, Kalideres</p>
+            <div class="col-lg-3">
+              <p>Alamat : <?= $clientAddress->address ?></p>
+            </div>
+            <div class="col-lg-2">
+              <a href="<?= base_url('account/address'); ?>" class="btn btn-default pull-right" name="button"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
             </div>
           </div>
         </div>
@@ -26,7 +29,7 @@
         <div class="dashboard-block card-1 lg-p-10">
           <h4>Pending Top Up</h4>
           <div class="price-topup">
-            1.000.0000
+            0
           </div>
         </div>
       </div>
@@ -34,7 +37,7 @@
         <div class="dashboard-block card-1 lg-p-10">
           <h4>Pending Pencairan</h4>
           <div class="price-topup">
-            1.000.0000
+            0
           </div>
         </div>
       </div>
@@ -51,11 +54,11 @@
             <table class="table">
               <tr>
                 <td>Penjualan</td>
-                <td>0</td>
+                <td><?= $productSelling; ?></td>
               </tr>
               <tr>
                 <td>Tagihan</td>
-                <td>0</td>
+                <td><?= $invoiceNotPay; ?></td>
               </tr>
               <tr>
                 <td>Pembelian</td>

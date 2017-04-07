@@ -41,4 +41,12 @@ class Order extends Eloquent
     {
       return $this->belongsTo('cmd', 'cmd');
     }
+
+
+
+    public static function getInvoice($aecodeid)
+    {
+      return self::where('cmd', 9)
+      ->where('aecodeid', $aecodeid)->get()->count();
+    }
 }

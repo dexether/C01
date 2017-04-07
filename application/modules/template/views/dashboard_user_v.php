@@ -8,7 +8,7 @@ add_js(base_url('assets/js/dashboard-user.js'));
             <a href="/product/new/?from=user_dashboard" class="btn btn-block btn-primary btn-outline">Jual Barang</a>
             <nav class="nav-left" >
                 <ul class="nav-left-list">
-                    <li class="nav-left-item <?= ($du_menu === 'du_dashbard') ? 'active' : ''; ?>"><a href="#">Ringkasan Akun</a></li>
+                    <li class="nav-left-item <?= ($du_menu === 'du_dashbard') ? 'active' : ''; ?>"><a href="<?= base_url('account'); ?>">Ringkasan Akun</a></li>
                     <li class="nav-left-item"><a href="#">Barang Dijual</a></li>
                     <li class="nav-left-item"><a href="#">Barang Tidak Dijual</a></li>
                     <li class="nav-left-item"><a href="#">Barang Draf</a></li>

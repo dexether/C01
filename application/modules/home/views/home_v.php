@@ -380,6 +380,13 @@ add_js(base_url('assets/js/home.js'));
                     <li class="list-group-item"><i class="icon-ok text-danger"></i> Free Coffee Break </li>
                     <li class="list-group-item"><i class="icon-ok text-danger"></i> ABC System bonus </li>
                     <li class="list-group-item"><i class="icon-ok text-danger"></i> Copy Trade </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
       						</ul>
       						<div class="panel-footer">
       							<a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://www.askapimperium.com/">Buka Akun !</a>
@@ -394,21 +401,26 @@ add_js(base_url('assets/js/home.js'));
                     </a>
                   </div>
                   <ul class="list-group list-group-flush text-center">
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Deposit $5 </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Minimum Lot 0.01 Lot </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread start from 0 pips</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Islamic Account </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Multi Regulated Broker (FCA, CySec, ASIC) </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> No Requote, No Rejection </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> No Virtual Dealer</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> ECN Account </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Market Execution </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Min Deposit $5</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Min Lot - 0,01 Micro Lot </li>
                     <li class="list-group-item"><i class="icon-ok text-danger"></i> Leverage up to 1:888 </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Commission start from $0</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Trading Platform (MT4, MT5, XM Webtrader) </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Enable EA & News trade </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Spread as low as 0 pips </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Islamic Account </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> EA & News Trading allowed </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Trading Platfrom MT4, MT5, WebTrader </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Platform PC/MAC, Smartphone, Tablet </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Free Daily Forex Signal </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Free Forex Calculator </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Free VPS* </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Free Weekly Webinar </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Personal Account Manager for each Client </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Live Chat 24/7 </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Official Sponsor of USAIN BOLT</li>
                   </ul>
                   <div class="panel-footer">
                       <a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://clicks.pipaffiliates.com/c?c=222516&l=id&p=0">Buka Akun !</a>
@@ -438,6 +450,13 @@ add_js(base_url('assets/js/home.js'));
                     <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Local </li>
                     <li class="list-group-item"><i class="icon-ok text-danger"></i> Copy Trade </li>
                     <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
       						</ul>
       						<div class="panel-footer">
       							<a class="btn btn-lg btn-block btn-danger" target="_blank" href="http://fbspremium.com">Buka Akun !</a>
@@ -465,6 +484,13 @@ add_js(base_url('assets/js/home.js'));
                     <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Local  </li>
                     <li class="list-group-item"><i class="icon-ok text-danger"></i> Copy Trade </li>
                     <li class="list-group-item"><i class="icon-ok text-danger"></i> Autochartist </li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
                     <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
       						</ul>
       						<div class="panel-footer">
