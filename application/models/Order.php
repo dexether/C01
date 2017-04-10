@@ -44,9 +44,13 @@ class Order extends Eloquent
 
 
 
-    public static function getInvoice($aecodeid)
+    public static function getInvoice($aecodeid, $alreadyPad = false)
     {
-      return self::where('cmd', 9)
-      ->where('aecodeid', $aecodeid)->get()->count();
+      if($alreadyPad):
+        return self::where('cmd', 9)
+        ->where('aecodeid', $aecodeid)->get()->count();
+      else:
+        return self::where('aecodeid', $aecodeid)->get()->count();
+      endif;
     }
 }

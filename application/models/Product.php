@@ -30,4 +30,8 @@ class Product extends Eloquent
        endforeach;
        return array_sum($data);
     }
+    public static function getUserProduct($aecodeid)
+    {
+      return $query = self::where('aecodeid', $aecodeid);
+    }
 }

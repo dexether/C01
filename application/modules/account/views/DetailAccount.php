@@ -62,7 +62,7 @@
               </tr>
               <tr>
                 <td>Pembelian</td>
-                <td>0</td>
+                <td><?= $allInvoice ?></td>
               </tr>
             </table>
           </div>
@@ -102,13 +102,13 @@
                 <td>
                   Barang dijual
                 </td>
-                <td>0</td>
+                <td><?= $userProductActive ?></td>
               </tr>
               <tr>
                 <td>
                   Barang tidak dijual
                 </td>
-                <td>0</td>
+                <td><?= $userProductNotActive ?></td>
               </tr>
               <tr>
                 <td>
