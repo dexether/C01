@@ -1,4 +1,4 @@
 $("#kota").remoteChained({
-  parents : "#provinsi",
-  url : "/mod_ecommerce_ongkir/getCity/"
+    parents: "#provinsi",
+    url: "/mod_ecommerce_ongkir/getCity"
 });

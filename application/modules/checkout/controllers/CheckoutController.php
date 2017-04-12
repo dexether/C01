@@ -19,6 +19,7 @@ class CheckoutController extends AuthController
   }
   public function postAddress($aecodeid)
   {
+    
     $address = new Address;
     $address->aecodeid = $aecodeid;
     $address->province_id = $this->input->post('province_id');
@@ -29,7 +30,11 @@ class CheckoutController extends AuthController
     $address->telphone_number = $this->input->post('telphone_number');
     $address->save();
     $this->session->set_flashdata('success' , 'Berhasil menambahkan Alamat !');
-    redirect('/checkout');
+    if($this->input->post('redirect')){
+      redirect($this->input->post('redirect'));
+    }else{
+      redirect('/checkout');
+    }
   }
   public function postCheckout($company = "AFX")
   {

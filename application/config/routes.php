@@ -107,9 +107,10 @@ $route['payment/purchases/(:any)/confirmation'] = "payment/PaymentController/con
 $route['payment/invoices'] = 'transaction/transactionController/index';
 $route['product/images/upload'] = 'product/ProductImagesUploadController';
 $route['product/images/setprimary'] = 'product/ProductImagesUploadController/setPrimaryImages';
-
+$route['account/address'] = 'address/AddressDashboardController/index';
 
 $route['api/product/images/(:num)']['get'] = 'product/ProductImagesUploadController/apiImagesContent/$1';
 $route['api/product/name/rule'] = 'product/ProductRESTController/checkName';
 $route['api/transaction'] = 'transaction/RestController/index';
 $route['api/product/images/primary/(:num)'] = 'product/ProductRESTController/getPrimaryImages/$1';
+$route['api/address/set_primary/(:num)']['post'] = 'address/AddressController/setPrimaryAddress/$1';

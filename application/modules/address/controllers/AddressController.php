@@ -26,5 +26,27 @@ class AddressController extends MY_Controller
       ->set_output(json_encode($data, JSON_PRETTY_PRINT));
     }
   }
+  public function setPrimaryAddress()
+  {
+    
+    Address::where('aecodeid', $this->input->post('aecodeid'))
+    ->update([
+      "is_primary" => false
+    ]);
+
+    $response['status'] = 200;
+    $response['message'] = "Success Change Primary Address";
+    $address_id = $this->input->post('address_id');
+    try {
+      $address = Address::find($address_id);
+      $address->is_primary = true;
+      $address->save();
+    } catch (Exception $e) {
+      $response['status'] = 500;
+      $response['message'] = "Failed delete data : " . $e->getMessage();
+    }
+    return $this->output->set_output(json_encode($response, JSON_PRETTY_PRINT))
+    ->set_content_type('application/json');
+  }
 }
 ?>

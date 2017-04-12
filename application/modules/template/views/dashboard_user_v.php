@@ -1,6 +1,3 @@
-<?php
-add_js(base_url('assets/js/dashboard-user.js'));
-?>
 <div class="columns-container">
     <div class="container" id="columns">
       <div class="row">

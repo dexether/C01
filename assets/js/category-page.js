@@ -8,7 +8,46 @@ Number.prototype.formatMoney = function(c, d, t) {
         j = (j = i.length) > 3 ? j % 3 : 0;
     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
-var vm = new Vue({
+
+
+Vue.component('change-address', {
+    template: '<button v-on:click="changeAddress" type="button" class="btn btn-sm btn-warning" name="button"><i class="glyphicon glyphicon-pencil"></i> Ubah</button>',
+    methods: {
+        changeAddress: function() {
+            console.log('View Modal');
+            $('#myModal').modal('show');
+        }
+    }
+});
+
+Vue.component('set-active-address', {
+    template: '<button v-on:click.prevent="setActiveMethod" type="button" class="btn btn-sm btn-default" name="button"><i class="glyphicon glyphicon-ok"></i> Jadikan Utama</button>',
+    props: ['message', 'source'],
+    data: function() {
+        return {
+            counter: "No counter",
+            nama: 0
+        }
+    },
+    methods: {
+        setActiveMethod: function() {
+            var data = {
+                "address_id": this.message,
+                "_token": $.cookie('token'),
+                "aecodeid": $('#aecodeid').val()
+            }
+            this.$http.post('/api/address/set_primary/' + this.message, data, {
+                emulateJSON: true
+            }).then(function(response) {
+
+                this.$emit('setactivemethod')
+            });
+        }
+    }
+})
+
+
+new Vue({
     el: "#app",
     data: {
         items: [],
