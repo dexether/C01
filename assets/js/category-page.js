@@ -15,7 +15,7 @@ Vue.component('change-address', {
     methods: {
         changeAddress: function() {
             console.log('View Modal');
-            $('#myModal').modal('show');
+            // $('#myModal').modal('show');
         }
     }
 });

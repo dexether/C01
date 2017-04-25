@@ -61,7 +61,7 @@
                     <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span><?= ($this->session->login) ? "Selamat Datang, " . $this->session->name : "My Account"; ?></span></a>
                     <ul class="dropdown-menu mega_dropdown" role="menu">
                       <?php if ($this->session->login): ?>
-                        <li><a href="/payment/invoices">My Dashboard</a></li>
+                        <li><a href="/account">My Dashboard</a></li>
                         <li><a href="/auth/logout">Logout</a></li>
                       <?php else: ?>
                         <li><a href="/auth">Login</a></li>

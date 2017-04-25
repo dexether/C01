@@ -4,8 +4,8 @@
     <h1 class="transaction">Pengaturan</h1>
     <div class="card">
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" ><a href="#akun" aria-controls="tagihan" role="tab" data-toggle="tab">Akun</a></li>
-            <li role="presentation"><a href="#alamat" aria-controls="pembelian" role="tab" data-toggle="tab">Alamat</a></li>
+            <li role="presentation" ><a href="<?= base_url('account/setting'); ?>">Akun</a></li>
+            <li role="presentation"><a href="<?= base_url('account/address'); ?>">Alamat</a></li>
             <li role="presentation" class="active"><a href="/account/bankaccount" aria-controls="penjualan" role="tab" data-toggle="tab">Rekening Bank</a></li>
         </ul>
         <div class="tab-content">
