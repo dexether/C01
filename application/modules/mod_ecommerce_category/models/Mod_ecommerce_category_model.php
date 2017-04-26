@@ -21,7 +21,7 @@ class Mod_ecommerce_category_model extends CI_Model
       ->order_by('master_product.created_at', 'DESC');
       $this->db->limit($limit);
       $this->db->offset($offset);
-      $data = $this->db->get();
+      $data = $this->db;
 
       return $data;
     }

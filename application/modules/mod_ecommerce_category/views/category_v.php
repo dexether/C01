@@ -9,81 +9,42 @@
             <!-- Left colunm -->
             <div class="column col-xs-12 col-sm-3" id="left_column">
                 <!-- block filter -->
+                <?php echo form_open('', ['method' => 'GET']) ?>
                 <div class="block left-module">
-                    <p class="title_block">Filter selection</p>
+                    <p class="title_block">Pilih Filter</p>
                     <div class="block_content">
                         <!-- layered -->
                         <div class="layered layered-filter-price">
                             <!-- filter price -->
-                            <div class="layered_subtitle">price</div>
+                            <div class="layered_subtitle">Harga</div>
                             <div class="layered-content slider-range">
-                                <div data-label-reasult="Range:" data-min="0" data-max="500" data-unit="$" class="slider-range-price" data-value-min="50" data-value-max="350"></div>
-                                <div class="amount-range-price">Range: $50 - $350</div>
+                                <div class="amount-range-price">Range: <?php echo number_format($filter_limit_price['min']) ?> - <?php echo number_format($filter_limit_price['max']) ?></div>
                                 <ul class="check-box-list">
+                                  <?php foreach ($filter_limit_price['range'] as $key => $value): ?>
                                     <li>
-                                        <input type="checkbox" id="p1" name="cc" />
-                                        <label for="p1">
+                                        <input type="checkbox" id="<?php echo $value[1] ?>" name="range_price" value="<?php echo $value[1] ?>" />
+                                        <label for="<?php echo $value[1] ?>">
                                         <span class="button"></span>
-                                        $20 - $50<span class="count">(0)</span>
+                                        <?php echo $value[0] ?>
+                                        <!-- <span class="count">(0</span> -->
                                         </label>
                                     </li>
-                                    <li>
-                                        <input type="checkbox" id="p2" name="cc" />
-                                        <label for="p2">
-                                        <span class="button"></span>
-                                        $50 - $100<span class="count">(0)</span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" id="p3" name="cc" />
-                                        <label for="p3">
-                                        <span class="button"></span>
-                                        $100 - $250<span class="count">(0)</span>
-                                        </label>
-                                    </li>
+                                  <?php endforeach; ?>
                                 </ul>
                             </div>
                             <!-- ./filter price -->
+                            <div class="products-block">
+                                <div class="products-block-bottom">
+                                    <button class="link-all" href="#">Filter</button>
+                                </div>
+                            </div>
                         </div>
                         <!-- ./layered -->
 
                     </div>
                 </div>
+                <?php echo form_close() ?>
                 <!-- ./block filter  -->
-                <!-- SPECIAL -->
-                <div class="block left-module">
-                    <p class="title_block">SPECIAL PRODUCTS</p>
-                    <div class="block_content">
-                        <ul class="products-block">
-                            <li>
-                                <div class="products-block-left">
-                                    <a href="#">
-                                        <img src="/assets/data/product-100x122.jpg" alt="SPECIAL PRODUCTS">
-                                    </a>
-                                </div>
-                                <div class="products-block-right">
-                                    <p class="product-name">
-                                        <a href="#">Woman Within Plus Size Flared</a>
-                                    </p>
-                                    <p class="product-price">$38,95</p>
-                                    <p class="product-star">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-half-o"></i>
-                                    </p>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="products-block">
-                            <div class="products-block-bottom">
-                                <a class="link-all" href="#">All Products</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./SPECIAL -->
                 <!-- TAGS -->
                 <div class="block left-module">
                     <p class="title_block">TAGS</p>
@@ -188,14 +149,6 @@
                         <nav>
                           <?php echo $paging; ?>
                         </nav>
-                    </div>
-                    <div class="show-product-item">
-                        <select name="">
-                            <option value="">Show 18</option>
-                            <option value="">Show 20</option>
-                            <option value="">Show 50</option>
-                            <option value="">Show 100</option>
-                        </select>
                     </div>
                 </div>
             </div>
