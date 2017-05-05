@@ -56,4 +56,10 @@ class Format
       }
       return $html;
     }
+    public function clean_html($str)
+    {
+        $t = preg_replace('/<[^<|>]+?>/', '', htmlspecialchars_decode($str));
+        $t = htmlentities($t, ENT_QUOTES, "UTF-8");
+        return $t;
+    }
 }

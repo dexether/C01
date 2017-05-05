@@ -133,7 +133,13 @@ foreach($result as $row){
 	$tax = $row['value'];
 }
 $template->assign("tax", $tax);
-//TradeLogUnderConstruct_Secure("Tax :".$tax);
+
+
+$sql = "SELECT * FROM currency";
+$result = $DB->execresultset($sql);
+
+$template->assign('currency', $result);
+
 /*=====  End of Coding  ======*/
 
 

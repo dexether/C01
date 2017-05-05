@@ -4,14 +4,13 @@ var ar_admin_document_JS = function() {
     return {
         //main function to initiate the module
         init: function() {
-            //alert("Line-79");
             //handle_withdrawal();
         },
         document_pay: function() {},
         admin_confirm: function(id, token) {
             swal({
                 title: "Are you sure",
-                text: "Do you want to confirm this request ?",
+                text: "Do you want to confirm this request ??",
                 type: "info",
                 showCancelButton: true,
                 closeOnConfirm: false,
@@ -33,6 +32,7 @@ var ar_admin_document_JS = function() {
                         dataType: 'json',
                         success: function(res) {
                             swal(res.subject, res.msg, res.status);
+                            $('#ajax-form').submit();
                         },
                         error: function() {
                             swal('Oops, We Found An error', 'Contact the administrator', 'error');

@@ -41,6 +41,14 @@ $(document).ready(function() {
                     }
                 }
             },
+            currency_id: {
+                validators: {
+                    notEmpty: {
+                        message: 'Currency must select'
+                    }
+                }
+            },
+
             amount: {
                 validators: {
                     notEmpty: {
@@ -152,6 +160,7 @@ $(document).ready(function() {
             var bankaccount = $('#registerForm').find('select[name="bankaccount"]').val();
             var amount = $('#registerForm').find('input[name="amount"]').val();
             var token = $('#registerForm').find('input[name="token"]').val();
+            var currency_id = $('#registerForm').find('select[name="currency_id"]').val();
 
             swal({
                 title: "Are you sure?",
@@ -178,7 +187,8 @@ $(document).ready(function() {
                                 account: account,
                                 amount: amount,
                                 bankaccount: bankaccount,
-                                token: token
+                                token: token,
+                                currency_id : currency_id
                             },
                             type: 'POST',
                             success: function(response) {

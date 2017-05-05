@@ -41,6 +41,8 @@ $amount = "";
 if (isset($_POST['amount'])) {
    $amount = $_POST['amount'];
 }
+
+$currency_id = @$_POST['currency_id'];
 /**
  * Error msg
  * 0 - success
@@ -71,11 +73,11 @@ if ($errno == 0) {
    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       if ($security->get($token)) {
          $security->delete($token);
-
+         
          // Cutting wallet
          $output = cutwallet($account, 'mlm_ewallet', $amount);
          if ($output) {
-            $query = "INSERT INTO mlm_transaction SET type_transaction = 'withdrawal', date_transaction = NOW(), account_from = '$account' , account_destination = '0', method_transaction = 'withdrawal', amount = '$amount', comment = 'withdrawal request from $account of USD $amount', status = '0'";
+            $query = "INSERT INTO mlm_transaction SET currency_id ='$currency_id', type_transaction = 'withdrawal', date_transaction = NOW(), account_from = '$account' , account_destination = '0', method_transaction = 'withdrawal', amount = '$amount', comment = 'withdrawal request from $account of USD $amount', status = '0'";
             $DB->execonly($query);
 
             $query  = "SELECT * FROM usercompany";
@@ -83,7 +85,7 @@ if ($errno == 0) {
             foreach ($result as $rows) {
                $companys = $rows;
             }
-			
+
 			$query = "SELECT value FROM app_config WHERE `key` = 'AR_WITHDRAWAL_TAX'";
 			$result = $DB->execresultset($query);
 			$tax = '';
