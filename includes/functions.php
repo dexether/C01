@@ -184,4 +184,20 @@ function my_Sql_regcase($str) {
     return $res;
 }
 
+  function config($key)
+  {
+    global $DB;
+    $sql = "SELECT * FROM app_config WHERE app_config.key = '$key'";
+    $result = $DB->execresultset($sql);
+    if(!isset($result[0]['value']))
+      throw new Exception("Config {$key} Not Found");
+
+    return $result[0]['value'];
+  }
+  function response(array $obj)
+  {
+    ob_clean();
+    echo json_encode($obj);
+    exit;
+  }
 ?>

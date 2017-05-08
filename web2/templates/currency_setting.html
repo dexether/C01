@@ -1,0 +1,113 @@
+<div id="main_content" class="content">
+    <div class="page-heading">
+        <h1><i class="icon-vcard"></i>Admin</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12 portlets">
+            <div class="widget">
+                <div class="widget-header ">
+                    <h2><strong>Currency Setting</strong></h2>
+                </div>
+                <div class="widget-content padding" id="app">
+                  <table class="table table-striped">
+                    <thead>
+                      <th>No</th>
+                      <th>Currency Name</th>
+                      <th>National</th>
+                      <th>USD Rate</th>
+                      <th>Action</th>
+                    </thead>
+                    <tbody>
+                        {foreach from=$currencies item=row key=key}
+                        <tr>
+                          <td>{$key + 1}</td>
+                          <td>{$row.currency_name}</td>
+                          <td>{$row.country_name}</td>
+                          <td>{number_format($row.rate, 2)}</td>
+                          <td><button @click="editCurrency('{$row.id}', '{$row.country_code}')" class="btn btn-warning" type="button" name="button">Edit</button></td>
+                        </tr>
+                        {/foreach}
+                    </tbody>
+                  </table>
+                  <!-- Modal -->
+                  {literal}
+                  <div id="editCurrency" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" >
+                    <div class="modal-dialog modal-sm">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Edit Currency</h4>
+                        </div>
+                        <div class="modal-body">
+                          <form class="form-horizontal">
+                            <div class="form-group">
+                              <label class="control-label col-sm-3" for="rate">symbol</label>
+                              <div class="col-sm-9">
+                                <p class="form-control-static">{{currency}}</p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label col-sm-3" for="rate">Rate:</label>
+                              <div class="col-sm-9">
+                                <input type="text" v-model="rate" class="form-control" id="rate" name="rate" placeholder="Please input Rate">
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" @click="saveCurrency" class="btn btn-primary" name="button">Save</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  {/literal}
+                  <!-- end of modal -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+var vo = new Vue({
+ el : '#app',
+ data : {
+   id : 0,
+   rate : 0,
+   currency : null,
+   response : []
+ },
+ http: {
+     emulateJSON  : true
+ },
+ methods : {
+   editCurrency : function(id, name)
+   {
+     this.id = id;
+     this.currency = name;
+
+     $('#editCurrency').modal('show');
+   },
+   saveCurrency : function()
+   {
+    var data = {
+      id: this.id,
+      rate : this.rate
+    };
+    this.$http.post('/web2/currency_setting_api.php', data).then(response => {
+      this.response = response.body
+      if (this.response.status) {
+        alert(this.response.message)
+        $('#editCurrency').modal('toggle');
+      }else{
+        alert(this.response.message)
+      }
+    }, response => {
+        alert(response);
+    });
+   }
+ }
+});
+</script>

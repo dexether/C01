@@ -75,7 +75,7 @@ if (count($datatress) > 0) {
     foreach ($datatress AS $Upline => $datatres) {
 		$key = 0;
         $longtree = $longtree .$Upline;
-        $longtree = updatechild($longtree, $Upline);		
+        $longtree = updatechild($longtree, $Upline);
         $longtree = $longtree ;
 		$key = $key + 1;
     }
@@ -162,14 +162,20 @@ if ($errno == 0) {
             $body    = $body . $companys['long_address'];
             $body    = $body . " Email : " . $companys['email'] . " <br>";
             $body    = $body . " " . $companys['companyurl'] . " <br>";
-            sendEmail($to, $subject, $body, 'ar_admin_withdrawal');
+
+            /* Inovice Send */
+            $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]/";
+            $url = "web2/invoice/?type=withdrawal&transaction_id=$id";
+            $response = json_decode(file_get_contents($actual_link.$url));
+
+            sendEmail($to, $subject, $body, 'ar_admin_withdrawal', $response->result->file_path);
 
             $error   = "success";
             $subject = "Succes";
             $msg     = "The request has been approved";
-			
+
 			For($a=1;$a<=$i;$a++){
-			  $query = "SELECT 
+			  $query = "SELECT
 						  mlm.*,
 						  mlm_bonus_settings.`lv`,
 						  client_accounts.`suspend`
@@ -188,7 +194,7 @@ if ($errno == 0) {
 						}
 						// var_dump($query);
 						// var_dump($uplinenya['bw']);
-				if ($uplinenya['suspend']=='0'){
+				if (@$uplinenya['suspend']=='0'){
 					if ($uplinenya['lv'] >= $a ){
 						$query = "SELECT * FROM mlm_ewallet WHERE mlm_ewallet.`account`='$data[$a]'";
 						$dataewall = array();
@@ -201,12 +207,12 @@ if ($errno == 0) {
 
 						$newbalace =$dataewall['balance']+$uplinenya['bw'];
 						// var_dump($newbalace);
-						
+
 						$timeupdate = date('Y-m-d H:i:s', strtotime('-1 hour'));
-						$query   = "UPDATE 
-									  mlm_ewallet 
+						$query   = "UPDATE
+									  mlm_ewallet
 									SET
-									  balance = '$newbalace', 
+									  balance = '$newbalace',
 									  balance_prev = '$dataewall[balance]',
 									  lastupdate = '$timeupdate',
 									  lastupdate_prev = '$dataewall[lastupdate]'
@@ -214,12 +220,12 @@ if ($errno == 0) {
 						$DB->execonly($query);
 						// var_dump($query);
 
-						$query = "SELECT 
+						$query = "SELECT
 						  client_aecode.`aecode`,
-						  client_aecode.`name` 
+						  client_aecode.`name`
 						FROM
 						  client_aecode,
-						  client_accounts 
+						  client_accounts
 						WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
 						  AND client_accounts.`accountname`='$data[$a]'";
 						$name = '';
@@ -252,12 +258,12 @@ if ($errno == 0) {
 						sendEmail($to, $subject, $body , 'ar_subadmin_link');
 						bonusLogs($data[$a], 'wdd', $uplinenya['bw'], 'you got Withdrawal Commision (3%) bonus From '.$acc_from.' amounted '.$uplinenya['bw'].'');
 					}
-					
+
 				}
-						
-				
+
+
 			}
-			
+
          } elseif ($postmode == 'pending') {
             $query = "UPDATE mlm_transaction SET status = '1' WHERE id = '$id'";
             $DB->execonly($query);
@@ -369,7 +375,7 @@ function updatechild($longtree, $Upline2) {
 		// var_dump($bm);
 
     if (count($datatress) > 0) {
-		
+
         foreach ($datatress AS $Upline1 => $datatres) {
 			if ($bm != $Upline1){
 				$longtree = $longtree . "," . $Upline1;
@@ -411,7 +417,7 @@ function getIdentitas($account)
    return $datas;
 }
 
-function sendEmail($to, $subject, $body, $module)
+function sendEmail($to, $subject, $body, $module, $attachment = null)
 {
    global $DB;
    $timeupdate = date('Y-m-d H:i:s', strtotime('-1 hour'));
@@ -420,6 +426,7 @@ function sendEmail($to, $subject, $body, $module)
     email_to = '$to',
     email_subject = '$subject',
     email_body = '$body',
+    attachment = '".base64_encode($attachment)."',
     timesend = '1970-01-31 00:00:00',
     module = '$module'
     ";

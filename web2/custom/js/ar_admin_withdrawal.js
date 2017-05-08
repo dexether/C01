@@ -137,7 +137,7 @@ var ar_admin_document_JS = function() {
                                 default:
                             }
                             if (status == '0' || status == '1') {
-                                var aksi = "<button class='btn btn-success' onclick='ar_admin_document_JS.admin_confirm("+response[i].id+", token.value);' type='button'>Approve</button>";
+                                var aksi = "<button class='btn btn-success' @click='approveWD("+response[i].id+")' type='button'>Approve</button>";
                                 aksi+= "<button class='btn btn-blue-1' onclick='ar_admin_document_JS.admin_pending("+response[i].id+", token.value);' type='button'>Pending</button>";
                                 aksi+= "<button class='btn btn-danger' onclick='ar_admin_document_JS.admin_reject("+response[i].id+", token.value);' type='button'>Reject</button>";
                             }else{

@@ -73,7 +73,7 @@ if ($errno == 0) {
    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       if ($security->get($token)) {
          $security->delete($token);
-         
+
          // Cutting wallet
          $output = cutwallet($account, 'mlm_ewallet', $amount);
          if ($output) {
@@ -93,7 +93,7 @@ if ($errno == 0) {
 				$tax = $row['value'];
 			}
 			$after_tax = $amount - ($amount * $tax / 100);
-			logstrade("After tax :".$after_tax);
+			// logstrade("After tax :".$after_tax);
 
             $to      = $companys['finance_email'];
             $subject = "A Withdrawal request from $account";
@@ -232,4 +232,9 @@ function cutwallet($account, $type, $amount)
       $output = false;
    }
    return $output;
+}
+
+function generateInvoice()
+{
+  file_get_contents('web2/invoice/?type=withdrawal&transaction_id=131');
 }

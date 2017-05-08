@@ -1,6 +1,6 @@
 <?php
 require('fpdf.php');
-
+error_reporting(E_ALL);
 define('EURO', chr(128) );
 define('EURO_VAL', 6.55957 );
 
@@ -233,7 +233,7 @@ function invoiceType( $ref )
 function addClientAdresse( $adresse )
 {
 
-	$r1     = 160;
+	$r1     = 140;
 	$r2     = $r1 + 68;
 	$y1     = 40;
 	// $this->SetFontSize(12);
@@ -681,9 +681,9 @@ function temporaire( $texte )
 		$this->addCols([
 			'Jobs' => 150,
 			'Payment Terms' => 50,
-		], 70 , 15);
+		], 90 , 20);
 
-		$this->addLine(80, [
+		$this->addLine(100, [
 			'Jobs' => $jobs,
 			'Payment Terms' => $terms,
 		]);
@@ -694,9 +694,9 @@ function temporaire( $texte )
 		$this->addCols([
 			'Description' => 150,
 			'Total' => 50,
-		], 90, 100);
+		], 115, 100);
 
-		$this->addLine(100, [
+		$this->addLine(125, [
 			'Description' => $desc,
 			'Total' => $total,
 		], 90);

@@ -57,17 +57,19 @@ if ($postmode == "doit") {
 	client_aecode
 	WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
 	AND client_accounts.`suspend` = '0'
-	AND client_accounts.accountname != 'COMPANY'
+	AND client_accounts.accountname = '170202161'
 	";
 	$result = $DB->execresultset($query);
 	foreach($result as $rows) {
 		$accounts = $rows['accountname'];
 		$hasil = $apex->family_tree($accounts)->countRQB($accounts);
+		
 		if($hasil):
 			$tglbln = date('Y-m', time());
 			if ($goldsaving_status == true) {
 				$iden = getIdentitas($accounts);
 				storeToWallet($accounts, $hasil);
+				var_dump($hasil);
 				bonusLogs($accounts, 'rqb', $hasil, 'This bonus will be split into two type Account (70% goes to E-Wallet / 30% goes to Gold Saving Account) ');
 				$to = $iden['email'];
 				$subject = "Congratulations, you have got a bonus";

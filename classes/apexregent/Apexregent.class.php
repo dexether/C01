@@ -185,10 +185,13 @@ class Apexregent extends Database
   {
     $notPay = [];
     $mustPay = [];
+
     foreach($this->family_tree as $key => $row):
+
       $q = $this->db->table('mlm_rqb_payed')
       ->select('*')
       ->where('account' , '=' , $account)
+      ->where('account_downline', '=', $row->ACCNO)
       ->where('is_pay', '=', true);
       if(!$q->get()):
         $mustPay[] = $row;
