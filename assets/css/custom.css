@@ -206,6 +206,11 @@ ul.brand-showcase-logo li {
     margin: 0 0 15px 0;
     font-size: 14px;
 }
+.nav-left-list {
+    padding-left: 0px;
+}
+
+
 
 .nav-left-list>li:hover {
     color: dodgerblue !important;

@@ -29,7 +29,7 @@ class Login_m extends CI_Model
     }
     public function get_user_data($username)
     {
-      $this->db->select('username, client_aecode.name, client_aecode.aecodeid, client_aecode.email');
+      $this->db->select('username, client_aecode.name, client_aecode.aecodeid, client_aecode.email, user.groupid');
       $this->db->from('user');
       $this->db->join('client_aecode', 'user.username = client_aecode.aecode');
       $this->db->where('username', $username);

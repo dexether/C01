@@ -8,7 +8,7 @@ class AccountSettingController extends AuthController
   }
   public function index()
   {
-    echo "string";
+    redirect('account/address');
   }
 }
 ?>

@@ -118,6 +118,8 @@ $route['payment/invoices'] = 'transaction/transactionController/index';
 $route['product/images/upload'] = 'product/ProductImagesUploadController';
 $route['product/images/setprimary'] = 'product/ProductImagesUploadController/setPrimaryImages';
 $route['account/address'] = 'address/AddressDashboardController/index';
+$route['account/treeview'] = 'account/AccountTreeViewController/index';
+
 
 $route['api/product/images/(:num)']['get'] = 'product/ProductImagesUploadController/apiImagesContent/$1';
 $route['api/product/name/rule'] = 'product/ProductRESTController/checkName';
