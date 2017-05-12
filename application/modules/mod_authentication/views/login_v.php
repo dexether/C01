@@ -45,7 +45,14 @@
                     <div class="box-authentication">
                       <?php echo form_open('auth') ?>
                         <?php echo form_hidden('redirect', $this->input->get('redirect')) ?>
-                        <h3>Sudah punya akun AgendaFX?</h3>
+                        <br/>
+                        <a class="btn btn-social btn-facebook" href="<?php echo modules::run('oauth/Oauth2Controller/getLink') ?>">
+
+                          <span class="fa fa-facebook"></span> Sign in with Facebook
+                        </a>
+                        <br/>
+                        <br/>
+                        <h3>Atau Sudah punya akun AgendaFX?</h3>
                         <label for="login_user">Alamat Email</label>
                         <input id="login_user" name="login_user" type="text" class="form-control" value="">
                         <?php echo form_error('login_user', '<p class="text-danger text-bold">', '</p>'); ?>

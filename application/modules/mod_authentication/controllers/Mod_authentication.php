@@ -48,7 +48,7 @@ class Mod_authentication extends MY_Controller
           return false;
         endif;
     }
-    private function get_user_data($username)
+    public function get_user_data($username)
     {
         foreach ($this->login_m->get_user_data($username) as $rows):
         $user_data = $rows;
@@ -63,7 +63,7 @@ class Mod_authentication extends MY_Controller
         endforeach;
         return $user_data;
     }
-    private function set_user_data($target_array)
+    public function set_user_data($target_array)
     {
         $this->session->set_userdata(array('login' => true));
         $this->session->set_userdata($target_array);

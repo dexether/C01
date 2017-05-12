@@ -2,6 +2,7 @@
 <div class="col-md-12">
     <!-- Nav tabs -->
     <h1 class="transaction">Ringkasan Akun</h1>
+    <?php if ($clientAddress): ?>
     <div class="row">
       <div class="col-lg-12">
         <div class="dashboard-block card-1 lg-p-10">
@@ -23,6 +24,7 @@
         </div>
       </div>
     </div>
+    <?php endif; ?>
     <br>
     <div class="row">
       <div class="col-lg-6">

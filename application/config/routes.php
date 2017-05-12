@@ -74,7 +74,11 @@ $route['payment/transactions'] = 'mod_ecommerce_payment/userPaymentTransaction';
 // user
 $route['user/settings'] = 'mod_ecommerce_users/settings';
 // endogf user
-/* Authentication */
+/*
+* Authentication
+* - Native Auth
+* - Oauth
+ */
 $route['auth']['get'] = 'mod_authentication/index';
 $route['auth']['post'] = 'mod_authentication/login';
 $route['auth/signup']['post'] = 'mod_authentication/signup';
@@ -82,6 +86,12 @@ $route['auth/logout']['get'] = 'mod_authentication/logout';
 $route['auth/activation']['get'] = 'mod_authentication/activation_user';
 $route['auth/activation/resend']['get'] = 'mod_authentication/activation_resend';
 $route['auth/activation/resend']['post'] = 'mod_authentication/activation_resend_post';
+$route['oauth2/callback/facebook'] = "oauth/Oauth2Controller/callback";
+$route['oauth2/data/facebook'] = "oauth/Oauth2Controller/getUserData";
+
+$route['oauth2/link/facebook'] = "oauth/Oauth2Controller/getLink";
+
+
 
 $route['address/new/(:num)'] = 'checkout/CheckoutController/postAddress/$1';
 

@@ -22,6 +22,7 @@ class Product extends Eloquent
 
     public static function productSelling($aecodeid)
     {
+      $data = [];
        $query = self::select('*')
        ->where('aecodeid', $aecodeid)
        ->get();

@@ -13,4 +13,5 @@ return array(
     '0a463717c0df1c48194bc0b82a44e7b6' => $vendorDir . '/o2system/o2glob/src/Glob.php',
     '9b8f4209f108bacffa0553ac7bfdf3f8' => $vendorDir . '/o2system/o2curl/src/CURL.php',
     '6cf7a51e22fae982f4ad68611b038335' => $vendorDir . '/steevenz/rajaongkir/src/Rajaongkir.php',
+    'c65d09b6820da036953a371c8c73a9b1' => $vendorDir . '/facebook/graph-sdk/src/Facebook/polyfills.php',
 );

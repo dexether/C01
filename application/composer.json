@@ -9,7 +9,9 @@
         "steevenz/rajaongkir": "^1.2",
         "nesbot/carbon": "~1.18",
         "phpmailer/phpmailer": "^5.2",
-        "enyo/dropzone": "^4.3"
+        "enyo/dropzone": "^4.3",
+        "facebook/graph-sdk": "^5.5",
+        "vlucas/phpdotenv": "^2.4"
 
     },
     "require-dev": {
