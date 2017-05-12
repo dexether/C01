@@ -160,7 +160,7 @@ $(document).ready(function() {
             var bankaccount = $('#registerForm').find('select[name="bankaccount"]').val();
             var amount = $('#registerForm').find('input[name="amount"]').val();
             var token = $('#registerForm').find('input[name="token"]').val();
-            var currency_id = $('#registerForm').find('select[name="currency_id"]').val();
+            var currency_id = $('#registerForm').find('input[name="currency_id"]').val();
 
             swal({
                 title: "Are you sure?",
