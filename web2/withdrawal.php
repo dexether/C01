@@ -135,10 +135,19 @@ foreach($result as $row){
 $template->assign("tax", $tax);
 
 
-$sql = "SELECT * FROM currency";
+$sql = "SELECT
+  currency.id
+FROM
+  client_aecode_bank
+  JOIN currency
+    ON currency.`country_code` = client_aecode_bank.`tipe_akun`
+   WHERE client_aecode_bank.`aecode` = '$user->username'";
 $result = $DB->execresultset($sql);
-
-$template->assign('currency', $result);
+$currency_id = false;
+foreach($result as $key => $row):
+  $currency_id = $row['id'];
+endforeach;
+$template->assign('currency', $currency_id);
 
 /*=====  End of Coding  ======*/
 
