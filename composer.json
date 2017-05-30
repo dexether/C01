@@ -1,7 +1,0 @@
-{
-    "require": {
-        "usmanhalalit/pixie": "^2.0",
-        "phpmailer/phpmailer": "^5.2",
-        "dompdf/dompdf": "^0.8.0"
-    }
-}
