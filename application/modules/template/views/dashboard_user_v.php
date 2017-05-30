@@ -12,7 +12,7 @@
                     <li class="nav-left-item"><a href="#">Barang Draf</a></li>
                     <li class="nav-left-item"><a href="#">Label Barang</a></li>
                     <li class="nav-left-divider"></li>
-                    <li class="nav-left-item"><a href="#">Barang Favorit</a></li>
+                    <li class="nav-left-item <?= ($du_menu === 'du_wishlist') ? 'active' : ''; ?>"><a href="<?= base_url('account/wishlist'); ?>">Barang Favorit</a></li>
                     <li class="nav-left-item"><a href="#">langganan</a></li>
                     <li class="nav-left-divider"></li>
                     <li class="nav-left-item <?= ($du_menu === 'du_transaction') ? 'active' : ''; ?>"><a href="/payment/invoices">Transaksi</a></li>

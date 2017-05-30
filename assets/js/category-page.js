@@ -158,6 +158,23 @@ new Vue({
             this.$http.get('/api/tips', function(tips) {
                 this.$set('tips', tips)
             });
+        },
+        setWishList(id){
+          let data = {
+              "_token": $.cookie('token'),
+              "id" : id
+          };
+          this.$http.post('/api/wishlist/set_wishlist', data, {
+              emulateJSON: true
+          }).then(response => {
+            toastr.info('Berhasil menambahkan ke Wishlist')
+          }).catch(error => {
+              toastr.error(error.body.message);
+              if(error.status == 401){
+                window.location = "/auth";
+              }
+
+          });
         }
     }
 });

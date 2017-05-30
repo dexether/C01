@@ -35,4 +35,9 @@ class Product extends Eloquent
     {
       return $query = self::where('aecodeid', $aecodeid);
     }
+
+    public function category()
+    {
+      return $this->belongsTo('Category', 'id_cat');
+    }
 }

@@ -136,5 +136,6 @@ $autoload['model'] = array(
   'Cmd',
   'Product',
   'Category',
-  'ProductImages'
+  'ProductImages',
+  'Wishlist'
 );

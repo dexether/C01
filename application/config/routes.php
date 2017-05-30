@@ -119,8 +119,11 @@ $route['product/images/upload'] = 'product/ProductImagesUploadController';
 $route['product/images/setprimary'] = 'product/ProductImagesUploadController/setPrimaryImages';
 $route['account/address'] = 'address/AddressDashboardController/index';
 $route['account/treeview'] = 'account/AccountTreeViewController/index';
+$route['account/wishlist'] = 'wishlist/WishlistAccountController/index';
 
 
+$route['api/wishlist/set_wishlist']['get'] = 'wishlist/WishlistApiController/set_wishlist';
+$route['api/wishlist/set_wishlist']['post'] = 'wishlist/WishlistApiController/set_wishlist';
 $route['api/product/images/(:num)']['get'] = 'product/ProductImagesUploadController/apiImagesContent/$1';
 $route['api/product/name/rule'] = 'product/ProductRESTController/checkName';
 $route['api/transaction'] = 'transaction/RestController/index';

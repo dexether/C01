@@ -112,7 +112,7 @@ add_js(base_url('assets/js/home.js'));
                                             <a href="<?= base_url('c/' . $value->cat_name  . '/' . $value->prod_name) ?>">
                                                 <img class="img-responsive" alt="product" src="<?= modules::run('product/ProductRESTController/getPrimaryImages', $value->id) ?>" /></a>
                                             <div class="quick-view">
-                                                    <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                    <a title="Add to my wishlist" @click.prevent="setWishList('<?= $value->id ?>')" class="heart" href="#"></a>
                                                     <a title="Add to compare" class="compare" href="#"></a>
                                                     <a title="Quick view" class="search" href="#"></a>
                                             </div>

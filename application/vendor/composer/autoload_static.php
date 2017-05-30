@@ -9,8 +9,9 @@ class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
-        '34db133ee63d605f4b01a3475ceb7960' => __DIR__ . '/..' . '/o2system/o2gears/src/Gears.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '34db133ee63d605f4b01a3475ceb7960' => __DIR__ . '/..' . '/o2system/o2gears/src/Gears.php',
         '0a463717c0df1c48194bc0b82a44e7b6' => __DIR__ . '/..' . '/o2system/o2glob/src/Glob.php',
         '9b8f4209f108bacffa0553ac7bfdf3f8' => __DIR__ . '/..' . '/o2system/o2curl/src/CURL.php',
         '6cf7a51e22fae982f4ad68611b038335' => __DIR__ . '/..' . '/steevenz/rajaongkir/src/Rajaongkir.php',
@@ -21,8 +22,15 @@ class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Translation\\' => 30,
+            'Symfony\\Component\\EventDispatcher\\' => 34,
+            'Symfony\\Component\\Debug\\' => 24,
             'Stringy\\' => 8,
+        ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
         ),
         'O' => 
         array (
@@ -33,6 +41,8 @@ class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
         'I' => 
         array (
             'Illuminate\\Support\\' => 19,
+            'Illuminate\\Session\\' => 19,
+            'Illuminate\\Http\\' => 16,
             'Illuminate\\Events\\' => 18,
             'Illuminate\\Database\\' => 20,
             'Illuminate\\Contracts\\' => 21,
@@ -50,6 +60,10 @@ class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
         array (
             'Carbon\\' => 7,
         ),
+        'A' => 
+        array (
+            'App\\' => 4,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -57,13 +71,29 @@ class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
+        'Symfony\\Component\\VarDumper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/var-dumper',
+        ),
         'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
         ),
+        'Symfony\\Component\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
+        ),
+        'Symfony\\Component\\Debug\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/debug',
+        ),
         'Stringy\\' => 
         array (
             0 => __DIR__ . '/..' . '/danielstjules/stringy/src',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
         'O2System\\Glob\\' => 
         array (
@@ -80,6 +110,14 @@ class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/support',
+        ),
+        'Illuminate\\Session\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/session',
+        ),
+        'Illuminate\\Http\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/http',
         ),
         'Illuminate\\Events\\' => 
         array (
@@ -109,6 +147,10 @@ class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -117,6 +159,21 @@ class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
             'org\\bovigo\\vfs' => 
             array (
                 0 => __DIR__ . '/..' . '/mikey179/vfsStream/src/main/php',
+            ),
+        ),
+        'S' => 
+        array (
+            'Symfony\\Component\\HttpKernel\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/symfony/http-kernel',
+            ),
+            'Symfony\\Component\\HttpFoundation\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/symfony/http-foundation',
+            ),
+            'Symfony\\Component\\Finder\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/symfony/finder',
             ),
         ),
         'D' => 
@@ -135,6 +192,7 @@ class ComposerStaticInit9c64089caed28b2f42fc2be699a2693a
         'PHPMailerOAuthGoogle' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmaileroauthgoogle.php',
         'POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.pop3.php',
         'SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.smtp.php',
+        'SessionHandlerInterface' => __DIR__ . '/..' . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
         'ntlm_sasl_client_class' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
         'phpmailerException' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
     );
