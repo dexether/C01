@@ -28,8 +28,10 @@ class ProductRESTController extends MY_Controller
         ->first();
         if($productImagesPrimary != null):
             if($origin):
+            	
                 echo (filter_var($productImagesPrimary->image_location, FILTER_VALIDATE_URL)) ?  $productImagesPrimary->resize_location :  base_url($productImagesPrimary->image_location);
             else:
+
                 echo (filter_var($productImagesPrimary->image_location, FILTER_VALIDATE_URL)) ?  $productImagesPrimary->image_location :  base_url($productImagesPrimary->image_location);
             endif;
         else:
