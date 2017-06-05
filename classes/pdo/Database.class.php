@@ -1,6 +1,6 @@
 <?php
 // define('root', $_SERVER['DOCUMENT_ROOT']);
-require_once root.'/vendor/autoload.php';
+require_once root.'/application/vendor/autoload.php';
 
 class Database
 {
