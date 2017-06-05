@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c6ab5d6b37444edbed37357f6393c11",
+    "content-hash": "caf59b215cc47f408ba920ca676aab23",
     "packages": [
         {
             "name": "danielstjules/stringy",
@@ -1320,16 +1320,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v3.2.7",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "c740eee70783d2af4d3d6b70d5146f209e6b4d13"
+                "reference": "dc3b2a0c6cfff60327ba1c043a82092735397543"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/c740eee70783d2af4d3d6b70d5146f209e6b4d13",
-                "reference": "c740eee70783d2af4d3d6b70d5146f209e6b4d13",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/dc3b2a0c6cfff60327ba1c043a82092735397543",
+                "reference": "dc3b2a0c6cfff60327ba1c043a82092735397543",
                 "shasum": ""
             },
             "require": {
@@ -1337,13 +1337,14 @@
                 "symfony/polyfill-mbstring": "~1.0"
             },
             "conflict": {
-                "symfony/config": "<2.8"
+                "symfony/config": "<2.8",
+                "symfony/yaml": "<3.3"
             },
             "require-dev": {
                 "psr/log": "~1.0",
                 "symfony/config": "~2.8|~3.0",
                 "symfony/intl": "^2.8.18|^3.2.5",
-                "symfony/yaml": "~2.8|~3.0"
+                "symfony/yaml": "~3.3"
             },
             "suggest": {
                 "psr/log": "To use logging capability in translator",
@@ -1353,7 +1354,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -1380,7 +1381,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-21T21:44:32+00:00"
+            "time": "2017-05-22T07:42:36+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -1449,6 +1450,109 @@
                 "dump"
             ],
             "time": "2017-05-22T17:32:12+00:00"
+        },
+        {
+            "name": "usmanhalalit/pixie",
+            "version": "2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/usmanhalalit/pixie.git",
+                "reference": "35378d7acff314bf20fbd3dfa8006b1a036ffc02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/usmanhalalit/pixie/zipball/35378d7acff314bf20fbd3dfa8006b1a036ffc02",
+                "reference": "35378d7acff314bf20fbd3dfa8006b1a036ffc02",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "usmanhalalit/viocon": "1.0.*@dev"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.4",
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Pixie": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muhammad Usman",
+                    "email": "hi@usman.it",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Pavel Puchkin",
+                    "email": "i@neoascetic.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A lightweight, expressive, framework agnostic query builder for PHP.",
+            "homepage": "https://github.com/usmanhalalit/pixie",
+            "keywords": [
+                "database",
+                "mysql",
+                "postgresql",
+                "query builder",
+                "sql",
+                "sqlite"
+            ],
+            "time": "2016-04-12 11:50:49"
+        },
+        {
+            "name": "usmanhalalit/viocon",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/usmanhalalit/viocon.git",
+                "reference": "0878afee16f15355971fb95bf3c6d297aceff35d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/usmanhalalit/viocon/zipball/0878afee16f15355971fb95bf3c6d297aceff35d",
+                "reference": "0878afee16f15355971fb95bf3c6d297aceff35d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Viocon": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muhammad Usman",
+                    "email": "hi@usman.it",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple and flexible Dependency Injection container for PHP.",
+            "homepage": "https://github.com/usmanhalalit/viocon",
+            "keywords": [
+                "container",
+                "di",
+                "ioc",
+                "test"
+            ],
+            "time": "2013-07-13T19:54:56+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -1535,7 +1639,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "usmanhalalit/pixie": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
