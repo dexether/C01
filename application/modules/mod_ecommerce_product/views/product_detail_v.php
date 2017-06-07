@@ -1,7 +1,11 @@
 <?php
 add_js('/assets/lib/jquery.elevatezoom.js');
 add_js('/assets/lib/fancyBox/jquery.fancybox.js');
- ?>
+add_js('https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/jquery.barrating.min.js');
+add_js(base_url('assets/js/product-view.js'));
+?>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/themes/fontawesome-stars.min.css">
  <div class="columns-container">
      <div class="container" id="columns">
          <!-- row -->
@@ -59,17 +63,17 @@ add_js('/assets/lib/fancyBox/jquery.fancybox.js');
                              </div>
                          </div>
                          <!-- tab product -->
-                         <div class="product-tab">
+                         <div class="product-tab" id="myTab">
                              <ul class="nav-tab">
                                  <li class="active">
                                      <a aria-expanded="false" data-toggle="tab" href="#product-detail">Detail Barang</a>
                                  </li>
                                  <!-- <li>
                                      <a aria-expanded="true" data-toggle="tab" href="#information">Informasi</a>
-                                 </li>
+                                 </li> -->
                                  <li>
                                      <a data-toggle="tab" href="#reviews">Ulasan Barang</a>
-                                 </li> -->
+                                 </li>
                              </ul>
                              <div class="tab-container">
                                  <div id="product-detail" class="tab-panel active">
@@ -93,50 +97,43 @@ add_js('/assets/lib/fancyBox/jquery.fancybox.js');
                                  </div>
                                  <div id="reviews" class="tab-panel">
                                      <div class="product-comments-block-tab">
+                                        <?php foreach($reviews as $key => $row): ?>
                                          <div class="comment row">
                                              <div class="col-sm-3 author">
                                                  <div class="grade">
                                                      <span>Grade</span>
                                                      <span class="reviewRating">
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
+                                                         <?php echo $this->format->rating($row->rating_star); ?>
                                                      </span>
                                                  </div>
                                                  <div class="info-author">
-                                                     <span><strong>Jame</strong></span>
-                                                     <em>04/08/2015</em>
+                                                     <span><strong><?php echo $row->client_aecode->name ?></strong></span>
+                                                     <p><em><?php echo $row->created_at->diffForHumans() ?></em></p>
                                                  </div>
                                              </div>
                                              <div class="col-sm-9 commnet-dettail">
-                                                 Phasellus accumsan cursus velit. Pellentesque egestas, neque sit amet convallis pulvinar
+                                                 <?php echo $row->rating_comm; ?>
                                              </div>
                                          </div>
-                                         <div class="comment row">
-                                             <div class="col-sm-3 author">
-                                                 <div class="grade">
-                                                     <span>Grade</span>
-                                                     <span class="reviewRating">
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                     </span>
-                                                 </div>
-                                                 <div class="info-author">
-                                                     <span><strong>Author</strong></span>
-                                                     <em>04/08/2015</em>
-                                                 </div>
-                                             </div>
-                                             <div class="col-sm-9 commnet-dettail">
-                                                 Phasellus accumsan cursus velit. Pellentesque egestas, neque sit amet convallis pulvinar
-                                             </div>
-                                         </div>
+                                        <?php endforeach; ?>
                                          <p>
-                                             <a class="btn-comment" href="#">Write your review !</a>
+                                           <?php if (!$this->session->login): ?>
+                                             <a class="btn-comment" href="<?php echo base_url('auth/?redirect=' . urlencode(current_url())) ?>">Write your review !</a>
+                                           <?php else: ?>
+                                             <?php echo form_open('product/set_rating/'.$product->id); ?>
+                                               <textarea name="rating_comm" class="form-control" rows="8" cols="80"></textarea>
+                                               <span class="help-block">Minimal 30 huruf</span>
+                                               <select id="rating" name="rating">
+                                                 <option value="1">1</option>
+                                                 <option value="2">2</option>
+                                                 <option value="3">3</option>
+                                                 <option value="4">4</option>
+                                                 <option value="5">5</option>
+                                               </select>
+                                               <button type="submit" name="button" class="btn-comment" >Tulis review anda</button>
+                                             </form>
+                                           <?php endif; ?>
+
                                          </p>
                                      </div>
 

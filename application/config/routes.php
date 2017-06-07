@@ -129,3 +129,6 @@ $route['api/product/name/rule'] = 'product/ProductRESTController/checkName';
 $route['api/transaction'] = 'transaction/RestController/index';
 $route['api/product/images/primary/(:num)'] = 'product/ProductRESTController/getPrimaryImages/$1';
 $route['api/address/set_primary/(:num)']['post'] = 'address/AddressController/setPrimaryAddress/$1';
+
+
+$route['product/set_rating/(:num)'] = 'mod_ecommerce_product/View_product/set_review/$1';
