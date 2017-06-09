@@ -1,4 +1,4 @@
-_settings/*
+_settings/config.php
 assets/product/*
 assets/img/product/*
 web2/templates_c/*
