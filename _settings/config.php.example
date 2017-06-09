@@ -1,0 +1,57 @@
+<?php
+
+/* * *************************************************************************************
+ * CONFIGURATION FILE
+ * Note: Include all site-wide settings here.
+ * ************************************************************************************* */
+ini_set("max_execution_time", "0");
+$SETTINGS_DIR = "$_SERVER[DOCUMENT_ROOT]/_settings";
+$httphost = $_SERVER['HTTP_HOST'];
+$httphost = strtolower($httphost);
+$ipnya_host = 'arisan';
+switch ($httphost) {
+  case 'cabinet.apexregent.dev':
+    $mall = false;
+    $mysql['host'] = "localhost:3306";
+    $mysql['user'] = "root";
+    $mysql['password'] = "";
+    $mysql['database'] = "apex";
+    $mysql['crypt_key'] = "137";
+    $mysql['meta'] = "mt4_source";
+    break;
+  case 'agendafx.dev':
+    $mall = true;
+    $mysql['host'] = "localhost:3306";
+    $mysql['user'] = "root";
+    $mysql['password'] = "";
+    $mysql['database'] = "imperium_cabinet";
+    $mysql['crypt_key'] = "137";
+    $mysql['meta'] = "mt4_source";
+    break;
+    case 'cabinet.si.co.id:200':
+      $mall = true;
+      $mysql['host'] = "localhost:3306";
+      $mysql['user'] = "root";
+      $mysql['password'] = "";
+      $mysql['database'] = "imperium_cabinet";
+      $mysql['crypt_key'] = "137";
+      $mysql['meta'] = "mt4_source";
+      break;
+
+  default:
+    # code...
+    break;
+}
+
+
+
+$mysql_quote['host'] = $mysql['host'];
+$mysql_quote['user'] = $mysql['user'];
+$mysql_quote['password'] = $mysql['password'];
+$mysql_quote['database'] = $mysql['database'];
+
+$mysql_profxecu['host'] = $mysql['host'];
+$mysql_profxecu['user'] = $mysql['user'];
+$mysql_profxecu['password'] = $mysql['password'];
+$mysql_profxecu['database'] = $mysql['database'];
+?>
