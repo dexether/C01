@@ -31,7 +31,7 @@ add_js(base_url('assets/js/product-view.js'));
                                        <?php echo $this->format->rating($product->prod_star); ?>
                                      </div>
                                      <div class="comments-advices">
-                                         <a href="#">Berdasarkan 3 Review</a>
+                                         <a href="#reviews">Berdasarkan <?php echo count($reviews) ?> Review</a>
                                      </div>
                                  </div>
                                  <div class="product-price-group">

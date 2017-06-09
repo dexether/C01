@@ -23,18 +23,18 @@ class Store extends CI_Controller
 
     public function __construct()
     {
-        parent::__construct();
-        $this->lang->load('message_lang', 'indonesia');
-        $this->load->model('Shop_model', 'basicmodel');
-        $this->load->model('penjual');
-
-        date_default_timezone_set('Asia/Jakarta');
-        // $this->load->library('session');
-        $this->load->library('encrypt');
-        $this->load->library('nativesession');
-        $this->load->library('format');
-        $this->load->helper('form');
-        $this->users = $this->nativesession->get('user');
+        // parent::__construct();
+        // $this->lang->load('message_lang', 'indonesia');
+        // $this->load->model('Shop_model', 'basicmodel');
+        // $this->load->model('penjual');
+        //
+        // date_default_timezone_set('Asia/Jakarta');
+        // // $this->load->library('session');
+        // $this->load->library('encrypt');
+        // $this->load->library('nativesession');
+        // // $this->load->library('format');
+        // $this->load->helper('form');
+        // $this->users = $this->nativesession->get('user');
 
         // $this->load->helper('error');
     }

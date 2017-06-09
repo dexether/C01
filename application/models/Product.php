@@ -40,4 +40,8 @@ class Product extends Eloquent
     {
       return $this->belongsTo('Category', 'id_cat');
     }
+    public function review()
+    {
+      return $this->hasMany('App\Models\Review', 'prod_id');
+    }
 }
