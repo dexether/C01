@@ -137,6 +137,14 @@ class connDB { // Beginn class
         return $this->stmt->rowCount();
     }
 
+    public function transactions()
+    {
+      return PDO::beginTransaction();
+    }
+    public function commit()
+    {
+      return PDO::commit();
+    }
 }
 
 // End class

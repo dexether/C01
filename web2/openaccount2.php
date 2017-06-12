@@ -103,6 +103,7 @@ foreach ($rows2 as $row) {
 //tradeLog("OpenAccount2-93:" . $lanjutprocess);
 //$lanjutprocess = "debugging";
   if ($lanjutprocess == "true") {
+
   	$query = "insert into client_aecode
   	set groupid = '$groupid',
   	aecode = '$username',
@@ -185,7 +186,7 @@ foreach ($rows2 as $row) {
 
   	$urlnya = $urlcompany . "/".$companys['version']."/openaccount3_approval.php?key=" . $key;
   	$subject = "Thank you for your registration in ".$companys['programname']." ";
-//$body = "Time: " . date('Y-m-d H:i') . "<br>";
+		//$body = "Time: " . date('Y-m-d H:i') . "<br>";
   	$body = "Dear Sir / Madam,<br>";
   	$body = $body . " <br>";
   	$body = $body . " <br>";
