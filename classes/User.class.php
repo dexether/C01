@@ -216,10 +216,10 @@ class User {
         $query = "SELECT
                 client_aecode.aecodeid, user.*, group.isadmin, group.issupervisor, group.ismanager,
                 group.description AS group_description
-                FROM user,`group`, client_aecode
-                WHERE  user.groupid = group.groupid
-                AND user.username = client_aecode.aecode
-                and
+                FROM user
+                LEFT JOIN `group` ON user.groupid = group.groupid
+                LEFT JOIN client_aecode ON user.username = client_aecode.aecode
+                WHERE
                 $where";
         //echo "$query";
         $rows = $DB->execresultset($query);

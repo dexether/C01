@@ -41,13 +41,13 @@ if (isset($_POST['shownya'])) {
     $shownya = $_POST['shownya'];
 }
 // $_SESSION['page'] = 'ar_payment';
-$query = "SELECT 
+$query = "SELECT
   mlm_payment.*,
-  mlm.`group_play` 
+  mlm.`group_play`
 FROM
   mlm_payment,
-  mlm 
-WHERE mlm_payment.`Account` = mlm.`ACCNO` 
+  mlm
+WHERE mlm_payment.`Account` = mlm.`ACCNO`
 AND mlm_payment.`aecode` = '$user->username'
 AND mlm_payment.IDPay = '$accnoselect'";
 $result = $DB->execresultset($query);
@@ -70,7 +70,7 @@ foreach ($result as $rows) {
             $ceksemuaccounts[$icount]['UangNOComma'] = '50';
             $ceksemuaccounts[$icount]['UangNOCommaTax'] = '50';
             $ceksemuaccounts[$icount]['Product'] = "SILVER 50 ";
-          
+
         }
         if ($group_play == 'ClubSilver100') {
            $ceksemuaccounts[$icount]['Uang'] = 'USD 100.00 ( Hundred US Dollar )';
@@ -123,10 +123,10 @@ foreach ($result as $rows) {
         }
 
 
-        
-                
-            
-        
+
+
+
+
     }
 
 // var_dump($ceksemuaccounts);
@@ -136,19 +136,21 @@ foreach ($result as $rows) {
 
 
 /*=====  End of Start Of Coding  ======*/
+
 if ($shownya == 'paypal') {
   $template->assign("ceksemuaccounts", $ceksemuaccounts);
   $template->display("ar_payment_paypal.htm");
 }elseif($shownya == 'cash'){
-    
+
   $template->assign("account2", $account2);
   $template->assign("IDPay", $accnoselect);
   $template->display("ar_payment_cash.htm");
 
 }elseif($shownya == 'transfer'){
-    
+
   $template->assign("account2", $account2);
   $template->assign("IDPay", $accnoselect);
+  $template->assign("uang", $ceksemuaccounts[0]['UangNOComma'] . '00');
   $template->display("ar_payment_tf.htm");
 }
 
