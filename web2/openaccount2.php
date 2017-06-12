@@ -162,6 +162,7 @@ foreach ($rows2 as $row) {
 	  	viewtype='stg9_summary',
 	  	companygroup = 'cabinet',
 	  	lockingid = '1',
+			lastlogin = NOW(),
 	  	directdone = 'yes',
 	  	login_end = DATE_ADD(NOW(),INTERVAL +90 DAY),
 	  	countertype = 'Currency'";
