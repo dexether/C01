@@ -138,13 +138,11 @@ if ($errno == 0) {
             bod = '$register_birthday'
             WHERE aecodeid = '$aecodeid';
             ";
-            tradeLogProfile("Profile-85 :" . $query);
             $DB->execonly($query);
-			$query = "UPDATE todo_list SET
-				finished = '1'
-				WHERE aecodeid = '$aecodeid' AND id_todo = '1'";
-				tradeLogProfile("Profile-85 :" . $query);
-			$DB->execonly($query);
+      			$query = "UPDATE todo_list SET
+      				finished = '1'
+      				WHERE aecodeid = '$aecodeid' AND id_todo = '1'";
+			      $DB->execonly($query);
           }
           if ($postmode == 'bank') {
               $query = "UPDATE client_aecode_bank SET
@@ -166,15 +164,15 @@ if ($errno == 0) {
               aeaccountname = '$accountname',
               aeaccountnumber = '$accountnumber',
               pengalaman = '$pengalaman',
-			tujuan = '$tujuan',
-			keluarga_di_bappebti = '$keluarga_di_bappebti',
-			pailit = '$pailit',
-			penghasilan = '$penghasilan',
-			pekerjaan = '$pekerjaan',
-			darurat_name = '$darurat_name',
-			darurat_alamat = '$darurat_alamat',
-			darurat_telephone = '$darurat_telephone',
-			darurat_hubungan = '$darurat_hubungan'
+        			tujuan = '$tujuan',
+        			keluarga_di_bappebti = '$keluarga_di_bappebti',
+        			pailit = '$pailit',
+        			penghasilan = '$penghasilan',
+        			pekerjaan = '$pekerjaan',
+        			darurat_name = '$darurat_name',
+        			darurat_alamat = '$darurat_alamat',
+        			darurat_telephone = '$darurat_telephone',
+        			darurat_hubungan = '$darurat_hubungan'
             WHERE aecodeid = '$aecodeid';
               ";
               $DB->execonly($query);
@@ -216,7 +214,7 @@ if ($errno == 0) {
                 fclose($handle);
                 //tradeLogProfile("Profile-244");
                 /*$file = imagecreatefromjpeg($theaddress); //http://nz2.php.net/manual/en/function.imagecreatefromjpeg.php
-                $rotim = imagerotate($file, $rotation, 0);   //http://nz2.php.net/manual/en/function.imagerotate.php      
+                $rotim = imagerotate($file, $rotation, 0);   //http://nz2.php.net/manual/en/function.imagerotate.php
                 imagejpeg($rotim, $theaddress); //http://nz2.php.net/manual/en/function.imagejpeg.php
                 imagedestroy($file);
                 imagedestroy($rotim);*/
