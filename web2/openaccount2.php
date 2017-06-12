@@ -221,7 +221,7 @@ foreach ($rows2 as $row) {
 			$DB->commit();
 		} catch (Exception $e) {
 			$DB->rollback();
-			display_error("Please call webmaster", "Failed While Create Account");
+			display_error("Please call webmaster " . $e->getMessage(), "Failed While Create Account");
 		}
 
 
