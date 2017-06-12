@@ -29,7 +29,7 @@ class DB {
         $rows = $this->db2->resultset();
         return $rows;
     }
-    
+
     function execonly($querystring) {
         $this->db2->exec($querystring);
         return 1;
@@ -40,8 +40,18 @@ class DB {
         $row = $this->db2->single();
         return $row;
     }
-
-    
+    public function transaction()
+    {
+      return $this->db2->transaction();
+    }
+    public function commit()
+    {
+      return $this->db2->commit();
+    }
+    public function rollback()
+    {
+      return $this->db2->rollback();
+    }
 
 }
 

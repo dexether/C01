@@ -55,7 +55,7 @@ class connDB { // Beginn class
         // Check SQL
         try {
             // Prepares SQL
-            //trigger_error( $sql . ";E_USER_ERROR" );
+            // trigger_error( $sql . ";E_USER_ERROR" );
             $this->stmt = $this->dbc->prepare($sql);
             // Bind (Function 'bind')
             if (count($params) > 0) {
@@ -70,8 +70,8 @@ class connDB { // Beginn class
         // Error handling
         catch (PDOException $errMsg) {
             // Close connection
+            throw new Exception($errMsg->getMessage());
             $this->dbc = null;
-            trigger_error( $errMsg->getMessage() . ";E_USER_ERROR" );
             exit( 1 );
             return false;
         }
@@ -137,14 +137,19 @@ class connDB { // Beginn class
         return $this->stmt->rowCount();
     }
 
-    public function transactions()
+    public function transaction()
     {
-      return PDO::beginTransaction();
+      return $this->dbc->beginTransaction();
     }
     public function commit()
     {
-      return PDO::commit();
+      return $this->dbc->commit();
     }
+    public function rollback()
+    {
+      return $this->dbc->rollback();
+    }
+
 }
 
 // End class
