@@ -43,7 +43,7 @@ var UpdateProfile = function() {
                     remote: "Sorry, this Nationality is Prohibited"
                 }
             },
-            invalidHandler: function(event, validator) { //display error alert on form submit  
+            invalidHandler: function(event, validator) { //display error alert on form submit
                 alert("Still have problem on data input, please check the Red Box");
                 // console.log('error');
             },
@@ -154,8 +154,8 @@ var UpdateProfile = function() {
         upload_doc: function() {
             $('#ajax-btn').button('loading');
             var formData = new FormData($('#ajax-form')[0]);
-            // var formData = new FormData($('#yourformID')[0]); 
-            formData.append('file_1', $('input[type="file"]')[0].files[0]);    
+            // var formData = new FormData($('#yourformID')[0]);
+            formData.append('file_1', $('input[type="file"]')[0].files[0]);
             // console.log(formData);
             // alert("Clicked oy" + account + type + method + amount + date + time);
             var url = 'profile_upload.php';
@@ -184,6 +184,9 @@ var UpdateProfile = function() {
                                 }
                             });
                         }, 3000);
+                },
+                error : function(error) {
+                  sweetAlert('Error', 'Error While Update profile', 'error');
                 }
             });
 

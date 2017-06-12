@@ -115,6 +115,7 @@ foreach ($rows2 as $row) {
 	  	sendmethod = 'Email',
 	  	email = '$email',
 	  	afiliasi = '$afiliasi',
+			lastlogin = NOW(),
 	  	nationality = '$countries_states2',
 	  	address = '',
 	  	no_identitas = '',
@@ -162,7 +163,6 @@ foreach ($rows2 as $row) {
 	  	viewtype='stg9_summary',
 	  	companygroup = 'cabinet',
 	  	lockingid = '1',
-			lastlogin = NOW(),
 	  	directdone = 'yes',
 	  	login_end = DATE_ADD(NOW(),INTERVAL +90 DAY),
 	  	countertype = 'Currency'";

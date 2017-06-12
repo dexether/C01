@@ -2,7 +2,7 @@
 
 define('root', $_SERVER['DOCUMENT_ROOT']);
 require_once root.'/classes/pdo/Database.class.php';
-class Apexregent extends Database
+class apexregent extends Database
 {
   public $keywords;
   public function __construct()
