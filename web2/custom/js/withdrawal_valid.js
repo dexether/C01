@@ -55,7 +55,7 @@ $(document).ready(function() {
                         message: 'The amount is required and can\'t be empty'
                     },
                     digits: {
-                        message: 'The value can contain only digits'
+                        message: 'The value can contain only digitsss'
                     }
                 }
             },

@@ -132,3 +132,6 @@ $route['api/address/set_primary/(:num)']['post'] = 'address/AddressController/se
 
 
 $route['product/set_rating/(:num)'] = 'mod_ecommerce_product/View_product/set_review/$1';
+
+
+$route['disclaimer'] = 'Mod_ecommerce_page/disclaimer';

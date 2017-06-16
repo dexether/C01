@@ -15,7 +15,6 @@ if (isset($user)) {
 }
 $user = $_SESSION['user'];
 $template->assign("user", $user);
-
 //TradeLogUnderConstruct_Secure("Profile-175-Get_PostMode:" . $_GET[postmode]);
 $postmode = '';
 if (isset($_GET['postmode'])) {
@@ -59,6 +58,9 @@ foreach ($result as $key => $rows) {
    $balance = $rows['balance'];
 }
 
+$tax = config('AR_WITHDRAWAL_TAX');
+$after_tax = 100 + ($balance * $tax / 100);
+
 if ($balance < $amount || $amount <= 26.25) {
    $errno   = 1;
    $error   = "error";
@@ -66,6 +68,23 @@ if ($balance < $amount || $amount <= 26.25) {
    $msg     = "your balance for ACCNO $account is Not enought Minimal USD 26.25";
 }
 
+if ($balance < $after_tax) {
+   $errno   = 1;
+   $error   = "error";
+   $subject = "Sorry, Request failed";
+   $msg     = "your balance for ACCNO $account is Not enought Minimal USD $after_tax";
+}
+$sql = "SELECT SUM(amount) as amount FROM `mlm_transaction` WHERE account_from = '$account' AND DATE(`date_transaction`) = CURDATE()";
+$max_wd = 0;
+foreach($DB->execresultset($sql) as $row):
+  $max_wd = $row['amount'];
+endforeach;
+if ($max_wd >= config('AR_WITHDRAWAL_MINIMUM_PER_DAY')) {
+   $errno   = 1;
+   $error   = "error";
+   $subject = "Sorry, Request failed";
+   $msg     = "You has been reach the maximal Withdrawal for this day, try again tomorrow";
+}
 /*==============================
 =            coding            =
 ==============================*/
@@ -152,7 +171,6 @@ $response = array('status' => $error, 'subject' => $subject, 'msg' => $msg);
 echo json_encode($response);
 
 /*=====  End of coding  ======*/
-
 function myfilter($input_var_outer, $param)
 {
    global $var_to_pass;

@@ -22,7 +22,16 @@
                 </div>
                 <div class="widget-content padding">
 				<div class="alert alert-info">
-					Notice : User withdrawal now will be charged {$tax}% of the amount as Tax.
+					<strong>Notice :</strong>
+          <p>
+            - User withdrawal now will be charged {$tax}% of the amount as Tax.
+          </p>
+          <p>
+            - Minimal Withdrawal is USD 2.000 per day
+          </p>
+          <p>
+            - Withdrawal process up to 48 hours
+          </p>
 					</div>
                 {if $bankaccounts.0.status == '1'}
                 <div class="alert alert-warning">
@@ -139,7 +148,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width" 147px>Date</th>
-                                        <th style="width" 147px>Trading Account</th>
+                                        <th style="width" 147px>Account</th>
                                         <th style="width" 180px>Payment Method</th>
                                         <th style="width" 147px>Withdrawal Amount</th>
                                         <th style="width" 114px>Status</th>
