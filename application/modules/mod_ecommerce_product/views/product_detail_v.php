@@ -30,6 +30,9 @@ add_js(base_url('assets/js/product-view.js'));
                                      <div class="product-star">
                                        <?php echo $this->format->rating($product->prod_star); ?>
                                      </div>
+                                     <div class="product-share">
+                                      <div class="addthis_inline_share_toolbox"></div>
+                                     </div>
                                      <div class="comments-advices">
                                          <a href="#reviews">Berdasarkan <?php echo count($reviews) ?> Review</a>
                                      </div>

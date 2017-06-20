@@ -329,6 +329,8 @@
 <script type="text/javascript" src="/assets/js/theme-script.js"></script>
 <script type="text/javascript" src="/assets/js/category-page.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5948853a0829350d"></script> 
 <?php $status = 'success'; if ($this->session->flashdata('success')): ?>
 <script>
   toastr.<?php echo $status; ?>('<?php echo $this->session->flashdata('success') ?>')
