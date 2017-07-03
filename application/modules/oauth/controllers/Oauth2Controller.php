@@ -105,7 +105,7 @@ class Oauth2Controller extends MY_Controller
           if($this->checkRegisteredUser($me->getEmail())):
             $user = $this->auth->get_user_data($me->getEmail());
             $this->auth->set_user_data($user);
-            return redirect('/');
+            redirect('/');
           else:
             $sql = new Users;
             $sql->username = $this->user_data['email'];
@@ -121,7 +121,7 @@ class Oauth2Controller extends MY_Controller
 
             $user = $this->auth->get_user_data($me->getEmail());
             $this->auth->set_user_data($user);
-
+            redirect('/');
           endif;
     }
     private function checkRegisteredUser($email)
