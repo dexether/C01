@@ -45,7 +45,8 @@ class DiscussController extends AuthController {
       $this->session->set_flashdata('success', 'Berhasil Menambah discuss');
       redirect($_SERVER['HTTP_REFERER']);
     } catch (Exception $e) {
-
+      $this->session->set_flashdata('error', 'Error while submit');
+      redirect($_SERVER['HTTP_REFERER']);
     }
   }
 }
