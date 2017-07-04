@@ -77,6 +77,10 @@ add_js(base_url('assets/js/product-view.js'));
                                  <li>
                                      <a data-toggle="tab" href="#reviews">Ulasan Barang</a>
                                  </li>
+                                 <li>
+                                     <a data-toggle="tab" href="#discuss">Diskusi Produk</a>
+                                 </li>
+
                              </ul>
                              <div class="tab-container">
                                  <div id="product-detail" class="tab-panel active">
@@ -139,6 +143,88 @@ add_js(base_url('assets/js/product-view.js'));
 
                                          </p>
                                      </div>
+
+                                 </div>
+                                 <div id="discuss" class="tab-panel">
+                                   <p>
+                                     <b>Ada pertanyaan mengenai produk ini?</b>
+                                     <br>
+                                     <small>Diskusikan langsung dengan penjual.</small>
+                                   </p>
+                                  <?php if (!$this->session->login): ?>
+                                    <a href="<?= base_url('auth?redirect='.current_url()) ?>" class="btn btn-block btn-success">Gabung Diskusi</a>
+                                  <?php else: ?>
+                                    <?php echo form_open('discuss/'.$product->id); ?>
+                                      <textarea name="discuss_message" rows="8" cols="80" class="form-control" placeholder="Isi pertanyaan anda disini ....">
+                                      </textarea>
+                                      <br>
+                                      <button type="submit" name="button" class="btn btn-block btn-success">Diskusi</button>
+
+                                    </form>
+                                  <?php endif; ?>
+
+                                  <hr>
+
+                                  <?php foreach ($discuss as $key => $value): ?>
+                                    <div class="discuss lg-m-10 card-2">
+                                      <div class="discuss-reply-buyer-detail-box lg-mb-20 lg-p-5">
+                                        <?php if ($value->client_aecode->foto == null):
+                                          $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $value->client_aecode->email ) ) );
+                                        ?>
+                                          <img class="pull-left lg-m-5" src="<?= $grav_url ?>" width="50" height="50" title="<?= $value->client_aecode->name ?>" alt="<?= $value->client_aecode->name ?>">
+                                        <?php else: ?>
+                                          <img class="pull-left lg-m-5" src="<?= base_url($value->client_aecode->foto); ?>" width="50" height="50" title="<?= $value->client_aecode->name ?>" alt="<?= $value->client_aecode->name ?>">
+                                        <?php endif; ?>
+                                        <a href="#" class="">
+                                          <small><b> <?php echo $value->client_aecode->name ?></b></small>
+                                        </a>
+                                        <?php if ($product->aecodeid == $value->aecodeid): ?>
+                                          <label class="label label-danger">Penjual</label>
+                                        <?php else: ?>
+                                          <label class="label label-success">Pembeli</label>
+                                        <?php endif; ?>
+                                        <small><?php echo $value->created_at->formatLocalized('%A %d %B %Y');    ?></small>
+                                        <br>
+                                        <p><?php echo $value->message ?></p>
+                                      </div>
+
+                                      <?php foreach ($value->discuss_reply as $key => $row): ?>
+                                        <div class="discuss-reply-seller-detail-box lg-p-5">
+                                        <?php if ($row->client_aecode->foto == null):
+                                          $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $row->client_aecode->email ) ) );
+                                        ?>
+                                          <img class="pull-left lg-m-5" src="<?= $grav_url ?>" width="50" height="50" title="<?= $row->client_aecode->name ?>" alt="<?= $row->client_aecode->name ?>">
+                                        <?php else: ?>
+                                          <img class="pull-left lg-m-5" src="<?= base_url($row->client_aecode->foto); ?>" width="50" height="50" title="<?= $row->client_aecode->name ?>" alt="<?= $row->client_aecode->name ?>">
+                                        <?php endif; ?>
+                                        <a href="#" class="">
+                                          <small><b> <?php echo $row->client_aecode->name ?></b></small>
+                                        </a>
+                                        <?php if ($product->aecodeid == $row->aecodeid): ?>
+                                          <label class="label label-danger">Penjual</label>
+                                        <?php else: ?>
+                                          <label class="label label-success">Pembeli</label>
+                                        <?php endif; ?>
+                                        <small><?php echo $row->created_at->formatLocalized('%A %d %B %Y');    ?></small>
+                                        <br>
+                                        <p><?php echo $row->message ?></p>
+                                      </div>
+                                      <?php endforeach; ?>
+
+                                      <?php if ($this->session->login): ?>
+                                        <div class="discuss-reply-seller-detail-box lg-p-5">
+                                          <?php echo form_open('discuss/comment/'.$value->id); ?>
+                                          <input type="text" name="comment" value="" class="form-control" placeholder="Komentar kamu disini...">
+                                          <div class="button-comment lg-pb-5 lg-m-5">
+                                            <button type="submit" name="button" class="btn btn-success pull-right">Komentar</button>
+                                          </div>
+                                          <br>
+                                        </div>
+                                      <?php endif; ?>
+
+
+                                    </div>
+                                  <?php endforeach; ?>
 
                                  </div>
                              </div>

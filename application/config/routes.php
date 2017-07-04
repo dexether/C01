@@ -135,3 +135,6 @@ $route['product/set_rating/(:num)'] = 'mod_ecommerce_product/View_product/set_re
 
 
 $route['disclaimer'] = 'Mod_ecommerce_page/disclaimer';
+
+$route['discuss/comment/(:num)'] = 'discuss/DiscussController/post_discuss_comment/$1';
+$route['discuss/(:num)'] = 'discuss/DiscussController/post_discuss/$1';

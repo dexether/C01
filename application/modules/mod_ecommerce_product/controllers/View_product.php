@@ -1,5 +1,6 @@
 <?php
 use App\Models\Review;
+use App\Models\Discuss;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Request;
 class View_product extends MY_Controller
@@ -16,15 +17,20 @@ class View_product extends MY_Controller
       $product_details = $this->mymodel->get_product_details($product_name);
       /* Get Product Review */
       $reviews = Review::where('prod_id', $product_details->id)->orderBy('created_at', 'DESC');
+
+      /* Get Product Discuss */
+      $discuss = Discuss::where('product_id', $product_details->id)->orderBy('created_at', 'DESC')->get();
       /* get new product by category */
       $product_list = $this->mymodel->get_product_list($product_category, $product_name);
       /* Meta Tags */
+      
       $data['meta']['title'] = $product_details->prod_alias;
       $data['meta']['desc'] = $this->format->clean_html($product_details->prod_desc);
       $data['product_list'] = $product_list;
       $data['product'] = $product_details;
       $data['page'] = 'category-page';
       $data['reviews'] = $reviews->get();
+      $data['discuss'] = $discuss;
       $data['content'] = 'mod_ecommerce_product/product_detail_v';
       $this->breadcrumb->clear();
       $this->breadcrumb->add_crumb('Home', '/');
