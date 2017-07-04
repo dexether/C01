@@ -13,8 +13,9 @@ class Mod_ecommerce_ongkir extends MY_Controller
     }
     public function getCity()
     {
-        $province = $this->input->get('provinsi');
+        $province = $this->input->get('province_id');
         $cities = $this->rajaongkir->city($province);
+        // dd($cities);
         $array = json_decode($cities);
         $datakota = $array->rajaongkir->results;
         foreach ($datakota as $key => $value) {
