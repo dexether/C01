@@ -173,7 +173,7 @@ add_js(base_url('assets/js/product-view.js'));
                                         ?>
                                           <img class="pull-left lg-m-5" src="<?= $grav_url ?>" width="50" height="50" title="<?= $value->client_aecode->name ?>" alt="<?= $value->client_aecode->name ?>">
                                         <?php else: ?>
-                                          <img class="pull-left lg-m-5" src="<?= base_url($value->client_aecode->foto); ?>" width="50" height="50" title="<?= $value->client_aecode->name ?>" alt="<?= $value->client_aecode->name ?>">
+                                          <img class="pull-left lg-m-5" src="<?= base_url('web2/'.$value->client_aecode->foto); ?>" width="50" height="50" title="<?= $value->client_aecode->name ?>" alt="<?= $value->client_aecode->name ?>">
                                         <?php endif; ?>
                                         <a href="#" class="">
                                           <small><b> <?php echo $value->client_aecode->name ?></b></small>
@@ -195,7 +195,7 @@ add_js(base_url('assets/js/product-view.js'));
                                         ?>
                                           <img class="pull-left lg-m-5" src="<?= $grav_url ?>" width="50" height="50" title="<?= $row->client_aecode->name ?>" alt="<?= $row->client_aecode->name ?>">
                                         <?php else: ?>
-                                          <img class="pull-left lg-m-5" src="<?= base_url($row->client_aecode->foto); ?>" width="50" height="50" title="<?= $row->client_aecode->name ?>" alt="<?= $row->client_aecode->name ?>">
+                                          <img class="pull-left lg-m-5" src="<?= base_url('web2/'.$row->client_aecode->foto); ?>" width="50" height="50" title="<?= $row->client_aecode->name ?>" alt="<?= $row->client_aecode->name ?>">
                                         <?php endif; ?>
                                         <a href="#" class="">
                                           <small><b> <?php echo $row->client_aecode->name ?></b></small>
