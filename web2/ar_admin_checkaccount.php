@@ -16,6 +16,7 @@ if (isset($_GET['postmode'])) {
 	$postmode = $_GET['postmode'];
 }
 
+$days = 7;
 
 /*====================================
 =            Start Coding            =
@@ -27,7 +28,7 @@ if ($postmode=="yes") {
 	foreach($result as $rows){
 		$companys = $rows;
 	}
-	$query = "SELECT 
+	$query = "SELECT
 	client_accounts.`accountname`,
 	client_aecode.`aecodeid`,
 	client_aecode.`name`,
@@ -37,16 +38,16 @@ if ($postmode=="yes") {
 	FROM
 	client_accounts,
 	client_aecode,
-	mlm 
-	WHERE client_accounts.`accountname` = mlm.`ACCNO` 
+	mlm
+	WHERE client_accounts.`accountname` = mlm.`ACCNO`
 	AND client_aecode.`aecodeid` = client_accounts.`aecodeid`
 	AND mlm.`companyconfirm` = '0'
-	AND client_accounts.`suspend` = '0' 
+	AND client_accounts.`suspend` = '0'
 	AND client_accounts.`accountname` NOT LIKE '9999%'
 	AND client_accounts.`accountname` <> 'COMPANY'
-	AND mlm.`datetime` <= DATE_SUB(NOW(), INTERVAL 5 DAY)";
+	AND mlm.`datetime` <= DATE_SUB(NOW(), INTERVAL ".$days." DAY)";
 	$result = $DB->execresultset($query);
-	
+
 	foreach($result as $rows){
 		$account = $rows['accountname'];
 		$name = $rows['name'];
@@ -76,7 +77,7 @@ if ($postmode=="yes") {
 		$body = "Time: " . date('Y-m-d H:i:s', strtotime('-1 hour')) . "<br> <br>";
 		$body = $body . "Dear ".$name.",<br>";
 		$body = $body . " <br>";
-		$body = $body . "We inform you that your account number ".$account." we have disable, because you have not made any payments as of 5 days after you register your account. <br>";
+		$body = $body . "We inform you that your account number ".$account." we have disable, because you have not made any payments as of ".$days." days after you register your account. <br>";
 		$body = $body . "thanks you have participated in our program<br>";
 		$body = $body . " <br>";
 		$body = $body . " <br>";
@@ -110,7 +111,7 @@ function sendEmail($to, $subject, $body, $module) {
 	email_subject = '$subject',
 	email_body = '$body',
 	timesend = '1970-01-31 00:00:00',
-	module = '$module'    
+	module = '$module'
 	";
 	$DB->execonly($query);
 }
