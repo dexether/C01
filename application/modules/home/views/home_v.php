@@ -576,7 +576,7 @@ add_js(base_url('assets/js/home.js'));
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Floating Rate </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> Depo & WD Bank Lokal </li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i> 4 Trading Platform (MT4, MT5, cTrader, FxPro Markets) </li>
-                  <li class="list-group-item"><i class="icon-ok text-danger"></i> Autochartist & Trading Central </li>
+                  <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
                   <li class="list-group-item"><i class="icon-ok text-danger"></i>&nbsp;</li>
                 </ul>
                 <div class="panel-footer">
