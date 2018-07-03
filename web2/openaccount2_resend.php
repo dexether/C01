@@ -55,8 +55,7 @@ $body = $body . " <br>";
 $body = $body . "Thank you," . "<br>";
 $body = $body . "<br><strong>".$companys['companyname']."</strong>" . "<br>";
 $body = $body . $companys['long_address'];
-$body = $body . " Email : ".$companys['email']." <br>";
-$body = $body . " ".$companys['companyurl']." <br>";
+
 
 $query = "insert into email set
 timeupdate = '$timenya',

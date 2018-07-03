@@ -85,27 +85,29 @@ if (isset($_GET['postmode'])) {
         //tradeLogUser("User.php-147:Tradedby:" . $TradedChange . ";AccountChange:" . $AccountChange . ";OldPassword1:" . $oldpassword1 . ";pswd1:" . $password1 . ";pswd2:" . $password2);
         $oldpassword2 = md5($oldpassword1);
         if ($password1 == $password2) {
-            //tradeLogUser("User.php-150:".$password1);
+            //tradeLogUser("betul");
             if ($password1 == '') {
                 $template->assign("error", "Password can not be empty");
+				//tradeLogUser("salah");
             } else {                
+				tradeLogUser("else");
                 $password = md5($password1);
                 //tradeLogUser("User.php-154:".$password);
-                $query = "SELECT * FROM USER 
+                $query = "SELECT * FROM user 
                     WHERE 
                     username = '" . $user->username . "' 
-                    AND PASSWORD='" . $oldpassword2 . "'";
-                //tradeLogUser("User-159-query:".$query);
+                    AND password='" . $oldpassword2 . "'";
+               // tradeLogUser("User-159-query:".$query);
                 $rows = $DB->execresultset($query);
                 $adadata = 'no';
                 foreach ($rows as $row) {
                     $adadata = "yes";
                 }
-
+				//tradeLogUser($adadata);
 
                 if ($adadata == 'yes') {
                     $query = "UPDATE user SET password = '" . $password . "' 
-                        WHERE username = '" . $TradedChange . "' and password='" . $oldpassword2 . "'";
+                        WHERE username = '" . $user->username . "' and password='" . $oldpassword2 . "'";
                     //tradeLogUser("User-168:" . $query);
                     $DB->execonly($query);
 
@@ -114,23 +116,32 @@ if (isset($_GET['postmode'])) {
                     $_SESSION['ordermessage'] = "Password has been update successfully. Please click home to return";
                     $_SESSION['orderkey'] = $key;
                     //tradeLogUser("175-User-Success");
-                    echo 0;
-                    $_SESSION['page'] = 'dashboardawal2';
+                    $error            = "success";
+					$subject          = "Success changing password";
+					$msg              = "Your password has been updated.";
+                    $_SESSION['page'] = 'home_03';
+					//tradeLogUser("berhasil");
                 } else {
-                    //tradeLogUser("179-User-Fail");
-                    echo "1";
+                    $error            = "error";
+					$subject          = "Failed changing password";
+					$msg              = "Something went wrong";
+					//tradeLogUser("gagal");
                 }
             }
         } else {
-            //$template->assign("error", "Password 1 and Password 2 doesn't match. Please try again.");
-            echo 3;
+            $error            = "error";
+			$subject          = "Error";
+			$msg              = "Password confirmation not match";
+			//tradeLogUser("ngga sama");
         }
+		$response = array('status' => $error, 'subject' => $subject, 'msg' => $msg);
+		echo json_encode($response);
     }
+}else{
+	$template->assign("action", "user.php?postmode=changepassword&tradedby=" . $user->username);
+	$template->display("user.htm");
 }
 
-$template->assign("action", "user.php?postmode=changepassword&tradedby=" . $user->username);
-
-$template->display("user.htm");
 
 /* * ***************************************************************************
  * FETCH ALL ACCOUNTS ASSOCIATED WITH USERNAME                                *

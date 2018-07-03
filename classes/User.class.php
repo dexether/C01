@@ -364,6 +364,7 @@ class User {
     function checkPassword($password = "") { // [+fetch()]
         global $DB;
         if (empty($this->userid)) {
+            //UsertradeLog("user id ngga ada bro");
             die("User.class.php: Userid is empty");
         }
         if (empty($password)) {

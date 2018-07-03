@@ -48,7 +48,6 @@ if ($postmode == "show") {
   mlm_comm.`ACCNO`,
   mlm_comm.`lot`,
   mlm_comm.`amount`,
-  mlm_comm.`level`,
   client_aecode.`name`,
   mlm_comm.`from`,
   (SELECT
@@ -68,8 +67,9 @@ $filter_agen
 $filter_date
 AND mlm_comm.`ACCNO` = client_accounts.`accountname`
   AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
-  AND mlm_comm.type = 'askap'";
+  AND mlm_comm.type = 'royal'";
    // print_r($query);
+   tradelogs("query-47 :".$query);
    $result = $DB->execresultset($query);
 
    // Cek databases
@@ -78,8 +78,9 @@ AND mlm_comm.`ACCNO` = client_accounts.`accountname`
   alias
 FROM
   mt_database
-WHERE mt_database.`alias` LIKE '%askap%'
+WHERE mt_database.`alias` LIKE '%royal%'
   AND enabled = 'yes' ";
+  tradelogs("query-76 :".$query);
    $hasil = $DB->execresultset($query);
    foreach ($hasil as $key => $value) {
       $meta  = $value['mt4dt'];
@@ -111,15 +112,12 @@ WHERE mt_database.`alias` LIKE '%askap%'
                         FROM
                           mlm2)
                       GROUP BY " . $meta . ".`mt4_users`.`LOGIN`";
+					  tradelogs("query-104 :".$query);
       $result3   = $DB->execresultset($query);
       // $anonydata = array();
 
       foreach ($result3 as $key => $row) {
-         $query  = "SELECT amount FROM imp_manage_schema WHERE mt4dt = '" . $value['mt4dt'] . "' AND bonus_for = 'nasabah' ORDER BY level ASC LIMIT 0,1";
-         $hasil2 = $DB->execresultset($query);
-         foreach ($hasil2 as $key2 => $value2) {
-            $lot_amount = $value2['amount'];
-         }
+            $lot_amount = 500000;
 
          //Checkin for lots
          $query_lot = "SELECT
@@ -135,6 +133,7 @@ WHERE mt_database.`alias` LIKE '%askap%'
                    AND " . $meta . ".`mt4_trades`.`CLOSE_TIME` BETWEEN '$periode_start'
                    AND '$periode_end'
                  GROUP BY " . $meta . ".`mt4_trades`.`LOGIN`";
+		 tradelogs("query-123 :".$query_lot);
          $result_lot = $DB->execresultset($query_lot);
          $lot_value = 0;
          foreach ($result_lot as $lot_key => $lot_val) {
@@ -163,8 +162,9 @@ $filter_agen
 $filter_date
 AND mlm_comm.`ACCNO` = client_accounts.`accountname`
   AND client_accounts.`aecodeid` = client_aecode.`aecodeid`
-  AND mlm_comm.type = 'askap'
+  AND mlm_comm.type = 'royal'
 GROUP BY mlm_comm.`ACCNO` ";
+tradelogs("query-151 :".$query);
    $result2                = $DB->execresultset($query);
    $response['detailed']   = $result;
    $response['quick']      = $result2;
@@ -249,7 +249,7 @@ function myfilter($input_var_outer, $param)
    return $return_arr;
 }
 
-function TradeLogUnderConstruct_Secure($msg)
+function TradeLogs($msg)
 {
    $fp      = fopen("trader.log", "a");
    $logdate = date("Y-m-d H:i:s => ");

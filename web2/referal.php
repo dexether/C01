@@ -55,7 +55,6 @@ $template->assign('this_url', $this_url);
 ====================================*/
 
 /*=====  End of Start Coding  ======*/
-
 $template->assign('alldata', $alldata);
 $template->display("referal.htm");
 

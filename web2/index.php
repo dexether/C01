@@ -3,6 +3,10 @@ session_start();
 $skip_authentication = 1;
 include("../includes/functions.php");
 $theparent = '';
+if(isset($_SESSION['user'])) {
+    header("Location: mainmenu.php"); // redirects them to homepage
+     exit; // for good measure
+}
 if(isset($_GET['page'])) {
     $theparent = $_GET['page'];
 }
@@ -19,9 +23,8 @@ foreach($result as $rows) {
 }
 $template->assign('redirect', urlencode($redirect));
 $template->assign("companys", $companys);
-//tradeLog("Index.php-14");
 $template->assign("target", $target);
-//tradeLog("Index.php-16");
+//tradeLog($theparent);
 $template->display("index.htm");
 function tradeLog($msg)
 {

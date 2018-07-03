@@ -171,42 +171,29 @@
                                     </div>
                                  </div>
                               </div>
-                              <input class="form-control datepicker-input" data-date-format="yyyy/mm/dd" name="register_birthday" type="hidden" value="1976/02/02">
-                                 <div class="form-group">
-                                    <div class="row">
-                                       <div class="col-sm-6">
-                                          <label class="control-label" for="description1">
-                                             How do you know us ? /
-                                             <span class="ina">
-                                                Darimana anda tau kita ?
-                                             </span>
-                                          </label>
-                                          <select class="form-control" id="description1" name="description1" readonly="true" {if $agent != false}{/if}>
-                                             <option value="Agent" {if $agent != false}selected{/if}>
-                                                Agent / Agen
-                                             </option>
-                                             <option value="Newspaper" {if $agent == false}selected{/if}>
-                                                Mass Media / Media Masa
-                                             </option>
-                                          </select>
-                                       </div>
-                                       <div class="col-sm-6">
-                                          <label class="control-label" for="upline" style="">
-                                             Introducer Email Address /
-                                             <span class="ina">
-                                                Alamat email yang mengenalkan
-                                             </span>
-                                          </label>
-                                          <style>
-                                          .hiddenInput {
-                                            display: none;
-                                          }
-                                          </style>
-                                          <input class="form-control upline" id="upline" name="upline" value="{$companys.email}" placeholder="{$companys.email}" type="text" style=""/>
-                                          <input class="form-control hiddenInput" id="agen" name="agen" placeholder="Please enter your agen email" value="{if $agent != false}{$agent.email}{/if}" {if $agent != false}readonly{/if} type="text" style=""/>
-                                       </div>
-                                    </div>
+	                      <div class="form-group">				  
+                                 <div class="row">
+				   <div class="col-sm-6">
+<label class="control-label" for="register_phone">Phone Number /<span class="ina">Nomor Telepon</span></label>
+<input class="form-control" name="register_phone" id="register_phone" placeholder="Phone Number" type="text">
+<p class="help-block">
+</p>
+</input>
+</div>
+                                    <div class="col-sm-6">
+										   <label class="control-label" for="register_birthday">
+											  Birthdate /
+											  <span class="ina">
+												 Tanggal Lahir
+											  </span>
+										   </label>
+										   <input class="form-control datepicker-input" data-date-format="yyyy/mm/dd" name="register_birthday" placeholder="Select Birth Date" type="text">
+											  <p class="help-block">
+											  </p>
+										   </input>
+									   </div>
                                  </div>
+                              </div>
                                  <div class="form-group">
 
                                     <label>
@@ -265,6 +252,9 @@
                                                 Setelah pendaftaran, silahkan cek email Anda untuk memvalidasi pendaftaran Anda
                                              </span>
                                           </p>
+{if $companys.companyname eq 'Cyber Futures Forex'}
+
+{else}
                                           <li>
                                              If you do not received the validation email, please contact admin at {$companys.admin_email}
                                           </li>
@@ -274,6 +264,7 @@
                                              </span>
                                              {$companys.admin_email}
                                           </p>
+{/if}
                                        </ol>
                                     </div>
                                  </div>
@@ -387,43 +378,6 @@
    {/literal}
    <script type="text/javascript">
       jQuery(document).ready(function($) {
-         $valuenya = $('#description1').val();
-            // if ($valuenya == 'Newspaper') {
-            //    var Upline = $('input[name=upline]');
-            //    $(Upline).attr('readonly', 'true');
-            //    // console.log('News');
-            // }
-            if ($valuenya == 'Newspaper') {
-               var Upline = $('input[name=upline]');
-               var agen = $('input[name=agen]');
-               $(Upline).attr('readonly', true);
-               $(Upline).removeClass('hiddenInput');
-               $(agen).addClass('hiddenInput');
-               // console.log('News');
-            }else{
-               var Upline = $('input[name=upline]');
-               var agen = $('input[name=agen]');
-               $(Upline).addClass('hiddenInput');
-               $(agen).removeClass('hiddenInput');
-            }
-        $('#description1').change(function(event) {
-            $valuenya = $(this).val();
-            // console.log($valuenya)
-            if ($valuenya == 'Newspaper') {
-               var Upline = $('input[name=upline]');
-               var agen = $('input[name=agen]');
-               $(Upline).attr('readonly', true);
-               $(Upline).removeClass('hiddenInput');
-               $(agen).addClass('hiddenInput');
-               // console.log('News');
-            }else{
-               var Upline = $('input[name=upline]');
-               var agen = $('input[name=agen]');
-               $(Upline).addClass('hiddenInput');
-               $(agen).removeClass('hiddenInput');
-            }
-        });
-
 
         function randomNumber(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
@@ -460,32 +414,6 @@
                         }
                     }
                 },
-                upline: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Upline Cannot be empty'
-                        },
-                        remote: {
-                         url: 'imp_check_agent.php?postmode=upline',
-                         type: 'POST'
-                        }
-                    }
-                },
-                agen: {
-                    validators: {
-                      remote: {
-                       url: 'imp_check_agent.php?postmode=agent',
-                       type: 'POST'
-                      }
-                    }
-                },
-                Newspaper: {
-                    validators: {
-                      notEmpty: {
-                            message: 'Upline Cannot be empty'
-                        }
-                    }
-                },
                 register_name: {
                     message: 'First Name is not correct',
                     validators: {
@@ -518,6 +446,27 @@
                         }
                     }
                 },
+				 register_phone: {
+                    validators: {
+                        numeric: {
+                            message: 'Phone number only can be filled using number'
+                        },
+                        notEmpty: {
+                            message: 'Phone number can not be blank'
+                        }
+                    }
+                },
+				register_birthday: {
+                validators: {
+                    notEmpty: {
+                        message: 'Birthdate can not be blank'
+                    },
+                    date: {
+                        format: 'YYYY/MM/DD',
+                        message: 'Wrong Birthdate format'
+                    }
+                }
+            },
                 acceptTerms: {
                     validators: {
                         notEmpty: {

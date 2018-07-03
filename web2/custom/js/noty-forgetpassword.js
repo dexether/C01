@@ -21,7 +21,7 @@ function notifysuccess(style,position) {
 	icon = "fa fa-check";
     $.notify({
         title: 'Reset Password has been successfull',
-        text: ' We just sent you the email to reset the Password',
+        text: ' Reset password success please login with your new password',
         image: "<i class='"+icon+"'></i>"
     }, {
         style: 'metro',

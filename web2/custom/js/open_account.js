@@ -43,21 +43,6 @@ var OpenAccount_JS = function() {
                                 type: "post"
                             }
                 },
-                afiliasi: {
-                    "remote":
-                            {
-                                url: 'check_afiliasi_account.php',
-                                type: "post"
-                            }
-                },
-                description2: {
-                    "remote":
-                            {
-                                url: 'check_agent_code.php',
-                                type: "post",
-                                delay: 100
-                            }
-                },
                 register_birthday: {
                     "remote":
                             {
@@ -76,12 +61,6 @@ var OpenAccount_JS = function() {
             messages: {// custom messages for radio buttons and checkboxes
                 email: {
                     remote: "This email has been used. If you forget the password, please click this <a href='forgetpassword.php?cabang=1'>Forget Password</a>"
-                },
-                afiliasi: {
-                    remote: "This emailed is not in our Referral System"
-                },
-                description2: {
-                    remote: "The Agent code is wrong"
                 },
                 register_birthday: {
                     remote: "Format Tanggal Lahir belum benar "

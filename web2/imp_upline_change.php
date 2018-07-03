@@ -48,6 +48,9 @@ $result = $DB->execresultset($query);
 $template->assign('newupline', $result);
 /*=====  End of Start Coding  ======*/
 
+$query = "SELECT request_move.* FROM request_move WHERE confirmed = 'no'";
+	$result = $DB->execresultset($query);
+	$template->assign("allrequests", $result);
 
 $template->display("imp_upline_change.htm");
 

@@ -68,17 +68,17 @@
                                     Account
                                  </th>
                                  <th>
-                                    Package
-                                 </th>
-                                 <th>
                                     Status
                                  </th>
                                  <th>
                                     Meta LOGIN
                                  </th>
+								 {if $user->groupid != '3'}
                                  <th>
                                     Referal Link
                                  </th>
+								 {else}
+								 {/if}
                               </tr>
                            </thead>
                            {assign var="i" value="1"}
@@ -89,9 +89,6 @@
                               </td>
                               <td>
                                  {$a.accountname}
-                              </td>
-                              <td>
-                                 {$a.description}
                               </td>
                               <td>
                                  {if $a.suspend == '0'}
@@ -112,11 +109,14 @@
                               {/foreach}
                               
                               </td>
+							  {if $user->groupid != '3'}
                               <td>
                                  <button class="btn btn-xs btn-blue-1" data-clipboard-text="{$a.url}">
                            Copy to clipboard
                         </button>
                               </td>
+							  {else}
+							  {/if}
                            </tr>
                            {assign var="i" value=$i+1}
               {foreachelse}

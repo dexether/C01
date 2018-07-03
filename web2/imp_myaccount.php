@@ -21,6 +21,7 @@ if (isset($user)) {
 $user = $_SESSION['user'];
 $template->assign("user", $user);
 
+
 //TradeLogUnderConstruct_Secure("Profile-175-Get_PostMode:" . $_GET[postmode]);
 $postmode = '';
 if (isset($_GET['postmode'])) {
@@ -38,18 +39,16 @@ client_aecode.`name`,
 client_aecode.`email`,
 client_accounts.`accountname`,
 client_accounts.`suspend`,
-mlm_bonus_settings.`description`,
 mlm.`group_play`,
 mlm.`companyconfirm`
 FROM
 client_accounts,
 client_aecode,
-mlm,
-mlm_bonus_settings
+mlm
 WHERE client_accounts.`aecodeid` = client_aecode.`aecodeid`
 AND client_accounts.`accountname` = mlm.`ACCNO`
-AND mlm.`group_play` = mlm_bonus_settings.`group_play`
 AND client_aecode.`aecode` = '$user->username'";
+TradeLogUnderConstruct_Secure("query-36 :".$query);
 $result = $DB->execresultset($query);
 $i = 0;
 $alldatas = array();
@@ -63,6 +62,7 @@ $newdatas = array();
 foreach ($alldatas as $key => $value) {
 	# code...
 	$query = "SELECT ACCNO, mt4login, mt_database.`alias` FROM mlm2, mt_database WHERE mlm2.`mt4dt` = mt_database.`mt4dt` AND  mlm2.`ACCNO` = '$value[accountname]'";
+	TradeLogUnderConstruct_Secure("query-66 :".$query);
 	$result = $DB->execresultset($query);
 	$newdatas[$key] = $value;
 	$mt4login_data = array();

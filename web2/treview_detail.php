@@ -2,11 +2,15 @@
 
 include_once("$_SERVER[DOCUMENT_ROOT]/includes/functions.php");
 include_once("$_SERVER[DOCUMENT_ROOT]/classes/Manager.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/classes/security.csrf.php");
 include_once("includes/wr_tools.php");
 $var_to_pass = null;
 global $user;
 global $template;
 $template->assign("user", $user);
+$security = new \security\CSRF;
+$token = $security->set(3, 3600);
+$template->assign('token', $token);
 
 if (isset($_GET['accno'])) {
     $accnoselect = $_GET['accno'];
@@ -15,32 +19,30 @@ if (isset($_GET['accno'])) {
         $accnoselect = $_SESSION['accnoselect'];
     }
 }
+
+//TradeLogTreView("accnoselect :" . $accnoselect);
 $pecah = explode(' - ', $accnoselect);
 $accnoselect = $pecah[0];
-//TradeLogTreView("TreViewDetail-71:" . $accnoselect);
-
-// TradeLogTreView("Profile-56-account:" . $account);
-
-
-
-//TradeLogTreView("Profile-66-Get_PostMode:" . $_GET[postmode]);
-
-
+//TradeLogTreView("accnoselect :" . $accnoselect);
 
 $query = "SELECT 
-client_aecode.email,
-client_aecode.name,
+client_aecode.aecode,
+client_aecode.name as name,
+client_aecode.telephone_mobile as phone,
 client_accounts.`accountname`,
-mlm_bonus_settings.`description`,
-mlm.* 
+role.id,
+role.name as role,
+user.created_at
 FROM
 client_aecode,
 client_accounts,
 mlm,
-mlm_bonus_settings 
-WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid` 
-AND mlm.`group_play` = mlm_bonus_settings.`group_play` 
-AND client_accounts.`accountname` = mlm.`ACCNO` 
+user,
+role
+WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`  
+AND client_accounts.`accountname` = mlm.`ACCNO`
+AND client_aecode.aecode = user.username
+AND user.groupid = role.id
 AND mlm.ACCNO = '" . $accnoselect . "'";
 //TradeLogTreView("TreViewDetail-82:" . $query);
 $dataACCNO = array();
@@ -49,61 +51,20 @@ foreach ($rows as $row) {
     //TradeLogTreView("TreView-83:".$row['ACCNO']);
     $dataACCNO = $row;
 }
-if ($dataACCNO['mt4dt'] != '') {
-    $dataACCNO['mt4dtalias']  = 'Un_set MT4 Database';
-    $query = "SELECT alias,mt4dt,enabled 
-    FROM mt_database 
-    where mt4dt = '" . $dataACCNO['mt4dt'] . "'
-    ORDER BY mt4dt ASC;";
-    //TradeLogTreView("TreViewDetail-98:" . $query);
-    $rows = $DB->execresultset($query);
-    foreach ($rows as $row) {
-        $dataACCNO['mt4dtalias'] = $row['alias'];
-    }
-}//if ($dataACCNO['mt4dt'] != '') {
-    $dateall = array();
-    if ($dataACCNO['mt4dt']=="nometa") {
-
-    }else{
-        $query = "SELECT * FROM mlm, mt_database WHERE mlm.ACCNO  = '".$accnoselect."' AND mlm.mt4dt = mt_database.mt4dt";
-        $result = $DB->execresultset($query);
-        if (count($result) > 0) {
-            $query = "SELECT LEFT(TIME,10) AS rolldate FROM " . $dataACCNO['mt4dt'] . ".mt4_daily GROUP BY LEFT(TIME,10) ORDER BY TIME DESC";
-            $result = $DB->execresultset($query);
-            $dateall = array();
-            foreach($result as $rows) {
-            $dateall[] = $rows['rolldate']; 
-            }
-        }else{
-            
-        }
-
-    }
-
-    $query = "SELECT 
-mlm_bonus_logs.`account`,
-mlm_bonus_logs.`amount`,
-mlm_bonus_logs.`comment`,
-mlm_bonus_logs.`date_receipt`,
-mlm_cron.`full`
-FROM
-  mlm_bonus_logs,
-  mlm_cron 
-WHERE mlm_bonus_logs.`bonus_type` = mlm_cron.`module` AND mlm_bonus_logs.`account` = '$accnoselect'";
-    $result = $DB->execresultset($query);
-    $template->assign("bonuslogs", $result);
-    $template->assign("dateall", $dateall);
 
     $template->assign("dataACCNO", $dataACCNO);
 
+	$query = "SELECT * FROM role";
+	$rows = $DB->execresultset($query);
+	$rolelist = array();
+	foreach ($rows as $row) {
+		$rolelist[] = $row;
+	}
+	//TradeLogTreView("rolelist :".json_encode($rolelist));
+	$template->assign("rolelist", $rolelist);
     $_SESSION['page'] = 'treview_detail';
     $_SESSION['accnoselect'] = $accnoselect;
 
-
-    $query = "SELECT module, full FROM mlm_cron WHERE module <> 'pv'";
-    $result = $DB->execresultset($query);
-    
-    $template->assign('allbonus', $result);
     $template->display("treview_detail.htm");
 
     function myfilter($input_var_outer, $param) {

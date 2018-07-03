@@ -10,6 +10,7 @@ global $template;
 global $themonth;
 global $mysql;
 global $DB;
+global $configs;
 
 if (isset($user)) {
     $user;
@@ -30,6 +31,12 @@ if ($mysql['crypt_key'] != '') {
 $key = '';
 if (isset($_SESSION['key'])) {
     $key = $_SESSION['key'];
+}
+
+$query = "SELECT * FROM config";
+$result = $DB->execresultset($query);
+foreach($result as $rows) {
+	$configs[$rows['name']] = $rows['value'];
 }
 
 $tools = new CTools();
@@ -68,30 +75,50 @@ if ($usernya==9) {
     $condiional_footer = "</ul>";
 }
 
-$query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*   
-        FROM client_aecode,client_accounts,mlm  
+$query = "SELECT client_aecode.name, client_aecode.email, client_accounts.suspend, client_accounts.typeaccount, client_accounts.`accountname`, role.`name` AS role ,mlm.*   
+        FROM client_aecode,client_accounts,mlm,user,role  
         WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
-         
+        AND client_aecode.`aecode` = user.`username` 
+		AND user.`groupid` = role.`id` 
         AND client_accounts.`accountname` = mlm.`ACCNO`
           $condiional
         ";
      
 
-
+//TradeLogTreView("TreView-83:".$query);
 $datatress = array();
 $rows = $DB->execresultset($query);
 foreach ($rows as $row) {
     //TradeLogTreView("TreView-83:".$row['ACCNO']);
     $datatress[$row['ACCNO']] = $row;
 }
+
 $longtree = $condiional_header;
 if (count($datatress) > 0) {
-    foreach ($datatress AS $ACCNO1 => $datatres) {
-        //TradeLogTreView("TreView-87:" . $ACCNO1);
-        $longtree = $longtree . "<li>" . $ACCNO1  . " - ". $datatres['name'];
-        $longtree = updatechild($longtree, $ACCNO1);
-        $longtree = $longtree . "</li>";
-    }
+	if($usernya == '9'){
+		foreach ($datatress AS $ACCNO1 => $datatres) {
+			if($datatres['suspend'] == '1'){
+					$longtree = $longtree . "<li id=\"suspended\">" . $ACCNO1  . " - ". $datatres['name']   . " - ". $datatres['role'];
+					$longtree = updatechild($longtree, $ACCNO1);
+					$longtree = $longtree . "</li>";
+				}else if($datatres['typeaccount'] == 'agent'){
+					$longtree = $longtree . "<li id=\"agent\">" . $ACCNO1 . " - ". $datatres['name']   . " - ". $datatres['role'];
+					$longtree = updatechild($longtree, $ACCNO1);
+					$longtree = $longtree . "</li>";
+				}else{
+					$longtree = $longtree . "<li>" . $ACCNO1 . " - ". $datatres['name']   . " - ". $datatres['role'];
+					$longtree = updatechild($longtree, $ACCNO1);
+					$longtree = $longtree . "</li>";
+				}
+		}
+	}else{
+		foreach ($datatress AS $ACCNO1 => $datatres) {
+			//TradeLogTreView("TreView-87:" . $ACCNO1);
+			$longtree = $longtree . "<li>" . $ACCNO1  . " - ". $datatres['name'];
+			$longtree = updatechild($longtree, $ACCNO1);
+			$longtree = $longtree . "</li>";
+		}	
+	}
     //foreach ($datatress AS $ACCNO => $datatres) {
 }//if(count($datatress)>0){
 $longtree = $longtree . $condiional_footer;
@@ -101,13 +128,18 @@ $template->assign("longtree", $longtree);
 $template->display("treview.htm");
 
 function updatechild($longtree, $ACCNO2) {
+	
     $longtree = $longtree . "<ul>";
     global $DB;
 	global $user;
+	global $configs;
+	
     $datatress = array();
-    $query = "SELECT client_accounts.suspend,client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*   
-    FROM client_aecode,client_accounts,mlm,user
+    $query = "SELECT client_accounts.suspend,client_aecode.name, client_aecode.email, client_accounts.typeaccount, role.`name` AS role, client_accounts.`accountname`,mlm.*   
+    FROM client_aecode,client_accounts,mlm,user,role 
     WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid` 
+	        AND client_aecode.`aecode` = user.`username` 
+		AND user.`groupid` = role.`id` 
     AND client_accounts.`accountname` = mlm.`ACCNO` 
     AND mlm.Upline = '$ACCNO2' ";
 
@@ -117,24 +149,29 @@ function updatechild($longtree, $ACCNO2) {
         //TradeLogTreView("TreView-104:".$row['ACCNO']);
         $datatress[$row['ACCNO']] = $row;
     }
+	//TradeLogTreView("TreView-83:".json_encode($datatress));
 	
     if (count($datatress) > 0) {
 		if($user->groupid == 9){
 			//TradeLogTreView("User Admin");
 			foreach ($datatress AS $ACCNO1 => $datatres) {
-            //TradeLogTreView("TreView-112:" . $ACCNO1.";".$datatres['suspend']);
-			if($datatres['suspend'] == '1'){
-				//TradeLogTreView("TreView-112:" . $datatres['name'].";".$datatres['suspend']);
-				$longtree = $longtree . "<li id=\"suspended\">" . $ACCNO1 . " - ". $datatres['name'];
-				$longtree = updatechild($longtree, $ACCNO1);
-				$longtree = $longtree . "</li>";
-			}else{
-				$longtree = $longtree . "<li>" . $ACCNO1 . " - ". $datatres['name'];
-				$longtree = updatechild($longtree, $ACCNO1);
-				$longtree = $longtree . "</li>";
-			}
+				//TradeLogTreView("TreView-112:" . $ACCNO1.";".$datatres['suspend']);
+				if($datatres['suspend'] == '1'){
+					//TradeLogTreView("TreView-112:" . $datatres['name'].";".$datatres['suspend']);
+					$longtree = $longtree . "<li id=\"suspended\">" . $ACCNO1 . " - ". $datatres['name']   . " - ". $datatres['role'];
+					$longtree = updatechild($longtree, $ACCNO1);
+					$longtree = $longtree . "</li>";
+				}else if($datatres['typeaccount'] == 'agent'){
+					$longtree = $longtree . "<li id=\"agent\">" . $ACCNO1 . " - ". $datatres['name']   . " - ". $datatres['role'];
+					$longtree = updatechild($longtree, $ACCNO1);
+					$longtree = $longtree . "</li>";
+				}else{
+					$longtree = $longtree . "<li>" . $ACCNO1 . " - ". $datatres['name']   . " - ". $datatres['role'];
+					$longtree = updatechild($longtree, $ACCNO1);
+					$longtree = $longtree . "</li>";
+				}
             
-        }//foreach ($datatress AS $ACCNO => $datatres) {
+			}//foreach ($datatress AS $ACCNO => $datatres) {
 		}else{
 			//TradeLogTreView("User Normal");
 			foreach ($datatress AS $ACCNO1 => $datatres) {
@@ -142,9 +179,10 @@ function updatechild($longtree, $ACCNO2) {
 			if($datatres['suspend'] == '1'){
 				
 			}else{
-				$longtree = $longtree . "<li>" . $ACCNO1 . " - ". $datatres['name'];
-				$longtree = updatechild($longtree, $ACCNO1);
-				$longtree = $longtree . "</li>";
+					//TradeLogTreView("elsenya");
+					$longtree = $longtree . "<li>" . $ACCNO1 . " - ". $datatres['name'];
+$longtree = updatechild($longtree, $ACCNO1);
+					$longtree = $longtree . "</li>";
 			}
             
         }//foreach ($datatress AS $ACCNO => $datatres) {

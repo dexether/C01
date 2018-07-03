@@ -10,6 +10,7 @@ global $template;
 global $themonth;
 global $mysql;
 global $DB;
+global $tipe;
 
 if (isset($user)) {
     $user;
@@ -44,7 +45,11 @@ $linezip = gzcompress($lines);
 $key = str_replace(array('+', '/'), array('123', ','), rtrim(base64_encode($tools->Crypt($linezip, $crypt_key)), '='));
 $_SESSION['key'] = $key;
 
-
+$query  = "SELECT value FROM config WHERE name = 'pt'";
+$result = $DB->execresultset($query);
+foreach ($result as $row) {
+ $tipe = $row['value'];
+}
 
 //TradeLogTreView("Profile-66-Get_PostMode:" . $_GET[postmode]);
 $postmode = '';
@@ -72,12 +77,12 @@ $query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accou
         WHERE client_aecode.`aecodeid` = client_accounts.`aecodeid`
         AND client_accounts.`suspend` = '0'
         AND client_accounts.`accountname` = mlm.`ACCNO`
-        AND mlm.group_play = 'askap'
+        AND mlm.group_play = '$tipe'
           $condiional
         ";
 
 
-
+TradeLogTreView("query-70 :".$query);
 $datatress = array();
 $rows = $DB->execresultset($query);
 foreach ($rows as $row) {
@@ -103,6 +108,7 @@ $template->display("imp_treeview.htm");
 function updatechild($longtree, $ACCNO2) {
     $longtree = $longtree . "<ul>";
     global $DB;
+	global $tipe;
     $datatress = array();
     $query = "SELECT client_aecode.name, client_aecode.email, client_accounts.`accountname`,mlm.*
     FROM client_aecode,client_accounts,mlm
@@ -110,7 +116,7 @@ function updatechild($longtree, $ACCNO2) {
     AND client_accounts.`suspend` = '0'
     AND client_accounts.`accountname` = mlm.`ACCNO`
     AND mlm.Upline = '$ACCNO2'
-    AND mlm.group_play = 'askap'
+    AND mlm.group_play = '$tipe'
 
     ";
 

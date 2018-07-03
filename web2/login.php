@@ -1,18 +1,23 @@
 <?php
-
+tradeLog('login');
 session_start();
+tradeLog('session start');
 $skip_authentication = 1;
 include("../includes/functions.php");
+tradeLog('include function');
 $redirect = @(urldecode($_POST['redirect']));
 $session = '';
 if (isset($_SESSION['login_depan'])) {
     $session = $_SESSION['login_depan'];
 }
+tradeLog('set session');
 if ($session != 'daridepan') {
     session_unset();
+tradeLog('unset session');
 } else {
     $_POST['login_user'] = $_SESSION['login_user'];
     $_POST['login_password'] = $_SESSION['login_password'];
+tradeLog('set credential from session');
 }
 $_SESSION['login_depan'] = '';
 $_SESSION['page'] = '';
@@ -33,10 +38,14 @@ $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
 $ac = strtolower($_SERVER['HTTP_ACCEPT']);
 $ip = $_SERVER['REMOTE_ADDR'];
 
+tradeLog('cek if post');
 if ($_POST) {
     $login_user = anti_injection($_POST['login_user']);
     $login_password = anti_injection($_POST['login_password']);
 
+tradeLog($login_user);
+
+tradeLog($login_password);
     if (empty($login_user) && empty($login_password)) {
         set_log_server($login_user, "Incorrect Login<br>;" . $login_user . ";" . $login_password);
         $keterangan = "<b>59. You have entered a wrong account or password combination.</b><br><br>Please ensure that your details are correct and try again.<br>Failed attempts are logged for security purposes.<br>If you forget Password <a href='forgetpassword.php'>click here.</a>";
@@ -46,15 +55,17 @@ if ($_POST) {
     $user = new User();
     $user->setUsername($login_user);
     if (!$user->fetch()) {
+		tradeLog("Wrong Username");
         set_log_server($login_user, "Incorrect Login<br>;" . $login_user);
-        $keterangan = "<b>50. You have entered a wrong account or password combination.</b><br>Please ensure that your details are correct and try again.<br>Failed attempts are logged for security purposes.<br>If you forget Password <a href='forgetpassword.php'>click here.</a> ";
+        $keterangan = "<b>50. You have entered a wrong account.</b><br>Please ensure that your details are correct and try again.<br>Failed attempts are logged for security purposes.<br>If you forget Password <a href='forgetpassword.php'>click here.</a> ";
         display_error($keterangan, "Incorrect Login");
     }
     $encryptedpassword = md5($login_password);
-    //tradeLog("Login.php-54;Encrypted:" . $login_password."-->".$encryptedpassword);
+    tradeLog("Login.php-54;Encrypted:" . $login_password."-->".$encryptedpassword);
     if (!$user->checkPassword($encryptedpassword)) {
+		tradeLog("Wrong Password");
         set_log_server($login_user, "Incorrect Password<br>;" . $login_user);
-        $keterangan = "<b>57. You have entered a wrong account or password combination.</b><br>Please ensure that your details are correct and try again.<br>Failed attempts are logged for security purposes.<br>If you forget Password <a href='forgetpassword.php'>click here.</a> ";
+        $keterangan = "<b>57. You have entered a wrong password combination.</b><br>Please ensure that your details are correct and try again.<br>Failed attempts are logged for security purposes.<br>If you forget Password <a href='forgetpassword.php'>click here.</a> ";
         display_error($keterangan, "Incorrect Login");
     }
     if ($user->isExpired()) {
@@ -73,7 +84,7 @@ if ($_POST) {
         setcookie('myusername', $login_user, $time + 60 * 60 * 24 * 100, "/");        // Sets the cookie username
         setcookie('mypassword', $login_password, $time + 60 * 60 * 24 * 100, "/");    // Sets the cookie password
         setcookie('myremember', 'yes', $time + 60 * 60 * 24 * 100, "/");    // Sets the cookie remember
-        //tradelog("login.php-82-cookies");
+        tradelog("login.php-82-cookies");
     } else {
         $time = time();
         setcookie('myusername', '', $time + 60 * 60 * 24 * 100, "/");        // Sets the cookie username
@@ -81,7 +92,7 @@ if ($_POST) {
         setcookie('myremember', 'no', $time + 60 * 60 * 24 * 100, "/");    // Sets the cookie remember
     }
 
-    //tradelog("login.php-147:".$_POST[loginke]);
+    tradelog("login.php-147:".$_POST[loginke]);
     if ($_POST['loginke']) {
         $_SESSION['loginke'] = anti_injection($_POST['loginke']);
     }if ($_SESSION['loginke']) {
@@ -89,7 +100,7 @@ if ($_POST) {
     } else {
         $_SESSION['loginke'] = 'prod';
     }
-    //tradelog("login.php-151:".$_SESSION[loginke].";".$_POST[loginke]);
+    tradelog("login.php-151:".$_SESSION[loginke].";".$_POST[loginke]);
     $user->updateLastLogin();
 
     $query = "SELECT value FROM config WHERE name='company_name' ";
@@ -100,11 +111,11 @@ if ($_POST) {
     }
 
 
-    //tradeLog("login.php-104-Groupid:".$user->groupid);
+    tradeLog("login.php-104-Groupid:".$user->groupid);
     if ($user->groupid == 1) { //Client & AE
         header("Location: mainmenu.php?account=" . $user->username);
     }
-    if ($user->groupid == 3 || $user->groupid == 9 || $user->groupid == 15) { //Client & AE
+    if ($user->groupid == 3 || $user->groupid == 9 || $user->groupid == 15 || $user->groupid == 6 || $user->groupid == 2 || $user->groupid == 4 || $user->groupid == 5 || $user->groupid == 7 || $user->groupid == 8) { //Client & AE
         //display_error("<b>Underconstruction</b>");
         if ($redirect == '') {
             header("Location: mainmenu.php");
@@ -118,6 +129,7 @@ if ($_POST) {
     }
     $DB->close();
 } else {
+tradeLog('not post');
     $_SESSION['messagebox'] = "116.You do not have permission to access this page.<br>If you feel this is an error, please contact the Administrator.";
     $_SESSION['alamat'] = "index.php";
     //header("Location: messagebox.php");

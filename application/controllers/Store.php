@@ -93,7 +93,7 @@ class Store extends CI_Controller
     }
     public function basic()
     {
-        redirect(base_url() . "web2", 'refresh');
+        redirect(base_url() . "web2/", 'refresh');
     }
     public function bahasa()
     {

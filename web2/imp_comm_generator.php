@@ -9,6 +9,7 @@ global $template;
 global $themonth;
 global $mysql;
 global $DB;
+global $tipe;
 $security = new \security\CSRF;
 $error    = "success";
 $subject  = "Oops, Something has happened";
@@ -30,6 +31,11 @@ if (isset($_POST['replace'])) {
     # code...
     $replace = $_POST['replace'];
 }
+$query  = "SELECT pt FROM config";
+$result = $DB->execresultset($query);
+foreach ($result as $row) {
+    $tipe = $row['pt'];
+}
 /*==============================
 =            Coding            =
 ==============================*/
@@ -41,7 +47,7 @@ if ($error != 'error') {
             // print_r('Succes');
             if ($postmode == 'mlm_temp') {
                 // Check it first
-                $query  = "SELECT ACCNO, datetime FROM mlm_temp WHERE type = 'askap' AND rolldate = '$periode_date' LIMIT 0 ,1";
+                $query  = "SELECT ACCNO, datetime FROM mlm_temp WHERE type = '$tipe' AND rolldate = '$periode_date' LIMIT 0 ,1";
                 $result = $DB->execresultset($query);
                 // print_r($query);
                 if (count($result) > 0 && $replace == 'off') {
@@ -50,10 +56,10 @@ if ($error != 'error') {
                     $msg      = "CREATE_TREE : Warning, this process has been run before for date $periode_date on " . $result[0]['datetime'] . " , and not be replaced";
                     $progress = 50;
                 } elseif ($replace == 'on' || count($result) <= 0) {
-                    $delete = "DELETE FROM mlm_temp WHERE rolldate = '$periode_date' AND type = 'askap'";
+                    $delete = "DELETE FROM mlm_temp WHERE rolldate = '$periode_date' AND type = '$tipe'";
                     $DB->execonly($delete);
 
-                    $delete = "DELETE FROM mlm_comm WHERE rolldate = '$periode_date' AND type = 'askap'";
+                    $delete = "DELETE FROM mlm_comm WHERE rolldate = '$periode_date' AND type = '$tipe'";
                     $DB->execonly($delete);
 
                     $query = "SELECT
@@ -65,7 +71,7 @@ if ($error != 'error') {
                   WHERE mlm.`ACCNO` = client_accounts.`accountname`
                     AND client_accounts.`suspend` = '0'
                     AND ACCNO != 'COMPANY'
-                    AND mlm.`group_play` LIKE '%askap%'";
+                    AND mlm.`group_play` LIKE '%$tipe%'";
                     $result = $DB->execresultset($query);
                     foreach ($result as $key => $value) {
                         compression($value['ACCNO'], $value['ACCNO'], $periode_date);
@@ -81,7 +87,7 @@ if ($error != 'error') {
             } else if ($postmode == 'hitung') {
                 // tradeLogs($postmode. "HITUNG");
                 // Check it first
-                $query  = "SELECT ACCNO FROM mlm_comm WHERE rolldate = '$periode_date' AND type = 'askap' LIMIT 0,1 ";
+                $query  = "SELECT ACCNO FROM mlm_comm WHERE rolldate = '$periode_date' AND type = '$tipe' LIMIT 0,1 ";
                 $result = $DB->execresultset($query);
                 if (!count($result) > 0) {
                     $query = "SELECT
@@ -94,10 +100,10 @@ if ($error != 'error') {
                         ON mlm_temp.`ACCNO` = mlm2.`ACCNO`
                       LEFT JOIN client_accounts ON mlm_temp.`ACCNO` = client_accounts.`accountname`
                       AND mlm_temp.`rolldate` = '$periode_date'
-                      WHERE mlm_temp.`type` = 'askap'
+                      WHERE mlm_temp.`type` = '$tipe'
                       GROUP BY mlm_temp.`ACCNO`
                     ORDER BY mlm_temp.`ACCNO`
-                    AND mlm_temp.`type` = 'askap'";
+                    AND mlm_temp.`type` = '$tipe'";
                     $result = $DB->execresultset($query);
                     foreach ($result as $rows) {
                         $acccount = $rows['ACCNO'];
@@ -116,13 +122,13 @@ if ($error != 'error') {
                     $progress = 100;
                 }
             } else if ($postmode == 'wallet') {
-              $query = "SELECT id FROM mlm_ewallet_moving WHERE ref_number = 'askap_commision:".$periode_date."'";
+              $query = "SELECT id FROM mlm_ewallet_moving WHERE ref_number = '".$tipe."_commision:".$periode_date."'";
               $result = $DB->execresultset($query);
               if (count($result) > 0) {
                 # code...
                 $error    = "warning";
                 $subject  = "Warning !";
-                $msg      = "FINISHED : Wallet has been transfered before for this priode";
+                $msg      = "FINISHED : Wallet has been transfered before for this periode";
                 $progress = 100;
               }else{
                 $query = "SELECT id, ACCNO, SUM(amount) as amounts FROM mlm_comm WHERE rolldate = '$periode_date' GROUP BY ACCNO";
@@ -179,12 +185,12 @@ function compression($account, $base_account, $periode_date)
         $lots     = checktrade($Upline, $periode_date);
         if ($downline > 1 && $lots >= 1) {
             // echo "This Account $base_account to Upline = $Upline<br/>";
-            $query  = "SELECT ACCNO FROM mlm_temp WHERE ACCNO = '$base_account' AND rolldate = '$periode_date' AND type = 'askap'";
+            $query  = "SELECT ACCNO FROM mlm_temp WHERE ACCNO = '$base_account' AND rolldate = '$periode_date' AND type = '$tipe'";
             $result = $DB->execresultset($query);
             if (count($result) > 0) {
                 # code...
             } else {
-                $insert = "INSERT INTO mlm_temp SET ACCNO = '$base_account', Upline = '$Upline', datetime = NOW(), methode = 'compress', rolldate = '$periode_date', type = 'askap'";
+                $insert = "INSERT INTO mlm_temp SET ACCNO = '$base_account', Upline = '$Upline', datetime = NOW(), methode = 'compress', rolldate = '$periode_date', type = '$tipe'";
                 $DB->execonly($insert);
             }
         } else {
@@ -192,16 +198,16 @@ function compression($account, $base_account, $periode_date)
         }
     } else {
         // echo "ELSE : This Account $base_account to Upline = $account<br/>";
-        $query  = "SELECT ACCNO FROM mlm_temp WHERE ACCNO = '$base_account' AND rolldate = '$periode_date' AND type = 'askap'";
+        $query  = "SELECT ACCNO FROM mlm_temp WHERE ACCNO = '$base_account' AND rolldate = '$periode_date' AND type = '$tipe'";
         $result = $DB->execresultset($query);
         if (count($result) > 0) {
             # code...
         } else {
             if ($account == $base_account) {
-                $insert = "INSERT INTO mlm_temp SET ACCNO = '$base_account', Upline = '$Upline', datetime = NOW(), methode = 'compress', rolldate = '$periode_date', type = 'askap'";
+                $insert = "INSERT INTO mlm_temp SET ACCNO = '$base_account', Upline = '$Upline', datetime = NOW(), methode = 'compress', rolldate = '$periode_date', type = '$tipe'";
                 $DB->execonly($insert);
             } else {
-                $insert = "INSERT INTO mlm_temp SET ACCNO = '$base_account', Upline = '$account', datetime = NOW(), methode = 'compress', rolldate = '$periode_date', type = 'askap'";
+                $insert = "INSERT INTO mlm_temp SET ACCNO = '$base_account', Upline = '$account', datetime = NOW(), methode = 'compress', rolldate = '$periode_date', type = '$tipe'";
                 $DB->execonly($insert);
             }
 
@@ -230,15 +236,15 @@ function buildTree(array &$elements, $parentId, $periode_date)
                     foreach ($result as $row) {
                         $element['DATA'] = $row['ACCNO'] . " TO " . $element['upline'];
                     }
-                    $insert = "INSERT INTO mlm_temp SET ACCNO = '$element[ACCNO]', Upline = '$element[upline]',  methode = 'general', rolldate = '$periode_date', type = 'askap'";
+                    $insert = "INSERT INTO mlm_temp SET ACCNO = '$element[ACCNO]', Upline = '$element[upline]',  methode = 'general', rolldate = '$periode_date', type = '$tipe'";
                     $DB->execonly($insert);
 
-                    $query = "SELECT ACCNO, id FROM mlm_temp WHERE ACCNO = '$row[ACCNO]' AND rolldate = '$periode_date' AND type = 'askap'";
+                    $query = "SELECT ACCNO, id FROM mlm_temp WHERE ACCNO = '$row[ACCNO]' AND rolldate = '$periode_date' AND type = '$tipe'";
                     $res   = $DB->execresultset($query);
                     if (count($res) > 0) {
                         $update = "DELETE FROM mlm_temp WHERE id = '" . $res[0]['id'] . "'";
                         $DB->execonly($update);
-                        $insert = "INSERT INTO mlm_temp SET ACCNO = '$row[ACCNO]', Upline = '$element[upline]',  methode = 'compress', rolldate = '$periode_date', type = 'askap'";
+                        $insert = "INSERT INTO mlm_temp SET ACCNO = '$row[ACCNO]', Upline = '$element[upline]',  methode = 'compress', rolldate = '$periode_date', type = '$tipe'";
                         $DB->execonly($insert);
                     } else {
                         $insert = "INSERT INTO mlm_temp SET ACCNO = '$row[ACCNO]', Upline = '$element[upline]',  methode = 'compress', rolldate = '$periode_date', type = 'askap'";
@@ -246,26 +252,26 @@ function buildTree(array &$elements, $parentId, $periode_date)
                     }
 
                 } else {
-                    $query = "SELECT ACCNO FROM mlm_temp WHERE ACCNO = '$element[ACCNO]' AND rolldate = '$periode_date' AND type = 'askap'";
+                    $query = "SELECT ACCNO FROM mlm_temp WHERE ACCNO = '$element[ACCNO]' AND rolldate = '$periode_date' AND type = '$tipe'";
                     $res   = $DB->execresultset($query);
                     if (count($res) > 0) {
 
                     } else {
                         $element['harus'] = 'GAUSAH';
-                        $insert           = "INSERT INTO mlm_temp SET ACCNO = '$element[ACCNO]', Upline = '$element[upline]',  methode = 'general', rolldate = '$periode_date', type = 'askap'";
+                        $insert           = "INSERT INTO mlm_temp SET ACCNO = '$element[ACCNO]', Upline = '$element[upline]',  methode = 'general', rolldate = '$periode_date', type = '$tipe'";
                         $DB->execonly($insert);
                     }
 
                 }
                 $element['children'] = $children;
             } else {
-                $query = "SELECT ACCNO FROM mlm_temp WHERE ACCNO = '$element[ACCNO]' AND rolldate = '$periode_date' AND type = 'askap'";
+                $query = "SELECT ACCNO FROM mlm_temp WHERE ACCNO = '$element[ACCNO]' AND rolldate = '$periode_date' AND type = '$tipe'";
                 $res2  = $DB->execresultset($query);
                 // tradeLogs(count($res2) . " ACCNO ". $element['ACCNO']);
                 if (count($res2) > 0) {
 
                 } else {
-                    $insert = "INSERT INTO mlm_temp SET ACCNO = '$element[ACCNO]', Upline = '$element[upline]',  methode = 'general2', rolldate = '$periode_date', type = 'askap'";
+                    $insert = "INSERT INTO mlm_temp SET ACCNO = '$element[ACCNO]', Upline = '$element[upline]',  methode = 'general2', rolldate = '$periode_date', type = '$tipe'";
                     $DB->execonly($insert);
                 }
             }
@@ -360,7 +366,7 @@ FROM
     ON mlm_temp.`ACCNO` = client_accounts.`accountname`
 WHERE mlm_temp.`rolldate` = '" . $periode_date . "'
 AND mlm_temp.ACCNO = '" . $account . "'
-AND mlm_temp.type = 'askap'";
+AND mlm_temp.type = '$tipe'";
 
     $result = $DB->execresultset($query);
     $data   = array();
@@ -407,7 +413,7 @@ AND mlm_temp.type = 'askap'";
             }
             // echo $insert = "INSERT INTO mlm_comm SET ACCNO = '$account', from = '$account', level = '1', amount = '$commision'" . "<br>";
 
-            $insert = "INSERT INTO mlm_comm SET type = 'askap', ACCNO = '$account', mlm_comm.from = '$account', level = '1', amount = '$subcomm', lot = '$sublot', rolldate = '$periode_date'";
+            $insert = "INSERT INTO mlm_comm SET type = '$tipe', ACCNO = '$account', mlm_comm.from = '$account', level = '1', amount = '$subcomm', lot = '$sublot', rolldate = '$periode_date'";
             $DB->execonly($insert);
             // tradeLogs('HITUNG KOMISI : NASABAH '.$account);
             // tradeLogs('----------------------------------------------');
@@ -450,7 +456,7 @@ FROM
   WHERE mlm_temp.`ACCNO` = mlm.`ACCNO`
   AND rolldate = '$periode_date'
   AND mlm_temp.`Upline` = '$account'
-  AND mlm_temp.`type` = 'askap'";
+  AND mlm_temp.`type` = '$tipe'";
     $result = $DB->execresultset($query);
     // var_dump($query);
     // tradeLogs($query);
@@ -519,13 +525,13 @@ FROM
         if ($is_agent) {
             if (!($level > 7) && $commision != 0) {
                 // echo $insert = "INSERT INTO mlm_comm SET ACCNO = '$parent', from = '$accno', level = '$level', amount = '$commision'" . "<br/>";
-                $insert = "INSERT INTO mlm_comm SET type = 'askap', ACCNO = '$parent', mlm_comm.from = '$accno', level = '$level', amount = '$commision', lot = '$cektrade', rolldate = '$periode_date'";
+                $insert = "INSERT INTO mlm_comm SET type = '$tipe', ACCNO = '$parent', mlm_comm.from = '$accno', level = '$level', amount = '$commision', lot = '$cektrade', rolldate = '$periode_date'";
                 $DB->execonly($insert);
             }
         } else {
             if (!($level > 9) && $commision != 0) {
                 // echo $insert = "INSERT INTO mlm_comm SET ACCNO = '$parent', from = '$accno', level = '$level', amount = '$commision'" . "<br/>";
-                $insert = "INSERT INTO mlm_comm SET type = 'askap', ACCNO = '$parent', mlm_comm.from = '$accno', level = '$level', amount = '$commision', lot = '$cektrade', rolldate = '$periode_date'";
+                $insert = "INSERT INTO mlm_comm SET type = '$tipe', ACCNO = '$parent', mlm_comm.from = '$accno', level = '$level', amount = '$commision', lot = '$cektrade', rolldate = '$periode_date'";
                 $DB->execonly($insert);
             }
         }
@@ -684,7 +690,7 @@ function ewallets($account, $amount, $desc){
     $update = "UPDATE mlm_ewallet SET balance = '$final' WHERE account = '$account'";
     $DB->execonly($update);
 
-    $insert = "INSERT INTO mlm_ewallet_moving SET id_ewallet = '$id_wallet', amount = '$amount', cmd = '3', reason = '$desc', ref_number = 'askap_commision:".$periode_date."'";
+    $insert = "INSERT INTO mlm_ewallet_moving SET id_ewallet = '$id_wallet', amount = '$amount', cmd = '3', reason = '$desc', ref_number = '".$tipe."commision:".$periode_date."'";
     $DB->execonly($insert);
     $output = TRUE;
   }else{

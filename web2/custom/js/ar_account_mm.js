@@ -42,6 +42,25 @@ var ar_account_mm_JS = function() {
                 }
             });
         },
+		comm_request: function(a) {
+            var data = a.serializeArray();
+            $.ajax({
+                url: 'comm_setting_request_do.php',
+                data: data,
+                type: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    // console.log(response)
+                    var res = response;
+                    swal(res.subject, res.msg, res.status);
+					location.reload();
+                    // console.log(res);
+                },
+                error: function(response) {
+                    swal('Oops, something was happend', 'Contact Administrator', 'error');
+                }
+            });
+        },
         check_suspend: function(state, account) {
             // console.log(state);
             var url = 'ar_account_mm_do.php?postmode=yes';
@@ -297,6 +316,69 @@ var ar_account_mm_JS = function() {
                     }).done(function(res) {
                         // console.log(res)
                         swal(res.subject, res.msg, res.status);
+                        // setTimeout('history.go(0)', 4000)
+                    }).fail(function() {
+                        swal('We found an error', 'Check your details', 'error');
+                    }).always(function() {});
+                    // swal("Success!", "The job have running well.", "success");
+                    // Ajax Start
+                }, 1000);
+            });
+        },create_agent_royal: function(a) {
+            var data = a.serializeArray();
+            // console.log(data);
+            swal({
+                title: "Are you sure?",
+                text: "Do you want to process ?",
+                type: "info",
+                confirmButtonText: "Yes, process it!",
+                cancelButtonText: "No, cancel!",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                html: true,
+                showLoaderOnConfirm: true,
+            }, function() {
+                setTimeout(function() {
+                    $.ajax({
+                        url: 'royal_agent_do.php?type=royal',
+                        type: 'POST',
+                        data: data,
+                        dataType: 'JSON',
+                    }).done(function(res) {
+                        // console.log(res)
+                        swal(res.subject, res.msg, res.status);
+                        // setTimeout('history.go(0)', 4000)
+                    }).fail(function() {
+                        swal('We found an error', 'Check your details', 'error');
+                    }).always(function() {});
+                    // swal("Success!", "The job have running well.", "success");
+                    // Ajax Start
+                }, 1000);
+            });
+        },downgrade_agent_royal: function(a) {
+            var data = a.serializeArray();
+            // console.log(data);
+            swal({
+                title: "Are you sure?",
+                text: "Do you want to process ?",
+                type: "info",
+                confirmButtonText: "Yes, process it!",
+                cancelButtonText: "No, cancel!",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                html: true,
+                showLoaderOnConfirm: true,
+            }, function() {
+                setTimeout(function() {
+                    $.ajax({
+                        url: 'royal_downgrade_agent_do.php?type=royal',
+                        type: 'POST',
+                        data: data,
+                        dataType: 'JSON',
+                    }).done(function(res) {
+                        // console.log(res)
+                        swal(res.subject, res.msg, res.status);
+						location.reload();
                         // setTimeout('history.go(0)', 4000)
                     }).fail(function() {
                         swal('We found an error', 'Check your details', 'error');

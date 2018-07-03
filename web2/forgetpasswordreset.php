@@ -52,7 +52,7 @@ if ($_POST) {
         $query = "update user set
         password = '$encryptedpassword' 
         where username = '$accountname' ";
-        //tradelog("forgetpasswordreset-48-query:" . $query);
+        tradelog("forgetpasswordreset-48-query:" . $query);
          $DB->execonly($query);
         echo 0;
     } else {

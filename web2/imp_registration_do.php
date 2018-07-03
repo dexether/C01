@@ -81,13 +81,16 @@ if ($error != 'error') {
            AND client_accounts.suspend = '0'
            ORDER BY client_accounts.`accountname` DESC
            LIMIT 0, 1 ";
-          //  tradeLogMMNewLevel($query);
+            tradeLogMMNewLevel($query);
             $adaae      = 'noae';
             $rows       = $DB->execresultset($query);
             $lastaccout = 0;
             $upline_plan = "no_plan";
+			tradeLogMMNewLevel('isi rows :'.json_encode($rows));
             foreach ($rows as $row) {
+				tradeLogMMNewLevel('masuk sini kok');
                 $adaae      = 'adaae';
+				tradeLogMMNewLevel('adaae berubah jadi apa ?'.$adaae);
                 $aecodeid   = $row['aecodeid'];
                 $lastaccout = $row['accountname'];
                 if ($plan == '0') {
@@ -97,6 +100,8 @@ if ($error != 'error') {
                 }
 
             }
+			tradeLogMMNewLevel('ada ae ngga :'.$adaae);
+			tradeLogMMNewLevel('accno uplinenya :'.$accnomlm);
             if ($adaae != 'adaae' && $accnomlm != 'COMPANY') {
                 $error   = "error";
                 $subject = "Sorry, We found an error";
@@ -115,55 +120,92 @@ if ($error != 'error') {
                 AND client_group.groupid = client_aecode.groupid
                 and client_aecode.aecode = '$user->username'
                 ";
-                //tradeLogMMNewLevel("MM_New_Level-131-Query:" . $query);
+                tradeLogMMNewLevel("MM_New_Level-131-Query:" . $query);
                 $rows = $DB->execresultset($query);
                 foreach ($rows as $row) {
                     $usernya = $row;
                 }
-                $query = "INSERT INTO client_accounts SET " .
-                    "aecodeid = '" . $usernya['aecodeid'] . "', " .
-                    "accountname = '" . $accountnamebaru . "', " .
-                    "name = '" . $accountnamebaru . "', " .
-                    "address = '', " .
-                    "telephone_home = '', " .
-                    "telephone_office = '', " .
-                    "telephone_mobile = '', " .
-                    "suspend = '1', " .
-                    "email = '', " .
-                    "daycall = '0', " .
-                    "nightcall = '0', " .
-                    "`float_rate` = '0', " .
-                    "telephone_fax = '', " .
-                    "last_updated = NOW(), " .
-                    "status = 'normal', " .
-                    "rolldate='" . $rolldate . "', " .
-                    "sendmethod = 'Email'";
-                //tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
-                $DB->execonly($query);
-                // Select Account that upline mine
-                if ($accnomlm == 'COMPANY') {
-                    $lastaccout = 'COMPANY';
+				$query= "SELECT *
+                FROM client_accounts,client_aecode
+                WHERE client_accounts.aecodeid = client_aecode.aecodeid
+                and client_aecode.aecode = '$user->username'
+                ";
+                tradeLogMMNewLevel("MM_New_Level-134-Query:" . $query);
+                $rows = $DB->execresultset($query);
+                foreach ($rows as $row) {
+                    $accountnya = $row;
+					$accno = $row['accountname'];
                 }
-                // $plan
-                if($lastaccout == 'company' || $lastaccout == 'COMPANY' && $plan != '0'):
-                  $upline_plan = $plan;
-                endif;
+				
+				if(count($accountnya)>0){
+					// Select Account that upline mine
+					if ($accnomlm == 'COMPANY') {
+						$lastaccout = 'COMPANY';
+					}
+					// $plan
+					if($lastaccout == 'company' || $lastaccout == 'COMPANY' && $plan != '0'):
+					  $upline_plan = $plan;
+					endif;
 
-                $query = "insert into mlm set
-                 mt4dt = 'nometa',
-                 ACCNO='$accountnamebaru',
-                 Upline = '$lastaccout',
-                 datetime = NOW(),
-                 companyconfirm = '1',
-                 payment = '0',
-                 group_play = '$upline_plan',
-                 updateby = '$user->username'
-                 ";
-                $DB->execonly($query);
-                //  tambahan jika askap maka auto Sync
+					$query = "UPDATE mlm set
+					 Upline = '$lastaccout',
+					 datetime = NOW(),
+					 companyconfirm = '2',
+					 payment = '0',
+					 group_play = '$upline_plan',
+					 updateby = '$user->username'
+					 WHERE ACCNO = '$accno'";
+					$DB->execonly($query);
+					//  tambahan jika askap maka auto Sync
+				}
+				else{
+					$query = "INSERT INTO client_accounts SET " .
+						"aecodeid = '" . $usernya['aecodeid'] . "', " .
+						"accountname = '" . $accountnamebaru . "', " .
+						"name = '" . $accountnamebaru . "', " .
+						"address = '', " .
+						"telephone_home = '', " .
+						"telephone_office = '', " .
+						"telephone_mobile = '', " .
+						"suspend = '0', " .
+						"email = '', " .
+						"daycall = '0', " .
+						"nightcall = '0', " .
+						"`float_rate` = '0', " .
+						"telephone_fax = '', " .
+						"last_updated = NOW(), " .
+						"status = 'normal', " .
+						"rolldate='" . $rolldate . "', " .
+						"sendmethod = 'Email'";
+					//tradeLogMMNewLevel("tradeLogMMNewLevel-800:" . $query);
+					$DB->execonly($query);
+					
+					// Select Account that upline mine
+					if ($accnomlm == 'COMPANY') {
+						$lastaccout = 'COMPANY';
+					}
+					// $plan
+					if($lastaccout == 'company' || $lastaccout == 'COMPANY' && $plan != '0'):
+					  $upline_plan = $plan;
+					endif;
+
+					$query = "insert into mlm set
+					 mt4dt = 'nometa',
+					 ACCNO='$accountnamebaru',
+					 Upline = '$lastaccout',
+					 datetime = NOW(),
+					 companyconfirm = '2',
+					 payment = '0',
+					 group_play = '$upline_plan',
+					 updateby = '$user->username'
+					 ";
+					$DB->execonly($query);
+					//  tambahan jika askap maka auto Sync
+				}
+                
                 $auto_registered = false;
-                if($upline_plan == "askap"):
-                  $query = "SELECT alias, mt4dt FROM mt_database WHERE mt_database.`alias` LIKE '%askap%' AND mt_database.`enabled` = 'yes'";
+                if($upline_plan == "royal"):
+                  $query = "SELECT alias, mt4dt FROM mt_database WHERE mt_database.`alias` LIKE '%royal%' AND mt_database.`enabled` = 'yes'";
                   $hasil = $DB->execresultset($query);
                   foreach ($hasil as $key => $value) {
                     $query = "SELECT LOGIN, EMAIL FROM ".$value['mt4dt'].".`mt4_users` WHERE ".$value['mt4dt'].".`mt4_users`.`EMAIL` = '".$user->username."'";
@@ -218,7 +260,7 @@ if ($error != 'error') {
                 endif;
                 $msg              = "You need Admin confrimation to confirm your account, We will confirm your account as soon as possible";
                 $link             = $companys['appurl'] . "/web2/mainmenu.php";
-                $_SESSION['page'] = 'imp_treeview';
+                $_SESSION['page'] = 'imp_myaccount';
             }
 
         } else {

@@ -23,7 +23,8 @@ class DB {
     function select_db($db2) {
         return true;
     }
-
+	
+	
     function execresultset($querystring) {
         $result = $this->db2->exec($querystring);
         $rows = $this->db2->resultset();
@@ -34,7 +35,14 @@ class DB {
         $this->db2->exec($querystring);
         return 1;
     }
+	
+	public function fetch_array($result)
+    {
+        $row = mysql_fetch_array($result);
 
+        return $row;
+    }
+	
     function query_first($querystring) {
         $this->db2->exec($querystring);
         $row = $this->db2->single();

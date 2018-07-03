@@ -24,20 +24,15 @@ var ChangePassword = function () {
                     data: data,
                     type: 'POST',
                     success: function (response) {
-                        // console.log(response);
-						//alert("27:"+response);
-                        var res = response.substring(0, 1);
-                        //alert("29:"+res);
-                        if (res == '0') {//success
-                            //alert("30:Success");
-                            notifyerror('success', 'top right','Success','Update Password Success');
-							setTimeout('history.go(0);', 4000);
-                        } else  {//Fail
-                            //alert("34:Fail");
-                            notifyerror('error', 'top right','Error','Old Password is not Match');
-                        }
-                        //$('#username').removeClass('spinner');
-                        //toastr.success("Update Password", "Your has been successfully to");
+                        var res = JSON.parse(response);
+						swal({
+							type: res.status,
+							title: res.subject,
+							text: res.msg,
+							timer: 4000,
+							showConfirmButton: false
+						});
+						setTimeout(function(){ location.reload(); }, 4000);
                     }
                 });
                 return false;

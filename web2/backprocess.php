@@ -57,7 +57,11 @@ if ($_GET['getsend'] == 'yes') {
             $mail = new PHPMailer();
             $mail->IsSMTP();
             $mail->SMTPAuth = true;                  // enable SMTP authentication
+            if($mail_from == 'noreply@cfforex.com'){
+            $mail->SMTPSecure = "ssl";
+            }else{
             $mail->SMTPSecure = "tls";  // sets the prefix to the servier
+            }
             $mail->Host = $host;
             $mail->Port = $mail_port;
             $mail->IsHTML(true);

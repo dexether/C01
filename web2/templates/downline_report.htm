@@ -1,0 +1,557 @@
+<div class="content" id="main_content">
+  <style type="text/css">
+    table thead {
+      background-color: #000099;
+      color: white;
+
+    }
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+      background-color: #FF9966;
+    }
+    .dataTables_filter{
+      float:right;
+    }
+  </style>
+   <script src="custom/sweetalert/dist/sweetalert-dev.js">
+   </script>
+   <link href="custom/sweetalert/dist/sweetalert.css" rel="stylesheet"></link>
+<link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+<script src="assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+      <!-- Page Heading Start -->
+
+<div class="page-heading">
+    <h1>
+            <i class="fa fa-wrench">
+            </i>
+            Downline Report
+    </h1>
+</div> 
+
+<!-- Page Heading End-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-header ">
+                <h2>
+                     <strong>
+                        Downline
+                     </strong>
+                     Report
+                  </h2>
+                <div class="additional-btn">
+                    <a class="widget-toggle" href="#">
+                        <i class="icon-down-open-2">
+                        </i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-content padding">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-9" align="right">
+                            <form class="form-horizontal" role="form" id="ajax-form" method="post" action="downline_report.php">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Start Date</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control datepicker-input" data-date-format="yyyy-mm-dd" id="start" name="start">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">End Date</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control datepicker-input" data-date-format="yyyy-mm-dd" id="end" name="end">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-blue-2 pull-left" type="button" name="report">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover" id="table-lot">
+                    <thead>
+                        <tr>
+                            <th>Member ID</th>
+                            <th>Nama</th>
+                            <th>Info</th>
+                            <th>MT4 Login</th>
+                            <th>Lot</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Page Heading End-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-header ">
+                <h2>
+                     <strong>
+                        Margin 
+                     </strong>
+                     Activity
+                  </h2>
+                <div class="additional-btn">
+                    <a class="widget-toggle" href="#">
+                        <i class="icon-down-open-2">
+                        </i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-content padding">
+
+                <table id="marginactivity" class="table" style="width:100%">
+                  <thead>
+                      <tr>
+                          <th>Ticket</th>
+                          <th>Date Time</th>
+                          <th>Member ID</th>
+                          <th>Nama</th>
+                          <th>Status</th>
+                          <th>Note</th>
+                          <th>Amount</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <td>12345</td>
+                        <td>11-11-1111</td>
+                        <td>5656565656</td>
+                        <td>user</td>
+                        <td>Approve</td>
+                        <td>Depo</td>
+                        <td>Amount</td>
+                    </tr>
+                  </tbody>
+              </table>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page Heading End-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-header ">
+                <h2>
+                     <strong>
+                        Transaction
+                     </strong>
+                     Report
+                  </h2>
+                  <div class="pull-right">
+                      <form class="form-inline" style="margin-right: 30px" id="ftransactionreport">
+                        <div class="form-group">
+                          <label>Star Date:</label>
+                          <input type="text" class="form-control datepicker-input" data-date-format="yyyy-mm-dd" id="starttr" name="starttr">
+                        </div>
+                        <div class="form-group">
+                          <label>End Date:</label>
+                          <input type="text" class="form-control datepicker-input" data-date-format="yyyy-mm-dd" id="endtr" name="endtr">
+                        </div>
+                        <button type="button" class="btn btn-blue-2" id="stransactionreport">Submit</button>
+                      </form>
+                  </div>
+                <div class="additional-btn">
+                    <a class="widget-toggle" href="#">
+                        <i class="icon-down-open-2">
+                        </i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-content padding">
+
+                <table id="transactionreport" class="table" style="width:100%">
+                  <thead>
+                      <tr>
+                          <th>Member ID</th>
+                          <th>Nama</th>
+                          <th>Login</th>
+                          <th>Lot</th>
+                      </tr>
+                  </thead>
+              </table>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+  <div id="Modalinfo" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><i class="fa fa-info-circle"></i> Account Info - <span id="loginmt"></span></h4>
+      </div>
+      <div class="modal-body" style="padding-top: 0px;">
+
+        <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Created </span><span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" id="created"></span></div>
+    </div>
+
+    <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Last Login </span><span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" class="col-sm-6" id="lastlogin"></span></div>
+
+    </div>
+
+    <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Balance </span>
+        <span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" class="col-sm-6"> <p id="balance"></p></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Credit </span>
+        <span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" class="col-sm-6"> <p id="credit"></p></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Equity </span>
+        <span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" class="col-sm-6"> <p id="equity"></p></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Margin </span>
+        <span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" class="col-sm-6"> <p id="margin"></p></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Free Margin </span>
+        <span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" class="col-sm-6"> <p id="freemargin"></p></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Margin Level </span>
+        <span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" class="col-sm-6"> <p id="marginlevel"></p></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Margin In </span>
+        <span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" class="col-sm-6"> <p id="marginin"></p></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Margin Out </span>
+        <span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" class="col-sm-6"> <p id="marginout"></p></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Closed P/L </span>
+        <span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" class="col-sm-6"> <p id="closed"></p></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Floating P/L </span>
+        <span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" class="col-sm-6"> <p id="floating"></p></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class=""><span class="col-sm-6" style="width: 130px;padding-right: 0px;">Volume </span>
+        <span style="padding-left: 0px;padding-right: 0px;" class="col-sm-6" class="col-sm-6"> <p id="volume"></p></span>
+      </div>
+    </div>
+
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div> -->
+    </div>
+
+  </div>
+</div>
+
+<div id="Modalopen" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><i class="fa fa-list-ol"></i> Open Position - <span id="loginop"></span></h4>
+      </div>
+      <div class="modal-body" style="padding-top: 0px;">
+
+        <table class="table table-striped table-hover table-bordered" id="top">
+            <thead>
+            <tr>
+              <th>Ticket</th>
+              <th>Open Time</th>
+              <th>Type</th>
+              <th>Symbol</th>
+              <th>Vol</th>
+              <th>O/Price</th>
+              <th>S/L</th>
+              <th>T/P</th>
+              <th>C/Price</th>
+              <th>Comm</th>
+              <th>Swap</th>
+              <th>Profit</th>
+            </tr>
+            </thead>
+          </table>
+
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="Modalclose" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><i class="fa fa-list-ol"></i> Close Position - <span id="logincp"></span></h4>
+      </div>
+      <div class="modal-body" style="padding-top: 0px;">
+
+        <table class="table table-striped table-hover table-bordered" id="tcp">
+            <thead>
+            <tr>
+              <th>Ticket</th>
+              <th>Close Time</th>
+              <th>Type</th>
+              <th>Symbol</th>
+              <th>Vol</th>
+              <th>O/Price</th>
+              <th>S/L</th>
+              <th>T/P</th>
+              <th>C/Price</th>
+              <th>Comm</th>
+              <th>Swap</th>
+              <th>Profit</th>
+            </tr>
+            </thead>
+          </table>
+
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="Modalmargin" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><i class="fa fa-list-ol"></i> margin - <span id="loginmargin"></span></h4>
+      </div>
+      <div class="modal-body" style="padding-top: 0px;padding-bottom: 0px;">
+
+        <table class="table table-striped table-hover table-bordered" id="tmargin">
+            <thead>
+            <tr>
+              <th>Ticket</th>
+              <th>Date Time</th>
+              <th>Note</th>
+              <th>Amount</th>
+            </tr>
+            </thead>
+        </table>
+        
+      </div>
+      <div class="modal-footer" id="footermargin" style="margin-top: 0px;">
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+	$('.datepicker-input').datepicker();
+
+  function vi(acc) {
+    var a = acc;
+    $.ajax({
+          url: "api/viewacc.php?login="+a,
+          type: "get",
+          success: function(data) {
+            console.log(JSON.parse(data));
+            var pdata = JSON.parse(data);
+if(pdata[5] == null){
+                  document.getElementById('created').innerHTML = '-';
+                  document.getElementById('lastlogin').innerHTML = '-';
+                  document.getElementById('balance').innerHTML = '-';
+                  document.getElementById('credit').innerHTML = '-';
+                  document.getElementById('equity').innerHTML = '- ';
+                  document.getElementById('margin').innerHTML = '-';
+                  document.getElementById('freemargin').innerHTML = '-';
+                  document.getElementById('marginlevel').innerHTML = '-';
+                  document.getElementById('marginin').innerHTML = ': '+pdata[0];
+                  document.getElementById('marginout').innerHTML = ': '+pdata[1];
+                  document.getElementById('closed').innerHTML = ': '+pdata[2];
+                  document.getElementById('floating').innerHTML = ': '+pdata[3];
+                  document.getElementById('volume').innerHTML = ': '+pdata[4]+' Lot';
+                  document.getElementById('loginmt').innerHTML = a;
+}else{
+                  document.getElementById('created').innerHTML = ': '+pdata[5].REGDATE;
+                  document.getElementById('lastlogin').innerHTML = ': '+pdata[5].LASTDATE;
+                  document.getElementById('balance').innerHTML = ': '+pdata[5].BALANCE;
+                  document.getElementById('credit').innerHTML = ': '+pdata[5].CREDIT;
+                  document.getElementById('equity').innerHTML = ': '+pdata[5].EQUITY;
+                  document.getElementById('margin').innerHTML = ': '+pdata[5].MARGIN;
+                  document.getElementById('freemargin').innerHTML = ': '+pdata[5].MARGIN_FREE;
+                  document.getElementById('marginlevel').innerHTML = ': '+pdata[5].MARGIN_LEVEL;
+                  document.getElementById('marginin').innerHTML = ': '+pdata[0];
+                  document.getElementById('marginout').innerHTML = ': '+pdata[1];
+                  document.getElementById('closed').innerHTML = ': '+pdata[2];
+                  document.getElementById('floating').innerHTML = ': '+pdata[3];
+                  document.getElementById('volume').innerHTML = ': '+pdata[4]+' Lot';
+                  document.getElementById('loginmt').innerHTML = a;
+}
+          }
+        });
+  }
+
+  function op(acc) {
+    if($.fn.DataTable.isDataTable( '#top' ) ) {
+        $('#top').DataTable().destroy();
+    }
+        var a = acc;
+        $("#loginop").text(a);
+        $('#top').DataTable({
+          "order": [[ 1, "desc" ]],
+          "pageLength": 10,
+          "lengthChange": false,
+          "searching":false,
+          "ajax": 'api/openposition.php?login='+a+''
+        });
+       
+  }
+
+  function cp(acc) {
+    if($.fn.DataTable.isDataTable( '#tcp' ) ) {
+        $('#tcp').DataTable().destroy();
+    }
+        var a = acc;
+        $("#logincp").text(a);
+        $('#tcp').DataTable({
+          "order": [[ 1, "desc" ]],
+          "pageLength": 10,
+          "lengthChange": false,
+          "searching":false,
+          "ajax": 'api/closeposition.php?login='+a+''
+        });  
+  }
+
+  function margin(acc) {
+    $.ajax({
+        url: "api/marginsummary.php?login="+acc+'',
+        type: "get",
+        success: function(data) {
+                console.log(JSON.parse(data).adjustment);
+                var summary = "Deposit:"+JSON.parse(data).deposit+"  Withdrawal:"+JSON.parse(data).withdrawal+"  Commision:"+JSON.parse(data).commission+"  Adjustment:"+JSON.parse(data).adjustment+"  Other:"+JSON.parse(data).other;
+                $("#footermargin").text(summary);
+        }
+      });
+    
+    if($.fn.DataTable.isDataTable( '#tmargin' ) ) {
+        $('#tmargin').DataTable().destroy();
+    }
+        var a = acc;
+        $("#loginmargin").text(a);
+        $('#tmargin').DataTable({
+          "order": [[ 1, "desc" ]],
+          "pageLength": 10,
+          "lengthChange": false,
+          "searching":false,
+          "ajax": 'api/margin.php?login='+a+''
+        });
+  }
+
+  $(document).ready(function() {
+    $('#table-lot').DataTable();
+    $('#marginactivity').DataTable({
+      "order": [[ 1, "desc" ]],
+      "ajax": 'api/marginactivity.php'
+    });
+    $('#transactionreport').DataTable({
+      columnDefs: [{ targets: 0,
+                     className: 'dt-body-right'
+                  }],
+      "order": [[ 1, "asc" ]],
+      "searching": false,
+      "bLengthChange": false,
+      "ajax": 'api/transactionreport.php'
+    });
+  });
+
+$("#stransactionreport").click(function(){
+  console.log(isNaN($('#starttr').val()));
+  var textmesage = 'Insert Date Here ';
+  if ( isNaN($('#starttr').val()) && isNaN($('#endtr').val()) ) {
+    console.log('masuk');
+    if ( $.fn.dataTable.isDataTable( '#transactionreport' ) ) {
+            table = $('#transactionreport').DataTable();
+            table.destroy();
+            }
+            $(function(){
+              var dari = $('#starttr').val();
+              var sampai = $('#endtr').val();
+                $('#transactionreport').DataTable({
+                columnDefs: [{ targets: 0,
+                               className: 'dt-body-right'
+                            }],
+                "order": [[ 1, "asc" ]],
+                "searching": false,
+                "bLengthChange": false,
+                "ajax": 'api/transactionreport.php?start='+dari+'&end='+sampai+''
+              });
+            })
+  }else{
+    $('#starttr').focus(); $('#endtr').focus();      
+   }
+});
+</script>
+	<script type="text/javascript" src="custom/js/downline_report.js"></script>
+	<script type="text/javascript">
+	  jQuery(document).ready(function() {
+        downline_report_JS.init();
+        $('button[name=report]').click(function(event) {
+          downline_report_JS.get_data(this);
+        });
+      });
+    </script>
+</div>

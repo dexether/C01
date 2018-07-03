@@ -45,6 +45,9 @@
 				<ul class="nav navbar-nav navbar-right top-navbar">
 					<li class="language_bar dropdown hidden-xs"><a href="#"
 						data-toggle="tooltip" data-placement="bottom" title=''>
+							User role : {if $user->groupid == '3'}reguler {else if $user->groupid == '6'}IB {else if $user->groupid == '2'}marketing {else if $user->groupid == '4'}MIB {else if $user->groupid == '5'}DEALING {else if $user->groupid == '7'}COMPLIANCE {else if $user->groupid == '8'}ACCOUNTING {else} admin {/if} </a></li>
+					<li class="language_bar dropdown hidden-xs"><a href="#"
+						data-toggle="tooltip" data-placement="bottom" title=''>
 							Login as {$user->username} </a></li>
 					<li class="dropdown iconify hide-phone"><a href="#"
 						onclick="javascript:toggle_fullscreen()"><i

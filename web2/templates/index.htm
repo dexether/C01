@@ -47,8 +47,19 @@
             #loading {position: fixed;width: 100%;height: 100%;left: 0;top: 0;right: 0;bottom: 0;display: block;background: #fff;z-index: 10000;}
             #loading img {position: absolute;top: 50%;left: 50%;margin: -23px 0 0 -23px;}
         </style>
-{/literal}
 
+{/literal}
+		{if $companys.programname == 'Mentari Mulia Berjangka'}
+		    {literal}
+			<script type="text/javascript">
+				window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+				d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+				_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+				$.src="https://v2.zopim.com/?2O6fkajUOLhc1lYoOrUN8OVU0c5dYeRK";z.t=+new Date;$.
+				type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+			</script>
+			{/literal}
+		{/if}
 
         <!-- HELPERS -->
 
@@ -278,11 +289,19 @@
         <!-- Theme layout -->
 
         <script type="text/javascript" src="script1/assets-minified/themes/supina/js/layout.js"></script>
-
-
-
-
-
-
+    {if $companys.programname == 'Cyber Futures Forex'}
+    <script type="text/javascript">
+    var __lc = {};
+    __lc.license = 4927481;
+    (function() {
+    var lc = document.createElement('script');
+    lc.type = 'text/javascript';
+    lc.async = true;
+    lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(lc, s);
+    })();
+    </script>
+	{/if}
     </body>
 </html>

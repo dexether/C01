@@ -89,9 +89,45 @@ WHERE mlm.ACCNO = client_accounts.accountname
    foreach ($result as $key => $value) {
       $response['upline'] = $value['Namanya']. " (" .$value['Upline'].")";
    }
+} else if ($postmode == 'checkupline') {
+   $cabinetid = $_POST['cabinetid'];
+   $flag = 0;
+   $i = 0;
+   while($flag == 0){
+	   $query    = "SELECT 
+	  mlm.accno, Upline,
+	  (SELECT 
+		client_aecode.`name` 
+	  FROM
+		client_accounts,
+		client_aecode 
+	  WHERE client_accounts.`aecodeid` = client_aecode.`aecodeid` 
+		AND accountname = Upline) AS Namanya
+	FROM
+	  mlm,
+	  client_accounts,
+	  client_aecode 
+	WHERE mlm.ACCNO = client_accounts.accountname 
+	  AND client_accounts.aecodeid = client_aecode.aecodeid
+	  AND client_accounts.accountname = '$cabinetid'";
+	   $result   = $DB->execresultset($query);
+	   foreach ($result as $key => $value) {
+		  $upline = $value['Upline'];
+		  $response[$i] = $value;
+	   }
+	   if($upline == 'COMPANY'){
+		   $flag = 1;
+	   }else{
+		   $cabinetid = $upline;
+		   $i++;
+	   }
+   }
+   
 }
 // ksort($response);
-print json_encode($response);
+	print json_encode($response);
+
+
 ?>
 
 <?php

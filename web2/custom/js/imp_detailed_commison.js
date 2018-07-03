@@ -64,7 +64,6 @@ var imp_comm_JS = function() {
                             tr.append("<td>" + response[i].name + "</td>");
                             tr.append("<td>" + response[i].nama2 + "</td>");
                             tr.append("<td>" + keangotaan + "</td>");
-                            tr.append("<td>" + response[i].level + "</td>");
                             tr.append("<td>" + response[i].lot + "</td>");
                             tr.append("<td>" + uang + "</td>");
                             $('table[id=table-komisi] tbody').append(tr);
@@ -87,7 +86,7 @@ var imp_comm_JS = function() {
                         });
                         // console.log(total)
                         tr = $('<tr/>');
-                        tr.append("<td colspan=6 class=text-center><strong>T O T A L </strong></td>");
+                        tr.append("<td colspan=5 class=text-center><strong>T O T A L </strong></td>");
                         tr.append("<td><strong>" + subtotal + "</strong></td>");
                         $('table[id=table-komisi] tbody').append(tr);
                     } else {
@@ -250,7 +249,6 @@ var imp_comm_JS = function() {
                             tr.append("<td>" + response[i].name + "</td>");
                             tr.append("<td>" + response[i].nama2 + "</td>");
                             tr.append("<td>" + keangotaan + "</td>");
-                            tr.append("<td>" + response[i].level + "</td>");
                             tr.append("<td>" + response[i].lot + "</td>");
                             tr.append("<td>" + uang + "</td>");
                             $('table[id=table-komisi] tbody').append(tr);
@@ -261,7 +259,7 @@ var imp_comm_JS = function() {
                         var subtotal = imp_comm_JS.changetorp(total);
                         // console.log(total)
                         tr = $('<tr/>');
-                        tr.append("<td colspan=6 class=text-center><strong>T O T A L </strong></td>");
+                        tr.append("<td colspan=5 class=text-center><strong>T O T A L </strong></td>");
                         tr.append("<td><strong>" + subtotal + "</strong></td>");
                         $('table[id=table-komisi] tbody').append(tr);
                     } else {

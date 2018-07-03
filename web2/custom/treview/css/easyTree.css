@@ -24,6 +24,8 @@
 	background: red;
 }
 
+
+
 .block {
     display:block;
     float:left;
@@ -107,7 +109,7 @@
     color: #e56155;
 }
 
-.easy-tree li.li_selected > span:hover, .easy-tree li.li_selected > span:hover > a {
+#agent1 > span:hover, .easy-tree li.li_selected > span:hover, .easy-tree li.li_selected > span:hover > a {
     background: #10FF10;
     color: #ff6c60;
 }
@@ -137,4 +139,8 @@
 
 .easy-tree .easy-tree-toolbar .create .input-group button {
     border-radius: 0;
+}
+
+#agent1{
+	background: blue;
 }
